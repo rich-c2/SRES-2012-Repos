@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9B93B70014BBFEFC00FB31CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */; };
+		9B93B70214BBFEFC00FB31CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70114BBFEFC00FB31CE /* Foundation.framework */; };
+		9B93B70414BBFEFC00FB31CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70314BBFEFC00FB31CE /* CoreGraphics.framework */; };
+		9B93B70614BBFEFC00FB31CE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70514BBFEFC00FB31CE /* CoreData.framework */; };
+		9B93B70C14BBFEFC00FB31CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B70A14BBFEFC00FB31CE /* InfoPlist.strings */; };
+		9B93B70E14BBFEFC00FB31CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B70D14BBFEFC00FB31CE /* main.m */; };
+		9B93B71214BBFEFC00FB31CE /* SRESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B71114BBFEFC00FB31CE /* SRESAppDelegate.m */; };
+		9B93B71514BBFEFC00FB31CE /* Easter_Show.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */; };
+		9B93B71D14BBFEFC00FB31CE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B71C14BBFEFC00FB31CE /* SenTestingKit.framework */; };
+		9B93B71E14BBFEFC00FB31CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */; };
+		9B93B71F14BBFEFC00FB31CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70114BBFEFC00FB31CE /* Foundation.framework */; };
+		9B93B72014BBFEFC00FB31CE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70514BBFEFC00FB31CE /* CoreData.framework */; };
+		9B93B72814BBFEFC00FB31CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B72614BBFEFC00FB31CE /* InfoPlist.strings */; };
+		9B93B72B14BBFEFC00FB31CE /* Easter_ShowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B72A14BBFEFC00FB31CE /* Easter_ShowTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B93B72114BBFEFC00FB31CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B93B6F214BBFEFB00FB31CE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B93B6FA14BBFEFC00FB31CE;
+			remoteInfo = "Easter Show";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9B93B6FB14BBFEFC00FB31CE /* Easter Show.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easter Show.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9B93B70114BBFEFC00FB31CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9B93B70314BBFEFC00FB31CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9B93B70514BBFEFC00FB31CE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9B93B70914BBFEFC00FB31CE /* Easter Show-Info.plist */ = {isa = PBXFileReference; path = "Easter Show-Info.plist"; sourceTree = "<group>"; };
+		9B93B70B14BBFEFC00FB31CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9B93B70D14BBFEFC00FB31CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9B93B70F14BBFEFC00FB31CE /* Easter Show-Prefix.pch */ = {isa = PBXFileReference; path = "Easter Show-Prefix.pch"; sourceTree = "<group>"; };
+		9B93B71014BBFEFC00FB31CE /* SRESAppDelegate.h */ = {isa = PBXFileReference; path = SRESAppDelegate.h; sourceTree = "<group>"; };
+		9B93B71114BBFEFC00FB31CE /* SRESAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRESAppDelegate.m; sourceTree = "<group>"; };
+		9B93B71414BBFEFC00FB31CE /* Easter_Show.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Easter_Show.xcdatamodel; sourceTree = "<group>"; };
+		9B93B71B14BBFEFC00FB31CE /* Easter ShowTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Easter ShowTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B93B71C14BBFEFC00FB31CE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		9B93B72514BBFEFC00FB31CE /* Easter ShowTests-Info.plist */ = {isa = PBXFileReference; path = "Easter ShowTests-Info.plist"; sourceTree = "<group>"; };
+		9B93B72714BBFEFC00FB31CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9B93B72914BBFEFC00FB31CE /* Easter_ShowTests.h */ = {isa = PBXFileReference; path = Easter_ShowTests.h; sourceTree = "<group>"; };
+		9B93B72A14BBFEFC00FB31CE /* Easter_ShowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Easter_ShowTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B93B6F814BBFEFC00FB31CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B70014BBFEFC00FB31CE /* UIKit.framework in Frameworks */,
+				9B93B70214BBFEFC00FB31CE /* Foundation.framework in Frameworks */,
+				9B93B70414BBFEFC00FB31CE /* CoreGraphics.framework in Frameworks */,
+				9B93B70614BBFEFC00FB31CE /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B93B71714BBFEFC00FB31CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B71D14BBFEFC00FB31CE /* SenTestingKit.framework in Frameworks */,
+				9B93B71E14BBFEFC00FB31CE /* UIKit.framework in Frameworks */,
+				9B93B71F14BBFEFC00FB31CE /* Foundation.framework in Frameworks */,
+				9B93B72014BBFEFC00FB31CE /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B93B6F014BBFEFB00FB31CE = {
+			isa = PBXGroup;
+			children = (
+				9B93B70714BBFEFC00FB31CE /* Easter Show */,
+				9B93B72314BBFEFC00FB31CE /* Easter ShowTests */,
+				9B93B6FE14BBFEFC00FB31CE /* Frameworks */,
+				9B93B6FC14BBFEFC00FB31CE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9B93B6FC14BBFEFC00FB31CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B6FB14BBFEFC00FB31CE /* Easter Show.app */,
+				9B93B71B14BBFEFC00FB31CE /* Easter ShowTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B93B6FE14BBFEFC00FB31CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */,
+				9B93B70114BBFEFC00FB31CE /* Foundation.framework */,
+				9B93B70314BBFEFC00FB31CE /* CoreGraphics.framework */,
+				9B93B70514BBFEFC00FB31CE /* CoreData.framework */,
+				9B93B71C14BBFEFC00FB31CE /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B93B70714BBFEFC00FB31CE /* Easter Show */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B71014BBFEFC00FB31CE /* SRESAppDelegate.h */,
+				9B93B71114BBFEFC00FB31CE /* SRESAppDelegate.m */,
+				9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */,
+				9B93B70814BBFEFC00FB31CE /* Supporting Files */,
+			);
+			path = "Easter Show";
+			sourceTree = "<group>";
+		};
+		9B93B70814BBFEFC00FB31CE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B70914BBFEFC00FB31CE /* Easter Show-Info.plist */,
+				9B93B70A14BBFEFC00FB31CE /* InfoPlist.strings */,
+				9B93B70D14BBFEFC00FB31CE /* main.m */,
+				9B93B70F14BBFEFC00FB31CE /* Easter Show-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B93B72314BBFEFC00FB31CE /* Easter ShowTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B72914BBFEFC00FB31CE /* Easter_ShowTests.h */,
+				9B93B72A14BBFEFC00FB31CE /* Easter_ShowTests.m */,
+				9B93B72414BBFEFC00FB31CE /* Supporting Files */,
+			);
+			path = "Easter ShowTests";
+			sourceTree = "<group>";
+		};
+		9B93B72414BBFEFC00FB31CE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B93B72514BBFEFC00FB31CE /* Easter ShowTests-Info.plist */,
+				9B93B72614BBFEFC00FB31CE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9B93B6FA14BBFEFC00FB31CE /* Easter Show */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B93B72E14BBFEFC00FB31CE /* Build configuration list for PBXNativeTarget "Easter Show" */;
+			buildPhases = (
+				9B93B6F714BBFEFC00FB31CE /* Sources */,
+				9B93B6F814BBFEFC00FB31CE /* Frameworks */,
+				9B93B6F914BBFEFC00FB31CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Easter Show";
+			productName = "Easter Show";
+			productReference = 9B93B6FB14BBFEFC00FB31CE /* Easter Show.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B93B71A14BBFEFC00FB31CE /* Easter ShowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B93B73114BBFEFC00FB31CE /* Build configuration list for PBXNativeTarget "Easter ShowTests" */;
+			buildPhases = (
+				9B93B71614BBFEFC00FB31CE /* Sources */,
+				9B93B71714BBFEFC00FB31CE /* Frameworks */,
+				9B93B71814BBFEFC00FB31CE /* Resources */,
+				9B93B71914BBFEFC00FB31CE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B93B72214BBFEFC00FB31CE /* PBXTargetDependency */,
+			);
+			name = "Easter ShowTests";
+			productName = "Easter ShowTests";
+			productReference = 9B93B71B14BBFEFC00FB31CE /* Easter ShowTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B93B6F214BBFEFB00FB31CE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 9B93B6F514BBFEFB00FB31CE /* Build configuration list for PBXProject "Easter Show" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9B93B6F014BBFEFB00FB31CE;
+			productRefGroup = 9B93B6FC14BBFEFC00FB31CE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B93B6FA14BBFEFC00FB31CE /* Easter Show */,
+				9B93B71A14BBFEFC00FB31CE /* Easter ShowTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B93B6F914BBFEFC00FB31CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B70C14BBFEFC00FB31CE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B93B71814BBFEFC00FB31CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B72814BBFEFC00FB31CE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B93B71914BBFEFC00FB31CE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B93B6F714BBFEFC00FB31CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B70E14BBFEFC00FB31CE /* main.m in Sources */,
+				9B93B71214BBFEFC00FB31CE /* SRESAppDelegate.m in Sources */,
+				9B93B71514BBFEFC00FB31CE /* Easter_Show.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B93B71614BBFEFC00FB31CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B93B72B14BBFEFC00FB31CE /* Easter_ShowTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9B93B72214BBFEFC00FB31CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B93B6FA14BBFEFC00FB31CE /* Easter Show */;
+			targetProxy = 9B93B72114BBFEFC00FB31CE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9B93B70A14BBFEFC00FB31CE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B93B70B14BBFEFC00FB31CE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9B93B72614BBFEFC00FB31CE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B93B72714BBFEFC00FB31CE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9B93B72C14BBFEFC00FB31CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9B93B72D14BBFEFC00FB31CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B93B72F14BBFEFC00FB31CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
+				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9B93B73014BBFEFC00FB31CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
+				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		9B93B73214BBFEFC00FB31CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Easter Show.app/Easter Show";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
+				INFOPLIST_FILE = "Easter ShowTests/Easter ShowTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		9B93B73314BBFEFC00FB31CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Easter Show.app/Easter Show";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
+				INFOPLIST_FILE = "Easter ShowTests/Easter ShowTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B93B6F514BBFEFB00FB31CE /* Build configuration list for PBXProject "Easter Show" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B93B72C14BBFEFC00FB31CE /* Debug */,
+				9B93B72D14BBFEFC00FB31CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B93B72E14BBFEFC00FB31CE /* Build configuration list for PBXNativeTarget "Easter Show" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B93B72F14BBFEFC00FB31CE /* Debug */,
+				9B93B73014BBFEFC00FB31CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9B93B73114BBFEFC00FB31CE /* Build configuration list for PBXNativeTarget "Easter ShowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B93B73214BBFEFC00FB31CE /* Debug */,
+				9B93B73314BBFEFC00FB31CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9B93B71414BBFEFC00FB31CE /* Easter_Show.xcdatamodel */,
+			);
+			currentVersion = 9B93B71414BBFEFC00FB31CE /* Easter_Show.xcdatamodel */;
+			path = Easter_Show.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9B93B6F214BBFEFB00FB31CE /* Project object */;
+}
