@@ -180,10 +180,6 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	NSMutableArray *objectsToRemove = [[NSMutableArray alloc] init];
 
 	for (Showbag *showbag in [fetchedResultsController fetchedObjects]) {
-	
-		//NSComparisonResult result = [showbag.title compare:searchTerm options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchTerm length])];
-		
-		//if (result == NSOrderedSame)
 		
 		if ([showbag.title rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location == NSNotFound)
 			[objectsToRemove addObject:showbag];
