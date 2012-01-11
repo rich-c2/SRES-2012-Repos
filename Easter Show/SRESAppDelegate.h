@@ -8,9 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SRESAppDelegate : UIResponder <UIApplicationDelegate>
+extern NSString* const API_SERVER_ADDRESS;
+
+@class MoreVC;
+
+@interface SRESAppDelegate : UIResponder <UIApplicationDelegate> {
+
+	UITabBarController *tabBarController;
+	
+	MoreVC *moreVC;
+}
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, retain) UITabBarController *tabBarController;
+
+@property (nonatomic, retain) MoreVC *moreVC;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

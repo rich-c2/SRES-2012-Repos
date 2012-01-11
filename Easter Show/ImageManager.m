@@ -28,7 +28,7 @@
 
 #import "ImageManager.h"
 #import "ASIHTTPRequest.h"
-#import "AppDelegate.h"
+#import "SRESAppDelegate.h"
 
 @implementation ImageManager
 
@@ -46,9 +46,9 @@
 }
 
 #pragma mark - Private Methods
-- (AppDelegate *)appDelegate {
+- (SRESAppDelegate *)appDelegate {
 	
-    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)dealloc {
@@ -132,7 +132,7 @@ static ImageManager *sharedSingleton;
 	SEL selector = @selector(imageLoaded:withURL:);
 	NSArray* navControllers = nil;
 	
-    AppDelegate *delegate = [self appDelegate];
+    SRESAppDelegate *delegate = [self appDelegate];
 	
     // change this if your application is not based on a UINavigationController
 	navControllers = delegate.tabBarController.viewControllers;

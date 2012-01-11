@@ -7,11 +7,12 @@
 //
 
 #import "ShowbagsTableCell.h"
-
+#import "ImageManager.h"
+#import "StringHelper.h"
 
 @implementation ShowbagsTableCell
 
-@synthesize nameLabel, dateLable, thumbView, cellSpinner;
+@synthesize nameLabel, dateLable, thumbView, cellSpinner, imageURL;
 
 + (NSString *)reuseIdentifier {
 	
@@ -38,8 +39,42 @@
 }
 
 
+- (void)initImage:(NSString *)urlString {
+	
+	if (urlString) {
+		
+		self.imageURL = [urlString convertToURL];
+		
+		NSLog(@"LOADING GRID IMAGE:%@", urlString);
+		
+		UIImage* img = [ImageManager loadImage:imageURL];
+		if (img) {
+			
+			[self.thumbView setImage:img];
+		}
+    }
+	
+	else {
+	
+		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
+	}
+}
+
+
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
+	
+	if ([imageURL isEqual:url]) {
+		
+		NSLog(@"IMAGE LOADED:%@", [url description]);
+		
+		[self.thumbView setImage:image];
+	}
+}
+
+
 - (void)dealloc {
 	
+	[imageURL release];
 	[cellSpinner release];
 	[dateLable release];
 	[thumbView release];

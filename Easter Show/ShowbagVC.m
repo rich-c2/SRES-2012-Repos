@@ -9,11 +9,11 @@
 #import "ShowbagVC.h"
 #import "Showbag.h"
 #import "SRESAppDelegate.h"
-#import "Constants.h"
-#import "ImageDownload.h"
-#import "SHK.h"
-#import "MapVC.h"
-#import "GANTracker.h"
+//#import "SHK.h"
+//#import "MapVC.h"
+//#import "GANTracker.h"
+#import "ImageManager.h"
+#import "StringHelper.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -21,11 +21,10 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 @implementation ShowbagVC
 
-@synthesize showbag, internetConnectionPresent, enableQuickSelection;
-@synthesize minPrice, maxPrice, rrPriceLabel;
+@synthesize showbag, minPrice, maxPrice, rrPriceLabel;
 @synthesize contentScrollView, priceLabel, descriptionLabel, titleLabel, showbagImage;
-@synthesize previousButton, nextButton;
 @synthesize shareButton, addToPlannerButton, mapButton, loadingSpinner, downloads;
+@synthesize selectedURL;
 
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -47,19 +46,10 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
     [super viewDidLoad];
 	
-	appDelegate = (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
-	
-	// Determine network/internet availability
-	reach = [[Reachability reachabilityForInternetConnection] retain];
-	NetworkStatus status = [reach currentReachabilityStatus];
-    self.internetConnectionPresent = [appDelegate boolFromNetworkStatus:status];
-	
 	self.titleLabel.font = [UIFont fontWithName:kTitleFont size:16.0];
 	self.priceLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
 	self.rrPriceLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
 	self.descriptionLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
-	
-	self.downloads = [[NSMutableArray alloc] init];
 	
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
@@ -70,13 +60,8 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
 	[self updateAddToFavouritesButton];
 	
-	// Setup previous and next buttons in nav bar
-	//[self initPreviousNextButtons];
-	
-	//[self configurePreviousNextButtons];
-	
 	// Setup navigation bar elements
-	[self setupNavBar];
+	//[self setupNavBar];
 }
 	
 
@@ -100,10 +85,11 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	self.descriptionLabel = nil;
 	self.titleLabel = nil;
 	self.showbagImage = nil;
-	self.downloads = nil;
 	self.minPrice = nil;
 	self.maxPrice = nil;
 	self.loadingSpinner = nil;
+	
+	self.selectedURL = nil;
 }
 
 
@@ -117,54 +103,10 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated {
-	
-	// Stop any ImageDownloads that are still downloading
-	[self disableDownloads];
-	
-    [super viewWillDisappear:animated];
-}
-
-
-#pragma mark ImageDownloadDelegate Methods
-- (void)downloadDidFinishDownloading:(ImageDownload *)download {
-	
-	// Save the image to the Event object
-	if (download.downloadID == [[self.showbag showbagID] intValue])  {
-		
-		[self.showbag setShowbagImage:download.image];
-		self.showbagImage.image = download.image;
-	}
-	
-	[self.loadingSpinner stopAnimating];
-	
-	Showbag *_showbag = [appDelegate getShowbagWithID:download.downloadID];
-	
-	// Create a user friendly filename from the URL path
-	NSString *filename = [appDelegate extractImageNameFromURLString:download.urlString];
-	
-	// Save image to the relevant sub directory of Documents/
-	[appDelegate saveShowbagsImageToDocumentsWithID:[[_showbag showbagID] intValue] imageName:filename obj:download.image];
-	
-    download.delegate = nil;
-	[self.downloads removeObject:download];
-}
-
-
-- (void)download:(ImageDownload *)download didFailWithError:(NSError *)error {
-	
-    NSLog(@"Error: %@", [error localizedDescription]);
-	download.delegate = nil;
-	
-	if (download.downloadID == [[self.showbag showbagID] intValue]) self.showbagImage.image = [UIImage imageNamed:kPlaceholderImage];
-	
-}
-
-
 - (void)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
-	NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
+	/*NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
 	NSString *message = [NSString stringWithFormat:@"Sydney Royal Easter Show: %@", [self.showbag showbagTitle]];
 	SHKItem *item = [SHKItem URL:url title:message];
 	
@@ -172,14 +114,14 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	
 	// Display the action sheet
-	[actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet showFromTabBar:self.tabBarController.tabBar];*/
 }
 
 
 - (void)addToFavourites:(id)sender {
 	
 	// Check if Showbag has already been 'Favourited'
-	BOOL added = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
+	/*BOOL added = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
 	
 	// If it's already been added - delete it from database
 	if (added) {
@@ -201,7 +143,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 														label:[self.showbag showbagTitle] value:-1 withError:nil];
 		
 		NSLog(@"%@", (success ? @"SHOWBAG TRACKED!" : @"SHOWBAG FAILED TO BE TRACKED"));
-	}
+	}*/
 }
 
 
@@ -209,12 +151,12 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 - (void)setDetailFields {
 	
 	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.titleLabel.text = self.showbag.showbagTitle;
+	self.titleLabel.text = self.showbag.title;
 	self.titleLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.titleLabel];
 	
 	self.priceLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.priceLabel.text = [NSString stringWithFormat:@"Price: $%.2f", [[self.showbag showbagPrice] floatValue]];
+	self.priceLabel.text = [NSString stringWithFormat:@"Price: $%.2f", [[self.showbag price] floatValue]];
 	self.priceLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.priceLabel];
 	
@@ -225,7 +167,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
 	
 	self.rrPriceLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.rrPriceLabel.text = [NSString stringWithFormat:@"RRP: $%.2f", [[self.showbag showbagRRPrice] floatValue]];
+	self.rrPriceLabel.text = [NSString stringWithFormat:@"RRP: $%.2f", [[self.showbag rrPrice] floatValue]];
 	self.rrPriceLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.rrPriceLabel];
 	
@@ -248,46 +190,8 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	// Adjust the scroll view content size
 	[self adjustScrollViewContentHeight];
 	
-	UIImage *sImage = [self.showbag showbagImage];
-	
-	if (sImage == nil) {
-		
-		// Get thumbURL
-		NSString *imageURL = [self.showbag imageURL];
-		
-		// get user friendly name for image e.g. 'product1.jpg'
-		NSString *filename = [appDelegate extractImageNameFromURLString:imageURL];
-		
-		sImage = [UIImage imageNamed:filename];
-		
-		if (sImage == nil) {
-			
-			// Check Documents/
-			sImage = [appDelegate getImageForShowbagWithID:[[self.showbag showbagID] intValue] image:filename];
-			
-			if (sImage == nil) {
-				
-				if (self.internetConnectionPresent && ([imageURL length] != 0)) {
-					
-					// Download Image from URL
-					ImageDownload *download = [[ImageDownload alloc] init];
-					download.urlString = imageURL;
-					download.downloadID = [[self.showbag showbagID] intValue];
-					sImage = download.image;
-					
-					[self.loadingSpinner startAnimating];
-					download.delegate = self;
-					
-					[self.downloads addObject:[download retain]];
-					[download release];
-				}
-				else sImage = [UIImage imageNamed:kPlaceholderImage];
-			}
-		}
-	}
-	else [self.loadingSpinner stopAnimating];
-	
-	self.showbagImage.image = sImage;
+	// Showbag image
+	[self initImage:self.showbag.imageURL];
 }
 
 
@@ -320,51 +224,9 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 }
 
 
-- (void)goToPrevious:(id)sender {
-	
-	CGFloat minPriceFloat = [self.minPrice floatValue];
-	CGFloat maxPriceFloat = [self.maxPrice floatValue];
-	
-	Showbag *previousShowbag = [appDelegate goToPreviousShowbag:[[self.showbag showbagID] intValue] minPrice:minPriceFloat maxPrice:maxPriceFloat];
-	
-	self.showbag = nil;
-	
-	self.showbag = previousShowbag;
-	
-	[self setDetailFields];
-	
-	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
-	
-	//[self configurePreviousNextButtons];
-}
-
-
-- (void)goToNext:(id)sender {
-	
-	CGFloat minPriceFloat = [self.minPrice floatValue];
-	CGFloat maxPriceFloat = [self.maxPrice floatValue];
-	
-	Showbag *nextShowbag = [appDelegate goToNextShowbag:[[self.showbag showbagID] intValue] minPrice:minPriceFloat maxPrice:maxPriceFloat];
-	
-	self.showbag = nil;
-	
-	self.showbag = nextShowbag;
-	
-	[self setDetailFields];
-	
-	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
-	
-	//[self configurePreviousNextButtons];
-}
-
-
 - (void)goToMap:(id)sender {
 	
-	double lat = [[self.showbag showbagLatitude] doubleValue];
+	/*double lat = [[self.showbag showbagLatitude] doubleValue];
 	double lon = [[self.showbag showbagLongitude] doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
@@ -375,41 +237,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:mapVC animated:YES];
 	[mapVC release];
-	
-}
-
-
-- (void)initPreviousNextButtons {
-	
-	self.previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.previousButton setFrame:CGRectMake(0, 0, 46, 31)];
-	[self.previousButton addTarget:self action:@selector(goToPrevious:) forControlEvents:UIControlEventTouchUpInside];
-	[self.previousButton setBackgroundColor:[UIColor clearColor]];
-	[self.previousButton setTag:0];
-	[self.previousButton setBackgroundImage:[UIImage imageNamed:@"upArrowButton.png"] forState:UIControlStateNormal];
-	[self.previousButton setBackgroundImage:[UIImage imageNamed:@"upArrowButton-on.png"] forState:UIControlStateHighlighted];
-	[self.previousButton setBackgroundImage:[UIImage imageNamed:@"upArrowButton-on.png"] forState:UIControlStateSelected];
-	[self.previousButton setBackgroundImage:[UIImage imageNamed:@"upArrowButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	
-	self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.nextButton setFrame:CGRectMake(46, 0, 45, 31)];
-	[self.nextButton addTarget:self action:@selector(goToNext:) forControlEvents:UIControlEventTouchUpInside];
-	[self.nextButton setBackgroundColor:[UIColor clearColor]];
-	[self.nextButton setTag:1];
-	[self.nextButton setBackgroundImage:[UIImage imageNamed:@"downArrowButton.png"] forState:UIControlStateNormal];
-	[self.nextButton setBackgroundImage:[UIImage imageNamed:@"downArrowButton-on.png"] forState:UIControlStateHighlighted];
-	[self.nextButton setBackgroundImage:[UIImage imageNamed:@"downArrowButton-on.png"] forState:UIControlStateSelected];
-	[self.nextButton setBackgroundImage:[UIImage imageNamed:@"downArrowButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	
-	UIView *segmentedControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 91, 31)];
-	[segmentedControl addSubview:self.previousButton];
-	[segmentedControl addSubview:self.nextButton];
-	
-	UIBarButtonItem *arrowsItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-	[segmentedControl release];
-	
-	self.navigationItem.rightBarButtonItem = arrowsItem;
-	[arrowsItem release];
+	*/
 }
 
 
@@ -437,58 +265,56 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 }
 
 
-- (void)configurePreviousNextButtons {
-	
-	if (self.enableQuickSelection) {
-		
-		CGFloat minPriceFloat = [self.minPrice floatValue];
-		CGFloat maxPriceFloat = [self.maxPrice floatValue];
-		
-		BOOL first = [appDelegate isFirstShowbag:[[self.showbag showbagID] intValue] minPrice:minPriceFloat maxPrice:maxPriceFloat];
-		
-		[self.previousButton setEnabled:((first) ? NO : YES)];
-		
-		BOOL last = [appDelegate isLastShowbag:[[self.showbag showbagID] intValue] minPrice:minPriceFloat maxPrice:maxPriceFloat];
-		
-		[self.nextButton setEnabled:((last) ? NO : YES)];
-	}
-	else {
-		
-		[self.previousButton setHidden:YES];
-		[self.nextButton setHidden:YES];
-	}
-}
-
-
 - (void)recordPageView {
 
 	//NSError **error;
-	NSString *urlString = [NSString stringWithFormat:@"/showbags/%@.html", self.showbag.showbagTitle];
+	/*NSString *urlString = [NSString stringWithFormat:@"/showbags/%@.html", self.showbag.showbagTitle];
 	NSLog(@"SHOWBAGS PAGE VIEW URL:%@", urlString);
 	
 	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES - SHOWBAG PAGE VIEW RECORDED" : @"NO - SHOWBAG PAGE VIEW FAILED"));
+	NSLog(@"%@", (success ? @"YES - SHOWBAG PAGE VIEW RECORDED" : @"NO - SHOWBAG PAGE VIEW FAILED"));*/
 
 }
 
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
+	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
 	
 	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];
+	else [self.addToPlannerButton setSelected:NO];*/
 }
 
 
-// Stop any ImageDownloads that are still downloading
-- (void)disableDownloads {
+- (void)initImage:(NSString *)urlString {
 	
-	for (NSInteger i = 0; i < [self.downloads count]; i++) {
+	if (urlString) {
 		
-		ImageDownload *imageDownload = [self.downloads objectAtIndex:i];
-		imageDownload.delegate = nil;
+		[self.loadingSpinner startAnimating];
 		
+		self.selectedURL = [urlString convertToURL];
+		
+		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
+		
+		UIImage* img = [ImageManager loadImage:self.selectedURL];
+		
+		if (img) {
+			
+			[self.loadingSpinner setHidden:YES];
+			[self.showbagImage setImage:img];
+		}
+    }
+}
+
+
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
+	
+	if ([self.selectedURL isEqual:url]) {
+		
+		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+		
+		[self.loadingSpinner setHidden:YES];
+		[self.showbagImage setImage:image];
 	}
 }
 
@@ -497,7 +323,6 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
 	[showbag release];
 	[contentScrollView release];
-	[downloads release];
 	[rrPriceLabel release];
 	[priceLabel release];
 	[descriptionLabel release];
@@ -506,6 +331,9 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	[minPrice release];
 	[maxPrice release];
 	[loadingSpinner release];
+	
+	[selectedURL release];
+	
     [super dealloc];
 }
 

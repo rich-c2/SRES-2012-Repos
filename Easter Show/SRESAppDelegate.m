@@ -7,6 +7,9 @@
 //
 
 #import "SRESAppDelegate.h"
+#import "MoreVC.h"
+
+NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
 @implementation SRESAppDelegate
 
@@ -14,10 +17,14 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize tabBarController, moreVC;
 
 - (void)dealloc
 {
 	[_window release];
+	[tabBarController release];
+	[moreVC release];
+	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
 	[__persistentStoreCoordinator release];
@@ -29,6 +36,38 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+	
+	
+	// MoreVC
+	moreVC = [[MoreVC alloc] initWithNibName:@"MoreVC" bundle:nil];
+	[moreVC setManagedObjectContext:self.managedObjectContext];
+	
+	UINavigationController *navcon = [[UINavigationController alloc] init];
+	[navcon.navigationBar setTintColor:[UIColor redColor]];
+	[navcon pushViewController:moreVC animated:NO];
+	[moreVC release];
+	
+	// Create a tabbar controller and an array to contain the view controllers
+	tabBarController = [[UITabBarController alloc] init];
+	NSMutableArray *localViewControllersArray = [[NSMutableArray alloc] initWithCapacity:4];
+	[localViewControllersArray addObject:navcon];
+	/*[localViewControllersArray addObject:navcon2];
+	[localViewControllersArray addObject:navcon3];
+	[localViewControllersArray addObject:navcon4];*/
+	
+	[navcon release];
+	/*[navcon2 release];
+	[navcon3 release];
+	[navcon4 release];*/
+	
+	// set the tab bar controller view controller array to the localViewControllersArray
+	tabBarController.viewControllers = localViewControllersArray;
+	
+	// the localViewControllersArray data is now retained by the tabBarController
+	// so we can release this version
+	[localViewControllersArray release];
+	
+	[self.window addSubview:[tabBarController view]];
     [self.window makeKeyAndVisible];
     return YES;
 }

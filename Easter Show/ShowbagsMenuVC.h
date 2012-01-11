@@ -7,42 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Reachability.h"
-#import "ImageDownload.h"
 
-@class SRESAppDelegate;
 @class Showbag;
 @class ShowbagsTableCell;
+@class XMLFetcher;
 
-@interface ShowbagsMenuVC : UIViewController <NSXMLParserDelegate, ImageDownloadDelegate> {
-
-	SRESAppDelegate *appDelegate;
+@interface ShowbagsMenuVC : UIViewController <NSFetchedResultsControllerDelegate> {
 	
-	UIActivityIndicatorView *loadingSpinner;
+	NSFetchedResultsController *fetchedResultsController;
+	NSManagedObjectContext *managedObjectContext;
 	
-	Reachability *reach;
-	BOOL internetConnectionPresent;
+	XMLFetcher *fetcher;
 	
 	BOOL viewLoaded;
-	
-	UIView *loadingView;
-	
-	NSMutableString *currentAttribute;
-	
-	NSString *idString;
-	NSMutableString *titleString;
-	NSMutableString *descriptionString;
-	NSMutableString *imageURLString;
-	NSMutableString *thumbURLString;
-	NSMutableString *rrpString;
-	NSMutableString *priceString;
-	NSMutableString *versionString;
+	BOOL showbagsLoaded;
+	BOOL loading;
 	
 	UIButton *cokeOfferButton;
 	
 	UITableView *menuTable;
-	NSMutableArray *showbags;
-	NSMutableArray *downloads;
+	UITableView *searchTable;
+	
+	NSMutableArray *filteredListContent;
+	UISearchBar *search;
 	
 	ShowbagsTableCell *loadCell;
 	
@@ -58,37 +45,21 @@
 	
 	BOOL addingShowbag;
 	BOOL updatingShowbag;
-	
-	NSInteger currentID;
-	NSXMLParser	*rssParser;
-	NSAutoreleasePool *pool;
-	BOOL cancelThread;
-	Showbag *tempShowbag;
-	NSMutableData *receivedData;
-	CGFloat totalFileSize;
 }
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingSpinner;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (assign) BOOL internetConnectionPresent;
 
 @property (assign) BOOL viewLoaded;
 
-@property (nonatomic, retain) IBOutlet UIView *loadingView;
-
-@property (nonatomic, retain) NSString *idString;
-@property (nonatomic, retain) NSMutableString *titleString;
-@property (nonatomic, retain) NSMutableString *descriptionString;
-@property (nonatomic, retain) NSMutableString *imageURLString;
-@property (nonatomic, retain) NSMutableString *thumbURLString;
-@property (nonatomic, retain) NSMutableString *rrpString;
-@property (nonatomic, retain) NSMutableString *priceString;
-@property (nonatomic, retain) NSMutableString *versionString;
-
 @property (nonatomic, retain) IBOutlet UIButton *cokeOfferButton;
 
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
-@property (nonatomic, retain) NSMutableArray *showbags;
+@property (nonatomic, retain) IBOutlet UITableView *searchTable;
+@property (nonatomic, retain) NSMutableArray *filteredListContent;
+@property (nonatomic, retain) IBOutlet UISearchBar *search;
 
 @property (nonatomic, retain) IBOutlet ShowbagsTableCell *loadCell;
 
@@ -99,20 +70,18 @@
 @property (nonatomic, retain) IBOutlet UIButton *filterButton3;
 @property (nonatomic, retain) UIButton *selectedFilterButton;
 
-@property (nonatomic, retain) NSXMLParser *rssParser;
-@property (nonatomic, retain) NSMutableString *currentAttribute;
-@property (assign) BOOL cancelThread;
-@property (nonatomic, retain) Showbag *tempShowbag;
-
-@property (nonatomic, retain) NSMutableArray *downloads;
 
 - (void)retrieveXML;
-- (void)loadXMLAtURL:(NSString *)_urlString;
 - (void)filterShowbags:(id)sender;
 - (void)initPriceRanges;
-- (NSInteger)getIndexOfItemWithID:(NSInteger)_showbagID;
-- (Showbag *)getShowbagWithID:(NSInteger)_showbagID;
 - (void)setupNavBar;
-- (void)disableDownloads;
+- (void)showLoading;
+- (void)hideLoading;
+- (void)fetchShowbagsFromCoreData;
+- (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag;
+- (NSPredicate *)getQueryForSelectedFilter;
+- (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
+- (void)handleSearchForTerm:(NSString *)searchTerm;
+- (void)resetSearch;
 
 @end

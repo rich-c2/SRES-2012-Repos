@@ -22,4 +22,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * rrPrice;
 
++ (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

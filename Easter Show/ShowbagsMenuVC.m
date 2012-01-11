@@ -11,23 +11,24 @@
 #import "ShowbagVC.h"
 #import "Showbag.h"
 #import "ShowbagsTableCell.h"
+#import "StringHelper.h"
+#import "XMLFetcher.h"
+#import "SVProgressHUD.h"
 
+#define UNDER10_TAG 1000
+#define OVER10_UNDER1750_TAG 1001
+#define OVER1750_TAG 1002
 
 static NSString* kTableCellFont = @"Arial-BoldMT";
 static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 @implementation ShowbagsMenuVC
 
-@synthesize loadingSpinner, internetConnectionPresent, cokeOfferButton, showbags, menuTable;
-@synthesize priceRanges, loadingView, viewLoaded;
-@synthesize rssParser, currentAttribute, cancelThread, tempShowbag;
+@synthesize fetchedResultsController, managedObjectContext;
+@synthesize internetConnectionPresent, cokeOfferButton, menuTable, search;
+@synthesize priceRanges, viewLoaded, filteredListContent, searchTable;
 @synthesize filterButton1, filterButton2, filterButton3, selectedFilterButton;
 @synthesize loadCell;
-@synthesize downloads;
-
-@synthesize idString, titleString, descriptionString;
-@synthesize imageURLString, thumbURLString, rrpString;
-@synthesize priceString, versionString;
 
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -49,8 +50,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
     [super viewDidLoad];
 	
-	appDelegate = (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
-
+	self.filteredListContent = [NSMutableArray array];
+	
 	[self setupNavBar];
 	
 	[self.filterButton1 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-under10-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
@@ -62,41 +63,34 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[self.selectedFilterButton setSelected:NO];
 	self.selectedFilterButton = self.filterButton1;
 	
-	// Clear coloured cell separators
-	[self.menuTable setSeparatorColor:[UIColor clearColor]];
-	
 	[self initPriceRanges];
 	
 	minPrice = 0.0;
 	maxPrice = 9.99;
 	
-	[self.loadingView setHidden:NO];
-	[self.loadingSpinner startAnimating];
-	
-	// Init downloads array
-	self.downloads = [[NSMutableArray alloc] init];
-	
-	// Determine network/internet availability
-	reach = [[Reachability reachabilityForInternetConnection] retain];
-	NetworkStatus status = [reach currentReachabilityStatus];
-    self.internetConnectionPresent = [appDelegate boolFromNetworkStatus:status];
-	
-	if ([self.showbags count] == 0) {
+	NSError *error = nil;
+	if (![[self fetchedResultsController] performFetch:&error]) {
 		
-		self.filterButton1.enabled = NO;
-		self.filterButton2.enabled = NO;
-		self.filterButton3.enabled = NO;
+		/*
+		 Replace this implementation with code to handle the error appropriately.
+		 
+		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+		 */
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
 	}
+}
+
+
+#pragma mark - Private Methods
+- (SRESAppDelegate *)appDelegate {
 	
-	// Sort events alphabetically
-	NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"showbagTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-	[self.showbags sortUsingDescriptors:[NSArray arrayWithObject:alphaDesc]];	
-	[alphaDesc release];
-	
+    return (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 
 - (void)didReceiveMemoryWarning {
+	
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -105,33 +99,25 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)viewDidUnload {
+	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
-	self.loadingView = nil;
-	self.idString = nil; 
-	self.titleString = nil; 
-	self.descriptionString = nil;
-	self.imageURLString, 
-	self.thumbURLString = nil; 
-	self.rrpString = nil;
-	self.priceString = nil; 
-	self.versionString = nil;
-	self.currentAttribute = nil;
-	
-	self.loadingSpinner = nil;
+	self.fetchedResultsController = nil; 
+	self.managedObjectContext = nil;
+		
 	self.menuTable = nil;
-	self.showbags = nil;
+	self.filteredListContent = nil;
+	self.searchTable = nil;
+	self.search = nil;
 	self.priceRanges = nil;
-	self.rssParser = nil;
-	self.downloads = nil;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
 	
-	//[self.menuTable reloadData];
+	[super viewWillAppear:animated];
 }
 
 
@@ -139,88 +125,159 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
-	if (!self.viewLoaded) {
+	if (!showbagsLoaded && !loading) {
 
-		BOOL loaded = [appDelegate isShowbagsXMLLoaded];
-		if ((self.internetConnectionPresent) && (!loaded)) {
-			
-			[self retrieveXML];
-			
-			//[NSThread detachNewThreadSelector:@selector(retrieveXML)toTarget:self withObject:nil];
-		}
-		else {
-			
-			self.showbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:0];
-			
-			// Stop loading animation
-			[self.loadingSpinner stopAnimating];
-			[self.loadingView setHidden:YES];
-			
-			self.filterButton1.enabled = YES;
-			self.filterButton2.enabled = YES;
-			self.filterButton3.enabled = YES;
-			
-			// This view has been loaded now
-			self.viewLoaded = YES;
-			
-			[self.menuTable reloadData];
-		}
+		[self showLoading];
+		
+		[self retrieveXML];
 	}
 }
 
 
-#pragma mark ImageDownloadDelegate Methods
-- (void)downloadDidFinishDownloading:(ImageDownload *)download {
+#pragma mark
+#pragma mark Search Bar Delegate methods
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	
-	// Get the index of where this image is in the table
-    NSUInteger index = [self getIndexOfItemWithID:download.downloadID]; 
-	
-	// Get the associated Offer object
-	Showbag *showbag = [self getShowbagWithID:download.downloadID];
-	
-	// Save the image to the Offer object
-	[showbag setShowbagThumb:download.image];
-	
-	// Create a user friendly filename from the URL path
-	NSString *filename = [appDelegate extractImageNameFromURLString:download.urlString];
-	
-	// Save image to the relevant sub directory of Documents/
-	[appDelegate saveShowbagsImageToDocumentsWithID:[[showbag showbagID] intValue] imageName:filename obj:download.image];
-	
-	NSLog(@"SHOWBAG DOWNLOAD FINISHED:%i|%i", index, [[showbag showbagID] intValue]);
-    NSUInteger indices[] = {0, index};
-    NSIndexPath *path = [[NSIndexPath alloc] initWithIndexes:indices length:2];
-    [self.menuTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationNone];
-    [path release];
-    download.delegate = nil;
-	
-	[self.downloads removeObject:download];
+	[self.searchTable setHidden:NO];
+
+	NSString *searchTerm = [searchBar text];
+	[self handleSearchForTerm:searchTerm];
 }
 
 
-- (void)download:(ImageDownload *)download didFailWithError:(NSError *)error {
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+
+	if ([searchText length] == 0) {
 	
-    NSLog(@"Error: %@", [error localizedDescription]);
+		[self resetSearch];
+		[self.searchTable reloadData];
+		return;
+	}
 	
-	// Get the index of where this image is in the table
-    NSUInteger index = [self getIndexOfItemWithID:download.downloadID]; 
+	[self handleSearchForTerm:searchText];
+}
+
+
+- (void)resetSearch {
+
+	self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+}
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+
+	search.text = @"";
+	[self.searchTable reloadData];
+	[searchBar resignFirstResponder];
 	
-	// Get the associated Offer object
-	Showbag *showbag = [self getShowbagWithID:download.downloadID];
+	[self.searchTable setHidden:YES];
+	[self.search setHidden:YES];
+}
+
+
+- (void)handleSearchForTerm:(NSString *)searchTerm {
 	
-	UIImage *placeholder = [UIImage imageNamed:kCellThumbPlaceholder];
+	NSMutableArray *objectsToRemove = [[NSMutableArray alloc] init];
+
+	for (Showbag *showbag in [fetchedResultsController fetchedObjects]) {
 	
-	// Save the image to the Offer object
-	[showbag setShowbagThumb:placeholder];
+		//NSComparisonResult result = [showbag.title compare:searchTerm options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchTerm length])];
+		
+		//if (result == NSOrderedSame)
+		
+		if ([showbag.title rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location == NSNotFound)
+			[objectsToRemove addObject:showbag];
+	}
 	
-	NSLog(@"PLACEHOLDER INSERTED FOR SHOWBAG:%i|%i", index, [[showbag showbagID] intValue]);
-    NSUInteger indices[] = {0, index};
-    NSIndexPath *path = [[NSIndexPath alloc] initWithIndexes:indices length:2];
-    [self.menuTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationNone];
-    [path release];
-    download.delegate = nil;
+	[self.filteredListContent removeObjectsInArray:objectsToRemove];
+	[objectsToRemove release];
 	
-	[self.downloads removeObject:download];
+	[self.searchTable reloadData];
+}
+
+
+#pragma mark -
+#pragma mark Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController {
+	
+    // Set up the fetched results controller if needed.
+    if (fetchedResultsController == nil) {
+		
+        // Create the fetch request for the entity.
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+		fetchRequest.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:managedObjectContext];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+		fetchRequest.predicate = [self getQueryForSelectedFilter];
+		fetchRequest.fetchBatchSize = 20;
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+		[fetchRequest release];
+		
+        aFetchedResultsController.delegate = self;
+        self.fetchedResultsController = aFetchedResultsController;
+        [aFetchedResultsController release];
+    }
+	
+	return fetchedResultsController;
+}  
+
+
+/**
+ Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
+ */
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+	
+	// The fetch controller is about to start sending change notifications, 
+	// so prepare the table view for updates.
+	[self.menuTable beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+	UITableView *tableView = self.menuTable;
+	
+	switch(type) {
+		case NSFetchedResultsChangeInsert:
+			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+			
+		case NSFetchedResultsChangeDelete:
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+			
+		case NSFetchedResultsChangeUpdate:
+			//[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+			break;
+			
+		case NSFetchedResultsChangeMove:
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+	}
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+	switch(type) {
+		case NSFetchedResultsChangeInsert:
+			[self.menuTable insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+			
+		case NSFetchedResultsChangeDelete:
+			[self.menuTable deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+	}
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	
+	// The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+	[self.menuTable endUpdates];
 }
 
 
@@ -228,19 +285,40 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
+    
+	NSInteger count = [[fetchedResultsController sections] count];
+    
+	if (count == 0) {
+		count = 1;
+	}
+	
+    return count;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
 	
-	NSInteger showbagsCount = [appDelegate getShowbagsCountForRange:minPrice maxPrice:maxPrice];
+    NSInteger numberOfRows = 0;
 	
-	if ([self.showbags count] == 0) return 0;
-    else if ([self.showbags count] < showbagsCount) return ([self.showbags count] + 1);
-	else return [self.showbags count];
+	if (tableView == self.menuTable) {
+		
+        if ([[fetchedResultsController sections] count] > 0) {
+			id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+			numberOfRows = [sectionInfo numberOfObjects];
+		}
+    }
+	else numberOfRows = [self.filteredListContent count];
+    
+    return numberOfRows;
+}
+
+
+- (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag {
+		
+	cell.nameLabel.text = showbag.title;
+	cell.dateLable.text = [NSString stringWithFormat:@"%.2f", [showbag.price floatValue]];
+	
+	[cell initImage:showbag.thumbURL];
 }
 
 
@@ -256,122 +334,18 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
         self.loadCell = nil;
     }
 	
-	NSString *cellDescription;
+	Showbag *showbag;
 	
-	if ([self.showbags count] == 0){
-		return cell;
-	}
-	else if (indexPath.row == [self.showbags count]){
-		
-		NSInteger showbagsCount = [appDelegate getShowbagsCountForRange:minPrice maxPrice:maxPrice];
-		
-		if ([self.showbags count] < showbagsCount) {
-		
-			cellDescription = @"";
-			cell.nameLabel.font = [UIFont fontWithName:kTableCellFont size:15.0];
-			cell.nameLabel.text = @"LOAD MORE...";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			[cell.cellSpinner stopAnimating];
-			[cell.cellSpinner setHidden:YES];
-			cell.dateLable.text = cellDescription;
-			cell.thumbView.image = [UIImage imageNamed:kCellThumbPlaceholder];
-		}
-	}
-	else {
-		
-		// Configure the cell...
-		Showbag *showbag = [self.showbags objectAtIndex:[indexPath row]];
-		cellDescription = [showbag showbagDescription];
-		if ([cellDescription length] == 0) cellDescription = @"";
-		
-		UIImage *thumb;
-		
-		thumb = [showbag showbagThumb];
-		
-		if (thumb == nil) {
-			
-			// Get thumbURL
-			NSString *thumbURL = [showbag thumbURL];
-			
-			// get user friendly name for image e.g. 'product1.jpg'
-			NSString *filename = [appDelegate extractImageNameFromURLString:thumbURL];
-			
-			thumb = [UIImage imageNamed:filename];
-			
-			if (thumb == nil) {
-				
-				// Check Documents/
-				thumb = [appDelegate getImageForShowbagWithID:[[showbag showbagID] intValue] image:filename];
-				
-				if (thumb == nil) {
-					
-					if (self.internetConnectionPresent && ([thumbURL length] != 0)) {
-						
-						// Download Image from URL
-						ImageDownload *download = [[ImageDownload alloc] init];
-						download.urlString = thumbURL;
-						download.downloadID = [[showbag showbagID] intValue];
-						thumb = download.image;
-						
-						[cell.cellSpinner startAnimating];
-						download.delegate = self;
-						
-						[self.downloads addObject:download];
-						[download release];
-					}
-					else thumb = [UIImage imageNamed:kCellThumbPlaceholder];
-				}
-				else [showbag setShowbagThumb:thumb];
-			}
-			else [showbag setShowbagThumb:thumb];
-		}
-		else [cell.cellSpinner stopAnimating];
-		
-		
-		cell.nameLabel.text = [showbag showbagTitle];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.nameLabel.font = [UIFont fontWithName:kTableCellFont size:15.0];
-		cell.thumbView.image = thumb;
-		cell.dateLable.text = cellDescription;
-	}
+	// Retrieve the Showbag object
+	if (tableView == self.menuTable)
+		showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
+	else
+		showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
+	
+	// Retrieve Showbag object and set it's name to the cell
+	[self configureCell:cell withShowbag:showbag];
 	
     return cell;
-}
-
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	
-	UIView *returnView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 303.0, 32.0)];
-	[returnView setBackgroundColor:[UIColor clearColor]];
-	
-	return [returnView autorelease];
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	
-	return 32.0;
-	
-}
-
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	
-	CGFloat footerHeight = 4.0;
-	
-	UIView *returnView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, footerHeight)];
-	[returnView setBackgroundColor:[UIColor clearColor]];
-	
-	return [returnView autorelease];
-	
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	
-	CGFloat footerHeight = 4.0;
-	
-	return footerHeight;
 }
 
 
@@ -379,357 +353,163 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+		
+	Showbag *showbag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		
+	ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
+	[showbagVC setShowbag:showbag];
 	
-	if ([self.showbags count] == 0){
-		return;
-	} else if (indexPath.row == [self.showbags count]) {
-		
-		NSInteger startIndex = ([self.showbags count]);
-		NSMutableArray *moreShowbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:startIndex];
-		NSArray *more = [NSArray arrayWithArray:moreShowbags];
-		[self.showbags addObjectsFromArray:more];
-		
-		// Sort events alphabetically
-		NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"showbagTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-		[self.showbags sortUsingDescriptors:[NSArray arrayWithObject:alphaDesc]];	
-		[alphaDesc release];
-		
-		[self.menuTable reloadData];
-	}
-	else {
-		
-		Showbag *showbag = [self.showbags objectAtIndex:[indexPath row]];
-		
-		ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
-		[showbagVC setShowbag:showbag];
-		//[showbagVC setMinPrice:[NSNumber numberWithFloat:minPrice]];
-		//[showbagVC setMaxPrice:[NSNumber numberWithFloat:maxPrice]];
-		//[showbagVC setEnableQuickSelection:YES];
-		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:showbagVC animated:YES];
-		[showbagVC release];
-	}
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:showbagVC animated:YES];
+	[showbagVC release];
 }
 
 
-/* XML PARSING FUNCTIONS *****************************************************************************************/
+- (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url {
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+	NSArray *cells = [self.menuTable visibleCells];
+    [cells retain];
+    SEL selector = @selector(imageLoaded:withURL:);
 	
-	//NSLog(@"STARTED:%@", elementName);
+    for (int i = 0; i < [cells count]; i++) {
+		
+		UITableViewCell* c = [[cells objectAtIndex: i] retain];
+        if ([c respondsToSelector:selector]) {
+            [c performSelector:selector withObject:image withObject:url];
+        }
+        [c release];
+		c = nil;
+    }
 	
-	NSMutableString *tmpCurElement = [[NSMutableString alloc] initWithString:elementName];
-	[self setCurrentAttribute:tmpCurElement];
-	[tmpCurElement release];
-	tmpCurElement = nil;
-	
-	if (cancelThread) {
-		[pool release];
-		return;
-	}
-	else {
-				
-		if ([elementName isEqualToString:@"add"]) {
-			
-			addingShowbag = YES;
-			updatingShowbag = NO;
-		}
-		
-		if ([elementName isEqualToString:@"update"]) {
-			
-			updatingShowbag = YES;
-			addingShowbag = NO;
-		}
-		
-		if ([elementName isEqualToString:@"remove"]) {
-			
-			updatingShowbag = NO;
-			addingShowbag = NO;
-		}
-		
-		if ([elementName isEqualToString:@"showbag"]) {
-			
-			NSString *tmpIDString = [[NSString alloc] initWithString:[attributeDict objectForKey:@"id"]];
-			[self setIdString:tmpIDString];
-			[tmpIDString release];
-			tmpIDString = nil;
-			
-			NSInteger idInt = [idString intValue];
-			currentID = idInt;
-			
-			NSMutableString *tmpTitle = [[NSMutableString alloc] init];
-			[self setTitleString:tmpTitle];
-			[tmpTitle release];
-			tmpTitle = nil;
-			
-			NSMutableString *tmpDesc = [[NSMutableString alloc] init];
-			[self setDescriptionString:tmpDesc];
-			[tmpDesc release];
-			tmpDesc = nil;
-			
-			NSMutableString *tmpImage = [[NSMutableString alloc] init];
-			[self setImageURLString:tmpImage];
-			[tmpImage release];
-			tmpImage = nil;
-			
-			NSMutableString *tmpThumb = [[NSMutableString alloc] init];
-			[self setThumbURLString:tmpThumb];
-			[tmpThumb release];
-			tmpThumb = nil;
-			
-			NSMutableString *tmpRrp = [[NSMutableString alloc] init];
-			[self setRrpString:tmpRrp];
-			[tmpRrp release];
-			tmpRrp = nil;
-			
-			NSMutableString *tmpPrice = [[NSMutableString alloc] init];
-			[self setPriceString:tmpPrice];
-			[tmpPrice release];
-			tmpPrice = nil;
-			
-			NSMutableString *tmpVersion = [[NSMutableString alloc] init];
-			[self setVersionString:tmpVersion];
-			[tmpVersion release];
-			tmpVersion = nil;
-		}
-	}
+    [cells release];
 }
-
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-	
-	if (cancelThread) {
-		[pool release];
-		return;
-	}
-	else {
-		
-		//NSLog(@"FOUND:%@", string);
-		if (self.currentAttribute) {
-			
-			NSString *decodedString = [NSString stringWithFormat:@"%i", currentID];
-			
-			@try {
-				
-				decodedString = [appDelegate replaceHtmlEntities:string];
-				
-				NSLog(@"decodedString:%@", decodedString);
-			}
-			@catch (NSException* ex) {
-				
-				NSLog(@"decodedString failed:%i", currentID);
-			}
-			
-			//[self.currentAttribute appendString:decodedString];
-			
-			if ([self.currentAttribute isEqualToString:@"title"])
-				[self.titleString appendString:decodedString];			
-			else if ([self.currentAttribute isEqualToString:@"description"]) 
-				[self.descriptionString appendString:decodedString];
-			else if ([self.currentAttribute isEqualToString:@"price"]) 
-				[self.priceString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"rrp"]) 
-				[self.rrpString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"imageURL"]) 
-				[self.imageURLString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"thumbURL"]) 
-				[self.thumbURLString appendString:decodedString];
-			else if ([self.currentAttribute isEqualToString:@"version"]) 
-				[self.versionString appendString:decodedString];
-		}
-	}
-}
-
-
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
-	
-	
-	if (cancelThread) {
-		[pool release];
-		return;
-	}
-	else {
-		
-		if (self.currentAttribute) {
-			
-			NSString *decodedString = [NSString stringWithFormat:@"%i", currentID];
-			
-			@try {
-				
-				NSString *cDataString = [[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding] autorelease];
-				NSLog(@"FOUND cDataString:%@", cDataString);
-				
-				decodedString = [appDelegate replaceHtmlEntities:cDataString];
-				
-				NSLog(@"decodedString:%@", decodedString);
-			}
-			@catch (NSException* ex) {
-				
-				NSLog(@"decodedString failed:%i", currentID);
-			}
-			
-			//[self.currentAttribute appendString:decodedString];
-			
-			if ([self.currentAttribute isEqualToString:@"title"])
-				[self.titleString appendString:decodedString];			
-			else if ([self.currentAttribute isEqualToString:@"description"]) 
-				[self.descriptionString appendString:decodedString];
-			else if ([self.currentAttribute isEqualToString:@"price"]) 
-				[self.priceString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"rrp"]) 
-				[self.rrpString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"imageURL"]) 
-				[self.imageURLString appendString:decodedString];
-			else if ( [self.currentAttribute isEqualToString:@"thumbURL"]) 
-				[self.thumbURLString appendString:decodedString];
-			else if ([self.currentAttribute isEqualToString:@"version"]) 
-				[self.versionString appendString:decodedString];
-		}
-	}
-}
-
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	
-	if (cancelThread) {
-		[pool release];
-		return;
-	}
-	else {
-		
-		if ([elementName isEqualToString:@"showbag"]) {
-			
-			NSInteger idInt = [self.idString intValue];
-			
-			NSString *tmpTitle = [self.titleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *tmpDescription = [self.descriptionString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *tmpImage = [self.imageURLString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *tmpThumb = [self.thumbURLString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			double tmpRRPrice = [[self.rrpString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
-			double tmpPrice = [[self.priceString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
-			
-			NSInteger vInt = [self.versionString intValue];
-			
-			Showbag *_showbag = [[[Showbag alloc] initWithID:idInt] autorelease];
-			[_showbag setShowbagTitle:tmpTitle];
-			[_showbag setShowbagDescription:tmpDescription];
-			[_showbag setImageURL:tmpImage];
-			[_showbag setThumbURL:tmpThumb];
-			[_showbag setShowbagRRPrice:tmpRRPrice];
-			[_showbag setShowbagPrice:tmpPrice];
-			
-			[_showbag setVersion:vInt];
-			
-			if (addingShowbag) [appDelegate addShowbag:_showbag];
-			else {	
-				
-				if (updatingShowbag) [appDelegate updateShowbag:_showbag];
-				else if (!updatingShowbag) [appDelegate deleteShowbag:[[_showbag showbagID] intValue]];
-			}
-		}
-	}
-}
-
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	
-	[self performSelectorOnMainThread:@selector(loadingFinished) withObject:nil waitUntilDone:false];
-	
-	if (cancelThread) {
-		[pool release];
-		return;
-	}
-	else {
-		[parser abortParsing];
-		
-	}
-}
-
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    // If the number of earthquake records received is greater than kMaximumNumberOfEarthquakesToParse, we abort parsing.
-    // The parser will report this as an error, but we don't want to treat it as an error. The flag didAbortParsing is
-    // how we distinguish real errors encountered by the parser.
-	
-	NSLog(@"PARSER ERROR:%@", parseError);
-	[parser abortParsing];
-}
-
-
-/* ======================================================================================================*/
 
 
 - (void)retrieveXML {
 	
-	pool = [[NSAutoreleasePool alloc] init];
-	
 	NSString *docName = @"showbags.xml";
-	NSInteger lastShowbagID = [appDelegate getLastShowbagID];
+	NSInteger lastShowbagID = 0;
 	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", appDelegate.xmlDomainName, docName, queryString];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
 	NSLog(@"SHOWBAGS URL:%@", urlString);
 	
-	[self loadXMLAtURL:urlString];
+	NSURL *url = [urlString convertToURL];
 	
-	[self performSelectorOnMainThread:@selector(loadingFinished) withObject:nil waitUntilDone:false];
+	// Create the request.
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+														   cachePolicy:NSURLRequestUseProtocolCachePolicy
+													   timeoutInterval:45.0];
 	
-	[pool release];
+	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"GET"];	
 	
-}
-
-
-- (void)loadXMLAtURL:(NSString *)_urlString {
+	// XML Fetcher
+	// @"//add | //update | //remove"
+	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add" receiver:self action:@selector(receiveResponse:)];
+	[fetcher start];
 	
-	NSString *formattedURL = [_urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSLog(@"FORMATTED URL:%@", formattedURL);
-	
-	self.rssParser = [[NSXMLParser alloc] initWithContentsOfURL:[NSURL URLWithString:formattedURL]];
-	[self.rssParser setDelegate:self];
-	
-	BOOL success = [self.rssParser parse];
-	
-	if(success) NSLog(@"No Errors - SHOWBAGS LOADED");
-	else NSLog(@"Error parsing xml - SHOWBAGS"); 
-	
-}
-
-
-- (void)loadingFinished {
-	
-	NSLog(@"LOADING FINISHED");
-	
-	// Stop loading animation
-	[self.loadingSpinner stopAnimating];
-	[self.loadingView setHidden:YES];
-	
-	if ([self.showbags count] > 0) [self.showbags removeAllObjects];
-	
-	minPrice = 0.0;
-	maxPrice = 9.99;
-	
-	self.showbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:0];
-	
-	if ([self.showbags count] > 0) {
+	/*
+	else {
+		
+		// Fetch Showbag objects for the default price range ($10 and under)
+		//self.showbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:0];
 		
 		self.filterButton1.enabled = YES;
 		self.filterButton2.enabled = YES;
 		self.filterButton3.enabled = YES;
+		
+		// This view has been loaded now
+		self.viewLoaded = YES;
+		
+		[self.menuTable reloadData];
+	}
+	*/
+}
+
+
+// The API Request has finished being processed. Deal with the return data.
+- (void)receiveResponse:(HTTPFetcher *)aFetcher {
+    
+    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
+	
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	loading = NO;
+	showbagsLoaded = YES;
+	
+	if ([theXMLFetcher.data length] > 0) {
+        
+        // loop through the XPathResultNode objects that the XMLFetcher fetched
+        for (XPathResultNode *node in theXMLFetcher.results) { 
+		
+			if ([[node name] isEqualToString:@"add"]) {
+				
+				for (XPathResultNode *showbagNode in node.childNodes) { 
+					
+					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
+				
+					// Store the showbag's ID
+					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
+					
+					// Store the rest of the showbag's attributes
+					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
+						
+						if ([[showbagChild contentString] length] > 0)
+							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
+					}
+					
+					// Store Showbag data in Core Data persistent store
+					[Showbag showbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
+				}
+			}
+			else if ([[node name] isEqualToString:@"update"]) {
+				
+				// Pass the child node (<collection> elements) to 
+				// the update method
+				//[self updateCollections:node.childNodes];
+			}
+			else if ([[node name] isEqualToString:@"remove"]) {
+				
+				// Pass the child node (<collection> elements) to 
+				// the delete method
+				//[self deleteCollections:node.childNodes];
+			}
+			
+			
+			
+			
+			
+		}		
 	}
 	
-	// Sort events alphabetically
-	NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"showbagTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-	[self.showbags sortUsingDescriptors:[NSArray arrayWithObject:alphaDesc]];	
-	[alphaDesc release];
+	// Save the object context
+	[[self appDelegate] saveContext];
 	
-	// This view has been loaded now
-	self.viewLoaded = YES;
+	// Fetch Showbag objets from Core Data
+	[self fetchShowbagsFromCoreData];
 	
-	[self.menuTable reloadData];
+	// Hide loading view
+	[self hideLoading];
 	
-	// Set 'global var' that we've loaded Showbags
-	[appDelegate showbagsXMLLoaded];
+	[fetcher release];
+	fetcher = nil;
+}
+
+
+- (void)fetchShowbagsFromCoreData {
+	
+	NSError *error = nil;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		/*
+		 Replace this implementation with code to handle the error appropriately.
+		 
+		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+		 */
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
 }
 
 
@@ -758,11 +538,15 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[range3 addObject:num6];
 	[num5 release];
 	[num6 release];
-
-	self.priceRanges = [[NSArray alloc] initWithObjects:range1, range2, range3, nil];
+	
+	NSArray *tempRanges = [[NSArray alloc] initWithObjects:range1, range2, range3, nil];
 	[range1 release];
 	[range2 release];
 	[range3 release];
+
+
+	self.priceRanges = tempRanges;
+	[tempRanges release];
 }
 
 
@@ -789,58 +573,20 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	minPrice = [[range objectAtIndex:0] doubleValue];
 	maxPrice = [[range objectAtIndex:1] doubleValue];
 	
-	// Stop any current image downloads
-	[self disableDownloads];
+	[NSFetchedResultsController deleteCacheWithName:nil];
+	self.fetchedResultsController.fetchRequest.predicate = [self getQueryForSelectedFilter];
 	
-	if ([self.showbags count] > 0) [self.showbags removeAllObjects];
-	
-	self.showbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:0];
-	
-	// Sort events alphabetically
-	NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"showbagTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-	[self.showbags sortUsingDescriptors:[NSArray arrayWithObject:alphaDesc]];	
-	[alphaDesc release];
+	// Query the persistent store
+	[self fetchShowbagsFromCoreData];
 	
 	[self.menuTable reloadData];
-}
-
-
-- (NSInteger)getIndexOfItemWithID:(NSInteger)_showbagID {
-	
-	for (NSInteger i = 0; i < [self.showbags count]; i++) {
-		
-		Showbag *showbag = [self.showbags objectAtIndex:i];
-		NSInteger showbagID = [[showbag showbagID] intValue];
-		
-		if (showbagID == _showbagID) return i;
-	}
-	
-	return -1;
-}
-
-
-- (Showbag *)getShowbagWithID:(NSInteger)_showbagID {
-	
-	Showbag *showbag;
-	
-	for (NSInteger i = 0; i < [self.showbags count]; i++) {
-		
-		showbag = [self.showbags objectAtIndex:i];
-		NSInteger showbagID = [[showbag showbagID] intValue];
-		
-		if (showbagID == _showbagID) return showbag;
-	}
-	
-	showbag = nil;
-	return showbag;
-	
 }
 
 
 - (void)setupNavBar {
 	
 	// Add button to Navigation Title 
-	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
+	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
 	
@@ -856,45 +602,58 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;
+	self.navigationItem.leftBarButtonItem = backItem;*/
 	
-	self.loadingSpinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(132, 22, 37, 37)];
-	[self.loadingSpinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-	[self.loadingView addSubview:self.loadingSpinner];
-	[self.loadingSpinner release];
+	
+	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
+	
+	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+	searchItem.target = self;
+	self.navigationItem.rightBarButtonItem = searchItem;
 }
 
 
-// Stop any ImageDownloads that are still downloading
-- (void)disableDownloads {
+- (void)startSearch:(id)sender {
+
+	[self.search setHidden:NO];
+	[self.searchTable setHidden:NO];
+}
+
+
+- (void)showLoading {
 	
-	for (NSInteger i = 0; i < [self.downloads count]; i++) {
-		
-		ImageDownload *imageDownload = [self.downloads objectAtIndex:i];
-		imageDownload.delegate = nil;
-	}
+	[SVProgressHUD showInView:self.view status:nil networkIndicator:YES posY:-1 maskType:SVProgressHUDMaskTypeClear];
+}
+
+
+- (void)hideLoading {
+	
+	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
+} 
+
+
+- (NSPredicate *)getQueryForSelectedFilter {
+
+	NSString *queryString = [NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice];
+	
+	NSPredicate *query = [NSPredicate predicateWithFormat:queryString];
+	
+	return query;
 }
 
 
 - (void)dealloc {
 	
-	[loadingView release];
-	[idString release]; 
-	[titleString release]; 
-	[descriptionString release];
-	[imageURLString release]; 
-	[thumbURLString release];
-	[rrpString release];
-	[priceString release]; 
-	[versionString release];
-	[currentAttribute release];
-	
-	[loadingSpinner release];
+	[fetchedResultsController release];
+	[managedObjectContext release];
+		
 	[menuTable release];
-	[showbags release];
+	[filteredListContent release];
+	[searchTable release];
+	[search release];
 	[priceRanges release];
-	[rssParser release];
-	[downloads release];
+	
     [super dealloc];
 }
 
