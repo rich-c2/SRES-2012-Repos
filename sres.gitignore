@@ -8,5 +8,9 @@ build/
 *.perspective
 *.perspectivev3
 *.xcuserstate
+**/*.pbxuser
+**/*.perspectivev*
+*.mode2v3
+*.mode1v3
 
 xcuserdata
