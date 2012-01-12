@@ -45,17 +45,7 @@
 -(void)setCenterLongitude:(double)lonDouble;
 -(NSNumber *)centerLongitude;
 
-- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
-- (CGPoint)translate:(CLLocationCoordinate2D)_coords;
-
 - (void)setupNavBar;
-- (void)initGestureRecognizers;
-- (void)initItemLocationView;
-- (void)initUserLocationView;
-- (void)initZoomLevel;
-- (void)initMapOverlay;
-- (void)centreMapOverlay;
-- (void)getMapCornerCoords;
 - (void)focusUserLocationInWindow:(CGPoint)locationPoint;
 - (void)locateMe:(id)sender;
 - (void)goBack:(id)sender;

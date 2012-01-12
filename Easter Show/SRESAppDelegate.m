@@ -8,6 +8,7 @@
 
 #import "SRESAppDelegate.h"
 #import "MoreVC.h"
+#import "EventsMainVC.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
@@ -17,13 +18,14 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize tabBarController, moreVC;
+@synthesize tabBarController, moreVC, eventsMainVC;
 
 - (void)dealloc
 {
 	[_window release];
 	[tabBarController release];
 	[moreVC release];
+	[eventsMainVC release];
 	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
@@ -36,6 +38,15 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+	
+	// EventsMainVC
+	eventsMainVC = [[EventsMainVC alloc] initWithNibName:@"EventsMainVC" bundle:nil];
+	[eventsMainVC setManagedObjectContext:self.managedObjectContext];
+	
+	UINavigationController *navcon2 = [[UINavigationController alloc] init];
+	[navcon2.navigationBar setTintColor:[UIColor redColor]];
+	[navcon2 pushViewController:eventsMainVC animated:NO];
+	[eventsMainVC release];
 	
 	
 	// MoreVC
@@ -51,8 +62,8 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localViewControllersArray = [[NSMutableArray alloc] initWithCapacity:4];
 	[localViewControllersArray addObject:navcon];
-	/*[localViewControllersArray addObject:navcon2];
-	[localViewControllersArray addObject:navcon3];
+	[localViewControllersArray addObject:navcon2];
+	/*[localViewControllersArray addObject:navcon3];
 	[localViewControllersArray addObject:navcon4];*/
 	
 	[navcon release];

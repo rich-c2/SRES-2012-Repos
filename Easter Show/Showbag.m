@@ -2,7 +2,7 @@
 //  Showbag.m
 //  Easter Show
 //
-//  Created by Richard Lee on 11/01/12.
+//  Created by Richard Lee on 12/01/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -39,6 +39,7 @@
 		showbag.longitude = [NSNumber numberWithDouble:151.07062];
 		showbag.price = [NSNumber numberWithFloat:[[showbagData objectForKey:@"price"] floatValue]];
 		showbag.rrPrice = [NSNumber numberWithFloat:[[showbagData objectForKey:@"rrp"] floatValue]];
+		showbag.version = [NSNumber numberWithInt:[[showbagData objectForKey:@"version"] intValue]];
 	}
 	
 	return showbag;
@@ -46,7 +47,7 @@
 
 
 + (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context {
+				   inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Showbag *showbag = nil;
 	
@@ -73,6 +74,7 @@
 		showbag.longitude = [NSNumber numberWithDouble:151.07062];
 		showbag.price = [NSNumber numberWithFloat:[[showbagData objectForKey:@"price"] floatValue]];
 		showbag.rrPrice = [NSNumber numberWithFloat:[[showbagData objectForKey:@"rrp"] floatValue]];
+		showbag.version = [NSNumber numberWithInt:[[showbagData objectForKey:@"version"] intValue]];
 	}
 	
 	return showbag;
@@ -80,7 +82,7 @@
 
 
 + (Showbag *)showbagWithID:(NSNumber *)showbagID 
-			 inManagedObjectContext:(NSManagedObjectContext *)context {
+	inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Showbag *showbag = nil;
 	
@@ -97,15 +99,15 @@
 	return showbag;
 }
 
-
 @dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic price;
+@dynamic rrPrice;
 @dynamic showbagDescription;
 @dynamic showbagID;
 @dynamic thumbURL;
 @dynamic title;
-@dynamic rrPrice;
+@dynamic version;
 
 @end

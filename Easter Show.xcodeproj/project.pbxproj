@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B585DE514BCF0770027DB00 /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B585DE414BCF0770027DB00 /* Showbag.m */; };
 		9B585DF114BCFEFB0027DB00 /* showbagFilter-10-17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */; };
 		9B585DF214BCFEFB0027DB00 /* showbagFilter-10-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEC14BCFEFB0027DB00 /* showbagFilter-10-17.png */; };
 		9B585DF314BCFEFB0027DB00 /* showbagFilter-over17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DED14BCFEFB0027DB00 /* showbagFilter-over17-on.png */; };
@@ -30,6 +29,10 @@
 		9B585E2214BD3A340027DB00 /* placeholder-showbags-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2114BD3A340027DB00 /* placeholder-showbags-thumb.jpg */; };
 		9B585E2614BD40EA0027DB00 /* ShowbagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B585E2414BD40E90027DB00 /* ShowbagVC.m */; };
 		9B585E2714BD40EA0027DB00 /* ShowbagVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2514BD40E90027DB00 /* ShowbagVC.xib */; };
+		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
+		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
+		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
+		9B830A6614BEC6520028336C /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6514BEC6520028336C /* Event.m */; };
 		9B8BF92F14BEB0D10025BE01 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89514BEB0D10025BE01 /* SHKOAuthSharer.m */; };
 		9B8BF93014BEB0D10025BE01 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89714BEB0D10025BE01 /* SHKSharer.m */; };
 		9B8BF93114BEB0D10025BE01 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89A14BEB0D10025BE01 /* UIWebView+SHK.m */; };
@@ -141,8 +144,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B585DE314BCF0770027DB00 /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
-		9B585DE414BCF0770027DB00 /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
 		9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-10-17-on.png"; sourceTree = "<group>"; };
 		9B585DEC14BCFEFB0027DB00 /* showbagFilter-10-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-10-17.png"; sourceTree = "<group>"; };
 		9B585DED14BCFEFB0027DB00 /* showbagFilter-over17-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-over17-on.png"; sourceTree = "<group>"; };
@@ -178,6 +179,13 @@
 		9B585E2314BD40E90027DB00 /* ShowbagVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowbagVC.h; sourceTree = "<group>"; };
 		9B585E2414BD40E90027DB00 /* ShowbagVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowbagVC.m; sourceTree = "<group>"; };
 		9B585E2514BD40E90027DB00 /* ShowbagVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowbagVC.xib; sourceTree = "<group>"; };
+		9B830A5814BEBFD30028336C /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
+		9B830A5914BEBFD30028336C /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
+		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
+		9B830A6014BEC0C40028336C /* EventsMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMainVC.m; sourceTree = "<group>"; };
+		9B830A6114BEC0C40028336C /* EventsMainVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsMainVC.xib; sourceTree = "<group>"; };
+		9B830A6414BEC6520028336C /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		9B830A6514BEC6520028336C /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9B8BF89414BEB0D10025BE01 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		9B8BF89514BEB0D10025BE01 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		9B8BF89614BEB0D10025BE01 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -839,11 +847,13 @@
 				9B585E1214BD2EDC0027DB00 /* ImageManager.h */,
 				9B585E1314BD2EDC0027DB00 /* ImageManager.m */,
 				9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */,
+				9B830A6414BEC6520028336C /* Event.h */,
+				9B830A6514BEC6520028336C /* Event.m */,
+				9B830A5814BEBFD30028336C /* Showbag.h */,
+				9B830A5914BEBFD30028336C /* Showbag.m */,
 				9B585DF714BD2B710027DB00 /* ShowbagsTableCell.h */,
 				9B585DF814BD2B710027DB00 /* ShowbagsTableCell.m */,
 				9B585DF914BD2B710027DB00 /* ShowbagsTableCell.xib */,
-				9B585DE314BCF0770027DB00 /* Showbag.h */,
-				9B585DE414BCF0770027DB00 /* Showbag.m */,
 				9BD0729414BCE69F002D297F /* SVProgressHUD.h */,
 				9BD0729514BCE69F002D297F /* SVProgressHUD.m */,
 				9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */,
@@ -904,6 +914,9 @@
 		9B93B73514BC024800FB31CE /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				9B830A5F14BEC0C40028336C /* EventsMainVC.h */,
+				9B830A6014BEC0C40028336C /* EventsMainVC.m */,
+				9B830A6114BEC0C40028336C /* EventsMainVC.xib */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1029,6 +1042,7 @@
 				9B8BF94B14BEB0D10025BE01 /* Localizable.strings in Resources */,
 				9B8BF95214BEB0D10025BE01 /* FBConnect.bundle in Resources */,
 				9B8BF97714BEB1AC0025BE01 /* MapVC.xib in Resources */,
+				9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1075,7 +1089,6 @@
 				9B93B76114BC0CF000FB31CE /* HTTPFetcher.m in Sources */,
 				9BD0728A14BCE434002D297F /* Reachability.m in Sources */,
 				9BD0729714BCE69F002D297F /* SVProgressHUD.m in Sources */,
-				9B585DE514BCF0770027DB00 /* Showbag.m in Sources */,
 				9B585DFA14BD2B720027DB00 /* ShowbagsTableCell.m in Sources */,
 				9B585E0C14BD2EC10027DB00 /* ASIDataCompressor.m in Sources */,
 				9B585E0D14BD2EC10027DB00 /* ASIDataDecompressor.m in Sources */,
@@ -1146,6 +1159,9 @@
 				9B8BF96C14BEB0D10025BE01 /* SHKShareMenu.m in Sources */,
 				9B8BF96D14BEB0D10025BE01 /* SHKViewControllerWrapper.m in Sources */,
 				9B8BF97614BEB1AC0025BE01 /* MapVC.m in Sources */,
+				9B830A5A14BEBFD30028336C /* Showbag.m in Sources */,
+				9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */,
+				9B830A6614BEC6520028336C /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
