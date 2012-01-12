@@ -347,7 +347,7 @@
 - (NSString *)contentString
 {
     
-    NSLog(@"content:%@", content);
+    //NSLog(@"content:%@", content);
     
 	for (NSObject *object in content)
 	{

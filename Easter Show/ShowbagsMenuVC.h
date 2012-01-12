@@ -22,6 +22,7 @@
 	BOOL viewLoaded;
 	BOOL showbagsLoaded;
 	BOOL loading;
+	BOOL searching;
 	
 	UIButton *cokeOfferButton;
 	

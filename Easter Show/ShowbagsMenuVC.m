@@ -242,7 +242,12 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-	UITableView *tableView = self.menuTable;
+	
+	UITableView *tableView;	
+	if (searching) tableView = self.searchTable;
+	else tableView = self.menuTable;
+	
+	Showbag *showbag;
 	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
@@ -254,7 +259,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			//[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+			if (searching) showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
+			else showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
+			[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] withShowbag:showbag];
 			break;
 			
 		case NSFetchedResultsChangeMove:
@@ -414,26 +421,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[request setHTTPMethod:@"GET"];	
 	
 	// XML Fetcher
-	// @"//add | //update | //remove"
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add" receiver:self action:@selector(receiveResponse:)];
+	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
 	[fetcher start];
-	
-	/*
-	else {
-		
-		// Fetch Showbag objects for the default price range ($10 and under)
-		//self.showbags = [appDelegate getShowbags:minPrice maxPrice:maxPrice startIndex:0];
-		
-		self.filterButton1.enabled = YES;
-		self.filterButton2.enabled = YES;
-		self.filterButton3.enabled = YES;
-		
-		// This view has been loaded now
-		self.viewLoaded = YES;
-		
-		[self.menuTable reloadData];
-	}
-	*/
 }
 
 
@@ -442,7 +431,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
     
     XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
 	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -476,21 +465,37 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			}
 			else if ([[node name] isEqualToString:@"update"]) {
 				
-				// Pass the child node (<collection> elements) to 
-				// the update method
-				//[self updateCollections:node.childNodes];
+				for (XPathResultNode *showbagNode in node.childNodes) { 
+					
+					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
+					
+					// Store the showbag's ID
+					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
+					
+					// Store the rest of the showbag's attributes
+					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
+						
+						if ([[showbagChild contentString] length] > 0)
+							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
+					}
+					
+					// Store Showbag data in Core Data persistent store
+					[Showbag updateShowbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
+				}
 			}
 			else if ([[node name] isEqualToString:@"remove"]) {
 				
-				// Pass the child node (<collection> elements) to 
-				// the delete method
-				//[self deleteCollections:node.childNodes];
+				for (XPathResultNode *showbagNode in node.childNodes) {
+				
+					NSString *idString = [[showbagNode attributes] objectForKey:@"id"];
+					NSNumber *showbagID = [NSNumber numberWithInt:[idString intValue]];
+					
+					// Delete Showbag from the persistent store
+					Showbag *showbag = [Showbag showbagWithID:showbagID inManagedObjectContext:self.managedObjectContext];
+					
+					if (showbag) [self.managedObjectContext deleteObject:showbag];
+				}
 			}
-			
-			
-			
-			
-			
 		}		
 	}
 	

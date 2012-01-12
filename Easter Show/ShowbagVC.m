@@ -9,8 +9,8 @@
 #import "ShowbagVC.h"
 #import "Showbag.h"
 #import "SRESAppDelegate.h"
-//#import "SHK.h"
-//#import "MapVC.h"
+#import "SHK.h"
+#import "MapVC.h"
 //#import "GANTracker.h"
 #import "ImageManager.h"
 #import "StringHelper.h"
@@ -61,7 +61,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	[self updateAddToFavouritesButton];
 	
 	// Setup navigation bar elements
-	//[self setupNavBar];
+	[self setupNavBar];
 }
 	
 
@@ -106,15 +106,15 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 - (void)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
-	/*NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
-	NSString *message = [NSString stringWithFormat:@"Sydney Royal Easter Show: %@", [self.showbag showbagTitle]];
+	NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
+	NSString *message = [NSString stringWithFormat:@"Sydney Royal Easter Show: %@", [self.showbag title]];
 	SHKItem *item = [SHKItem URL:url title:message];
 	
 	// Get the ShareKit action sheet
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	
 	// Display the action sheet
-	[actionSheet showFromTabBar:self.tabBarController.tabBar];*/
+	[actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 
@@ -226,25 +226,23 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)goToMap:(id)sender {
 	
-	/*double lat = [[self.showbag showbagLatitude] doubleValue];
-	double lon = [[self.showbag showbagLongitude] doubleValue];
+	double lat = [[self.showbag latitude] doubleValue];
+	double lon = [[self.showbag longitude] doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	[mapVC setMapID:MAP_ID_SHOPPING];
 	[mapVC setCenterLatitude:lat];
 	[mapVC setCenterLongitude:lon];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:mapVC animated:YES];
 	[mapVC release];
-	*/
 }
 
 
 - (void)setupNavBar {
 	
 	// Add button to Navigation Title 
-	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
+	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
 	
@@ -261,7 +259,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 	backItem.target = self;
 	self.navigationItem.leftBarButtonItem = backItem;
-	[backItem release];
+	[backItem release];*/
 }
 
 
