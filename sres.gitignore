@@ -12,6 +12,7 @@ build/
 **/*.perspectivev*
 *.mode2v3
 *.mode1v3
+xcuserdata/
 Easter Show.xcodeproj/xcuserdata/*
 Easter Show.xcodeproj/project.xcworkspace/xcuserdata/*
 
