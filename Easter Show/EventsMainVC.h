@@ -16,6 +16,8 @@
 	
 	XMLFetcher *fetcher;
 	
+	UIButton *bigButton;
+	
 	NSManagedObjectContext *managedObjectContext;
 	
 	BOOL eventsLoaded;
@@ -32,6 +34,8 @@
 	BOOL updatingEvent;
 }
 
+@property (nonatomic, retain) IBOutlet UIButton *bigButton;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) NSMutableArray *days;
@@ -47,5 +51,6 @@
 - (void)setupNavBar;
 - (void)showLoading;
 - (void)hideLoading;
+- (IBAction)goToApril17:(id)sender;
 
 @end

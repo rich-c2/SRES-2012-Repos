@@ -126,7 +126,12 @@
 		9B93B76514BC0D2A00FB31CE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B76414BC0D2A00FB31CE /* CoreLocation.framework */; };
 		9B93B76714BC0D3900FB31CE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B76614BC0D3900FB31CE /* SystemConfiguration.framework */; };
 		9B93B76914BC0D4D00FB31CE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B76814BC0D4D00FB31CE /* MessageUI.framework */; };
-		9BD0728A14BCE434002D297F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD0728914BCE434002D297F /* Reachability.m */; };
+		9B99E18214BFE39A000884CC /* EventSelectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18014BFE39A000884CC /* EventSelectionVC.m */; };
+		9B99E18314BFE39A000884CC /* EventSelectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18114BFE39A000884CC /* EventSelectionVC.xib */; };
+		9B99E18B14BFE723000884CC /* EventTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18914BFE722000884CC /* EventTableCell.m */; };
+		9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18A14BFE722000884CC /* EventTableCell.xib */; };
+		9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18E14BFF529000884CC /* EventsLandingVC.m */; };
+		9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18F14BFF529000884CC /* EventsLandingVC.xib */; };
 		9BD0729114BCE4AF002D297F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD0729014BCE4AF002D297F /* Security.framework */; };
 		9BD0729314BCE687002D297F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD0729214BCE687002D297F /* QuartzCore.framework */; };
 		9BD0729714BCE69F002D297F /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD0729514BCE69F002D297F /* SVProgressHUD.m */; };
@@ -356,8 +361,15 @@
 		9B93B76414BC0D2A00FB31CE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9B93B76614BC0D3900FB31CE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9B93B76814BC0D4D00FB31CE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		9BD0728814BCE434002D297F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		9BD0728914BCE434002D297F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9B99E17F14BFE39A000884CC /* EventSelectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectionVC.h; sourceTree = "<group>"; };
+		9B99E18014BFE39A000884CC /* EventSelectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSelectionVC.m; sourceTree = "<group>"; };
+		9B99E18114BFE39A000884CC /* EventSelectionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventSelectionVC.xib; sourceTree = "<group>"; };
+		9B99E18814BFE722000884CC /* EventTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableCell.h; sourceTree = "<group>"; };
+		9B99E18914BFE722000884CC /* EventTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableCell.m; sourceTree = "<group>"; };
+		9B99E18A14BFE722000884CC /* EventTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableCell.xib; sourceTree = "<group>"; };
+		9B99E18D14BFF528000884CC /* EventsLandingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsLandingVC.h; sourceTree = "<group>"; };
+		9B99E18E14BFF529000884CC /* EventsLandingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsLandingVC.m; sourceTree = "<group>"; };
+		9B99E18F14BFF529000884CC /* EventsLandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsLandingVC.xib; sourceTree = "<group>"; };
 		9BD0729014BCE4AF002D297F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9BD0729214BCE687002D297F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9BD0729414BCE69F002D297F /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
@@ -857,8 +869,6 @@
 				9BD0729414BCE69F002D297F /* SVProgressHUD.h */,
 				9BD0729514BCE69F002D297F /* SVProgressHUD.m */,
 				9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */,
-				9BD0728814BCE434002D297F /* Reachability.h */,
-				9BD0728914BCE434002D297F /* Reachability.m */,
 				9B93B75C14BC0CDE00FB31CE /* XPathResultNode.h */,
 				9B93B75D14BC0CDE00FB31CE /* XPathResultNode.m */,
 				9B93B75F14BC0CF000FB31CE /* HTTPFetcher.h */,
@@ -914,9 +924,18 @@
 		9B93B73514BC024800FB31CE /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				9B99E18814BFE722000884CC /* EventTableCell.h */,
+				9B99E18914BFE722000884CC /* EventTableCell.m */,
+				9B99E18A14BFE722000884CC /* EventTableCell.xib */,
 				9B830A5F14BEC0C40028336C /* EventsMainVC.h */,
 				9B830A6014BEC0C40028336C /* EventsMainVC.m */,
 				9B830A6114BEC0C40028336C /* EventsMainVC.xib */,
+				9B99E17F14BFE39A000884CC /* EventSelectionVC.h */,
+				9B99E18014BFE39A000884CC /* EventSelectionVC.m */,
+				9B99E18114BFE39A000884CC /* EventSelectionVC.xib */,
+				9B99E18D14BFF528000884CC /* EventsLandingVC.h */,
+				9B99E18E14BFF529000884CC /* EventsLandingVC.m */,
+				9B99E18F14BFF529000884CC /* EventsLandingVC.xib */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1043,6 +1062,9 @@
 				9B8BF95214BEB0D10025BE01 /* FBConnect.bundle in Resources */,
 				9B8BF97714BEB1AC0025BE01 /* MapVC.xib in Resources */,
 				9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */,
+				9B99E18314BFE39A000884CC /* EventSelectionVC.xib in Resources */,
+				9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */,
+				9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,7 +1109,6 @@
 				9B93B75B14BC0CCF00FB31CE /* XMLFetcher.m in Sources */,
 				9B93B75E14BC0CDE00FB31CE /* XPathResultNode.m in Sources */,
 				9B93B76114BC0CF000FB31CE /* HTTPFetcher.m in Sources */,
-				9BD0728A14BCE434002D297F /* Reachability.m in Sources */,
 				9BD0729714BCE69F002D297F /* SVProgressHUD.m in Sources */,
 				9B585DFA14BD2B720027DB00 /* ShowbagsTableCell.m in Sources */,
 				9B585E0C14BD2EC10027DB00 /* ASIDataCompressor.m in Sources */,
@@ -1162,6 +1183,9 @@
 				9B830A5A14BEBFD30028336C /* Showbag.m in Sources */,
 				9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */,
 				9B830A6614BEC6520028336C /* Event.m in Sources */,
+				9B99E18214BFE39A000884CC /* EventSelectionVC.m in Sources */,
+				9B99E18B14BFE723000884CC /* EventTableCell.m in Sources */,
+				9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

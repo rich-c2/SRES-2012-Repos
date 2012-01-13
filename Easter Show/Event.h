@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * subCategory;
 @property (nonatomic, retain) NSString * thumbURL;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * eventDate;
 
 
 + (Event *)eventWithEventData:(NSDictionary *)eventData 

@@ -23,4 +23,15 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * version;
 
+
++ (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
+				   inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Showbag *)showbagWithID:(NSNumber *)showbagID 
+	inManagedObjectContext:(NSManagedObjectContext *)context;
+
+
 @end

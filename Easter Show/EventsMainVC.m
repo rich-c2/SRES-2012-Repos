@@ -12,10 +12,11 @@
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "Event.h"
+#import "EventSelectionVC.h"
 
 @implementation EventsMainVC
 
-@synthesize days;
+@synthesize days, bigButton;
 @synthesize calendarContainer, managedObjectContext;
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -37,10 +38,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[self setupNavBar];
+	//[self setupNavBar];
 
-	[self initCalendarData];
-	[self createCalendar];
+	//[self initCalendarData];
+	//[self createCalendar];
 }
 
 
@@ -65,6 +66,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.bigButton = nil;
 	self.days = nil;
 	self.calendarContainer = nil;
 	self.managedObjectContext = nil;
@@ -467,8 +469,22 @@
 	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
 } 
 
+
+- (IBAction)goToApril17:(id)sender {
+
+	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
+	[eventSelectionVC setSelectedDate:@"April 17"];
+	[eventSelectionVC setManagedObjectContext:self.managedObjectContext];
+	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventSelectionVC animated:YES];
+	[eventSelectionVC release];
+}
+
+
 - (void)dealloc {
 	
+	[bigButton release];
 	[days release];
 	[calendarContainer release];
 	[progressContainer release];

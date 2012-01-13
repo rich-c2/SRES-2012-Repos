@@ -26,10 +26,8 @@
 	
 	if (!error && !event) {
 		
-		NSLog(@"Event CREATED:%@", [eventData objectForKey:@"eventTitle"]);
-		
 		// Create a new Artist
-		event = [NSEntityDescription insertNewObjectForEntityForName:@"Showbag" inManagedObjectContext:context];
+		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 		event.eventID = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
 		event.title = [eventData objectForKey:@"eventTitle"];
 		event.eventDescription = [eventData objectForKey:@"description"];
@@ -37,7 +35,9 @@
 		event.thumbURL = [eventData objectForKey:@"thumbURL"];
 		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
 		event.longitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"longitude"] doubleValue]];
+		event.eventDate = [eventData objectForKey:@"eventDate"];
 		
+		NSLog(@"Event CREATED:%@", event.title);
 	}
 	
 	return event;
@@ -59,10 +59,10 @@
 	
 	if ((!error && !event) || (!error && event)) {
 		
-		NSLog(@"event UPDATED:%@", [eventData objectForKey:@"eventTitle"]);
+		NSLog(@"Event UPDATED:%@", [eventData objectForKey:@"eventTitle"]);
 		
 		// Create a new Artist
-		event = [NSEntityDescription insertNewObjectForEntityForName:@"event" inManagedObjectContext:context];
+		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 		event.eventID = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
 		event.title = [eventData objectForKey:@"eventTitle"];
 		event.eventDescription = [eventData objectForKey:@"description"];
@@ -70,6 +70,7 @@
 		event.thumbURL = [eventData objectForKey:@"thumbURL"];
 		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
 		event.longitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"longitude"] doubleValue]];
+		event.eventDate = [eventData objectForKey:@"eventDate"];
 	}
 	
 	return event;
@@ -105,5 +106,6 @@
 @dynamic subCategory;
 @dynamic thumbURL;
 @dynamic title;
+@dynamic eventDate;
 
 @end

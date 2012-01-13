@@ -8,7 +8,7 @@
 
 #import "SRESAppDelegate.h"
 #import "MoreVC.h"
-#import "EventsMainVC.h"
+#import "EventsLandingVC.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
@@ -18,14 +18,14 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize tabBarController, moreVC, eventsMainVC;
+@synthesize tabBarController, moreVC, eventsLandingVC;
 
 - (void)dealloc
 {
 	[_window release];
 	[tabBarController release];
 	[moreVC release];
-	[eventsMainVC release];
+	[eventsLandingVC release];
 	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
@@ -39,14 +39,14 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 	
-	// EventsMainVC
-	eventsMainVC = [[EventsMainVC alloc] initWithNibName:@"EventsMainVC" bundle:nil];
-	[eventsMainVC setManagedObjectContext:self.managedObjectContext];
+	// EventsLandingVC
+	eventsLandingVC = [[EventsLandingVC alloc] initWithNibName:@"EventsLandingVC" bundle:nil];
+	[eventsLandingVC setManagedObjectContext:self.managedObjectContext];
 	
 	UINavigationController *navcon2 = [[UINavigationController alloc] init];
 	[navcon2.navigationBar setTintColor:[UIColor redColor]];
-	[navcon2 pushViewController:eventsMainVC animated:NO];
-	[eventsMainVC release];
+	[navcon2 pushViewController:eventsLandingVC animated:NO];
+	[eventsLandingVC release];
 	
 	
 	// MoreVC
@@ -61,14 +61,14 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	// Create a tabbar controller and an array to contain the view controllers
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localViewControllersArray = [[NSMutableArray alloc] initWithCapacity:4];
-	[localViewControllersArray addObject:navcon];
 	[localViewControllersArray addObject:navcon2];
+	[localViewControllersArray addObject:navcon];
 	/*[localViewControllersArray addObject:navcon3];
 	[localViewControllersArray addObject:navcon4];*/
 	
 	[navcon release];
-	/*[navcon2 release];
-	[navcon3 release];
+	[navcon2 release];
+	/*[navcon3 release];
 	[navcon4 release];*/
 	
 	// set the tab bar controller view controller array to the localViewControllersArray
