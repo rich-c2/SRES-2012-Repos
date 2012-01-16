@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B28000C14C4002F004231CC /* Favourite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B28000B14C4002F004231CC /* Favourite.m */; };
+		9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9D14C3F84C00B9B233 /* EventVC.m */; };
+		9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */; };
 		9B585DF114BCFEFB0027DB00 /* showbagFilter-10-17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */; };
 		9B585DF214BCFEFB0027DB00 /* showbagFilter-10-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEC14BCFEFB0027DB00 /* showbagFilter-10-17.png */; };
 		9B585DF314BCFEFB0027DB00 /* showbagFilter-over17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DED14BCFEFB0027DB00 /* showbagFilter-over17-on.png */; };
@@ -29,6 +32,20 @@
 		9B585E2214BD3A340027DB00 /* placeholder-showbags-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2114BD3A340027DB00 /* placeholder-showbags-thumb.jpg */; };
 		9B585E2614BD40EA0027DB00 /* ShowbagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B585E2414BD40E90027DB00 /* ShowbagVC.m */; };
 		9B585E2714BD40EA0027DB00 /* ShowbagVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2514BD40E90027DB00 /* ShowbagVC.xib */; };
+		9B67C43914C3A48600C4A78C /* FoodMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C43714C3A48600C4A78C /* FoodMenuVC.m */; };
+		9B67C43A14C3A48600C4A78C /* FoodMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */; };
+		9B67C44214C3A75200C4A78C /* FoodTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44114C3A75200C4A78C /* FoodTableCell.m */; };
+		9B67C44714C3B74E00C4A78C /* FoodTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */; };
+		9B67C44B14C3C64D00C4A78C /* FoodVenueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */; };
+		9B67C44C14C3C64D00C4A78C /* FoodVenueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */; };
+		9B67C44F14C3D3F800C4A78C /* FoodVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44E14C3D3F700C4A78C /* FoodVenue.m */; };
+		9B67C45314C3DA0200C4A78C /* OffersMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */; };
+		9B67C45414C3DA0200C4A78C /* OffersMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */; };
+		9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45614C3E55F00C4A78C /* OfferTableCell.m */; };
+		9B67C45914C3E56100C4A78C /* OfferTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45714C3E56000C4A78C /* OfferTableCell.xib */; };
+		9B67C45C14C3E94800C4A78C /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45B14C3E94700C4A78C /* Offer.m */; };
+		9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45E14C3F24E00C4A78C /* FavouritesMenuVC.m */; };
+		9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */; };
 		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
 		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
 		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
@@ -149,6 +166,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B28000A14C4002F004231CC /* Favourite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favourite.h; sourceTree = "<group>"; };
+		9B28000B14C4002F004231CC /* Favourite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favourite.m; sourceTree = "<group>"; };
+		9B3D0C9C14C3F84C00B9B233 /* EventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventVC.h; sourceTree = "<group>"; };
+		9B3D0C9D14C3F84C00B9B233 /* EventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventVC.m; sourceTree = "<group>"; };
+		9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventVC.xib; sourceTree = "<group>"; };
 		9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-10-17-on.png"; sourceTree = "<group>"; };
 		9B585DEC14BCFEFB0027DB00 /* showbagFilter-10-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-10-17.png"; sourceTree = "<group>"; };
 		9B585DED14BCFEFB0027DB00 /* showbagFilter-over17-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "showbagFilter-over17-on.png"; sourceTree = "<group>"; };
@@ -184,6 +206,28 @@
 		9B585E2314BD40E90027DB00 /* ShowbagVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowbagVC.h; sourceTree = "<group>"; };
 		9B585E2414BD40E90027DB00 /* ShowbagVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowbagVC.m; sourceTree = "<group>"; };
 		9B585E2514BD40E90027DB00 /* ShowbagVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowbagVC.xib; sourceTree = "<group>"; };
+		9B67C43614C3A48600C4A78C /* FoodMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodMenuVC.h; sourceTree = "<group>"; };
+		9B67C43714C3A48600C4A78C /* FoodMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodMenuVC.m; sourceTree = "<group>"; };
+		9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodMenuVC.xib; sourceTree = "<group>"; };
+		9B67C44014C3A75100C4A78C /* FoodTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTableCell.h; sourceTree = "<group>"; };
+		9B67C44114C3A75200C4A78C /* FoodTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableCell.m; sourceTree = "<group>"; };
+		9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodTableCell.xib; sourceTree = "<group>"; };
+		9B67C44814C3C64D00C4A78C /* FoodVenueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodVenueVC.h; sourceTree = "<group>"; };
+		9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodVenueVC.m; sourceTree = "<group>"; };
+		9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodVenueVC.xib; sourceTree = "<group>"; };
+		9B67C44D14C3D3F700C4A78C /* FoodVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodVenue.h; sourceTree = "<group>"; };
+		9B67C44E14C3D3F700C4A78C /* FoodVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodVenue.m; sourceTree = "<group>"; };
+		9B67C45014C3DA0000C4A78C /* OffersMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMenuVC.h; sourceTree = "<group>"; };
+		9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMenuVC.m; sourceTree = "<group>"; };
+		9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OffersMenuVC.xib; sourceTree = "<group>"; };
+		9B67C45514C3E55F00C4A78C /* OfferTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferTableCell.h; sourceTree = "<group>"; };
+		9B67C45614C3E55F00C4A78C /* OfferTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferTableCell.m; sourceTree = "<group>"; };
+		9B67C45714C3E56000C4A78C /* OfferTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferTableCell.xib; sourceTree = "<group>"; };
+		9B67C45A14C3E94600C4A78C /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offer.h; sourceTree = "<group>"; };
+		9B67C45B14C3E94700C4A78C /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offer.m; sourceTree = "<group>"; };
+		9B67C45D14C3F24E00C4A78C /* FavouritesMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritesMenuVC.h; sourceTree = "<group>"; };
+		9B67C45E14C3F24E00C4A78C /* FavouritesMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesMenuVC.m; sourceTree = "<group>"; };
+		9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesMenuVC.xib; sourceTree = "<group>"; };
 		9B830A5814BEBFD30028336C /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
 		9B830A5914BEBFD30028336C /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
 		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
@@ -859,8 +903,15 @@
 				9B585E1214BD2EDC0027DB00 /* ImageManager.h */,
 				9B585E1314BD2EDC0027DB00 /* ImageManager.m */,
 				9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */,
+				9B28000A14C4002F004231CC /* Favourite.h */,
+				9B28000B14C4002F004231CC /* Favourite.m */,
+				9B67C45A14C3E94600C4A78C /* Offer.h */,
+				9B67C45B14C3E94700C4A78C /* Offer.m */,
+				9B67C44D14C3D3F700C4A78C /* FoodVenue.h */,
+				9B67C44E14C3D3F700C4A78C /* FoodVenue.m */,
 				9B830A6414BEC6520028336C /* Event.h */,
 				9B830A6514BEC6520028336C /* Event.m */,
+				9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */,
 				9B830A5814BEBFD30028336C /* Showbag.h */,
 				9B830A5914BEBFD30028336C /* Showbag.m */,
 				9B585DF714BD2B710027DB00 /* ShowbagsTableCell.h */,
@@ -924,6 +975,9 @@
 		9B93B73514BC024800FB31CE /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				9B3D0C9C14C3F84C00B9B233 /* EventVC.h */,
+				9B3D0C9D14C3F84C00B9B233 /* EventVC.m */,
+				9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */,
 				9B99E18814BFE722000884CC /* EventTableCell.h */,
 				9B99E18914BFE722000884CC /* EventTableCell.m */,
 				9B99E18A14BFE722000884CC /* EventTableCell.xib */,
@@ -943,6 +997,9 @@
 		9B93B73614BC024F00FB31CE /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
+				9B67C45D14C3F24E00C4A78C /* FavouritesMenuVC.h */,
+				9B67C45E14C3F24E00C4A78C /* FavouritesMenuVC.m */,
+				9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */,
 			);
 			name = Favourites;
 			sourceTree = "<group>";
@@ -969,6 +1026,20 @@
 				9B93B73D14BC03BB00FB31CE /* MoreVC.h */,
 				9B93B73E14BC03BB00FB31CE /* MoreVC.m */,
 				9B93B73F14BC03BB00FB31CE /* MoreVC.xib */,
+				9B67C44014C3A75100C4A78C /* FoodTableCell.h */,
+				9B67C44114C3A75200C4A78C /* FoodTableCell.m */,
+				9B67C44814C3C64D00C4A78C /* FoodVenueVC.h */,
+				9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */,
+				9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */,
+				9B67C43614C3A48600C4A78C /* FoodMenuVC.h */,
+				9B67C43714C3A48600C4A78C /* FoodMenuVC.m */,
+				9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */,
+				9B67C45514C3E55F00C4A78C /* OfferTableCell.h */,
+				9B67C45614C3E55F00C4A78C /* OfferTableCell.m */,
+				9B67C45714C3E56000C4A78C /* OfferTableCell.xib */,
+				9B67C45014C3DA0000C4A78C /* OffersMenuVC.h */,
+				9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */,
+				9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1065,6 +1136,13 @@
 				9B99E18314BFE39A000884CC /* EventSelectionVC.xib in Resources */,
 				9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */,
 				9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */,
+				9B67C43A14C3A48600C4A78C /* FoodMenuVC.xib in Resources */,
+				9B67C44714C3B74E00C4A78C /* FoodTableCell.xib in Resources */,
+				9B67C44C14C3C64D00C4A78C /* FoodVenueVC.xib in Resources */,
+				9B67C45414C3DA0200C4A78C /* OffersMenuVC.xib in Resources */,
+				9B67C45914C3E56100C4A78C /* OfferTableCell.xib in Resources */,
+				9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */,
+				9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,6 +1264,16 @@
 				9B99E18214BFE39A000884CC /* EventSelectionVC.m in Sources */,
 				9B99E18B14BFE723000884CC /* EventTableCell.m in Sources */,
 				9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */,
+				9B67C43914C3A48600C4A78C /* FoodMenuVC.m in Sources */,
+				9B67C44214C3A75200C4A78C /* FoodTableCell.m in Sources */,
+				9B67C44B14C3C64D00C4A78C /* FoodVenueVC.m in Sources */,
+				9B67C44F14C3D3F800C4A78C /* FoodVenue.m in Sources */,
+				9B67C45314C3DA0200C4A78C /* OffersMenuVC.m in Sources */,
+				9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */,
+				9B67C45C14C3E94800C4A78C /* Offer.m in Sources */,
+				9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */,
+				9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */,
+				9B28000C14C4002F004231CC /* Favourite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

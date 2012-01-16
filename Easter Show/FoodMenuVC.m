@@ -1,74 +1,55 @@
 //
-//  ShowbagsMenuVC.m
-//  SRES
+//  FoodMenuVC.m
+//  Easter Show
 //
-//  Created by Richard Lee on 15/02/11.
-//  Copyright 2011 C2 Media Pty Ltd. All rights reserved.
+//  Created by Richard Lee on 16/01/12.
+//  Copyright (c) 2012 C2 Media Pty Ltd. All rights reserved.
 //
 
-#import "ShowbagsMenuVC.h"
+#import "FoodMenuVC.h"
 #import "SRESAppDelegate.h"
-#import "ShowbagVC.h"
-#import "Showbag.h"
-#import "ShowbagsTableCell.h"
+#import "FoodVenueVC.h"
+#import "FoodVenue.h"
+#import "FoodTableCell.h"
 #import "StringHelper.h"
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 
-#define UNDER10_TAG 1000
-#define OVER10_UNDER1750_TAG 1001
-#define OVER1750_TAG 1002
-
-static NSString* kTableCellFont = @"Arial-BoldMT";
-static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
-
-@implementation ShowbagsMenuVC
+@implementation FoodMenuVC
 
 @synthesize fetchedResultsController, managedObjectContext;
-@synthesize internetConnectionPresent, cokeOfferButton, menuTable, search;
-@synthesize priceRanges, viewLoaded, filteredListContent, searchTable;
-@synthesize filterButton1, filterButton2, filterButton3, selectedFilterButton;
-@synthesize loadCell;
+@synthesize menuTable, searchTable, filteredListContent;
+@synthesize search, loadCell;
 
-
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	
-	self.title = @"Showbags";
-	
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	
     if (self) {
-        // Custom initialization.
+        // Custom initialization
     }
     return self;
 }
 
+- (void)didReceiveMemoryWarning {
+	
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+#pragma mark - View lifecycle
+
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
 	
 	self.filteredListContent = [NSMutableArray array];
 	
 	[self setupNavBar];
 	
-	[self.filterButton1 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-under10-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	[self.filterButton2 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-10-17-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	[self.filterButton3 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-over17-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	
-	[self.filterButton1 setSelected:YES];
-	
-	[self.selectedFilterButton setSelected:NO];
-	self.selectedFilterButton = self.filterButton1;
-	
-	[self initPriceRanges];
-	
-	minPrice = 0.0;
-	maxPrice = 9.99;
-	
-	[self fetchShowbagsFromCoreData];
+	[self fetchVenuesFromCoreData];
 }
 
 
@@ -79,35 +60,27 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)didReceiveMemoryWarning {
-	
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-
 - (void)viewDidUnload {
 	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
-	self.fetchedResultsController = nil; 
+	self.fetchedResultsController = nil;
 	self.managedObjectContext = nil;
-		
-	self.menuTable = nil;
+	
+	self.menuTable = nil; 
+	self.searchTable = nil; 
 	self.filteredListContent = nil;
-	self.searchTable = nil;
-	self.search = nil;
-	self.priceRanges = nil;
+	self.search = nil; 
+	self.loadCell = nil;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	
-	[super viewWillAppear:animated];
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
@@ -115,8 +88,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
-	if (!showbagsLoaded && !loading) {
-
+	if (!venuesLoaded && !loading) {
+		
 		[self showLoading];
 		
 		[self retrieveXML];
@@ -129,7 +102,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	
 	[self.searchTable setHidden:NO];
-
+	
 	NSString *searchTerm = [searchBar text];
 	[self handleSearchForTerm:searchTerm];
 }
@@ -138,11 +111,11 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 	
 	NSLog(@"textDidChange");
-
+	
 	if ([searchText length] == 0) {
 		
 		NSLog(@"length == 0");
-	
+		
 		[self resetSearch];
 		[self.searchTable reloadData];
 		return;
@@ -155,13 +128,13 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 - (void)resetSearch {
 	
 	NSLog(@"reset search");
-
-	//self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+	
+	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
 }
 
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-
+	
 	NSLog(@"searchBarCancelButtonClicked");
 	
 	search.text = @"";
@@ -199,9 +172,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-		fetchRequest.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:managedObjectContext];
+		fetchRequest.entity = [NSEntityDescription entityForName:@"FoodVenue" inManagedObjectContext:managedObjectContext];
         fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-		fetchRequest.predicate = [self getQueryForSelectedFilter];
+		//fetchRequest.predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice]];
 		fetchRequest.fetchBatchSize = 20;
         
         // Edit the section name key path and cache name if appropriate.
@@ -236,7 +209,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	if (searching) tableView = self.searchTable;
 	else tableView = self.menuTable;
 	
-	Showbag *showbag;
+	FoodVenue *foodVenue;
 	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
@@ -248,9 +221,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			if (searching) showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
-			else showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
-			[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] withShowbag:showbag];
+			if (searching) foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
+			else foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
+			[self configureCell:(FoodTableCell *)[tableView cellForRowAtIndexPath:indexPath] withFoodVenue:foodVenue];
 			break;
 			
 		case NSFetchedResultsChangeMove:
@@ -279,6 +252,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	// The fetch controller has sent all current change notifications, so tell the table view to process all updates.
 	[self.menuTable endUpdates];
 }
+
 
 
 #pragma mark -
@@ -313,37 +287,37 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag {
-		
-	cell.nameLabel.text = showbag.title;
-	cell.dateLable.text = [NSString stringWithFormat:@"%.2f", [showbag.price floatValue]];
+- (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue {
 	
-	[cell initImage:showbag.thumbURL];
+	cell.nameLabel.text = foodVenue.title;
+	cell.dateLabel.text = [NSString stringWithFormat:@"%@", [foodVenue venueDescription]];
+	
+	[cell initImage:foodVenue.thumbURL];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ShowbagsTableCell *cell = (ShowbagsTableCell *)[tableView dequeueReusableCellWithIdentifier:[ShowbagsTableCell reuseIdentifier]];
+    FoodTableCell *cell = (FoodTableCell *)[tableView dequeueReusableCellWithIdentifier:[FoodTableCell reuseIdentifier]];
 	
     if (cell == nil) {
 		
-        [[NSBundle mainBundle] loadNibNamed:@"ShowbagsTableCell" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"FoodTableCell" owner:self options:nil];
         cell = loadCell;
         self.loadCell = nil;
     }
 	
-	Showbag *showbag;
+	FoodVenue *foodVenue;
 	
 	// Retrieve the Showbag object
 	if (tableView == self.menuTable)
-		showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
+		foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
 	else
-		showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
+		foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
 	
-	// Retrieve Showbag object and set it's name to the cell
-	[self configureCell:cell withShowbag:showbag];
+	// Retrieve FoodVenue object and set it's name to the cell
+	[self configureCell:cell withFoodVenue:foodVenue];
 	
     return cell;
 }
@@ -353,26 +327,26 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	Showbag *showbag;
 	
-	// Retrieve the Showbag object
+	FoodVenue *foodVenue;
+	
+	// Retrieve the FoodVenue object
 	if (tableView == self.menuTable)
-		showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
+		foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
 	else
-		showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
-		
-	ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
-	[showbagVC setShowbag:showbag];
+		foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
+	
+	FoodVenueVC *foodVenueVC = [[FoodVenueVC alloc] initWithNibName:@"FoodVenueVC" bundle:nil];
+	[foodVenueVC setFoodVenue:foodVenue];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:showbagVC animated:YES];
-	[showbagVC release];
+	[self.navigationController pushViewController:foodVenueVC animated:YES];
+	[foodVenueVC release];
 }
 
 
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url {
-
+	
 	NSArray *cells = [self.menuTable visibleCells];
     [cells retain];
     SEL selector = @selector(imageLoaded:withURL:);
@@ -393,7 +367,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (void)retrieveXML {
 	
-	NSString *docName = @"showbags.xml";
+	NSString *docName = @"foodvenues.xml";
 	NSInteger lastShowbagID = 0;
 	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
 	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
@@ -425,64 +399,64 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
 	loading = NO;
-	showbagsLoaded = YES;
+	venuesLoaded = YES;
 	
 	if ([theXMLFetcher.data length] > 0) {
         
         // loop through the XPathResultNode objects that the XMLFetcher fetched
         for (XPathResultNode *node in theXMLFetcher.results) { 
-		
+			
 			if ([[node name] isEqualToString:@"add"]) {
 				
-				for (XPathResultNode *showbagNode in node.childNodes) { 
+				for (XPathResultNode *venueNode in node.childNodes) { 
 					
-					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
-				
+					NSMutableDictionary *venueData = [NSMutableDictionary dictionary];
+					
 					// Store the showbag's ID
-					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
+					[venueData setObject:[[venueNode attributes] objectForKey:@"id"] forKey:@"id"];
 					
 					// Store the rest of the showbag's attributes
-					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
+					for (XPathResultNode *venueChild in venueNode.childNodes) {
 						
-						if ([[showbagChild contentString] length] > 0)
-							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
+						if ([[venueChild contentString] length] > 0)
+							[venueData setObject:[venueChild contentString] forKey:[venueChild name]];
 					}
 					
-					// Store Showbag data in Core Data persistent store
-					[Showbag showbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
+					// Store FoodVenue data in Core Data persistent store
+					[FoodVenue venueWithVenueData:venueData inManagedObjectContext:self.managedObjectContext];
 				}
 			}
 			else if ([[node name] isEqualToString:@"update"]) {
 				
-				for (XPathResultNode *showbagNode in node.childNodes) { 
+				for (XPathResultNode *venueNode in node.childNodes) { 
 					
-					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
+					NSMutableDictionary *venueData = [NSMutableDictionary dictionary];
 					
 					// Store the showbag's ID
-					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
+					[venueData setObject:[[venueNode attributes] objectForKey:@"id"] forKey:@"id"];
 					
 					// Store the rest of the showbag's attributes
-					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
+					for (XPathResultNode *venueChild in venueNode.childNodes) {
 						
-						if ([[showbagChild contentString] length] > 0)
-							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
+						if ([[venueChild contentString] length] > 0)
+							[venueData setObject:[venueChild contentString] forKey:[venueChild name]];
 					}
 					
-					// Store Showbag data in Core Data persistent store
-					[Showbag updateShowbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
+					// Store FoodVenue data in Core Data persistent store
+					[FoodVenue updateVenueWithVenueData:venueData inManagedObjectContext:self.managedObjectContext];
 				}
 			}
 			else if ([[node name] isEqualToString:@"remove"]) {
 				
-				for (XPathResultNode *showbagNode in node.childNodes) {
-				
-					NSString *idString = [[showbagNode attributes] objectForKey:@"id"];
+				for (XPathResultNode *venueNode in node.childNodes) {
+					
+					NSString *idString = [[venueNode attributes] objectForKey:@"id"];
 					NSNumber *showbagID = [NSNumber numberWithInt:[idString intValue]];
 					
-					// Delete Showbag from the persistent store
-					Showbag *showbag = [Showbag showbagWithID:showbagID inManagedObjectContext:self.managedObjectContext];
+					// Delete FoodVenue from the persistent store
+					FoodVenue *foodVenue = [FoodVenue venueWithID:showbagID inManagedObjectContext:self.managedObjectContext];
 					
-					if (showbag) [self.managedObjectContext deleteObject:showbag];
+					if (foodVenue) [self.managedObjectContext deleteObject:foodVenue];
 				}
 			}
 		}		
@@ -491,8 +465,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	// Save the object context
 	[[self appDelegate] saveContext];
 	
-	// Fetch Showbag objets from Core Data
-	[self fetchShowbagsFromCoreData];
+	// Fetch Food venue objets from Core Data
+	[self fetchVenuesFromCoreData];
 	
 	// Hide loading view
 	[self hideLoading];
@@ -502,7 +476,19 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)fetchShowbagsFromCoreData {
+- (void)showLoading {
+	
+	[SVProgressHUD showInView:self.view status:nil networkIndicator:YES posY:-1 maskType:SVProgressHUDMaskTypeClear];
+}
+
+
+- (void)hideLoading {
+	
+	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
+} 
+
+
+- (void)fetchVenuesFromCoreData {
 	
 	NSError *error = nil;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -519,97 +505,26 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)initPriceRanges {
-
-	NSMutableArray *range1 = [[NSMutableArray alloc] init];
-	NSNumber *num1 = [[NSNumber alloc] initWithDouble:0.0];
-	NSNumber *num2 = [[NSNumber alloc] initWithDouble:9.99];
-	[range1 addObject:num1];
-	[range1 addObject:num2];
-	[num1 release];
-	[num2 release];
-	
-	NSMutableArray *range2 = [[NSMutableArray alloc] init];
-	NSNumber *num3 = [[NSNumber alloc] initWithDouble:10.0];
-	NSNumber *num4 = [[NSNumber alloc] initWithDouble:17.50];
-	[range2 addObject:num3];
-	[range2 addObject:num4];
-	[num3 release];
-	[num4 release];
-	
-	NSMutableArray *range3 = [[NSMutableArray alloc] init];
-	NSNumber *num5 = [[NSNumber alloc] initWithDouble:17.50];
-	NSNumber *num6 = [[NSNumber alloc] initWithDouble:1000.0];
-	[range3 addObject:num5];
-	[range3 addObject:num6];
-	[num5 release];
-	[num6 release];
-	
-	NSArray *tempRanges = [[NSArray alloc] initWithObjects:range1, range2, range3, nil];
-	[range1 release];
-	[range2 release];
-	[range3 release];
-
-
-	self.priceRanges = tempRanges;
-	[tempRanges release];
-}
-
-
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
-}
-
-
-- (void)filterShowbags:(id)sender {
-	
-	UIButton *btn = (UIButton *)sender;
-	NSMutableArray *range;
-	
-	[btn setSelected:YES];
-	
-	[self.selectedFilterButton setSelected:NO];
-	self.selectedFilterButton = btn;
-
-	range = [self.priceRanges objectAtIndex:btn.tag];
-
-	// min price is at 0, max at 1
-	minPrice = [[range objectAtIndex:0] doubleValue];
-	maxPrice = [[range objectAtIndex:1] doubleValue];
-	
-	[NSFetchedResultsController deleteCacheWithName:nil];
-	self.fetchedResultsController.fetchRequest.predicate = [self getQueryForSelectedFilter];
-	
-	// Query the persistent store
-	[self fetchShowbagsFromCoreData];
-	
-	[self.menuTable reloadData];
-	[self.searchTable reloadData];
-}
-
-
 - (void)setupNavBar {
 	
 	// Add button to Navigation Title 
 	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
-	[image setBackgroundColor:[UIColor clearColor]];
-	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
-	
-	self.navigationItem.titleView = image;
-	[image release];
-	
-	// Add back button to nav bar
-	CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
-	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;*/
+	 [image setBackgroundColor:[UIColor clearColor]];
+	 [image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
+	 
+	 self.navigationItem.titleView = image;
+	 [image release];
+	 
+	 // Add back button to nav bar
+	 CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
+	 UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	 [backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
+	 [backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+	 backButton.frame = btnFrame;
+	 
+	 UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+	 backItem.target = self;
+	 self.navigationItem.leftBarButtonItem = backItem;*/
 	
 	
 	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -622,7 +537,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)startSearch:(id)sender {
-
+	
 	// MAKE THE SEARCH RESULTS TABLE VISIBLE
 	// MAKE THE SEARCH BAR VISIBLE 
 	[self.search setHidden:NO];
@@ -639,41 +554,18 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)showLoading {
-	
-	[SVProgressHUD showInView:self.view status:nil networkIndicator:YES posY:-1 maskType:SVProgressHUDMaskTypeClear];
-}
-
-
-- (void)hideLoading {
-	
-	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
-} 
-
-
-- (NSPredicate *)getQueryForSelectedFilter {
-
-	NSString *queryString = [NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice];
-	
-	NSPredicate *query = [NSPredicate predicateWithFormat:queryString];
-	
-	return query;
-}
-
-
 - (void)dealloc {
 	
 	[fetchedResultsController release];
 	[managedObjectContext release];
-		
+	
 	[menuTable release];
 	[filteredListContent release];
 	[searchTable release];
 	[search release];
-	[priceRanges release];
+	[loadCell release];
 	
     [super dealloc];
 }
-
 
 @end

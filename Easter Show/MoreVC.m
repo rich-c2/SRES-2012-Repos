@@ -8,6 +8,8 @@
 
 #import "MoreVC.h"
 #import "ShowbagsMenuVC.h"
+#import "FoodMenuVC.h"
+#import "OffersMenuVC.h"
 
 @implementation MoreVC
 
@@ -174,20 +176,15 @@
 		CarnivalMenuVC *carnivalMenuVC = [[CarnivalMenuVC alloc] initWithNibName:@"CarnivalMenuVC" bundle:nil];
 		[self.navigationController pushViewController:carnivalMenuVC animated:YES];
 		[carnivalMenuVC release];
-	}
+	}*/
 	else if ([selectedVC isEqualToString:@"Food"]) {
 		
 		FoodMenuVC *foodMenuVC = [[FoodMenuVC alloc] initWithNibName:@"FoodMenuVC" bundle:nil];
+		[foodMenuVC setManagedObjectContext:self.managedObjectContext];
+		
 		[self.navigationController pushViewController:foodMenuVC animated:YES];
 		[foodMenuVC release];
 	}
-	else if ([selectedVC isEqualToString:@"Offers"]) {
-		
-		OffersMenuVC *offersMenuVC = [[OffersMenuVC alloc] initWithNibName:@"OffersMenuVC" bundle:nil];
-		[self.navigationController pushViewController:offersMenuVC animated:YES];
-		[offersMenuVC release];
-	}
-	*/
 }
 
 

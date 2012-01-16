@@ -18,7 +18,7 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"title = %@", [eventData objectForKey:@"eventTitle"]];
+	request.predicate = [NSPredicate predicateWithFormat:@"eventID = %@", [eventData objectForKey:@"id"]];
 	
 	NSError *error = nil;
 	event = [[context executeFetchRequest:request error:&error] lastObject];
@@ -30,7 +30,7 @@
 		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 		event.eventID = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
 		event.title = [eventData objectForKey:@"eventTitle"];
-		event.eventDescription = [eventData objectForKey:@"description"];
+		event.eventDescription = [eventData objectForKey:@"eventDescription"];
 		event.imageURL = [eventData objectForKey:@"imageURL"];
 		event.thumbURL = [eventData objectForKey:@"thumbURL"];
 		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
@@ -51,7 +51,7 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"title = %@", [eventData objectForKey:@"eventTitle"]];
+	request.predicate = [NSPredicate predicateWithFormat:@"eventID = %@", [eventData objectForKey:@"id"]];
 	
 	NSError *error = nil;
 	event = [[context executeFetchRequest:request error:&error] lastObject];
@@ -65,7 +65,7 @@
 		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 		event.eventID = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
 		event.title = [eventData objectForKey:@"eventTitle"];
-		event.eventDescription = [eventData objectForKey:@"description"];
+		event.eventDescription = [eventData objectForKey:@"eventDescription"];
 		event.imageURL = [eventData objectForKey:@"imageURL"];
 		event.thumbURL = [eventData objectForKey:@"thumbURL"];
 		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];

@@ -9,6 +9,8 @@
 #import "SRESAppDelegate.h"
 #import "MoreVC.h"
 #import "EventsLandingVC.h"
+#import "OffersMenuVC.h"
+#import "FavouritesMenuVC.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
@@ -18,7 +20,7 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize tabBarController, moreVC, eventsLandingVC;
+@synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC;
 
 - (void)dealloc
 {
@@ -26,6 +28,7 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	[tabBarController release];
 	[moreVC release];
 	[eventsLandingVC release];
+	[offersMenuVC release];
 	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
@@ -49,6 +52,25 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	[eventsLandingVC release];
 	
 	
+	// EventsLandingVC
+	favsMenuVC = [[FavouritesMenuVC alloc] initWithNibName:@"FavouritesMenuVC" bundle:nil];
+	[favsMenuVC setManagedObjectContext:self.managedObjectContext];
+	
+	UINavigationController *navcon4 = [[UINavigationController alloc] init];
+	[navcon4.navigationBar setTintColor:[UIColor redColor]];
+	[navcon4 pushViewController:favsMenuVC animated:NO];
+	[favsMenuVC release];
+	
+	
+	offersMenuVC = [[OffersMenuVC alloc] initWithNibName:@"OffersMenuVC" bundle:nil];
+	[offersMenuVC setManagedObjectContext:self.managedObjectContext];
+	
+	UINavigationController *navcon3 = [[UINavigationController alloc] init];
+	[navcon3.navigationBar setTintColor:[UIColor redColor]];
+	[navcon3 pushViewController:offersMenuVC animated:NO];
+	[offersMenuVC release];
+	
+	
 	// MoreVC
 	moreVC = [[MoreVC alloc] initWithNibName:@"MoreVC" bundle:nil];
 	[moreVC setManagedObjectContext:self.managedObjectContext];
@@ -62,14 +84,14 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localViewControllersArray = [[NSMutableArray alloc] initWithCapacity:4];
 	[localViewControllersArray addObject:navcon2];
+	[localViewControllersArray addObject:navcon3];
 	[localViewControllersArray addObject:navcon];
-	/*[localViewControllersArray addObject:navcon3];
-	[localViewControllersArray addObject:navcon4];*/
+	[localViewControllersArray addObject:navcon4];
 	
 	[navcon release];
 	[navcon2 release];
-	/*[navcon3 release];
-	[navcon4 release];*/
+	[navcon3 release];
+	[navcon4 release];
 	
 	// set the tab bar controller view controller array to the localViewControllersArray
 	tabBarController.viewControllers = localViewControllersArray;

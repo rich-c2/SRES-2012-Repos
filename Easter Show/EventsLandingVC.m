@@ -14,6 +14,7 @@
 #import "Event.h"
 #import "EventSelectionVC.h"
 #import "EventTableCell.h"
+#import "EventVC.h"
 
 @implementation EventsLandingVC
 
@@ -69,6 +70,7 @@
 	self.loadCell = nil;
 }
 
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	
     // Return YES for supported orientations
@@ -112,6 +114,12 @@
 
 	NSLog(@"searchBarShouldBeginEditing");
 	
+	// Reset the height of the Table's frame and hide it from view
+	CGFloat keyboardHeight = 166.0;
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = (newTableFrame.size.height - (keyboardHeight));
+	[self.searchTable setFrame:newTableFrame];
+	
 	// Make the search table visible
 	[self.searchTable setHidden:NO];
 	
@@ -119,9 +127,6 @@
 	CGRect newFrame = self.search.frame;
 	newFrame.origin.y = 0.0;
 	[self.search setFrame:newFrame];
-	
-	//NSString *searchTerm = [searchBar text];
-	//[self handleSearchForTerm:searchTerm];
 	
 	return YES;
 }
@@ -147,8 +152,8 @@
 - (void)resetSearch {
 	
 	NSLog(@"reset search");
-	
-	//self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+		
+	if ([self.events count] > 0) self.events = [NSMutableArray array];
 }
 
 
@@ -161,13 +166,18 @@
 	[self.searchTable reloadData];
 	[searchBar resignFirstResponder];
 	
+	// Reset the height of the Table's frame and hide it from view
 	CGFloat keyboardHeight = 166.0;
 	CGRect newFrame = self.searchTable.frame;
 	newFrame.size.height = (newFrame.size.height + keyboardHeight);
 	[self.searchTable setFrame:newFrame];
 	
 	[self.searchTable setHidden:YES];
-	[self.search setHidden:YES];
+	
+	// Move the search bar it's original position
+	CGRect newSearchFrame = self.search.frame;
+	newSearchFrame.origin.y = 130.0;
+	[self.search setFrame:newSearchFrame];
 }
 
 
@@ -243,6 +253,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Go to particular Event
+	Event *event = (Event *)[self.events objectAtIndex:[indexPath row]];
+	
+	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
+	[eventVC setManagedObjectContext:self.managedObjectContext];
+	[eventVC setEvent:event];
+	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventVC animated:YES];
+	[eventVC release];
 }
 
 

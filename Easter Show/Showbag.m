@@ -18,7 +18,7 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"title = %@", [showbagData objectForKey:@"title"]];
+	request.predicate = [NSPredicate predicateWithFormat:@"showbagID = %@", [showbagData objectForKey:@"id"]];
 	
 	NSError *error = nil;
 	showbag = [[context executeFetchRequest:request error:&error] lastObject];
@@ -53,7 +53,7 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"title = %@", [showbagData objectForKey:@"title"]];
+	request.predicate = [NSPredicate predicateWithFormat:@"showbagID = %@", [showbagData objectForKey:@"id"]];
 	
 	NSError *error = nil;
 	showbag = [[context executeFetchRequest:request error:&error] lastObject];

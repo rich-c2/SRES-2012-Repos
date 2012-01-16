@@ -13,29 +13,34 @@
         <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Favourite" syncable="YES">
+    <entity name="Favourite" representedClassName="Favourite" syncable="YES">
         <attribute name="favouriteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="favouriteType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="FoodVenue" syncable="YES">
+    <entity name="FoodVenue" representedClassName="FoodVenue" syncable="YES">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
-    <entity name="Offer" syncable="YES">
+    <entity name="Offer" representedClassName="Offer" syncable="YES">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="offerDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="offerID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="offerType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Showbag" representedClassName="Showbag" syncable="YES">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -51,9 +56,9 @@
     </entity>
     <elements>
         <element name="Event" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="Favourite" positionX="180" positionY="324" width="128" height="90"/>
+        <element name="Favourite" positionX="180" positionY="324" width="128" height="105"/>
         <element name="FoodVenue" positionX="162" positionY="270" width="128" height="150"/>
-        <element name="Offer" positionX="171" positionY="297" width="128" height="165"/>
+        <element name="Offer" positionX="171" positionY="297" width="128" height="195"/>
         <element name="Showbag" positionX="160" positionY="192" width="128" height="180"/>
     </elements>
 </model>

@@ -12,11 +12,15 @@ extern NSString* const API_SERVER_ADDRESS;
 
 @class MoreVC;
 @class EventsLandingVC;
+@class OffersMenuVC;
+@class FavouritesMenuVC;
 
 @interface SRESAppDelegate : UIResponder <UIApplicationDelegate> {
 
 	UITabBarController *tabBarController;
 	
+	FavouritesMenuVC *favsMenuVC;
+	OffersMenuVC *offersMenuVC;
 	MoreVC *moreVC;
 	EventsLandingVC *eventsLandingVC;
 }
@@ -25,6 +29,8 @@ extern NSString* const API_SERVER_ADDRESS;
 
 @property (nonatomic, retain) UITabBarController *tabBarController;
 
+@property (nonatomic, retain) FavouritesMenuVC *favsMenuVC;
+@property (nonatomic, retain) OffersMenuVC *offersMenuVC;
 @property (nonatomic, retain) MoreVC *moreVC;
 @property (nonatomic, retain) EventsLandingVC *eventsLandingVC;
 
