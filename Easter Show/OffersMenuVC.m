@@ -14,6 +14,7 @@
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
+#import "OfferVC.h"
 
 @implementation OffersMenuVC
 
@@ -25,6 +26,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		self.title = @"Offers";
+		self.tabBarItem.title = @"Offers";
     }
     return self;
 }
@@ -235,14 +238,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	/*Offer *offer = (Offer *)[fetchedResultsController objectAtIndexPath:indexPath];
+	Offer *offer = (Offer *)[fetchedResultsController objectAtIndexPath:indexPath];
 	
-	OfferVC *offerVC = [[FoodVenueVC alloc] initWithNibName:@"OfferVC" bundle:nil];
+	OfferVC *offerVC = [[OfferVC alloc] initWithNibName:@"OfferVC" bundle:nil];
 	[offerVC setOffer:offer];
+	[offerVC setManagedObjectContext:self.managedObjectContext];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:offerVC animated:YES];
-	[offerVC release];*/
+	[offerVC release];
 }
 
 

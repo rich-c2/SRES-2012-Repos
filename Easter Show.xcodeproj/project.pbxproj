@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9B28000C14C4002F004231CC /* Favourite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B28000B14C4002F004231CC /* Favourite.m */; };
+		9B2AFE0114C933F00009A0F5 /* libSystem.B.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9D14C3F84C00B9B233 /* EventVC.m */; };
 		9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */; };
 		9B585DF114BCFEFB0027DB00 /* showbagFilter-10-17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */; };
@@ -149,6 +150,8 @@
 		9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18A14BFE722000884CC /* EventTableCell.xib */; };
 		9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18E14BFF529000884CC /* EventsLandingVC.m */; };
 		9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18F14BFF529000884CC /* EventsLandingVC.xib */; };
+		9BC8252014C90CAB00D67A23 /* OfferVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC8251E14C90CAB00D67A23 /* OfferVC.m */; };
+		9BC8252114C90CAB00D67A23 /* OfferVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC8251F14C90CAB00D67A23 /* OfferVC.xib */; };
 		9BD0729114BCE4AF002D297F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD0729014BCE4AF002D297F /* Security.framework */; };
 		9BD0729314BCE687002D297F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD0729214BCE687002D297F /* QuartzCore.framework */; };
 		9BD0729714BCE69F002D297F /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD0729514BCE69F002D297F /* SVProgressHUD.m */; };
@@ -168,6 +171,7 @@
 /* Begin PBXFileReference section */
 		9B28000A14C4002F004231CC /* Favourite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favourite.h; sourceTree = "<group>"; };
 		9B28000B14C4002F004231CC /* Favourite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favourite.m; sourceTree = "<group>"; };
+		9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.B.dylib; path = usr/lib/libSystem.B.dylib; sourceTree = SDKROOT; };
 		9B3D0C9C14C3F84C00B9B233 /* EventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventVC.h; sourceTree = "<group>"; };
 		9B3D0C9D14C3F84C00B9B233 /* EventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventVC.m; sourceTree = "<group>"; };
 		9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventVC.xib; sourceTree = "<group>"; };
@@ -414,6 +418,9 @@
 		9B99E18D14BFF528000884CC /* EventsLandingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsLandingVC.h; sourceTree = "<group>"; };
 		9B99E18E14BFF529000884CC /* EventsLandingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsLandingVC.m; sourceTree = "<group>"; };
 		9B99E18F14BFF529000884CC /* EventsLandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsLandingVC.xib; sourceTree = "<group>"; };
+		9BC8251D14C90CAB00D67A23 /* OfferVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferVC.h; sourceTree = "<group>"; };
+		9BC8251E14C90CAB00D67A23 /* OfferVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferVC.m; sourceTree = "<group>"; };
+		9BC8251F14C90CAB00D67A23 /* OfferVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferVC.xib; sourceTree = "<group>"; };
 		9BD0729014BCE4AF002D297F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9BD0729214BCE687002D297F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9BD0729414BCE69F002D297F /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
@@ -426,6 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B2AFE0114C933F00009A0F5 /* libSystem.B.dylib in Frameworks */,
 				9B8BF97914BEB53C0025BE01 /* MapKit.framework in Frameworks */,
 				9B585E1C14BD31530027DB00 /* libz.dylib in Frameworks */,
 				9B585E1A14BD31160027DB00 /* AVFoundation.framework in Frameworks */,
@@ -852,6 +860,7 @@
 		9B93B6FE14BBFEFC00FB31CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */,
 				9B585E1B14BD31530027DB00 /* libz.dylib */,
 				9B8BF97814BEB53C0025BE01 /* MapKit.framework */,
 				9B585E1914BD31150027DB00 /* AVFoundation.framework */,
@@ -1007,6 +1016,15 @@
 		9B93B73714BC025700FB31CE /* Offers */ = {
 			isa = PBXGroup;
 			children = (
+				9BC8251D14C90CAB00D67A23 /* OfferVC.h */,
+				9BC8251E14C90CAB00D67A23 /* OfferVC.m */,
+				9BC8251F14C90CAB00D67A23 /* OfferVC.xib */,
+				9B67C45514C3E55F00C4A78C /* OfferTableCell.h */,
+				9B67C45614C3E55F00C4A78C /* OfferTableCell.m */,
+				9B67C45714C3E56000C4A78C /* OfferTableCell.xib */,
+				9B67C45014C3DA0000C4A78C /* OffersMenuVC.h */,
+				9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */,
+				9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */,
 			);
 			name = Offers;
 			sourceTree = "<group>";
@@ -1034,12 +1052,6 @@
 				9B67C43614C3A48600C4A78C /* FoodMenuVC.h */,
 				9B67C43714C3A48600C4A78C /* FoodMenuVC.m */,
 				9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */,
-				9B67C45514C3E55F00C4A78C /* OfferTableCell.h */,
-				9B67C45614C3E55F00C4A78C /* OfferTableCell.m */,
-				9B67C45714C3E56000C4A78C /* OfferTableCell.xib */,
-				9B67C45014C3DA0000C4A78C /* OffersMenuVC.h */,
-				9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */,
-				9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1143,6 +1155,7 @@
 				9B67C45914C3E56100C4A78C /* OfferTableCell.xib in Resources */,
 				9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */,
 				9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */,
+				9BC8252114C90CAB00D67A23 /* OfferVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,6 +1287,7 @@
 				9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */,
 				9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */,
 				9B28000C14C4002F004231CC /* Favourite.m in Sources */,
+				9BC8252014C90CAB00D67A23 /* OfferVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,8 +1342,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Richard Lee (WS5X5HSR9L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richard Lee (WS5X5HSR9L)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1343,7 +1361,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				PROVISIONING_PROFILE = "BC5DFEE5-327F-45CF-B0BB-1A198C8AC429";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BC5DFEE5-327F-45CF-B0BB-1A198C8AC429";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1352,7 +1372,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1360,7 +1383,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1374,7 +1397,7 @@
 				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1387,7 +1410,7 @@
 				GCC_PREFIX_HEADER = "Easter Show/Easter Show-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

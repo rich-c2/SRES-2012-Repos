@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavouritesMenuVC : UIViewController {
+@interface FavouritesMenuVC : UIViewController <NSFetchedResultsControllerDelegate> {
 
+	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 
 	NSMutableArray *favourites;
@@ -18,10 +19,13 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *favourites;
+
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 
 //- (void)fetchFavouritesFromCoreData;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)fetchFavouritesFromCoreData;
 
 @end

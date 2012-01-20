@@ -19,7 +19,9 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"favouriteID = %@", [favouriteData objectForKey:@"id"]];
+	
+	NSNumber *idNum = [NSNumber numberWithInt:[[favouriteData objectForKey:@"itemID"] intValue]];
+	request.predicate = [NSPredicate predicateWithFormat:@"itemID == %@ AND title = %@", idNum, [favouriteData objectForKey:@"title"]];
 	
 	NSError *error = nil;
 	favourite = [[context executeFetchRequest:request error:&error] lastObject];
@@ -31,8 +33,8 @@
 		favourite = [NSEntityDescription insertNewObjectForEntityForName:@"Favourite" inManagedObjectContext:context];
 		favourite.favouriteID = [NSNumber numberWithInt:[[favouriteData objectForKey:@"id"] intValue]];
 		favourite.title = [favouriteData objectForKey:@"title"];
-		favourite.itemID = [NSNumber numberWithInt:[[favouriteData objectForKey:@"itemID"] intValue]];
-		favourite.favouriteType = [favouriteData objectForKey:@"type"];	
+		favourite.itemID = idNum;
+		favourite.favouriteType = [favouriteData objectForKey:@"favouriteType"];	
 		
 		NSLog(@"favourite CREATED:%@", favourite.title);
 	}

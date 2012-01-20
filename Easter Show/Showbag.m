@@ -46,6 +46,22 @@
 }
 
 
++ (Showbag *)getShowbagWithID:(NSNumber *)showbagID inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	Showbag *showbag = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"showbagID == %@", showbagID];
+	
+	NSError *error = nil;
+	showbag = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return showbag;
+}
+
+
 + (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context {
 	

@@ -1,68 +1,65 @@
 //
-//  FoodVenueVC.h
+//  OfferVC.h
 //  SRES
 //
-//  Created by Richard Lee on 15/02/11.
+//  Created by Richard Lee on 13/01/11.
 //  Copyright 2011 C2 Media Pty Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@class SRESAppDelegate;
-@class FoodVenue;
+@class Offer;
 
-@interface FoodVenueVC : UIViewController {
+@interface OfferVC : UIViewController {
 
-	SRESAppDelegate *appDelegate;
 	NSManagedObjectContext *managedObjectContext;
 	
-	FoodVenue *foodVenue;
-	
+	Offer *offer;
+	NSURL *selectedURL;
+		
 	UIScrollView *contentScrollView;
 	
 	// Display
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
-	UITextView *subTitleLabel;
-	UIImageView *venueImage;
+	UITextView *providerLabel;
+	UIImageView *offerImage;
 	
 	// Buttons
 	UIButton *shareButton;
 	UIButton *addToPlannerButton;
-	UIButton *mapButton;
 		
 	UIActivityIndicatorView *loadingSpinner;
-	NSURL *selectedURL;
 }
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) FoodVenue *foodVenue;
+@property (nonatomic, retain) Offer *offer;
+@property (nonatomic, retain) NSURL *selectedURL;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
-
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
-@property (nonatomic, retain) IBOutlet UITextView *subTitleLabel;
-@property (nonatomic, retain) IBOutlet UIImageView *venueImage;
+@property (nonatomic, retain) IBOutlet UITextView *providerLabel;
+@property (nonatomic, retain) IBOutlet UIImageView *offerImage;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
-@property (nonatomic, retain) IBOutlet UIButton *mapButton;
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingSpinner;
-@property (nonatomic, retain) NSURL *selectedURL;
 
-- (void)showShareOptions:(id)sender;
-- (void)addToFavourites:(id)sender;
 - (void)setDetailFields;
+- (void)addToFavourites:(id)sender;
 - (void)resizeTextView:(UITextView *)_textView;
-- (void)adjustScrollViewContentHeight;
-- (void)goToMap:(id)sender;
-- (void)setupNavBar;
+- (void)showShareOptions:(id)sender;
 - (void)goBack:(id)sender;
+- (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
+- (void)adjustScrollViewContentHeight;
+- (void)initImage:(NSString *)urlString;
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
+
 
 @end

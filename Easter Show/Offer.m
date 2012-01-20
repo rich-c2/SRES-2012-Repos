@@ -19,7 +19,9 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"offerID = %@", [offerData objectForKey:@"id"]];
+	
+	NSNumber *idNum = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
+	request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", idNum];
 	
 	NSError *error = nil;
 	offer = [[context executeFetchRequest:request error:&error] lastObject];
@@ -31,7 +33,7 @@
 		
 		// Create a new Offer
 		offer = [NSEntityDescription insertNewObjectForEntityForName:@"Offer" inManagedObjectContext:context];
-		offer.offerID = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
+		offer.offerID = idNum;
 		offer.title = [offerData objectForKey:@"offerTitle"];
 		offer.offerDescription = [offerData objectForKey:@"offerDescription"];
 		offer.provider = [offerData objectForKey:@"offerProvider"];
@@ -47,6 +49,22 @@
 }
 
 
++ (Offer *)getOfferWithID:(NSNumber *)offerID inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	Offer *offer = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", offerID];
+	
+	NSError *error = nil;
+	offer = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return offer;
+}
+
+
 + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context {
 	
@@ -54,19 +72,20 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"offerID = %@", [offerData objectForKey:@"id"]];
+	
+	NSNumber *idNum = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
+	request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", idNum];
 	
 	NSError *error = nil;
 	offer = [[context executeFetchRequest:request error:&error] lastObject];
 	[request release];
 	
-	if ((!error && !offer) || (!error && offer)) {
+	if (!error && offer) {
 		
 		NSLog(@"offer UPDATED:%@", [offerData objectForKey:@"offerTitle"]);
 		
 		// Create a new Offer
-		offer = [NSEntityDescription insertNewObjectForEntityForName:@"Offer" inManagedObjectContext:context];
-		offer.offerID = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
+		offer.offerID = idNum;
 		offer.title = [offerData objectForKey:@"offerTitle"];
 		offer.offerDescription = [offerData objectForKey:@"offerDescription"];
 		offer.provider = [offerData objectForKey:@"offerProvider"];
@@ -78,6 +97,30 @@
 		offer.version = [NSNumber numberWithInt:[[offerData objectForKey:@"version"] intValue]];
 	}
 	
+	else if (!error && !offer) offer = [self insertOfferWithOfferData:offerData inManagedObjectContext:context];
+	
+	return offer;
+}
+	
+
++ (Offer *)insertOfferWithOfferData:(NSDictionary *)offerData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context {
+
+	NSLog(@"offer INSERTED:%@", [offerData objectForKey:@"offerTitle"]);
+	
+	// Create a new Offer
+	Offer *offer = [NSEntityDescription insertNewObjectForEntityForName:@"Offer" inManagedObjectContext:context];
+	offer.offerID = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
+	offer.title = [offerData objectForKey:@"offerTitle"];
+	offer.offerDescription = [offerData objectForKey:@"offerDescription"];
+	offer.provider = [offerData objectForKey:@"offerProvider"];
+	offer.offerType = [offerData objectForKey:@"type"];
+	offer.imageURL = [offerData objectForKey:@"imageURL"];
+	offer.thumbURL = [offerData objectForKey:@"thumbURL"];
+	offer.latitude = [NSNumber numberWithDouble:-33.84476];
+	offer.longitude = [NSNumber numberWithDouble:151.07062];
+	offer.version = [NSNumber numberWithInt:[[offerData objectForKey:@"version"] intValue]];
+
 	return offer;
 }
 

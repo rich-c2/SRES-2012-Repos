@@ -44,6 +44,22 @@
 }
 
 
++ (Event *)getEventWithID:(NSNumber *)eventID inManagedObjectContext:(NSManagedObjectContext *)context {
+
+	Event *event = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"eventID == %@", eventID];
+	
+	NSError *error = nil;
+	event = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return event;
+}
+
+
 + (Event *)updateEventWithEventData:(NSDictionary *)eventData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context {
 	

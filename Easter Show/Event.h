@@ -28,6 +28,8 @@
 + (Event *)eventWithEventData:(NSDictionary *)eventData 
 		 inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (Event *)getEventWithID:(NSNumber *)eventID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Event *)updateEventWithEventData:(NSDictionary *)eventData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 

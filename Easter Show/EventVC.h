@@ -25,8 +25,8 @@
 	UIImageView *eventImage;
 	
 	NSNumber *eventTypeFilter;
-	
 	NSString *eventDay;
+	NSURL *selectedURL;
 	
 	UIScrollView *contentScrollView;
 	
@@ -48,6 +48,7 @@
 
 @property (nonatomic, retain) NSNumber *eventTypeFilter;
 @property (nonatomic, retain) NSString *eventDay;
+@property (nonatomic, retain) NSURL *selectedURL;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
@@ -68,5 +69,8 @@
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
+
+- (void)initImage:(NSString *)urlString;
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
 
 @end

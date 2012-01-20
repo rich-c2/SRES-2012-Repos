@@ -27,6 +27,8 @@
 + (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (Showbag *)getShowbagWithID:(NSNumber *)showbagID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context;
 

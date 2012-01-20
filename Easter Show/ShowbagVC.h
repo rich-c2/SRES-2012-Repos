@@ -16,6 +16,7 @@
 @interface ShowbagVC : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	
 	SRESAppDelegate *appDelegate;
+	NSManagedObjectContext *managedObjectContext;
 
 	Showbag *showbag;
 	
@@ -42,6 +43,8 @@
 	
 	UIActivityIndicatorView *loadingSpinner;
 }
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) Showbag *showbag;
 

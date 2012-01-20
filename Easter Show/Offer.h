@@ -26,7 +26,12 @@
 + (Offer *)offerWithOfferData:(NSDictionary *)offerData 
 	   inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (Offer *)getOfferWithID:(NSNumber *)offerID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Offer *)insertOfferWithOfferData:(NSDictionary *)offerData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Offer *)offerWithID:(NSNumber *)offerID 

@@ -364,6 +364,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		
 	ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
 	[showbagVC setShowbag:showbag];
+	[showbagVC setManagedObjectContext:self.managedObjectContext];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:showbagVC animated:YES];

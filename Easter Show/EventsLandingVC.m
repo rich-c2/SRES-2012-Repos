@@ -26,7 +26,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+		// Custom initialization
+		self.title = @"Events";
+		self.tabBarItem.title = @"Events";
     }
     return self;
 }
@@ -91,6 +94,12 @@
 }
 
 
+- (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated {
+
+	NSLog(@"touchesShouldBegin");
+}
+
+
 #pragma mark
 #pragma mark Search Bar Delegate methods
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -115,9 +124,9 @@
 	NSLog(@"searchBarShouldBeginEditing");
 	
 	// Reset the height of the Table's frame and hide it from view
-	CGFloat keyboardHeight = 166.0;
+	//CGFloat keyboardHeight = 166.0;
 	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height = (newTableFrame.size.height - (keyboardHeight));
+	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
 	[self.searchTable setFrame:newTableFrame];
 	
 	// Make the search table visible
@@ -167,9 +176,9 @@
 	[searchBar resignFirstResponder];
 	
 	// Reset the height of the Table's frame and hide it from view
-	CGFloat keyboardHeight = 166.0;
+	//CGFloat keyboardHeight = 166.0;
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
 	[self.searchTable setFrame:newFrame];
 	
 	[self.searchTable setHidden:YES];
@@ -422,6 +431,12 @@
 	
 	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
 } 
+
+
+-(void)dismissKeyboard {
+	[self.search resignFirstResponder];
+}
+
 
 
 - (void)dealloc {

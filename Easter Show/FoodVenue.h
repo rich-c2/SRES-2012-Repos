@@ -26,8 +26,13 @@
 + (FoodVenue *)venueWithVenueData:(NSDictionary *)venueData 
 		   inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (FoodVenue *)getFoodVenueWithID:(NSNumber *)venueID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (FoodVenue *)updateVenueWithVenueData:(NSDictionary *)venueData 
 				 inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (FoodVenue *)insertFoodVenueWithData:(NSDictionary *)venueData 
+				inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (FoodVenue *)venueWithID:(NSNumber *)venueID 
 	inManagedObjectContext:(NSManagedObjectContext *)context;

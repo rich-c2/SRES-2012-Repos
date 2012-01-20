@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CarnivalRide" syncable="YES">
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rideDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rideID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="allDay" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,7 +23,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Favourite" representedClassName="Favourite" syncable="YES">
-        <attribute name="favouriteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="favouriteID" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="favouriteType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -42,6 +51,15 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="ShoppingVendor" syncable="YES">
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shopDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Showbag" representedClassName="Showbag" syncable="YES">
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -60,5 +78,7 @@
         <element name="FoodVenue" positionX="162" positionY="270" width="128" height="150"/>
         <element name="Offer" positionX="171" positionY="297" width="128" height="195"/>
         <element name="Showbag" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="CarnivalRide" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="ShoppingVendor" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

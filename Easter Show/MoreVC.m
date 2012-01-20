@@ -20,7 +20,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+		// Custom initialization
+		self.title = @"More";
+		self.tabBarItem.title = @"More";
     }
     return self;
 }

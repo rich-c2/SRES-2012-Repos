@@ -142,9 +142,9 @@
 	[self.searchTable reloadData];
 	[searchBar resignFirstResponder];
 	
-	CGFloat keyboardHeight = 166.0;
+	//CGFloat keyboardHeight = 166.0;
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
 	[self.searchTable setFrame:newFrame];
 	
 	[self.searchTable setHidden:YES];
@@ -338,6 +338,7 @@
 	
 	FoodVenueVC *foodVenueVC = [[FoodVenueVC alloc] initWithNibName:@"FoodVenueVC" bundle:nil];
 	[foodVenueVC setFoodVenue:foodVenue];
+	[foodVenueVC setManagedObjectContext:self.managedObjectContext];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:foodVenueVC animated:YES];
@@ -371,7 +372,7 @@
 	NSInteger lastShowbagID = 0;
 	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
 	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSLog(@"SHOWBAGS URL:%@", urlString);
+	NSLog(@"FOOD VENUES URL:%@", urlString);
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -547,10 +548,11 @@
 	// Keyboard will now be visible
 	[self.search becomeFirstResponder];
 	
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height - keyboardHeight);
-	[self.searchTable setFrame:newFrame];
+	// Reset the height of the Table's frame and hide it from view
+	//CGFloat keyboardHeight = 166.0;
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
+	[self.searchTable setFrame:newTableFrame];
 }
 
 

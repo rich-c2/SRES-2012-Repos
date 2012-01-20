@@ -154,14 +154,15 @@
 								<reference key="NSSuperview" ref="772639752"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="129686753"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
+								<object class="NSColor" key="IBUIBackgroundColor" id="1034204074">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEgMAA</bytes>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<string key="IBUINormalTitle">Add to favs</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDEAA</bytes>
@@ -176,10 +177,6 @@
 									<string key="NSResourceName">addToFavouritesButton-on.png</string>
 								</object>
 								<reference key="IBUISelectedImage" ref="1048804347"/>
-								<object class="NSCustomResource" key="IBUINormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">addToFavouritesButton.png</string>
-								</object>
 								<reference key="IBUIFontDescription" ref="380291221"/>
 								<reference key="IBUIFont" ref="929275536"/>
 							</object>
@@ -220,10 +217,7 @@
 								<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 								<bool key="IBUIEditable">NO</bool>
 								<string key="IBUIText">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-								<object class="NSColor" key="IBUITextColor" id="1034204074">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
-								</object>
+								<reference key="IBUITextColor" ref="1034204074"/>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocapitalizationType">2</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -809,7 +803,6 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>addToFavouritesButton-on.png</string>
-				<string>addToFavouritesButton.png</string>
 				<string>roundedImageFrame.png</string>
 				<string>shareButton-on.png</string>
 				<string>shareButton.png</string>
@@ -820,7 +813,6 @@
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{156, 31}</string>
-				<string>{154, 31}</string>
 				<string>{141, 156}</string>
 				<string>{71, 31}</string>
 				<string>{71, 31}</string>

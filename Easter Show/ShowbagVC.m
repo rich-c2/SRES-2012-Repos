@@ -14,6 +14,7 @@
 //#import "GANTracker.h"
 #import "ImageManager.h"
 #import "StringHelper.h"
+#import "Favourite.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -21,7 +22,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 @implementation ShowbagVC
 
-@synthesize showbag, minPrice, maxPrice, rrPriceLabel;
+@synthesize showbag, minPrice, maxPrice, rrPriceLabel, managedObjectContext;
 @synthesize contentScrollView, priceLabel, descriptionLabel, titleLabel, showbagImage;
 @synthesize shareButton, addToPlannerButton, mapButton, loadingSpinner, downloads;
 @synthesize selectedURL;
@@ -63,6 +64,13 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	// Setup navigation bar elements
 	[self setupNavBar];
 }
+
+
+#pragma mark - Private Methods
+- (SRESAppDelegate *)appDelegate {
+	
+    return (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 	
 
 - (void)didReceiveMemoryWarning {
@@ -78,6 +86,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.managedObjectContext = nil;
 	self.showbag = nil;
 	self.contentScrollView = nil;
 	self.rrPriceLabel = nil;
@@ -120,30 +129,15 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)addToFavourites:(id)sender {
 	
-	// Check if Showbag has already been 'Favourited'
-	/*BOOL added = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
+	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
+	[favouriteData setObject:[self.showbag showbagID] forKey:@"id"];
+	[favouriteData setObject:self.showbag.showbagID forKey:@"itemID"];
+	[favouriteData setObject:self.showbag.title forKey:@"title"];
+	[favouriteData setObject:@"Showbags" forKey:@"favouriteType"];
 	
-	// If it's already been added - delete it from database
-	if (added) {
-		
-		// Delete Event from Favourites table in DB
-		[appDelegate removeFromFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
-		
-		[self.addToPlannerButton setSelected:NO];
-	}
-	else {
-		
-		// Add to Favourites table in DB
-		[appDelegate addToFavourites:[self.showbag.showbagID intValue] itemType:FAVOURITE_TYPE_SHOWBAG];
-		
-		[self.addToPlannerButton setSelected:YES];
-		
-		// Record this as an event in Google Analytics
-		BOOL success = [[GANTracker sharedTracker] trackEvent:@"Showbags" action:@"Favourite" 
-														label:[self.showbag showbagTitle] value:-1 withError:nil];
-		
-		NSLog(@"%@", (success ? @"SHOWBAG TRACKED!" : @"SHOWBAG FAILED TO BE TRACKED"));
-	}*/
+	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	
+	[[self appDelegate] saveContext];
 }
 
 
@@ -319,6 +313,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)dealloc {
 	
+	[managedObjectContext release];
 	[showbag release];
 	[contentScrollView release];
 	[rrPriceLabel release];

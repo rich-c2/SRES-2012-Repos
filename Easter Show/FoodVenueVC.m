@@ -14,6 +14,7 @@
 //#import "GANTracker.h"
 #import "StringHelper.h"
 #import "ImageManager.h"
+#import "Favourite.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -21,7 +22,7 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 @implementation FoodVenueVC
 
-@synthesize foodVenue;
+@synthesize foodVenue, managedObjectContext;
 @synthesize contentScrollView;
 @synthesize descriptionLabel, titleLabel, subTitleLabel, venueImage;
 @synthesize shareButton, addToPlannerButton, mapButton;
@@ -69,6 +70,12 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 }
 
 
+#pragma mark - Private Methods
+- (SRESAppDelegate *)appDelegate {
+	
+    return (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -82,6 +89,7 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.managedObjectContext = nil;
 	self.foodVenue = nil;
 	self.contentScrollView = nil;
 	self.descriptionLabel = nil;
@@ -119,30 +127,15 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)addToFavourites:(id)sender {
 	
-	// Check if Showbag has already been 'Favourited'
-	/*BOOL added = [appDelegate alreadyAddedToFavourites:[self.foodVenue.venueID intValue] favType:FAVOURITE_TYPE_FOOD];
+	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
+	[favouriteData setObject:[self.foodVenue venueID] forKey:@"id"];
+	[favouriteData setObject:self.foodVenue.venueID forKey:@"itemID"];
+	[favouriteData setObject:self.foodVenue.title forKey:@"title"];
+	[favouriteData setObject:@"Food venues" forKey:@"favouriteType"];
 	
-	// If it's already been added - delete it from database
-	if (added) {
-		
-		// Delete Event from Favourites table in DB
-		[appDelegate removeFromFavourites:[self.foodVenue.venueID intValue] favType:FAVOURITE_TYPE_FOOD];
-		
-		[self.addToPlannerButton setSelected:NO];
-	}
-	else {
-		
-		// Add to Favourites table in DB
-		[appDelegate addToFavourites:[self.foodVenue.venueID intValue] itemType:FAVOURITE_TYPE_FOOD];
-		
-		[self.addToPlannerButton setSelected:YES];
-		
-		// Record this as an event in Google Analytics
-		BOOL success = [[GANTracker sharedTracker] trackEvent:@"Food" action:@"Favourite" 
-														label:[self.foodVenue venueTitle] value:-1 withError:nil];
-		
-		NSLog(@"%@", (success ? @"FOOD TRACKED!" : @"FOOD FAILED TO BE TRACKED"));
-	}*/
+	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	
+	[[self appDelegate] saveContext];
 }
 
 
@@ -304,6 +297,7 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)dealloc {
 	
+	[managedObjectContext release];
 	[foodVenue release];
 	[contentScrollView release];
 	[descriptionLabel release];

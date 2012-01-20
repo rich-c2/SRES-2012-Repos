@@ -13,6 +13,8 @@
 //#import "GANTracker.h"
 #import "SHK.h"
 #import "Favourite.h"
+#import "StringHelper.h"
+#import "ImageManager.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -25,7 +27,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 @synthesize event, managedObjectContext;
 @synthesize dateLabel, descriptionLabel, titleLabel, eventImage;
 @synthesize eventTypeFilter, eventDay;
-@synthesize contentScrollView;
+@synthesize contentScrollView, selectedURL;
 @synthesize shareButton, addToPlannerButton, mapButton;
 @synthesize loadingSpinner;
 
@@ -88,6 +90,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.selectedURL = nil;
 	self.event = nil;
 	self.dateLabel = nil;
 	self.descriptionLabel = nil;
@@ -136,8 +139,9 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
 	[favouriteData setObject:[self.event eventID] forKey:@"id"];
-	[favouriteData setObject:[NSNumber numberWithInt:5] forKey:@"itemID"];
+	[favouriteData setObject:[self.event eventID] forKey:@"itemID"];
 	[favouriteData setObject:self.event.title forKey:@"title"];
+	[favouriteData setObject:@"Events" forKey:@"favouriteType"];
 	
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
@@ -246,9 +250,9 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	self.titleLabel.text = self.event.title;
 	[self resizeTextView:self.titleLabel];
 	
-	/*self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.dateLabel.text = [NSString	stringWithFormat:@"%@", self.event.eventTime];
-	[self resizeTextView:self.dateLabel];*/
+	self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.dateLabel.text = [NSString	stringWithFormat:@"%@", self.event.eventDate];
+	[self resizeTextView:self.dateLabel];
 	
 	CGRect currFrame = self.dateLabel.frame;
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
@@ -260,6 +264,9 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	// Adjust the scroll view content size
 	[self adjustScrollViewContentHeight];	
+	
+	// Event image
+	[self initImage:self.event.imageURL];
 }
 
 
@@ -338,8 +345,40 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 }
 
 
+- (void)initImage:(NSString *)urlString {
+	
+	if (urlString) {
+				
+		self.selectedURL = [urlString convertToURL];
+		
+		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
+		
+		UIImage* img = [ImageManager loadImage:self.selectedURL];
+		
+		if (img) {
+			
+			[self.loadingSpinner stopAnimating];
+			[self.eventImage setImage:img];
+		}
+    }
+}
+
+
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
+	
+	if ([self.selectedURL isEqual:url]) {
+		
+		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+		
+		[self.loadingSpinner stopAnimating];
+		[self.eventImage setImage:image];
+	}
+}
+
+
 - (void)dealloc {
 	
+	[selectedURL release];
 	[event release];
 	[dateLabel release];
 	[descriptionLabel release];
