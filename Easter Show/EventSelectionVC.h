@@ -27,6 +27,13 @@ typedef enum  {
 	UITableView *menuTable;
 	NSMutableArray *events;
 	NSString *selectedDate;
+	NSString *selectedCategory;
+	
+	NSMutableArray *filteredListContent;
+	UITableView *searchTable;
+	UISearchBar *search;
+	
+	BOOL alphabeticallySorted;
 		
 	EventTableCell *loadCell;
 }
@@ -37,6 +44,11 @@ typedef enum  {
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 @property (nonatomic, retain) NSMutableArray *events;
 @property (nonatomic, retain) NSString *selectedDate;
+@property (nonatomic, retain) NSString *selectedCategory;
+
+@property (nonatomic, retain) NSMutableArray *filteredListContent;
+@property (nonatomic, retain) IBOutlet UITableView *searchTable;
+@property (nonatomic, retain) IBOutlet UISearchBar *search;
 
 @property (nonatomic, retain) IBOutlet EventTableCell *loadCell;
 
@@ -46,6 +58,10 @@ typedef enum  {
 - (void)setupNavBar;
 - (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event;
 - (void)fetchEventsFromCoreData;
+- (IBAction)alphabeticalSortButtonClicked:(id)sender;
+- (IBAction)timeSortButtonClicked:(id)sender;
+- (void)handleSearchForTerm:(NSString *)searchTerm;
+- (void)resetSearch;
 
 
 @end

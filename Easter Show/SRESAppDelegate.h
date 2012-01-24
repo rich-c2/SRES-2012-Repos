@@ -17,6 +17,8 @@ extern NSString* const API_SERVER_ADDRESS;
 
 @interface SRESAppDelegate : UIResponder <UIApplicationDelegate> {
 
+	CGFloat appVersion;
+	
 	UITabBarController *tabBarController;
 	
 	FavouritesMenuVC *favsMenuVC;

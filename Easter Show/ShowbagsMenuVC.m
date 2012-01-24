@@ -156,7 +156,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	NSLog(@"reset search");
 
-	//self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
 }
 
 
@@ -514,9 +514,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		 */
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
-	}
-	
-	else self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+	}	
 }
 
 
@@ -623,20 +621,43 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)startSearch:(id)sender {
+	
+	// if already searching, then hide
+	// the search table and search field
+	if (searching) {
+	
+		search.text = @"";
+		[self resetSearch];
+		[self.searchTable reloadData];
+		[self.search resignFirstResponder];
+		
+		CGFloat keyboardHeight = 166.0;
+		CGRect newFrame = self.searchTable.frame;
+		newFrame.size.height = (newFrame.size.height + keyboardHeight);
+		[self.searchTable setFrame:newFrame];
+		
+		[self.searchTable setHidden:YES];
+		[self.search setHidden:YES];
+	}
+	
+	else {
 
-	// MAKE THE SEARCH RESULTS TABLE VISIBLE
-	// MAKE THE SEARCH BAR VISIBLE 
-	[self.search setHidden:NO];
-	[self.searchTable setHidden:NO];
+		// MAKE THE SEARCH RESULTS TABLE VISIBLE
+		// MAKE THE SEARCH BAR VISIBLE 
+		[self.search setHidden:NO];
+		[self.searchTable setHidden:NO];
+		
+		// Put the focus on the search bar field. 
+		// Keyboard will now be visible
+		[self.search becomeFirstResponder];
+		
+		CGFloat keyboardHeight = 166.0;
+		CGRect newFrame = self.searchTable.frame;
+		newFrame.size.height = (newFrame.size.height - keyboardHeight);
+		[self.searchTable setFrame:newFrame];
+	}
 	
-	// Put the focus on the search bar field. 
-	// Keyboard will now be visible
-	[self.search becomeFirstResponder];
-	
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height - keyboardHeight);
-	[self.searchTable setFrame:newFrame];
+	searching = !searching;
 }
 
 

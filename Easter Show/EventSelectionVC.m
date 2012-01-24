@@ -10,6 +10,7 @@
 #import "Event.h"
 #import "EventTableCell.h"
 #import "SRESAppDelegate.h"
+#import "EventVC.h"
 
 
 static NSString* kTableCellFont = @"HelveticaNeue-Bold";
@@ -20,9 +21,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 @implementation EventSelectionVC
 
 @synthesize selectedFilterButton;
-@synthesize menuTable, events, selectedDate;
-@synthesize loadCell;
-@synthesize managedObjectContext;
+@synthesize menuTable, events, selectedDate, selectedCategory;
+@synthesize loadCell, managedObjectContext;
+@synthesize search, searchTable, filteredListContent;
 
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -45,16 +46,26 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Set the title
 	self.title = self.selectedDate;
 	
+	self.filteredListContent = [NSMutableArray array];
+	
 	// Navigation bar elements
 	[self setupNavBar];
 	
 	// Get the Event objects
+	// By default, get them in alphabetical order
 	[self fetchEventsFromCoreData];
+	alphabeticallySorted = YES;
 
 	// Populate sub nav
 	[self setupSubNav];
 }
 
+
+#pragma mark - Private Methods
+- (SRESAppDelegate *)appDelegate {
+	
+    return (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -74,7 +85,11 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	self.events = nil;
 	self.menuTable = nil;
 	self.selectedDate = nil;
+	self.selectedCategory = nil;
 	self.loadCell = nil;
+	self.search = nil; 
+	self.searchTable = nil; 
+	self.filteredListContent = nil;
 }
 
 
@@ -87,6 +102,71 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (void)viewWillAppear:(BOOL)animated {
 	
 	[self.menuTable reloadData];
+}
+
+
+#pragma mark
+#pragma mark Search Bar Delegate methods
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	
+	[self.searchTable setHidden:NO];
+	
+	NSString *searchTerm = [searchBar text];
+	[self handleSearchForTerm:searchTerm];
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+	
+	NSLog(@"textDidChange");
+	
+	if ([searchText length] == 0) {
+		
+		NSLog(@"length == 0");
+		
+		[self resetSearch];
+		[self.searchTable reloadData];
+		return;
+	}
+	
+	[self handleSearchForTerm:searchText];
+}
+
+
+- (void)resetSearch {
+	
+	NSLog(@"reset search");
+	
+	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
+}
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	
+	NSLog(@"searchBarCancelButtonClicked");
+	
+	search.text = @"";
+	[self resetSearch];
+	[self.searchTable reloadData];
+	[searchBar resignFirstResponder];
+	
+	//CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	[self.searchTable setHidden:YES];
+	[self.search setHidden:YES];
+}
+
+
+- (void)handleSearchForTerm:(NSString *)searchTerm {
+	
+	NSLog(@"handleSearchForTerm");
+	
+	self.filteredListContent = (NSMutableArray *)[self.events filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
+	
+	[self.searchTable reloadData];
 }
 
 
@@ -103,7 +183,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	
 	// Return the number of rows in the section.
-	return [self.events count];
+	if (tableView == self.menuTable) return [self.events count];
+	else return [self.filteredListContent count];
 }
 
 
@@ -120,7 +201,13 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
     }
 	
 	// Retrieve Event object
-	Event *event = [self.events objectAtIndex:[indexPath row]];
+	Event *event;
+	
+	// Retrieve the Showbag object
+	if (tableView == self.menuTable)
+		event = [self.events objectAtIndex:[indexPath row]];
+	else
+		event = [self.filteredListContent objectAtIndex:[indexPath row]];
 	
 	// Configure the cell using the object's attributes
 	[self configureCell:cell withEvent:event];
@@ -132,7 +219,11 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event {
 	
 	cell.nameLabel.text = event.title;
-	cell.dateLable.text = event.eventDate;
+	
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"MMMM dd"];
+	cell.dateLable.text = [dateFormat stringFromDate:event.eventDate];
+	[dateFormat release];
 	
 	[cell initImage:event.thumbURL];
 }
@@ -172,35 +263,21 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	/*if ([self.events count] == 0){
-		return;
-	} else if (indexPath.row == [self.events count]) {
-		
-		NSInteger startIndex = ([self.events count]);
-		NSMutableArray *moreShowbags = [appDelegate getEventsForDay:[self selectedDate] ofEventType:[self selectionMode] startIndex:startIndex];
-		NSArray *more = [NSArray arrayWithArray:moreShowbags];
-		[self.events addObjectsFromArray:more];
-		
-		[self.menuTable reloadData];
-	}
-	else {
+	Event *selectedEvent;
 	
-		Event *selectedEvent = [self.events objectAtIndex:[indexPath row]];
-		
-		NSString *eventDay = [[NSString alloc] initWithString:self.selectedDate];
-		
-		EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
-		[eventVC setEvent:selectedEvent];
-		[eventVC setEventTypeFilter:[NSNumber numberWithInt:self.selectedFilterButton.tag]];
-		[eventVC setEventDay:eventDay];
-		[eventDay release];
-		
-		[eventVC setEnableQuickSelection:NO];
-		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:eventVC animated:YES];
-		[eventVC release];
-	}*/
+	// Retrieve the FoodVenue object
+	if (tableView == self.menuTable)
+		selectedEvent = [self.events objectAtIndex:[indexPath row]];
+	else
+		selectedEvent = [self.filteredListContent objectAtIndex:[indexPath row]];
+					
+	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
+	[eventVC setEvent:selectedEvent];
+	[eventVC setManagedObjectContext:self.managedObjectContext];
+	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventVC animated:YES];
+	[eventVC release];
 }
 
 
@@ -331,17 +408,44 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[image release];*/
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
+	
+	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+	searchItem.target = self;
+	self.navigationItem.rightBarButtonItem = searchItem;
 
 }
 
 
 - (void)fetchEventsFromCoreData {
+	
+	if (!self.managedObjectContext) self.managedObjectContext = [[self appDelegate] managedObjectContext];
 
-	// Create fetch request
+	
+	// CREATE FETCH REQUEST
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext]];
-	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"eventDate = %@", [self selectedDate]]];
-	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+	
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"MMMM dd"];
+	NSDate *date = [dateFormat dateFromString:self.selectedDate];
+	
+	// FETCH PREDICATE
+	NSPredicate *fetchPredicate;
+	if ([self.selectedCategory length] > 0) fetchPredicate = [NSPredicate predicateWithFormat:@"eventDate == %@ AND category == %@", date, self.selectedCategory];
+	else fetchPredicate = [NSPredicate predicateWithFormat:@"eventDate == %@", date];
+	
+	[fetchRequest setPredicate:fetchPredicate];
+	
+	
+	// FETCH SORT DESCRIPTORS
+	if (!alphabeticallySorted)
+		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+	else
+		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+		
 	
 	// Execute the fetch request
 	NSError *error = nil;
@@ -350,14 +454,61 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	// Reload the table
 	[self.menuTable reloadData];
+	
+	[dateFormat release];
+}
+
+
+- (IBAction)alphabeticalSortButtonClicked:(id)sender {
+
+	if (!alphabeticallySorted) {
+		
+		// make a fetch request to get an alphabetically sorted list of data
+	
+		alphabeticallySorted = !alphabeticallySorted;
+	}
+}
+
+
+- (IBAction)timeSortButtonClicked:(id)sender {
+
+	if (alphabeticallySorted) {
+		
+		// make a fetch request to get a time sorted list of data
+		
+		alphabeticallySorted = !alphabeticallySorted;
+	}
+}
+
+
+- (void)startSearch:(id)sender {
+	
+	// MAKE THE SEARCH RESULTS TABLE VISIBLE
+	// MAKE THE SEARCH BAR VISIBLE 
+	[self.search setHidden:NO];
+	[self.searchTable setHidden:NO];
+	
+	// Put the focus on the search bar field. 
+	// Keyboard will now be visible
+	[self.search becomeFirstResponder];
+	
+	// Reset the height of the Table's frame and hide it from view
+	//CGFloat keyboardHeight = 166.0;
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
+	[self.searchTable setFrame:newTableFrame];
 }
 
 
 - (void)dealloc {
 	
+	[search release]; 
+	[searchTable release]; 
+	[filteredListContent release];
 	[managedObjectContext release];
 	[loadCell release];
 	[menuTable release];
+	[selectedCategory release];
 	[selectedDate release];
 	[events release];
 	

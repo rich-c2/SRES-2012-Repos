@@ -7,8 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B095E0114CE50260024285C /* calendarButton-april10th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DDE14CE50260024285C /* calendarButton-april10th@2x.png */; };
+		9B095E0214CE50260024285C /* calendarButton-april11th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DDF14CE50260024285C /* calendarButton-april11th@2x.png */; };
+		9B095E0314CE50260024285C /* calendarButton-april12th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE014CE50260024285C /* calendarButton-april12th@2x.png */; };
+		9B095E0414CE50260024285C /* calendarButton-april13th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE114CE50260024285C /* calendarButton-april13th@2x.png */; };
+		9B095E0514CE50260024285C /* calendarButton-april14th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE214CE50260024285C /* calendarButton-april14th-on@2x.png */; };
+		9B095E0614CE50260024285C /* calendarButton-april14th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE314CE50260024285C /* calendarButton-april14th@2x.png */; };
+		9B095E0714CE50260024285C /* calendarButton-april15th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE414CE50260024285C /* calendarButton-april15th-on@2x.png */; };
+		9B095E0814CE50260024285C /* calendarButton-april15th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE514CE50260024285C /* calendarButton-april15th@2x.png */; };
+		9B095E0914CE50260024285C /* calendarButton-april16th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE614CE50260024285C /* calendarButton-april16th-on@2x.png */; };
+		9B095E0A14CE50260024285C /* calendarButton-april16th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE714CE50260024285C /* calendarButton-april16th@2x.png */; };
+		9B095E0B14CE50260024285C /* calendarButton-april17th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE814CE50260024285C /* calendarButton-april17th-on@2x.png */; };
+		9B095E0C14CE50260024285C /* calendarButton-april17th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DE914CE50260024285C /* calendarButton-april17th@2x.png */; };
+		9B095E0D14CE50260024285C /* calendarButton-april18th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DEA14CE50260024285C /* calendarButton-april18th-on@2x.png */; };
+		9B095E0E14CE50260024285C /* calendarButton-april18th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DEB14CE50260024285C /* calendarButton-april18th@2x.png */; };
+		9B095E0F14CE50260024285C /* calendarButton-april19th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DEC14CE50260024285C /* calendarButton-april19th-on@2x.png */; };
+		9B095E1014CE50260024285C /* calendarButton-april19th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DED14CE50260024285C /* calendarButton-april19th@2x.png */; };
+		9B095E1114CE50260024285C /* calendarButton-april20th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DEE14CE50260024285C /* calendarButton-april20th-on@2x.png */; };
+		9B095E1214CE50260024285C /* calendarButton-april20th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DEF14CE50260024285C /* calendarButton-april20th@2x.png */; };
+		9B095E1314CE50260024285C /* calendarButton-april21st-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF014CE50260024285C /* calendarButton-april21st-on@2x.png */; };
+		9B095E1414CE50260024285C /* calendarButton-april21st@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF114CE50260024285C /* calendarButton-april21st@2x.png */; };
+		9B095E1514CE50260024285C /* calendarButton-april22nd-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF214CE50260024285C /* calendarButton-april22nd-on@2x.png */; };
+		9B095E1614CE50260024285C /* calendarButton-april22nd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF314CE50260024285C /* calendarButton-april22nd@2x.png */; };
+		9B095E1714CE50260024285C /* calendarButton-april23rd-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF414CE50260024285C /* calendarButton-april23rd-on@2x.png */; };
+		9B095E1814CE50260024285C /* calendarButton-april23rd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF514CE50260024285C /* calendarButton-april23rd@2x.png */; };
+		9B095E1914CE50260024285C /* calendarButton-april24th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF614CE50260024285C /* calendarButton-april24th-on@2x.png */; };
+		9B095E1A14CE50260024285C /* calendarButton-april24th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF714CE50260024285C /* calendarButton-april24th@2x.png */; };
+		9B095E1B14CE50260024285C /* calendarButton-april25th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF814CE50260024285C /* calendarButton-april25th-on@2x.png */; };
+		9B095E1C14CE50260024285C /* calendarButton-april25th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DF914CE50260024285C /* calendarButton-april25th@2x.png */; };
+		9B095E1D14CE50260024285C /* calendarButton-april26th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFA14CE50260024285C /* calendarButton-april26th-on@2x.png */; };
+		9B095E1E14CE50260024285C /* calendarButton-april26th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFB14CE50260024285C /* calendarButton-april26th@2x.png */; };
+		9B095E1F14CE50260024285C /* calendarButton-april27th-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFC14CE50260024285C /* calendarButton-april27th-on@2x.png */; };
+		9B095E2014CE50260024285C /* calendarButton-april27th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFD14CE50260024285C /* calendarButton-april27th@2x.png */; };
+		9B095E2114CE50260024285C /* calendarButton-april28th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFE14CE50260024285C /* calendarButton-april28th@2x.png */; };
+		9B095E2214CE50260024285C /* calendarButton-april29th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095DFF14CE50260024285C /* calendarButton-april29th@2x.png */; };
+		9B095E2314CE50260024285C /* calendarButton-april30th@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B095E0014CE50260024285C /* calendarButton-april30th@2x.png */; };
+		9B095E2714CE57A40024285C /* EventCategoriesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B095E2514CE57A40024285C /* EventCategoriesVC.m */; };
+		9B095E2814CE57A40024285C /* EventCategoriesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B095E2614CE57A40024285C /* EventCategoriesVC.xib */; };
 		9B28000C14C4002F004231CC /* Favourite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B28000B14C4002F004231CC /* Favourite.m */; };
-		9B2AFE0114C933F00009A0F5 /* libSystem.B.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9D14C3F84C00B9B233 /* EventVC.m */; };
 		9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */; };
 		9B585DF114BCFEFB0027DB00 /* showbagFilter-10-17-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B585DEB14BCFEFB0027DB00 /* showbagFilter-10-17-on.png */; };
@@ -50,7 +86,6 @@
 		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
 		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
 		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
-		9B830A6614BEC6520028336C /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6514BEC6520028336C /* Event.m */; };
 		9B8BF92F14BEB0D10025BE01 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89514BEB0D10025BE01 /* SHKOAuthSharer.m */; };
 		9B8BF93014BEB0D10025BE01 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89714BEB0D10025BE01 /* SHKSharer.m */; };
 		9B8BF93114BEB0D10025BE01 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF89A14BEB0D10025BE01 /* UIWebView+SHK.m */; };
@@ -150,6 +185,23 @@
 		9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18A14BFE722000884CC /* EventTableCell.xib */; };
 		9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18E14BFF529000884CC /* EventsLandingVC.m */; };
 		9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18F14BFF529000884CC /* EventsLandingVC.xib */; };
+		9B9E6CA314CD1DF000B84A0B /* ShoppingMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */; };
+		9B9E6CA414CD1DF000B84A0B /* ShoppingMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */; };
+		9B9E6CAF14CD235300B84A0B /* ShoppingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */; };
+		9B9E6CB014CD235300B84A0B /* ShoppingTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */; };
+		9B9E6CB314CD25E600B84A0B /* ShoppingVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */; };
+		9B9E6CB514CD2BCB00B84A0B /* shoppingVendors.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB414CD2BCB00B84A0B /* shoppingVendors.xml */; };
+		9B9E6CB914CD305300B84A0B /* CarnivalRideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */; };
+		9B9E6CBA14CD305300B84A0B /* CarnivalRideVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */; };
+		9BA72E0E14CCBC2F00E9B334 /* CarnivalMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */; };
+		9BA72E0F14CCBC2F00E9B334 /* CarnivalMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */; };
+		9BA72E2014CCD14200E9B334 /* CarnivalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA72E1E14CCD14100E9B334 /* CarnivalTableCell.m */; };
+		9BA72E2114CCD14200E9B334 /* CarnivalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA72E1F14CCD14200E9B334 /* CarnivalTableCell.xib */; };
+		9BA72E2414CCD39D00E9B334 /* CarnivalRide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA72E2314CCD39D00E9B334 /* CarnivalRide.m */; };
+		9BA72E2614CCD93E00E9B334 /* carnivalrides.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9BA72E2514CCD93E00E9B334 /* carnivalrides.xml */; };
+		9BA89A3A14CE1AE50005A9A1 /* ShoppingVendorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA89A3814CE1AE40005A9A1 /* ShoppingVendorVC.m */; };
+		9BA89A3B14CE1AE50005A9A1 /* ShoppingVendorVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA89A3914CE1AE50005A9A1 /* ShoppingVendorVC.xib */; };
+		9BA89A4714CE37780005A9A1 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA89A4614CE37770005A9A1 /* Event.m */; };
 		9BC8252014C90CAB00D67A23 /* OfferVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC8251E14C90CAB00D67A23 /* OfferVC.m */; };
 		9BC8252114C90CAB00D67A23 /* OfferVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC8251F14C90CAB00D67A23 /* OfferVC.xib */; };
 		9BD0729114BCE4AF002D297F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD0729014BCE4AF002D297F /* Security.framework */; };
@@ -169,6 +221,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B095DDE14CE50260024285C /* calendarButton-april10th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april10th@2x.png"; sourceTree = "<group>"; };
+		9B095DDF14CE50260024285C /* calendarButton-april11th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april11th@2x.png"; sourceTree = "<group>"; };
+		9B095DE014CE50260024285C /* calendarButton-april12th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april12th@2x.png"; sourceTree = "<group>"; };
+		9B095DE114CE50260024285C /* calendarButton-april13th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april13th@2x.png"; sourceTree = "<group>"; };
+		9B095DE214CE50260024285C /* calendarButton-april14th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april14th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DE314CE50260024285C /* calendarButton-april14th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april14th@2x.png"; sourceTree = "<group>"; };
+		9B095DE414CE50260024285C /* calendarButton-april15th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april15th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DE514CE50260024285C /* calendarButton-april15th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april15th@2x.png"; sourceTree = "<group>"; };
+		9B095DE614CE50260024285C /* calendarButton-april16th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april16th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DE714CE50260024285C /* calendarButton-april16th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april16th@2x.png"; sourceTree = "<group>"; };
+		9B095DE814CE50260024285C /* calendarButton-april17th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april17th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DE914CE50260024285C /* calendarButton-april17th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april17th@2x.png"; sourceTree = "<group>"; };
+		9B095DEA14CE50260024285C /* calendarButton-april18th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april18th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DEB14CE50260024285C /* calendarButton-april18th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april18th@2x.png"; sourceTree = "<group>"; };
+		9B095DEC14CE50260024285C /* calendarButton-april19th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april19th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DED14CE50260024285C /* calendarButton-april19th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april19th@2x.png"; sourceTree = "<group>"; };
+		9B095DEE14CE50260024285C /* calendarButton-april20th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april20th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DEF14CE50260024285C /* calendarButton-april20th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april20th@2x.png"; sourceTree = "<group>"; };
+		9B095DF014CE50260024285C /* calendarButton-april21st-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april21st-on@2x.png"; sourceTree = "<group>"; };
+		9B095DF114CE50260024285C /* calendarButton-april21st@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april21st@2x.png"; sourceTree = "<group>"; };
+		9B095DF214CE50260024285C /* calendarButton-april22nd-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april22nd-on@2x.png"; sourceTree = "<group>"; };
+		9B095DF314CE50260024285C /* calendarButton-april22nd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april22nd@2x.png"; sourceTree = "<group>"; };
+		9B095DF414CE50260024285C /* calendarButton-april23rd-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april23rd-on@2x.png"; sourceTree = "<group>"; };
+		9B095DF514CE50260024285C /* calendarButton-april23rd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april23rd@2x.png"; sourceTree = "<group>"; };
+		9B095DF614CE50260024285C /* calendarButton-april24th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april24th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DF714CE50260024285C /* calendarButton-april24th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april24th@2x.png"; sourceTree = "<group>"; };
+		9B095DF814CE50260024285C /* calendarButton-april25th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april25th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DF914CE50260024285C /* calendarButton-april25th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april25th@2x.png"; sourceTree = "<group>"; };
+		9B095DFA14CE50260024285C /* calendarButton-april26th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april26th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DFB14CE50260024285C /* calendarButton-april26th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april26th@2x.png"; sourceTree = "<group>"; };
+		9B095DFC14CE50260024285C /* calendarButton-april27th-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april27th-on@2x.png"; sourceTree = "<group>"; };
+		9B095DFD14CE50260024285C /* calendarButton-april27th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april27th@2x.png"; sourceTree = "<group>"; };
+		9B095DFE14CE50260024285C /* calendarButton-april28th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april28th@2x.png"; sourceTree = "<group>"; };
+		9B095DFF14CE50260024285C /* calendarButton-april29th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april29th@2x.png"; sourceTree = "<group>"; };
+		9B095E0014CE50260024285C /* calendarButton-april30th@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendarButton-april30th@2x.png"; sourceTree = "<group>"; };
+		9B095E2414CE57A40024285C /* EventCategoriesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCategoriesVC.h; sourceTree = "<group>"; };
+		9B095E2514CE57A40024285C /* EventCategoriesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCategoriesVC.m; sourceTree = "<group>"; };
+		9B095E2614CE57A40024285C /* EventCategoriesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCategoriesVC.xib; sourceTree = "<group>"; };
 		9B28000A14C4002F004231CC /* Favourite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favourite.h; sourceTree = "<group>"; };
 		9B28000B14C4002F004231CC /* Favourite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favourite.m; sourceTree = "<group>"; };
 		9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.B.dylib; path = usr/lib/libSystem.B.dylib; sourceTree = SDKROOT; };
@@ -237,8 +327,6 @@
 		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
 		9B830A6014BEC0C40028336C /* EventsMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMainVC.m; sourceTree = "<group>"; };
 		9B830A6114BEC0C40028336C /* EventsMainVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsMainVC.xib; sourceTree = "<group>"; };
-		9B830A6414BEC6520028336C /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		9B830A6514BEC6520028336C /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9B8BF89414BEB0D10025BE01 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		9B8BF89514BEB0D10025BE01 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		9B8BF89614BEB0D10025BE01 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -418,6 +506,32 @@
 		9B99E18D14BFF528000884CC /* EventsLandingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsLandingVC.h; sourceTree = "<group>"; };
 		9B99E18E14BFF529000884CC /* EventsLandingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsLandingVC.m; sourceTree = "<group>"; };
 		9B99E18F14BFF529000884CC /* EventsLandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsLandingVC.xib; sourceTree = "<group>"; };
+		9B9E6CA014CD1DEF00B84A0B /* ShoppingMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingMenuVC.h; sourceTree = "<group>"; };
+		9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingMenuVC.m; sourceTree = "<group>"; };
+		9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingMenuVC.xib; sourceTree = "<group>"; };
+		9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingTableCell.h; sourceTree = "<group>"; };
+		9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingTableCell.m; sourceTree = "<group>"; };
+		9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingTableCell.xib; sourceTree = "<group>"; };
+		9B9E6CB114CD25E600B84A0B /* ShoppingVendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingVendor.h; sourceTree = "<group>"; };
+		9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingVendor.m; sourceTree = "<group>"; };
+		9B9E6CB414CD2BCB00B84A0B /* shoppingVendors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shoppingVendors.xml; sourceTree = "<group>"; };
+		9B9E6CB614CD305100B84A0B /* CarnivalRideVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalRideVC.h; sourceTree = "<group>"; };
+		9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalRideVC.m; sourceTree = "<group>"; };
+		9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarnivalRideVC.xib; sourceTree = "<group>"; };
+		9BA72E0B14CCBC2F00E9B334 /* CarnivalMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalMenuVC.h; sourceTree = "<group>"; };
+		9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalMenuVC.m; sourceTree = "<group>"; };
+		9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarnivalMenuVC.xib; sourceTree = "<group>"; };
+		9BA72E1D14CCD14100E9B334 /* CarnivalTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalTableCell.h; sourceTree = "<group>"; };
+		9BA72E1E14CCD14100E9B334 /* CarnivalTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalTableCell.m; sourceTree = "<group>"; };
+		9BA72E1F14CCD14200E9B334 /* CarnivalTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarnivalTableCell.xib; sourceTree = "<group>"; };
+		9BA72E2214CCD39D00E9B334 /* CarnivalRide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalRide.h; sourceTree = "<group>"; };
+		9BA72E2314CCD39D00E9B334 /* CarnivalRide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalRide.m; sourceTree = "<group>"; };
+		9BA72E2514CCD93E00E9B334 /* carnivalrides.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = carnivalrides.xml; sourceTree = "<group>"; };
+		9BA89A3714CE1AE40005A9A1 /* ShoppingVendorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingVendorVC.h; sourceTree = "<group>"; };
+		9BA89A3814CE1AE40005A9A1 /* ShoppingVendorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingVendorVC.m; sourceTree = "<group>"; };
+		9BA89A3914CE1AE50005A9A1 /* ShoppingVendorVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingVendorVC.xib; sourceTree = "<group>"; };
+		9BA89A4514CE37770005A9A1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		9BA89A4614CE37770005A9A1 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9BC8251D14C90CAB00D67A23 /* OfferVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferVC.h; sourceTree = "<group>"; };
 		9BC8251E14C90CAB00D67A23 /* OfferVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferVC.m; sourceTree = "<group>"; };
 		9BC8251F14C90CAB00D67A23 /* OfferVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferVC.xib; sourceTree = "<group>"; };
@@ -433,7 +547,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B2AFE0114C933F00009A0F5 /* libSystem.B.dylib in Frameworks */,
 				9B8BF97914BEB53C0025BE01 /* MapKit.framework in Frameworks */,
 				9B585E1C14BD31530027DB00 /* libz.dylib in Frameworks */,
 				9B585E1A14BD31160027DB00 /* AVFoundation.framework in Frameworks */,
@@ -466,6 +579,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B095DDC14CE501B0024285C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9B095DDE14CE50260024285C /* calendarButton-april10th@2x.png */,
+				9B095DDF14CE50260024285C /* calendarButton-april11th@2x.png */,
+				9B095DE014CE50260024285C /* calendarButton-april12th@2x.png */,
+				9B095DE114CE50260024285C /* calendarButton-april13th@2x.png */,
+				9B095DE214CE50260024285C /* calendarButton-april14th-on@2x.png */,
+				9B095DE314CE50260024285C /* calendarButton-april14th@2x.png */,
+				9B095DE414CE50260024285C /* calendarButton-april15th-on@2x.png */,
+				9B095DE514CE50260024285C /* calendarButton-april15th@2x.png */,
+				9B095DE614CE50260024285C /* calendarButton-april16th-on@2x.png */,
+				9B095DE714CE50260024285C /* calendarButton-april16th@2x.png */,
+				9B095DE814CE50260024285C /* calendarButton-april17th-on@2x.png */,
+				9B095DE914CE50260024285C /* calendarButton-april17th@2x.png */,
+				9B095DEA14CE50260024285C /* calendarButton-april18th-on@2x.png */,
+				9B095DEB14CE50260024285C /* calendarButton-april18th@2x.png */,
+				9B095DEC14CE50260024285C /* calendarButton-april19th-on@2x.png */,
+				9B095DED14CE50260024285C /* calendarButton-april19th@2x.png */,
+				9B095DEE14CE50260024285C /* calendarButton-april20th-on@2x.png */,
+				9B095DEF14CE50260024285C /* calendarButton-april20th@2x.png */,
+				9B095DF014CE50260024285C /* calendarButton-april21st-on@2x.png */,
+				9B095DF114CE50260024285C /* calendarButton-april21st@2x.png */,
+				9B095DF214CE50260024285C /* calendarButton-april22nd-on@2x.png */,
+				9B095DF314CE50260024285C /* calendarButton-april22nd@2x.png */,
+				9B095DF414CE50260024285C /* calendarButton-april23rd-on@2x.png */,
+				9B095DF514CE50260024285C /* calendarButton-april23rd@2x.png */,
+				9B095DF614CE50260024285C /* calendarButton-april24th-on@2x.png */,
+				9B095DF714CE50260024285C /* calendarButton-april24th@2x.png */,
+				9B095DF814CE50260024285C /* calendarButton-april25th-on@2x.png */,
+				9B095DF914CE50260024285C /* calendarButton-april25th@2x.png */,
+				9B095DFA14CE50260024285C /* calendarButton-april26th-on@2x.png */,
+				9B095DFB14CE50260024285C /* calendarButton-april26th@2x.png */,
+				9B095DFC14CE50260024285C /* calendarButton-april27th-on@2x.png */,
+				9B095DFD14CE50260024285C /* calendarButton-april27th@2x.png */,
+				9B095DFE14CE50260024285C /* calendarButton-april28th@2x.png */,
+				9B095DFF14CE50260024285C /* calendarButton-april29th@2x.png */,
+				9B095E0014CE50260024285C /* calendarButton-april30th@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		9B585DEA14BCFEED0027DB00 /* Test Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -914,18 +1069,6 @@
 				9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */,
 				9B28000A14C4002F004231CC /* Favourite.h */,
 				9B28000B14C4002F004231CC /* Favourite.m */,
-				9B67C45A14C3E94600C4A78C /* Offer.h */,
-				9B67C45B14C3E94700C4A78C /* Offer.m */,
-				9B67C44D14C3D3F700C4A78C /* FoodVenue.h */,
-				9B67C44E14C3D3F700C4A78C /* FoodVenue.m */,
-				9B830A6414BEC6520028336C /* Event.h */,
-				9B830A6514BEC6520028336C /* Event.m */,
-				9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */,
-				9B830A5814BEBFD30028336C /* Showbag.h */,
-				9B830A5914BEBFD30028336C /* Showbag.m */,
-				9B585DF714BD2B710027DB00 /* ShowbagsTableCell.h */,
-				9B585DF814BD2B710027DB00 /* ShowbagsTableCell.m */,
-				9B585DF914BD2B710027DB00 /* ShowbagsTableCell.xib */,
 				9BD0729414BCE69F002D297F /* SVProgressHUD.h */,
 				9BD0729514BCE69F002D297F /* SVProgressHUD.m */,
 				9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */,
@@ -947,6 +1090,9 @@
 		9B93B70814BBFEFC00FB31CE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B095DDC14CE501B0024285C /* Images */,
+				9B9E6CB414CD2BCB00B84A0B /* shoppingVendors.xml */,
+				9BA72E2514CCD93E00E9B334 /* carnivalrides.xml */,
 				9B93B70914BBFEFC00FB31CE /* Easter Show-Info.plist */,
 				9B93B70A14BBFEFC00FB31CE /* InfoPlist.strings */,
 				9B93B70D14BBFEFC00FB31CE /* main.m */,
@@ -984,6 +1130,8 @@
 		9B93B73514BC024800FB31CE /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				9BA89A4514CE37770005A9A1 /* Event.h */,
+				9BA89A4614CE37770005A9A1 /* Event.m */,
 				9B3D0C9C14C3F84C00B9B233 /* EventVC.h */,
 				9B3D0C9D14C3F84C00B9B233 /* EventVC.m */,
 				9B3D0C9E14C3F84C00B9B233 /* EventVC.xib */,
@@ -999,6 +1147,9 @@
 				9B99E18D14BFF528000884CC /* EventsLandingVC.h */,
 				9B99E18E14BFF529000884CC /* EventsLandingVC.m */,
 				9B99E18F14BFF529000884CC /* EventsLandingVC.xib */,
+				9B095E2414CE57A40024285C /* EventCategoriesVC.h */,
+				9B095E2514CE57A40024285C /* EventCategoriesVC.m */,
+				9B095E2614CE57A40024285C /* EventCategoriesVC.xib */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1016,6 +1167,8 @@
 		9B93B73714BC025700FB31CE /* Offers */ = {
 			isa = PBXGroup;
 			children = (
+				9B67C45A14C3E94600C4A78C /* Offer.h */,
+				9B67C45B14C3E94700C4A78C /* Offer.m */,
 				9BC8251D14C90CAB00D67A23 /* OfferVC.h */,
 				9BC8251E14C90CAB00D67A23 /* OfferVC.m */,
 				9BC8251F14C90CAB00D67A23 /* OfferVC.xib */,
@@ -1032,6 +1185,14 @@
 		9B93B73814BC025D00FB31CE /* More */ = {
 			isa = PBXGroup;
 			children = (
+				9B67C44D14C3D3F700C4A78C /* FoodVenue.h */,
+				9B67C44E14C3D3F700C4A78C /* FoodVenue.m */,
+				9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */,
+				9B830A5814BEBFD30028336C /* Showbag.h */,
+				9B830A5914BEBFD30028336C /* Showbag.m */,
+				9B585DF714BD2B710027DB00 /* ShowbagsTableCell.h */,
+				9B585DF814BD2B710027DB00 /* ShowbagsTableCell.m */,
+				9B585DF914BD2B710027DB00 /* ShowbagsTableCell.xib */,
 				9B585E2314BD40E90027DB00 /* ShowbagVC.h */,
 				9B585E2414BD40E90027DB00 /* ShowbagVC.m */,
 				9B585E2514BD40E90027DB00 /* ShowbagVC.xib */,
@@ -1052,6 +1213,28 @@
 				9B67C43614C3A48600C4A78C /* FoodMenuVC.h */,
 				9B67C43714C3A48600C4A78C /* FoodMenuVC.m */,
 				9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */,
+				9B9E6CB614CD305100B84A0B /* CarnivalRideVC.h */,
+				9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */,
+				9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */,
+				9BA72E2214CCD39D00E9B334 /* CarnivalRide.h */,
+				9BA72E2314CCD39D00E9B334 /* CarnivalRide.m */,
+				9BA72E1D14CCD14100E9B334 /* CarnivalTableCell.h */,
+				9BA72E1E14CCD14100E9B334 /* CarnivalTableCell.m */,
+				9BA72E1F14CCD14200E9B334 /* CarnivalTableCell.xib */,
+				9BA72E0B14CCBC2F00E9B334 /* CarnivalMenuVC.h */,
+				9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */,
+				9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */,
+				9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */,
+				9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */,
+				9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */,
+				9B9E6CB114CD25E600B84A0B /* ShoppingVendor.h */,
+				9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */,
+				9B9E6CA014CD1DEF00B84A0B /* ShoppingMenuVC.h */,
+				9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */,
+				9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */,
+				9BA89A3714CE1AE40005A9A1 /* ShoppingVendorVC.h */,
+				9BA89A3814CE1AE40005A9A1 /* ShoppingVendorVC.m */,
+				9BA89A3914CE1AE50005A9A1 /* ShoppingVendorVC.xib */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1156,6 +1339,50 @@
 				9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */,
 				9B3D0CA014C3F84C00B9B233 /* EventVC.xib in Resources */,
 				9BC8252114C90CAB00D67A23 /* OfferVC.xib in Resources */,
+				9BA72E0F14CCBC2F00E9B334 /* CarnivalMenuVC.xib in Resources */,
+				9BA72E2114CCD14200E9B334 /* CarnivalTableCell.xib in Resources */,
+				9BA72E2614CCD93E00E9B334 /* carnivalrides.xml in Resources */,
+				9B9E6CA414CD1DF000B84A0B /* ShoppingMenuVC.xib in Resources */,
+				9B9E6CB014CD235300B84A0B /* ShoppingTableCell.xib in Resources */,
+				9B9E6CB514CD2BCB00B84A0B /* shoppingVendors.xml in Resources */,
+				9B9E6CBA14CD305300B84A0B /* CarnivalRideVC.xib in Resources */,
+				9BA89A3B14CE1AE50005A9A1 /* ShoppingVendorVC.xib in Resources */,
+				9B095E0114CE50260024285C /* calendarButton-april10th@2x.png in Resources */,
+				9B095E0214CE50260024285C /* calendarButton-april11th@2x.png in Resources */,
+				9B095E0314CE50260024285C /* calendarButton-april12th@2x.png in Resources */,
+				9B095E0414CE50260024285C /* calendarButton-april13th@2x.png in Resources */,
+				9B095E0514CE50260024285C /* calendarButton-april14th-on@2x.png in Resources */,
+				9B095E0614CE50260024285C /* calendarButton-april14th@2x.png in Resources */,
+				9B095E0714CE50260024285C /* calendarButton-april15th-on@2x.png in Resources */,
+				9B095E0814CE50260024285C /* calendarButton-april15th@2x.png in Resources */,
+				9B095E0914CE50260024285C /* calendarButton-april16th-on@2x.png in Resources */,
+				9B095E0A14CE50260024285C /* calendarButton-april16th@2x.png in Resources */,
+				9B095E0B14CE50260024285C /* calendarButton-april17th-on@2x.png in Resources */,
+				9B095E0C14CE50260024285C /* calendarButton-april17th@2x.png in Resources */,
+				9B095E0D14CE50260024285C /* calendarButton-april18th-on@2x.png in Resources */,
+				9B095E0E14CE50260024285C /* calendarButton-april18th@2x.png in Resources */,
+				9B095E0F14CE50260024285C /* calendarButton-april19th-on@2x.png in Resources */,
+				9B095E1014CE50260024285C /* calendarButton-april19th@2x.png in Resources */,
+				9B095E1114CE50260024285C /* calendarButton-april20th-on@2x.png in Resources */,
+				9B095E1214CE50260024285C /* calendarButton-april20th@2x.png in Resources */,
+				9B095E1314CE50260024285C /* calendarButton-april21st-on@2x.png in Resources */,
+				9B095E1414CE50260024285C /* calendarButton-april21st@2x.png in Resources */,
+				9B095E1514CE50260024285C /* calendarButton-april22nd-on@2x.png in Resources */,
+				9B095E1614CE50260024285C /* calendarButton-april22nd@2x.png in Resources */,
+				9B095E1714CE50260024285C /* calendarButton-april23rd-on@2x.png in Resources */,
+				9B095E1814CE50260024285C /* calendarButton-april23rd@2x.png in Resources */,
+				9B095E1914CE50260024285C /* calendarButton-april24th-on@2x.png in Resources */,
+				9B095E1A14CE50260024285C /* calendarButton-april24th@2x.png in Resources */,
+				9B095E1B14CE50260024285C /* calendarButton-april25th-on@2x.png in Resources */,
+				9B095E1C14CE50260024285C /* calendarButton-april25th@2x.png in Resources */,
+				9B095E1D14CE50260024285C /* calendarButton-april26th-on@2x.png in Resources */,
+				9B095E1E14CE50260024285C /* calendarButton-april26th@2x.png in Resources */,
+				9B095E1F14CE50260024285C /* calendarButton-april27th-on@2x.png in Resources */,
+				9B095E2014CE50260024285C /* calendarButton-april27th@2x.png in Resources */,
+				9B095E2114CE50260024285C /* calendarButton-april28th@2x.png in Resources */,
+				9B095E2214CE50260024285C /* calendarButton-april29th@2x.png in Resources */,
+				9B095E2314CE50260024285C /* calendarButton-april30th@2x.png in Resources */,
+				9B095E2814CE57A40024285C /* EventCategoriesVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,7 +1500,6 @@
 				9B8BF97614BEB1AC0025BE01 /* MapVC.m in Sources */,
 				9B830A5A14BEBFD30028336C /* Showbag.m in Sources */,
 				9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */,
-				9B830A6614BEC6520028336C /* Event.m in Sources */,
 				9B99E18214BFE39A000884CC /* EventSelectionVC.m in Sources */,
 				9B99E18B14BFE723000884CC /* EventTableCell.m in Sources */,
 				9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */,
@@ -1288,6 +1514,16 @@
 				9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */,
 				9B28000C14C4002F004231CC /* Favourite.m in Sources */,
 				9BC8252014C90CAB00D67A23 /* OfferVC.m in Sources */,
+				9BA72E0E14CCBC2F00E9B334 /* CarnivalMenuVC.m in Sources */,
+				9BA72E2014CCD14200E9B334 /* CarnivalTableCell.m in Sources */,
+				9BA72E2414CCD39D00E9B334 /* CarnivalRide.m in Sources */,
+				9B9E6CA314CD1DF000B84A0B /* ShoppingMenuVC.m in Sources */,
+				9B9E6CAF14CD235300B84A0B /* ShoppingTableCell.m in Sources */,
+				9B9E6CB314CD25E600B84A0B /* ShoppingVendor.m in Sources */,
+				9B9E6CB914CD305300B84A0B /* CarnivalRideVC.m in Sources */,
+				9BA89A3A14CE1AE50005A9A1 /* ShoppingVendorVC.m in Sources */,
+				9BA89A4714CE37780005A9A1 /* Event.m in Sources */,
+				9B095E2714CE57A40024285C /* EventCategoriesVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

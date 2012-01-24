@@ -12,7 +12,7 @@
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "Event.h"
-#import "EventSelectionVC.h"
+#import "EventCategoriesVC.h"
 
 @implementation EventsMainVC
 
@@ -40,8 +40,8 @@
 	
 	//[self setupNavBar];
 
-	//[self initCalendarData];
-	//[self createCalendar];
+	[self initCalendarData];
+	[self createCalendar];
 }
 
 
@@ -75,135 +75,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	// If this view has not already been loaded 
-	//(i.e not coming back from an Offer detail view)
-	if (!eventsLoaded && !loading) {
-		
-		[self showLoading];
-		
-		[self retrieveXML];
-	}
-}
-
-
-- (void)retrieveXML {
-	
-	NSString *docName = @"events.xml";
-	NSInteger eventCount = 0; 
-	NSInteger lastEventID = 0;
-	NSString *queryString;
-	
-	BOOL batchImport = NO;
-	
-	if (batchImport) queryString = [NSString stringWithFormat:@"?first=true&start=%i&last=1000", eventCount]; 
-	else queryString = [NSString stringWithFormat:@"?id=%i", lastEventID];
-	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSURL *url = [urlString convertToURL];
-	
-	NSLog(@"EVENTS URL:%@", urlString);
-	
-	// Create the request.
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-														   cachePolicy:NSURLRequestUseProtocolCachePolicy
-													   timeoutInterval:45.0];
-	
-	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"GET"];	
-	
-	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
-	[fetcher start];
-}
-
-
-// The API Request has finished being processed. Deal with the return data.
-- (void)receiveResponse:(HTTPFetcher *)aFetcher {
-    
-    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
-	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
-    
-	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
-	
-	loading = NO;
-	eventsLoaded = YES;
-	
-	if ([theXMLFetcher.data length] > 0) {
-        
-        // loop through the XPathResultNode objects that the XMLFetcher fetched
-        for (XPathResultNode *node in theXMLFetcher.results) { 
-			
-			if ([[node name] isEqualToString:@"add"]) {
-				
-				for (XPathResultNode *eventNode in node.childNodes) { 
-					
-					NSMutableDictionary *eventData = [NSMutableDictionary dictionary];
-					
-					// Store the Event's ID
-					[eventData setObject:[[eventNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *eventChild in eventNode.childNodes) {
-						
-						if ([[eventChild contentString] length] > 0)
-							[eventData setObject:[eventChild contentString] forKey:[eventChild name]];
-					}
-					
-					// Store Event data in Core Data persistent store
-					[Event eventWithEventData:eventData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"update"]) {
-				
-				for (XPathResultNode *eventNode in node.childNodes) { 
-					
-					NSMutableDictionary *eventData = [NSMutableDictionary dictionary];
-					
-					// Store the Event's ID
-					[eventData setObject:[[eventNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the Event's attributes
-					for (XPathResultNode *eventChild in eventNode.childNodes) {
-						
-						if ([[eventChild contentString] length] > 0)
-							[eventData setObject:[eventChild contentString] forKey:[eventChild name]];
-					}
-					
-					// Store Event data in Core Data persistent store
-					[Event updateEventWithEventData:eventData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"remove"]) {
-				
-				for (XPathResultNode *showbagNode in node.childNodes) {
-					
-					NSString *idString = [[showbagNode attributes] objectForKey:@"id"];
-					NSNumber *eventID = [NSNumber numberWithInt:[idString intValue]];
-					
-					// Delete Event from the persistent store
-					Event *event = [Event eventWithID:eventID inManagedObjectContext:self.managedObjectContext];
-					
-					if (event) [self.managedObjectContext deleteObject:event];
-				}
-			}
-		}		
-	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
-	
-	// Hide loading view
-	[self hideLoading];
-	
-	[fetcher release];
-	fetcher = nil;
+	[super viewDidAppear:animated];
 }
 
 
 - (void)initCalendarData {
 
-	self.days = [[NSMutableArray alloc] init];
+	self.days = [NSMutableArray array];
 	
 	NSString *month = @"April";
 	
@@ -341,15 +219,14 @@
 
 - (void)goToDaysEvents:(id)sender {
 	
-	//UIButton *selectedBtn = (UIButton *)sender;
+	UIButton *selectedBtn = (UIButton *)sender;
 
-	/*EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
-	[eventSelectionVC setSelectedDate:[self getDayStringUsingInt:selectedBtn.tag]];
+	EventCategoriesVC *eventCategoriesVC = [[EventCategoriesVC alloc] initWithNibName:@"EventCategoriesVC" bundle:nil];
+	[eventCategoriesVC setSelectedDate:[self getDayStringUsingInt:selectedBtn.tag]];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:eventSelectionVC animated:YES];
-	[eventSelectionVC release];*/
-
+	[self.navigationController pushViewController:eventCategoriesVC animated:YES];
+	[eventCategoriesVC release];
 }
 
 
@@ -374,7 +251,8 @@
 		
 		NSInteger dayArrayInt = [[dayArray objectAtIndex:1] intValue];
 		
-		if (dayArrayInt == dayInt) return [dayArray objectAtIndex:0];
+		if (dayArrayInt == dayInt) 
+			return [dayArray objectAtIndex:0];
 	
 	}
 	
@@ -468,18 +346,6 @@
 	
 	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
 } 
-
-
-- (IBAction)goToApril17:(id)sender {
-
-	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
-	[eventSelectionVC setSelectedDate:@"April 17"];
-	[eventSelectionVC setManagedObjectContext:self.managedObjectContext];
-	
-	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:eventSelectionVC animated:YES];
-	[eventSelectionVC release];
-}
 
 
 - (void)dealloc {

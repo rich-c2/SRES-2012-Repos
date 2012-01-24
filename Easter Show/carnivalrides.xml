@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rides>
+	<ride id="1">
+		<title>Fantasy Cups</title>
+		<description>Take a ride into Fantasy Land! Decorated with scenes from some of the classics including Snow White, the Lion King and The Little Mermaid, these fantastic cups and saucers will spin you away to a the land of your dreams.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</ride>
+	<ride id="2">
+		<title>Wild Raft</title>
+		<description>Jump in and hold on tight for a wild, whitewater rafting trip down sets of simulated rapids.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</ride>
+	<ride id="3">
+		<title>Surf's Up</title>
+		<description>Experience the thrill of surfing without getting wet! Sit down on a surfboard-style seat and you’re lifted up into the air for a free-fall experience that’s hilarious fun for all.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</ride>
+	<ride id="4">
+		<title>Bounce Around</title>
+		<description>Jump aboard, and hang on! It’s an all-terrain vehicle with extra bounce in the springs for a fun-filled, rocking ride that the kids will love!</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</ride>
+	<ride id="5">
+		<title>Carousel</title>
+		<description>Everyone loves a ride on the prancing horses of the Carousel. Hang on, and wave for the camera!</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</ride>
+</rides>	

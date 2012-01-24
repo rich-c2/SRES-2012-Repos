@@ -47,10 +47,9 @@
 - (void)createCalendar;
 - (void)goToDaysEvents:(id)sender;
 - (NSString *)getDayStringUsingInt:(NSInteger)dayInt;
-- (void)retrieveXML;
 - (void)setupNavBar;
 - (void)showLoading;
 - (void)hideLoading;
-- (IBAction)goToApril17:(id)sender;
+
 
 @end

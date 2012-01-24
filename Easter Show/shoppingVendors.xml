@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shops>
+	<shop id="1">
+		<title><![CDATA[Woolworths Fresh Food Dome]]></title>
+		<description><![CDATA[Whether it’s pasta or pavlova, sweet or savoury, wine or treats divine, there’s a world of fresh flavours and taste sensations in store for you at The Woolworths Fresh Food Dome, as well as a showcase for our finest, freshest produce. The Woolworths Fresh Food Dome is also a celebration of Australia’s multi-cultural diet, which draws its inspiration from every corner of the culinary world.]]></description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</shop>
+	<shop id="2">
+		<title><![CDATA[Fashion & Style]]></title>
+		<description><![CDATA[It’s flattering, fabulous and dressed to thrill. A highlight this year is a special display by Australian designer and Fashion and Style exhibitor Natasha Dwyer. The “Arthur Avenue” designer will display the controversial and uniquely Australian gown she created for our 2010 Miss Universe entrant, Ms Jesinta Campbell. Daring and innovative, Natasha’s approach to fashion design encapsulates what the Fashion and Style Pavilion is all about.]]></description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</shop>
+	<shop id="3">
+		<title><![CDATA[Home, Garden & Lifestyle]]></title>
+		<description><![CDATA[Need a new look to your life? This Home Show, Garden Show and lifestyle Options Show is packed with great ideas, all in the one place! Take a look around the Home, Garden & Lifestyle Pavilion to see some smart designer ideas that will transform your life, plus the latest in home renovation technology and sustainable living tips, as well as a myriad of lifestyle, home and garden products and equipment. Experts will be on hand to tailor solutions to your needs. Step inside, and take your first step on the road to a new way of living.]]></description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</shop>
+	<shop id="4">
+		<title><![CDATA[World Bazaar]]></title>
+		<description><![CDATA[The World Bazaar experience of 2011 is bigger and brighter than ever, with an expanded selection of jewellery and Eastern clothing. Stop by for a multicultural shopping experience and take away something a little out of the ordinary. 
+Treat yourself to the latest in deep muscle massage technology, sample the African, Indian and Thai handicrafts and try on the latest in fashion accessories from the Middle East. 
+]]></description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</shop>
+	<shop id="5">
+		<title><![CDATA[Craft Corner]]></title>
+		<description><![CDATA[Craftwork is one of the best things you can do with your spare time, and it caters to a huge range of tastes and interests. Take a look around Craft Corner for some inspiring ideas to turn your leisure time into pleasure time.
+Try your hand at patchworking. New to Craft Corner in 2011, our patchwork exhibitor, “Aussie Patch”, is there to answer all your questions and introduce you to one of the fastest growing pastimes in Australia. A skill from centuries past, patchworking is enjoying a renaissance, and Craft Corner is the place to find out all you need to know.
+]]></description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+	</shop>
+</shops>

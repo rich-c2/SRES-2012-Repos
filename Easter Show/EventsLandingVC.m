@@ -15,6 +15,7 @@
 #import "EventSelectionVC.h"
 #import "EventTableCell.h"
 #import "EventVC.h"
+#import "EventsMainVC.h"
 
 @implementation EventsLandingVC
 
@@ -228,7 +229,11 @@
 - (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event {
 	
 	cell.nameLabel.text = event.title;
-	cell.dateLable.text = event.eventDate;
+	
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"MMMM dd"];
+	cell.dateLable.text = [dateFormat stringFromDate:event.eventDate];
+	[dateFormat release];
 	
 	[cell initImage:event.thumbURL];
 }
@@ -411,13 +416,39 @@
 
 - (IBAction)todaysEventsButtonClicked:(id)sender {
 
+	NSDate *todaysDate = [NSDate date];
+	//NSLog(@"TODAY'S DATE:%@", todaysDate);
 	
+	// Convert string to date object
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	
+	// TODAY'S DATE:24/01/2012
+	//[dateFormat setDateFormat:@"dd/MM/yyyy HH:MM:SS a"];
+	
+	// TODAY'S DATE:January 24
+	[dateFormat setDateFormat:@"MMMM dd"];
+	//NSLog(@"TODAY'S DATE:%@", [dateFormat stringFromDate:todaysDate]);
+
+	
+	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
+	[eventSelectionVC setManagedObjectContext:self.managedObjectContext];
+	[eventSelectionVC setSelectedDate:[dateFormat stringFromDate:todaysDate]];
+	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventSelectionVC animated:YES];
+	[eventSelectionVC release];
+	
+	[dateFormat release];
 }
 
 
 - (IBAction)fullProgramButtonClicked:(id)sender {
 	
+	EventsMainVC *eventsMainVC = [[EventsMainVC alloc] initWithNibName:@"EventsMainVC" bundle:nil];
 	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventsMainVC animated:YES];
+	[eventsMainVC release];
 }
 
 

@@ -3,7 +3,7 @@
 //  Easter Show
 //
 //  Created by Richard Lee on 10/01/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 C2 Media Pty Ltd. All rights reserved.
 //
 
 #import "SRESAppDelegate.h"
@@ -14,21 +14,24 @@
 
 NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
+static NSString *kAppVersionKey = @"appVersionKey";
+
 @implementation SRESAppDelegate
 
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC;
+@synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC, favsMenuVC;
 
-- (void)dealloc
-{
+- (void)dealloc {
+	
 	[_window release];
 	[tabBarController release];
 	[moreVC release];
 	[eventsLandingVC release];
 	[offersMenuVC release];
+	[favsMenuVC release];
 	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
@@ -36,11 +39,34 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
     [super dealloc];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+	
+	/* //////////////////////////////////////////////////////////////////////////////////////////
+	 
+		APP VERSION 
+		Set the appVersion variable. 
+		Retrieve from the NSUserDefaults what appVersion has been saved.
+		This will act as a flag to show that a new version is being loaded. 
+		In this instance the NSUserDefaults will need to be cleared.
+	*/
+	appVersion = 1.0;
+	
+	CGFloat savedVersion = [[NSUserDefaults standardUserDefaults] floatForKey:kAppVersionKey];
+	
+    if (appVersion != savedVersion) {
+		
+        // Do first run view initializaton here //
+		[NSUserDefaults resetStandardUserDefaults];
+		
+		// Store the current version to NSUserDefaults
+		[[NSUserDefaults standardUserDefaults] setFloat:appVersion forKey:kAppVersionKey];
+    }
+
+	//////////////////////////////////////////////////////////////////////////////////////////
 	
 	// EventsLandingVC
 	eventsLandingVC = [[EventsLandingVC alloc] initWithNibName:@"EventsLandingVC" bundle:nil];
@@ -52,7 +78,7 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	[eventsLandingVC release];
 	
 	
-	// EventsLandingVC
+	// Favs Menu VC
 	favsMenuVC = [[FavouritesMenuVC alloc] initWithNibName:@"FavouritesMenuVC" bundle:nil];
 	[favsMenuVC setManagedObjectContext:self.managedObjectContext];
 	
@@ -61,7 +87,7 @@ NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 	[navcon4 pushViewController:favsMenuVC animated:NO];
 	[favsMenuVC release];
 	
-	
+	// Offers VC
 	offersMenuVC = [[OffersMenuVC alloc] initWithNibName:@"OffersMenuVC" bundle:nil];
 	[offersMenuVC setManagedObjectContext:self.managedObjectContext];
 	
