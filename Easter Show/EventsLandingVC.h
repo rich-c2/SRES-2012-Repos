@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class XMLFetcher;
+@class JSONFetcher;
 @class EventTableCell;
 
 @interface EventsLandingVC : UIViewController {
 
-	XMLFetcher *fetcher;
+	JSONFetcher *fetcher;
 	
 	NSManagedObjectContext *managedObjectContext;
 	

@@ -250,9 +250,14 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	self.titleLabel.text = self.event.title;
 	[self resizeTextView:self.titleLabel];
 	
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"h:mm a"];
+	
 	self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.dateLabel.text = [NSString	stringWithFormat:@"%@", self.event.eventDate];
+	self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
 	[self resizeTextView:self.dateLabel];
+
+	[dateFormat release];
 	
 	CGRect currFrame = self.dateLabel.frame;
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;

@@ -7,18 +7,16 @@
 //
 
 #import "EventTableCell.h"
-#import "ImageManager.h"
-#import "StringHelper.h"
 
 @implementation EventTableCell
 
-@synthesize nameLabel, dateLable, thumbView, cellSpinner, imageURL;
+@synthesize nameLabel, detailLabel, thumbView;
+
 
 + (NSString *)reuseIdentifier {
 	
     return (NSString *)EVENT_CELL_IDENTIFIER;
 }
-
 
 - (NSString *)reuseIdentifier {
 	
@@ -26,6 +24,7 @@
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         // Initialization code
     }
@@ -39,44 +38,15 @@
 }
 
 
-- (void)initImage:(NSString *)urlString {
+- (void)initImage {
 	
-	if (urlString) {
-		
-		self.imageURL = [urlString convertToURL];
-		
-		NSLog(@"LOADING GRID IMAGE:%@", urlString);
-		
-		UIImage* img = [ImageManager loadImage:imageURL];
-		if (img) {
-			
-			[self.thumbView setImage:img];
-		}
-    }
-	
-	else {
-		
-		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
-	}
-}
-
-
-- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
-	
-	if ([imageURL isEqual:url]) {
-		
-		NSLog(@"IMAGE LOADED:%@", [url description]);
-		
-		[self.thumbView setImage:image];
-	}
+	[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
 }
 
 
 - (void)dealloc {
 	
-	[imageURL release];
-	[cellSpinner release];
-	[dateLable release];
+	[detailLabel release];
 	[thumbView release];
 	[nameLabel release];
     [super dealloc];

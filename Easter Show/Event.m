@@ -2,24 +2,63 @@
 //  Event.m
 //  Easter Show
 //
-//  Created by Richard Lee on 24/01/12.
+//  Created by Richard Lee on 2/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Event.h"
 
 
+@implementation NSManagedObject (safeSetValuesKeysWithDictionary)
+
+
+- (void)safeSetValuesForKeysWithDictionary:(NSDictionary *)keyedValues 
+							 dateFormatter:(NSDateFormatter *)dateFormatter {
+	
+    NSDictionary *attributes = [[self entity] attributesByName];
+	
+    for (NSString *attribute in attributes) {
+		
+        id value = [keyedValues objectForKey:attribute];
+		
+		NSLog(@"STARTING:%@", attribute);
+		
+        if (value == nil || value == (id)[NSNull null]) {
+            continue;
+        }
+		
+        NSAttributeType attributeType = [[attributes objectForKey:attribute] attributeType];
+		
+        if ((attributeType == NSStringAttributeType) && ([value isKindOfClass:[NSNumber class]])) {
+            value = [value stringValue];
+        } else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) && ([value isKindOfClass:[NSString class]])) {
+            value = [NSNumber numberWithInteger:[value integerValue]];
+        } else if ((attributeType == NSFloatAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
+            value = [NSNumber numberWithDouble:[value doubleValue]];
+        } else if ((attributeType == NSDateAttributeType) && ([value isKindOfClass:[NSString class]]) && (dateFormatter != nil)) {
+			
+            value = [dateFormatter dateFromString:value];
+        }
+		
+		NSLog(@"VALUE:%@|ATT:%@", value, attribute);
+        [self setValue:value forKey:attribute];
+    }
+}
+@end
+
+
 @implementation Event
 
-+ (Event *)eventWithEventData:(NSDictionary *)eventData 
-	   inManagedObjectContext:(NSManagedObjectContext *)context {
+
++ (Event *)newEventWithData:(NSDictionary *)eventData 
+	 inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Event *event = nil;
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
 	
-	NSNumber *idNum = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
+	NSNumber *idNum = [NSNumber numberWithInt:[[eventData objectForKey:@"eventID"] intValue]];
 	request.predicate = [NSPredicate predicateWithFormat:@"eventID == %@", idNum];
 	
 	NSError *error = nil;
@@ -30,22 +69,16 @@
 		
 		// Create a new Event
 		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-		event.eventID = idNum;
-		event.title = [eventData objectForKey:@"eventTitle"];
-		event.eventDescription = [eventData objectForKey:@"eventDescription"];
-		event.imageURL = [eventData objectForKey:@"imageURL"];
-		event.thumbURL = [eventData objectForKey:@"thumbURL"];
-		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
-		event.longitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"longitude"] doubleValue]];
-		event.category = [self categoryStringFromInt:[[eventData objectForKey:@"eventType"] intValue]];
 		
 		// EVENT DATE
 		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-		[dateFormat setDateFormat:@"MMMM dd"];
-		NSDate *date = [dateFormat dateFromString:[eventData objectForKey:@"eventDate"]];
-		event.eventDate = date;
+		[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 		
-		NSLog(@"Event CREATED:%@", event.title);
+		[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
+		
+		NSLog(@"Event CREATED:%@ | %@", event.title, [dateFormat stringFromDate:event.startDate]);
+		
+		[dateFormat release];
 	}
 	
 	return event;
@@ -76,7 +109,7 @@
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
 	
-	NSNumber *idNum = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];
+	NSNumber *idNum = [NSNumber numberWithInt:[[eventData objectForKey:@"eventID"] intValue]];
 	request.predicate = [NSPredicate predicateWithFormat:@"eventID == %@", idNum];
 	
 	NSError *error = nil;
@@ -85,24 +118,15 @@
 	
 	if (!error && event) {
 		
-		NSLog(@"Event UPDATED:%@", [eventData objectForKey:@"eventTitle"]);
-		
-		// Create a new Artist
-		event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-		event.eventID = idNum;
-		event.title = [eventData objectForKey:@"eventTitle"];
-		event.eventDescription = [eventData objectForKey:@"eventDescription"];
-		event.imageURL = [eventData objectForKey:@"imageURL"];
-		event.thumbURL = [eventData objectForKey:@"thumbURL"];
-		event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
-		event.longitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"longitude"] doubleValue]];
-		event.category = [self categoryStringFromInt:[[eventData objectForKey:@"eventType"] intValue]];
-		
 		// EVENT DATE
 		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-		[dateFormat setDateFormat:@"MMMM dd"];
-		NSDate *date = [dateFormat dateFromString:[eventData objectForKey:@"eventDate"]];
-		event.eventDate = date;
+		[dateFormat setDateFormat:@"MMMM dd h:mm a"];
+		
+		[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
+		
+		NSLog(@"Event UPDATED:%@ | %@", event.title, [dateFormat stringFromDate:event.startDate]);
+		
+		[dateFormat release];
 	}
 	
 	else if (!error && !event) event = [self insertEventWithData:eventData inManagedObjectContext:context];
@@ -112,24 +136,18 @@
 
 
 + (Event *)insertEventWithData:(NSDictionary *)eventData 
-				inManagedObjectContext:(NSManagedObjectContext *)context {
+		inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	// Create a new Event
 	Event *event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-	event.eventID = [NSNumber numberWithInt:[[eventData objectForKey:@"id"] intValue]];;
-	event.title = [eventData objectForKey:@"eventTitle"];
-	event.eventDescription = [eventData objectForKey:@"eventDescription"];
-	event.imageURL = [eventData objectForKey:@"imageURL"];
-	event.thumbURL = [eventData objectForKey:@"thumbURL"];
-	event.latitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"latitude"] doubleValue]];
-	event.longitude = [NSNumber numberWithDouble:[[eventData objectForKey:@"longitude"] doubleValue]];
-	event.category = [self categoryStringFromInt:[[eventData objectForKey:@"eventType"] intValue]];
 	
 	// EVENT DATE
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMMM dd"];
-	NSDate *date = [dateFormat dateFromString:[eventData objectForKey:@"eventDate"]];
-	event.eventDate = date;
+	[dateFormat setDateFormat:@"MMMM dd h:mm a"];
+	
+	[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
+	
+	[dateFormat release];
 	
 	return event;
 }
@@ -155,7 +173,7 @@
 
 
 + (NSString *)categoryStringFromInt:(NSInteger)categoryInt {
-
+	
 	NSString *category;
 	
 	switch (categoryInt) {
@@ -179,17 +197,14 @@
 	return category;
 }
 
-
-@dynamic allDay;
 @dynamic category;
-@dynamic eventDate;
+@dynamic startDate;
 @dynamic eventDescription;
 @dynamic eventID;
-@dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic subCategory;
-@dynamic thumbURL;
 @dynamic title;
+@dynamic endDate;
+@dynamic version;
 
 @end

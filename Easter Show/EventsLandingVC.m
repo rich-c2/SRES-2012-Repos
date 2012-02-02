@@ -9,13 +9,14 @@
 #import "EventsLandingVC.h"
 #import "SRESAppDelegate.h"
 #import "StringHelper.h"
-#import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "Event.h"
 #import "EventSelectionVC.h"
 #import "EventTableCell.h"
 #import "EventVC.h"
 #import "EventsMainVC.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
 
 @implementation EventsLandingVC
 
@@ -231,11 +232,12 @@
 	cell.nameLabel.text = event.title;
 	
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMMM dd"];
-	cell.dateLable.text = [dateFormat stringFromDate:event.eventDate];
+	[dateFormat setDateFormat:@"h:mm a"];
+	
+	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
 	[dateFormat release];
 	
-	[cell initImage:event.thumbURL];
+	[cell initImage];
 }
 
 
@@ -281,17 +283,25 @@
 
 - (void)retrieveXML {
 	
-	NSString *docName = @"events.xml";
-	NSInteger eventCount = 0; 
-	NSInteger lastEventID = 0;
-	NSString *queryString;
+	// TEST CODE
+	//NSString *docName = @"events.xml";
+	//NSString *docName = @"events-summaries.xml";
+	NSString *docName = @"events-summaries2.json";
 	
-	BOOL batchImport = NO;
+	//NSInteger eventCount = 0; 
+	//NSInteger lastEventID = 5390;
+	//NSString *queryString;
 	
-	if (batchImport) queryString = [NSString stringWithFormat:@"?first=true&start=%i&last=1000", eventCount]; 
-	else queryString = [NSString stringWithFormat:@"?id=%i", lastEventID];
+	//BOOL batchImport = NO;
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
+	//if (batchImport) queryString = [NSString stringWithFormat:@"?first=true&start=%i&last=1000", eventCount]; 
+	//else queryString = [NSString stringWithFormat:@"?id=%i", lastEventID];
+	
+	// TEST CODE
+	//NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://richardflee.me/test/", docName];
+	
+	
 	NSURL *url = [urlString convertToURL];
 	
 	NSLog(@"EVENTS URL:%@", urlString);
@@ -300,87 +310,67 @@
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
-	
-	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPMethod:@"GET"];	
 	
-	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
 	[fetcher start];
 }
 
 
-// The API Request has finished being processed. Deal with the return data.
-- (void)receiveResponse:(HTTPFetcher *)aFetcher {
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
     
-    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
 	loading = NO;
 	eventsLoaded = YES;
 	
-	if ([theXMLFetcher.data length] > 0) {
-        
-        // loop through the XPathResultNode objects that the XMLFetcher fetched
-        for (XPathResultNode *node in theXMLFetcher.results) { 
+	if ([theJSONFetcher.data length] > 0) {
+		
+		// Store incoming data into a string
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		// Build an array from the dictionary for easy access to each entry
+		NSDictionary *addObjects = [results objectForKey:@"events"];
+									// objectForKey:@"add"]
+		
+		NSDictionary *adds = [addObjects objectForKey:@"add"];
+				
+		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
+		
+		NSLog(@"KEYS:%@", eventsDict);
+		
+		for (int i = 0; i < [eventsDict count]; i++) {
 			
-			if ([[node name] isEqualToString:@"add"]) {
-				
-				for (XPathResultNode *eventNode in node.childNodes) { 
-					
-					NSMutableDictionary *eventData = [NSMutableDictionary dictionary];
-					
-					// Store the Event's ID
-					[eventData setObject:[[eventNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *eventChild in eventNode.childNodes) {
-						
-						if ([[eventChild contentString] length] > 0)
-							[eventData setObject:[eventChild contentString] forKey:[eventChild name]];
-					}
-					
-					// Store Event data in Core Data persistent store
-					[Event eventWithEventData:eventData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"update"]) {
-				
-				for (XPathResultNode *eventNode in node.childNodes) { 
-					
-					NSMutableDictionary *eventData = [NSMutableDictionary dictionary];
-					
-					// Store the Event's ID
-					[eventData setObject:[[eventNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the Event's attributes
-					for (XPathResultNode *eventChild in eventNode.childNodes) {
-						
-						if ([[eventChild contentString] length] > 0)
-							[eventData setObject:[eventChild contentString] forKey:[eventChild name]];
-					}
-					
-					// Store Event data in Core Data persistent store
-					[Event updateEventWithEventData:eventData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"remove"]) {
-				
-				for (XPathResultNode *showbagNode in node.childNodes) {
-					
-					NSString *idString = [[showbagNode attributes] objectForKey:@"id"];
-					NSNumber *eventID = [NSNumber numberWithInt:[idString intValue]];
-					
-					// Delete Event from the persistent store
-					Event *event = [Event eventWithID:eventID inManagedObjectContext:self.managedObjectContext];
-					
-					if (event) [self.managedObjectContext deleteObject:event];
-				}
-			}
-		}		
+			NSDictionary *event = [eventsDict objectAtIndex:i];
+		
+			// Store Event data in Core Data persistent store
+			[Event newEventWithData:event inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		
+		NSMutableArray *updatesDict = [updates objectForKey:@"event"];
+		
+		for (int i = 0; i < [updatesDict count]; i++) {
+			
+			NSDictionary *event = [updatesDict objectAtIndex:i];
+			
+			// Store Event data in Core Data persistent store
+			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
+		}	
+		
+		[jsonString release];
 	}
 	
 	// Save the object context

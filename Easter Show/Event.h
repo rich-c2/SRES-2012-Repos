@@ -2,7 +2,7 @@
 //  Event.h
 //  Easter Show
 //
-//  Created by Richard Lee on 24/01/12.
+//  Created by Richard Lee on 2/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -12,21 +12,19 @@
 
 @interface Event : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * allDay;
 @property (nonatomic, retain) NSString * category;
-@property (nonatomic, retain) NSDate * eventDate;
+@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * eventDescription;
 @property (nonatomic, retain) NSNumber * eventID;
-@property (nonatomic, retain) NSString * imageURL;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSString * subCategory;
-@property (nonatomic, retain) NSString * thumbURL;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSDate * endDate;
+@property (nonatomic, retain) NSNumber * version;
 
 
-+ (Event *)eventWithEventData:(NSDictionary *)eventData 
-	   inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Event *)newEventWithData:(NSDictionary *)eventData 
+	 inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Event *)getEventWithID:(NSNumber *)eventID inManagedObjectContext:(NSManagedObjectContext *)context;
 
