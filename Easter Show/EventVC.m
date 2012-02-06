@@ -27,9 +27,8 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 @synthesize event, managedObjectContext;
 @synthesize dateLabel, descriptionLabel, titleLabel, eventImage;
 @synthesize eventTypeFilter, eventDay;
-@synthesize contentScrollView, selectedURL;
+@synthesize contentScrollView;
 @synthesize shareButton, addToPlannerButton, mapButton;
-@synthesize loadingSpinner;
 
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -65,8 +64,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	// Setup navigation bar elements
 	[self setupNavBar];
-	
-
 }
 
 
@@ -90,7 +87,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
-	self.selectedURL = nil;
 	self.event = nil;
 	self.dateLabel = nil;
 	self.descriptionLabel = nil;
@@ -99,7 +95,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	self.eventDay = nil;
 	self.eventTypeFilter = nil;
 	self.contentScrollView = nil;
-	self.loadingSpinner = nil;
 }
 
 
@@ -254,7 +249,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[dateFormat setDateFormat:@"h:mm a"];
 	
 	self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
+	/*self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];*/
 	[self resizeTextView:self.dateLabel];
 
 	[dateFormat release];
@@ -271,7 +266,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[self adjustScrollViewContentHeight];	
 	
 	// Event image
-	[self initImage:self.event.imageURL];
+	[self initImage];
 }
 
 
@@ -350,40 +345,34 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 }
 
 
-- (void)initImage:(NSString *)urlString {
-	
-	if (urlString) {
-				
-		self.selectedURL = [urlString convertToURL];
-		
-		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
-		
-		UIImage* img = [ImageManager loadImage:self.selectedURL];
-		
-		if (img) {
-			
-			[self.loadingSpinner stopAnimating];
-			[self.eventImage setImage:img];
-		}
-    }
-}
 
-
-- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
+/* 
+// Images are not being dynamically generated for Event objects.
+// Thus, the image displayed will be a generic one based on
+// what category the current Event is part of. (e.g. Entertainment)
+*/
+- (void)initImage {
 	
-	if ([self.selectedURL isEqual:url]) {
-		
-		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
-		
-		[self.loadingSpinner stopAnimating];
-		[self.eventImage setImage:image];
-	}
+	UIImage *img;
+	
+	if ([self.event.category isEqualToString:@"Animals"]) 
+		img = [UIImage imageNamed:kAnimalsPlaceholderImage];
+	
+	else if ([self.event.category isEqualToString:@"Entertainment"]) 
+		img = [UIImage imageNamed:kEntertainmentPlaceholderImage];
+	
+	else if ([self.event.category isEqualToString:@"Competitons"]) 
+		img = [UIImage imageNamed:kCompetitionsPlaceholderImage];
+	
+	else img = [UIImage imageNamed:kEntertainmentPlaceholderImage];
+	
+	// Set the image to the image view
+	[self.eventImage setImage:img];
 }
 
 
 - (void)dealloc {
 	
-	[selectedURL release];
 	[event release];
 	[dateLabel release];
 	[descriptionLabel release];
@@ -392,7 +381,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[eventDay release];
 	[eventTypeFilter release];
 	[contentScrollView release];
-	[loadingSpinner release];
 	
     [super dealloc];
 }

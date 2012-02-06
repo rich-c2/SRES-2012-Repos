@@ -231,11 +231,11 @@
 	
 	cell.nameLabel.text = event.title;
 	
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	/*NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	[dateFormat setDateFormat:@"h:mm a"];
 	
 	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
-	[dateFormat release];
+	[dateFormat release];*/
 	
 	[cell initImage];
 }
@@ -286,7 +286,7 @@
 	// TEST CODE
 	//NSString *docName = @"events.xml";
 	//NSString *docName = @"events-summaries.xml";
-	NSString *docName = @"events-summaries2.json";
+	NSString *docName = @"getEvents.json";
 	
 	//NSInteger eventCount = 0; 
 	//NSInteger lastEventID = 5390;

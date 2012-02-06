@@ -2,11 +2,12 @@
 //  Event.m
 //  Easter Show
 //
-//  Created by Richard Lee on 2/02/12.
+//  Created by Richard Lee on 6/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Event.h"
+#import "EventDateTime.h"
 
 
 @implementation NSManagedObject (safeSetValuesKeysWithDictionary)
@@ -30,15 +31,31 @@
         NSAttributeType attributeType = [[attributes objectForKey:attribute] attributeType];
 		
         if ((attributeType == NSStringAttributeType) && ([value isKindOfClass:[NSNumber class]])) {
+			
             value = [value stringValue];
-        } else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) && ([value isKindOfClass:[NSString class]])) {
+        }
+		
+		else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) 
+				  || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) 
+				 && ([value isKindOfClass:[NSString class]])) {
+			
             value = [NSNumber numberWithInteger:[value integerValue]];
-        } else if ((attributeType == NSFloatAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
+        } 
+		
+		else if ((attributeType == NSFloatAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
             value = [NSNumber numberWithDouble:[value doubleValue]];
-        } else if ((attributeType == NSDateAttributeType) && ([value isKindOfClass:[NSString class]]) && (dateFormatter != nil)) {
+        } 
+		
+		else if ((attributeType == NSDateAttributeType) && ([value isKindOfClass:[NSString class]]) 
+				 && (dateFormatter != nil)) {
 			
             value = [dateFormatter dateFromString:value];
         }
+		
+		else if ((attributeType == NSFloatAttributeType) && ([value isKindOfClass:[NSArray class]])) {
+			
+			continue;
+		}
 		
 		NSLog(@"VALUE:%@|ATT:%@", value, attribute);
         [self setValue:value forKey:attribute];
@@ -74,9 +91,27 @@
 		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 		[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 		
+		// Assign the dictionary values to the corresponding object properties
 		[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
 		
-		NSLog(@"Event CREATED:%@ | %@", event.title, [dateFormat stringFromDate:event.startDate]);
+		// Create EventDateTime objects for each of the dates 
+		// and then assign the NSSet of them to the occursOnDay property
+		NSMutableArray *datesArray = [NSMutableArray array];
+		
+		for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) {
+			
+			NSLog(@"dateDictionary:%@", dateDictionary);
+			
+			[datesArray addObject:[EventDateTime dateTimeWithData:dateDictionary inManagedObjectContext:context]];
+		}
+		
+		NSSet *dates = [[NSSet alloc] initWithArray:(NSArray *)datesArray];
+		[event setOccursOnDays:dates];
+		[dates release];
+		
+		////////////////////////////////////////////////////////////////////////////////////
+		
+		NSLog(@"Event CREATED:%@", event.title);
 		
 		[dateFormat release];
 	}
@@ -122,9 +157,27 @@
 		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 		[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 		
+		// Assign the dictionary values to the corresponding object properties
 		[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
 		
-		NSLog(@"Event UPDATED:%@ | %@", event.title, [dateFormat stringFromDate:event.startDate]);
+		// Create EventDateTime objects for each of the dates 
+		// and then assign the NSSet of them to the occursOnDay property
+		NSMutableArray *datesArray = [NSMutableArray array];
+		
+		for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) {
+			
+			NSLog(@"dateDictionary:%@", dateDictionary);
+			
+			[datesArray addObject:[EventDateTime dateTimeWithData:dateDictionary inManagedObjectContext:context]];
+		}
+		
+		NSSet *dates = [[NSSet alloc] initWithArray:(NSArray *)datesArray];
+		[event setOccursOnDays:dates];
+		[dates release];
+		
+		////////////////////////////////////////////////////////////////////////////////////
+		
+		NSLog(@"Event UPDATED:%@", event.title);
 		
 		[dateFormat release];
 	}
@@ -154,7 +207,7 @@
 
 
 + (Event *)eventWithID:(NSNumber *)eventID 
-		inManagedObjectContext:(NSManagedObjectContext *)context {
+inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Event *event = nil;
 	
@@ -172,39 +225,13 @@
 }
 
 
-+ (NSString *)categoryStringFromInt:(NSInteger)categoryInt {
-	
-	NSString *category;
-	
-	switch (categoryInt) {
-		case 1:
-			category = @"Entertainment";
-			break;
-			
-		case 2:
-			category = @"Animals";
-			break;
-			
-		case 3:
-			category = @"Competitions";
-			break;
-			
-		default:
-			category = @"Entertainment";
-			break;
-	}
-	
-	return category;
-}
-
 @dynamic category;
-@dynamic startDate;
 @dynamic eventDescription;
 @dynamic eventID;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic title;
-@dynamic endDate;
 @dynamic version;
+@dynamic occursOnDays;
 
 @end

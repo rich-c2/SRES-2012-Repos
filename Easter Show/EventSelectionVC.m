@@ -11,6 +11,7 @@
 #import "EventTableCell.h"
 #import "SRESAppDelegate.h"
 #import "EventVC.h"
+#import "EventDateTime.h"
 
 
 static NSString* kTableCellFont = @"HelveticaNeue-Bold";
@@ -20,9 +21,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 @implementation EventSelectionVC
 
-@synthesize selectedFilterButton;
+@synthesize selectedFilterButton, dateTimes;
 @synthesize menuTable, events, selectedDate, selectedCategory;
-@synthesize loadCell, managedObjectContext;
+@synthesize loadCell, managedObjectContext, dateFormat;
 @synthesize search, searchTable, filteredListContent;
 
 
@@ -48,6 +49,13 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	self.filteredListContent = [NSMutableArray array];
 	
+	// Initialise the date form that we are using
+	// across all dates/times
+	NSDateFormatter *tempDateFormat = [[NSDateFormatter alloc] init];
+	[tempDateFormat setDateFormat:@"MMMM dd h:mm a"];
+	self.dateFormat = tempDateFormat;
+	[tempDateFormat release];
+	
 	// Navigation bar elements
 	[self setupNavBar];
 	
@@ -55,8 +63,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	// Get the Event objects
 	// By default, get them in alphabetical order
-	[self fetchEventsFromCoreData];
-	alphabeticallySorted = NO;
+	//[self fetchEventsFromCoreData];
+	[self fetchEventDateTimesFromCoreData];
 
 	// Populate sub nav
 	[self setupSubNav];
@@ -83,6 +91,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.dateTimes = nil;
+	self.dateFormat = nil;
 	self.managedObjectContext = nil;
 	self.events = nil;
 	self.menuTable = nil;
@@ -166,7 +176,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	NSLog(@"handleSearchForTerm");
 	
-	self.filteredListContent = (NSMutableArray *)[self.events filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
+	self.filteredListContent = (NSMutableArray *)[self.dateTimes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"forEvent.title BEGINSWITH[c] %@", searchTerm]];
 	
 	[self.searchTable reloadData];
 }
@@ -185,7 +195,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	
 	// Return the number of rows in the section.
-	if (tableView == self.menuTable) return [self.events count];
+	if (tableView == self.menuTable) return [self.dateTimes count];
 	else return [self.filteredListContent count];
 }
 
@@ -204,29 +214,36 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	// Retrieve Event object
 	Event *event;
+	EventDateTime *dateTime;
 	
 	// Retrieve the Showbag object
-	if (tableView == self.menuTable)
-		event = [self.events objectAtIndex:[indexPath row]];
-	else
-		event = [self.filteredListContent objectAtIndex:[indexPath row]];
+	if (tableView == self.menuTable) {
+		
+		//if (alphabeticallySorted)
+			//event = [self.events objectAtIndex:[indexPath row]];
+		//else {
+			
+			dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
+			
+		//}
+	}
+		
+	else 
+		dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
+		
+	event = [dateTime forEvent];
 	
 	// Configure the cell using the object's attributes
-	[self configureCell:cell withEvent:event];
+	[self configureCell:cell withDateTime:dateTime];
     
     return cell;
 }
 
 
-- (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event {
+- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime {
 	
-	cell.nameLabel.text = event.title;
-	
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"h:mm a"];
-	
-	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
-	[dateFormat release];
+	cell.nameLabel.text = [[dateTime forEvent] title];
+	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
 	
 	[cell initImage];
 }
@@ -267,12 +284,15 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	Event *selectedEvent;
+	EventDateTime *dateTime;
 	
 	// Retrieve the FoodVenue object
 	if (tableView == self.menuTable)
-		selectedEvent = [self.events objectAtIndex:[indexPath row]];
+		dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
 	else
-		selectedEvent = [self.filteredListContent objectAtIndex:[indexPath row]];
+		dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
+	
+	selectedEvent = [dateTime forEvent];
 					
 	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
 	[eventVC setEvent:selectedEvent];
@@ -422,38 +442,43 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
+
 - (void)fetchEventsFromCoreData {
 	
 	if (!self.managedObjectContext) self.managedObjectContext = [[self appDelegate] managedObjectContext];
 
-	
 	// CREATE FETCH REQUEST
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext]];
-		
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 	
 	// April 17 9:00 AM - 6:30 PM
-	NSDate *date = [dateFormat dateFromString:[NSString stringWithFormat:@"%@ 12:00 AM", self.selectedDate]];
+	NSDate *date = [self.dateFormat dateFromString:[NSString stringWithFormat:@"%@ 12:00 AM", self.selectedDate]];
 	NSDate *endDate = [date dateByAddingTimeInterval:86400];
 		
 	// FETCH PREDICATE
 	NSPredicate *fetchPredicate;
-	//if ([self.selectedCategory length] > 0) 
-		//fetchPredicate = [NSPredicate predicateWithFormat:@"(startDate >= %@) AND (startDate <= %@) AND category == %@", date, endDate, self.selectedCategory];
-	//else 
-		fetchPredicate = [NSPredicate predicateWithFormat:@"(startDate >= %@) AND (startDate < %@)", date, endDate];
+	
+	if ([self.selectedCategory length] > 0) {
+		
+		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(category like[cd] %@)", self.selectedCategory];
+		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.startDate >= %@)", date];
+		NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.endDate < %@)", endDate];
+
+		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, predicate3, nil];
+		
+		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+	}
+	else 
+		fetchPredicate = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.startDate >= %@) AND (ANY occursOnDays.endDate < %@)", date, endDate];
 	
 	[fetchRequest setPredicate:fetchPredicate];
 	
 	
 	// FETCH SORT DESCRIPTORS
-	if (!alphabeticallySorted)
+	//if (!alphabeticallySorted)
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-	else
-		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
-		
+	//else
+		//fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"occursOnDays.startDate" ascending:YES]];
 	
 	// Execute the fetch request
 	NSError *error = nil;
@@ -461,9 +486,54 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[fetchRequest release];
 	
 	// Reload the table
-	[self.menuTable reloadData];
+	//[self.menuTable reloadData];
+}
+
+
+- (void)fetchEventDateTimesFromCoreData {
 	
-	[dateFormat release];
+	if (!self.managedObjectContext) self.managedObjectContext = [[self appDelegate] managedObjectContext];
+	
+	// CREATE FETCH REQUEST
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
+	
+	// April 17 9:00 AM - 6:30 PM
+	NSDate *date = [self.dateFormat dateFromString:[NSString stringWithFormat:@"%@ 12:00 AM", self.selectedDate]];
+	NSDate *endDate = [date dateByAddingTimeInterval:86400];
+	
+	// FETCH PREDICATE
+	NSPredicate *fetchPredicate;
+	
+	if ([self.selectedCategory length] > 0) {
+		
+		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(forEvent.category like[cd] %@)", self.selectedCategory];
+		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(startDate >= %@)", date];
+		NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(endDate < %@)", endDate];
+		
+		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, predicate3, nil];
+		
+		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+	}
+	else 
+		fetchPredicate = [NSPredicate predicateWithFormat:@"(occursOnDays.startDate >= %@) AND (occursOnDays.endDate < %@)", date, endDate];
+	
+	[fetchRequest setPredicate:fetchPredicate];
+	
+	if (alphabeticallySorted)
+		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
+	else
+		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
+	
+	// Execute the fetch request
+	NSError *error = nil;
+	NSArray *tempDateTimes = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	self.dateTimes = [NSMutableArray arrayWithArray:tempDateTimes];
+	
+	// Reload the table
+	[self.menuTable reloadData];
 }
 
 
@@ -472,9 +542,16 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	if (!alphabeticallySorted) {
 		
 		// make a fetch request to get an alphabetically sorted list of data
-		[self fetchEventsFromCoreData];
+		//[self fetchEventsFromCoreData];
+		
+		// Sort alphabetically by venue title
+		NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"forEvent.title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		[self.dateTimes sortUsingDescriptors:[NSArray arrayWithObject:alphaDesc]];	
+		[alphaDesc release];
 	
 		alphabeticallySorted = !alphabeticallySorted;
+		
+		[self.menuTable reloadData];
 	}
 }
 
@@ -484,9 +561,16 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	if (alphabeticallySorted) {
 		
 		// make a fetch request to get a time sorted list of data
-		[self fetchEventsFromCoreData];
+		//[self fetchEventsFromCoreData];
+		
+		// Sort the events by their start time
+		NSSortDescriptor *timeDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES selector:@selector(compare:)];
+		[self.dateTimes sortUsingDescriptors:[NSArray arrayWithObject:timeDesc]];	
+		[timeDesc release];
 		
 		alphabeticallySorted = !alphabeticallySorted;
+		
+		[self.menuTable reloadData];
 	}
 }
 
@@ -512,6 +596,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (void)dealloc {
 	
+	[dateTimes release];
+	[dateFormat release];
 	[search release]; 
 	[searchTable release]; 
 	[filteredListContent release];

@@ -18,18 +18,24 @@ typedef enum  {
 
 @class EventTableCell;
 @class Event;
+@class EventDateTime;
 
 @interface EventSelectionVC : UIViewController {
 
 	NSManagedObjectContext *managedObjectContext;	
 	
-	UIButton *selectedFilterButton;
-	UITableView *menuTable;
+	NSMutableArray *dateTimes;
 	NSMutableArray *events;
+	NSMutableArray *filteredListContent;
+	
 	NSString *selectedDate;
 	NSString *selectedCategory;
+	NSDateFormatter *dateFormat;
 	
-	NSMutableArray *filteredListContent;
+	
+	
+	UIButton *selectedFilterButton;
+	UITableView *menuTable;
 	UITableView *searchTable;
 	UISearchBar *search;
 	
@@ -42,9 +48,12 @@ typedef enum  {
 
 @property (nonatomic, retain) UIButton *selectedFilterButton;
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
+
+@property (nonatomic, retain) NSMutableArray *dateTimes;
 @property (nonatomic, retain) NSMutableArray *events;
 @property (nonatomic, retain) NSString *selectedDate;
 @property (nonatomic, retain) NSString *selectedCategory;
+@property (nonatomic, retain) NSDateFormatter *dateFormat;
 
 @property (nonatomic, retain) NSMutableArray *filteredListContent;
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
@@ -56,8 +65,9 @@ typedef enum  {
 - (void)setupSubNav;
 - (void)goBack:(id)sender;
 - (void)setupNavBar;
-- (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event;
+- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime;
 - (void)fetchEventsFromCoreData;
+- (void)fetchEventDateTimesFromCoreData;
 - (IBAction)alphabeticalSortButtonClicked:(id)sender;
 - (IBAction)timeSortButtonClicked:(id)sender;
 - (void)handleSearchForTerm:(NSString *)searchTerm;

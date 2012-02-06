@@ -107,11 +107,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	NSString *category = [self.categories objectAtIndex:[indexPath row]];
+	NSString *category = [[self.categories objectAtIndex:[indexPath row]] copy];
 	
 	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
 	[eventSelectionVC setSelectedDate:self.selectedDate];
 	[eventSelectionVC setSelectedCategory:category];
+	[category release];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:eventSelectionVC animated:YES];

@@ -26,7 +26,6 @@
 	
 	NSNumber *eventTypeFilter;
 	NSString *eventDay;
-	NSURL *selectedURL;
 	
 	UIScrollView *contentScrollView;
 	
@@ -34,8 +33,6 @@
 	UIButton *shareButton;
 	UIButton *addToPlannerButton;
 	UIButton *mapButton;
-	
-	UIActivityIndicatorView *loadingSpinner;
 }
 
 @property (nonatomic, retain) Event *event;
@@ -48,15 +45,12 @@
 
 @property (nonatomic, retain) NSNumber *eventTypeFilter;
 @property (nonatomic, retain) NSString *eventDay;
-@property (nonatomic, retain) NSURL *selectedURL;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
 @property (nonatomic, retain) IBOutlet UIButton *mapButton;
-
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingSpinner;
 
 
 - (void)showShareOptions:(id)sender;
@@ -70,7 +64,7 @@
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
 
-- (void)initImage:(NSString *)urlString;
-- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
+- (void)initImage;
+
 
 @end

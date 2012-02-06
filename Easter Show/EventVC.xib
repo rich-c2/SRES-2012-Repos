@@ -327,7 +327,6 @@
 								<string key="NSFrame">{{13, 0}, {297, 70}}</string>
 								<reference key="NSSuperview" ref="956151818"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEgMAA</bytes>
@@ -682,7 +681,6 @@
 							<string>dateLabel</string>
 							<string>descriptionLabel</string>
 							<string>eventImage</string>
-							<string>loadingSpinner</string>
 							<string>mapButton</string>
 							<string>shareButton</string>
 							<string>titleLabel</string>
@@ -694,7 +692,6 @@
 							<string>UITextView</string>
 							<string>UITextView</string>
 							<string>UIImageView</string>
-							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UITextView</string>
@@ -709,7 +706,6 @@
 							<string>dateLabel</string>
 							<string>descriptionLabel</string>
 							<string>eventImage</string>
-							<string>loadingSpinner</string>
 							<string>mapButton</string>
 							<string>shareButton</string>
 							<string>titleLabel</string>
@@ -735,10 +731,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">eventImage</string>
 								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">loadingSpinner</string>
-								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">mapButton</string>
