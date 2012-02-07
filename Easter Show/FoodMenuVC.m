@@ -14,6 +14,8 @@
 #import "StringHelper.h"
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
 
 @implementation FoodMenuVC
 
@@ -475,6 +477,69 @@
 	[fetcher release];
 	fetcher = nil;
 }
+
+/*
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
+    
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
+	
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	loading = NO;
+	venuesLoaded = YES;
+	
+	if ([theJSONFetcher.data length] > 0) {
+		
+		// Store incoming data into a string
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		// Build an array from the dictionary for easy access to each entry
+		NSDictionary *addObjects = [results objectForKey:@"foodVenues"];
+		
+		NSDictionary *adds = [addObjects objectForKey:@"add"];
+		
+		NSMutableArray *venuesDict = [adds objectForKey:@"venue"];
+		
+		NSLog(@"KEYS:%@", venuesDict);
+		
+		for (int i = 0; i < [venuesDict count]; i++) {
+			
+			NSDictionary *venue = [venuesDict objectAtIndex:i];
+			
+			// Store FoodVenue data in Core Data persistent store
+			[FoodVenue newVenueWithData:venue inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		
+		NSMutableArray *updatesDict = [updates objectForKey:@"venue"];
+		
+		for (int i = 0; i < [updatesDict count]; i++) {
+			
+			NSDictionary *venue = [updatesDict objectAtIndex:i];
+			
+			// Store FoodVenue data in Core Data persistent store
+			[FoodVenue updateVenueWithVenueData:venue inManagedObjectContext:self.managedObjectContext];
+		}	
+		
+		[jsonString release];
+	}
+	
+	// Save the object context
+	[[self appDelegate] saveContext];
+	
+	// Hide loading view
+	[self hideLoading];
+	
+	[fetcher release];
+	fetcher = nil;
+}*/
 
 
 - (void)showLoading {

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class XMLFetcher;
+@class JSONFetcher;
 @class FoodTableCell;
 @class FoodVenue;
 

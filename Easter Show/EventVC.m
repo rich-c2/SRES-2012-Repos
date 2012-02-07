@@ -15,6 +15,7 @@
 #import "Favourite.h"
 #import "StringHelper.h"
 #import "ImageManager.h"
+#import "EventDateTime.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -24,7 +25,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 @implementation EventVC
 
-@synthesize event, managedObjectContext;
+@synthesize eventDateTime, managedObjectContext;
 @synthesize dateLabel, descriptionLabel, titleLabel, eventImage;
 @synthesize eventTypeFilter, eventDay;
 @synthesize contentScrollView;
@@ -47,11 +48,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
-	
-	self.titleLabel.font = [UIFont fontWithName:kTitleFont size:16.0];
-	self.dateLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
-	self.descriptionLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
-		
+			
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
 	
@@ -87,7 +84,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
-	self.event = nil;
+	self.eventDateTime = nil;
 	self.dateLabel = nil;
 	self.descriptionLabel = nil;
 	self.titleLabel = nil;
@@ -119,7 +116,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	// Create the item to share (in this example, a url)
 	NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
-	NSString *message = [NSString stringWithFormat:@"Sydney Royal Easter Show: %@", [self.event title]];
+	NSString *message = [NSString stringWithFormat:@"Sydney Royal Easter Show: %@", [self.eventDateTime.forEvent title]];
 	SHKItem *item = [SHKItem URL:url title:message];
 	
 	// Get the ShareKit action sheet
@@ -133,9 +130,9 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 - (void)addToFavourites:(id)sender {
 	
 	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
-	[favouriteData setObject:[self.event eventID] forKey:@"id"];
-	[favouriteData setObject:[self.event eventID] forKey:@"itemID"];
-	[favouriteData setObject:self.event.title forKey:@"title"];
+	[favouriteData setObject:[self.eventDateTime dateTimeID] forKey:@"id"];
+	[favouriteData setObject:[self.eventDateTime dateTimeID] forKey:@"itemID"];
+	[favouriteData setObject:[self.eventDateTime.forEvent title] forKey:@"title"];
 	[favouriteData setObject:@"Events" forKey:@"favouriteType"];
 	
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
@@ -242,14 +239,14 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 - (void)setDetailFields {
 	
 	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.titleLabel.text = self.event.title;
+	self.titleLabel.text = self.eventDateTime.forEvent.title;
 	[self resizeTextView:self.titleLabel];
 	
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"h:mm a"];
+	[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 	
 	self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	/*self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];*/
+	self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:self.eventDateTime.startDate], [dateFormat stringFromDate:self.eventDateTime.endDate]];
 	[self resizeTextView:self.dateLabel];
 
 	[dateFormat release];
@@ -259,7 +256,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[self.dateLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
 	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
-	self.descriptionLabel.text = self.event.eventDescription;
+	self.descriptionLabel.text = self.eventDateTime.forEvent.eventDescription;
 	[self resizeTextView:self.descriptionLabel];
 	
 	// Adjust the scroll view content size
@@ -355,13 +352,13 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	UIImage *img;
 	
-	if ([self.event.category isEqualToString:@"Animals"]) 
+	if ([self.eventDateTime.forEvent.category isEqualToString:@"Animals"]) 
 		img = [UIImage imageNamed:kAnimalsPlaceholderImage];
 	
-	else if ([self.event.category isEqualToString:@"Entertainment"]) 
+	else if ([self.eventDateTime.forEvent.category isEqualToString:@"Entertainment"]) 
 		img = [UIImage imageNamed:kEntertainmentPlaceholderImage];
 	
-	else if ([self.event.category isEqualToString:@"Competitons"]) 
+	else if ([self.eventDateTime.forEvent.category isEqualToString:@"Competitons"]) 
 		img = [UIImage imageNamed:kCompetitionsPlaceholderImage];
 	
 	else img = [UIImage imageNamed:kEntertainmentPlaceholderImage];
@@ -373,7 +370,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 - (void)dealloc {
 	
-	[event release];
+	[eventDateTime release];
 	[dateLabel release];
 	[descriptionLabel release];
 	[titleLabel release];

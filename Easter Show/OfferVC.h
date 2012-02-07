@@ -29,6 +29,7 @@
 	// Buttons
 	UIButton *shareButton;
 	UIButton *addToPlannerButton;
+	UIButton *redeemButton;
 		
 	UIActivityIndicatorView *loadingSpinner;
 }
@@ -46,6 +47,7 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
+@property (nonatomic, retain) IBOutlet UIButton *redeemButton;
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingSpinner;
 

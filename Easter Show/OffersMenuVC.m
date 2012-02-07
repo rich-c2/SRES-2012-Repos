@@ -15,6 +15,8 @@
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
 #import "OfferVC.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
 
 @implementation OffersMenuVC
 
@@ -372,6 +374,69 @@
 	
 	// Fetch Food venue objets from Core Data
 	[self fetchOffersFromCoreData];
+	
+	// Hide loading view
+	[self hideLoading];
+	
+	[fetcher release];
+	fetcher = nil;
+}
+
+
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
+    
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
+	
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	loading = NO;
+	offersLoaded = YES;
+	
+	if ([theJSONFetcher.data length] > 0) {
+		
+		// Store incoming data into a string
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		// Build an array from the dictionary for easy access to each entry
+		NSDictionary *addObjects = [results objectForKey:@"offers"];
+		
+		NSDictionary *adds = [addObjects objectForKey:@"add"];
+		
+		NSMutableArray *offersDict = [adds objectForKey:@"offer"];
+		
+		NSLog(@"KEYS:%@", offersDict);
+		
+		for (int i = 0; i < [offersDict count]; i++) {
+			
+			NSDictionary *offer = [offersDict objectAtIndex:i];
+			
+			// Store Offer data in Core Data persistent store
+			[Offer newOfferWithData:offer inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		
+		NSMutableArray *updatesDict = [updates objectForKey:@"offer"];
+		
+		for (int i = 0; i < [updatesDict count]; i++) {
+			
+			NSDictionary *offer = [updatesDict objectAtIndex:i];
+			
+			// Store Offer data in Core Data persistent store
+			[Offer updateOfferWithOfferData:offer inManagedObjectContext:self.managedObjectContext];
+		}	
+		
+		[jsonString release];
+	}
+	
+	// Save the object context
+	[[self appDelegate] saveContext];
 	
 	// Hide loading view
 	[self hideLoading];

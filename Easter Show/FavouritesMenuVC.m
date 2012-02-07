@@ -8,7 +8,7 @@
 
 #import "FavouritesMenuVC.h"
 #import "Favourite.h"
-#import "Event.h"
+#import "EventDateTime.h"
 #import "EventVC.h"
 #import "FoodVenue.h"
 #import "FoodVenueVC.h"
@@ -21,6 +21,7 @@
 @implementation FavouritesMenuVC
 
 @synthesize managedObjectContext, favourites, menuTable, fetchedResultsController;
+@synthesize deletePaths, actionsView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +49,10 @@
 	
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+	
+	self.deletePaths = [NSMutableArray array];
+	
+	[self setupNavBar];
 }
 
 - (void)viewDidUnload {
@@ -60,6 +65,8 @@
 	self.favourites = nil; 
 	self.menuTable = nil;
 	self.fetchedResultsController = nil;
+	self.deletePaths = nil;
+	self.actionsView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -202,7 +209,9 @@
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
     if (cell == nil) {
+		
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		
     }
 	
 	// Retrieve FoodVenue object and set it's name to the cell
@@ -223,62 +232,95 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	
+	// Track the indexPath in an array so that when a 'Delete' 
+	// button is clicked the corresponding Favourites are quickly deleted?
+	NSLog(@"TAP");
+}
+
+
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:[indexPath section]];
-	Favourite *favourite = (Favourite *)[fetchedResultsController objectAtIndexPath:indexPath];
-	NSLog(@"selected:%@|%i", [favourite title], [indexPath section]);
-	
-	if ([[sectionInfo name] isEqualToString:@"Events"]) {
+	if (editing) {
 		
-		Event *event = [Event getEventWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+		// Grab the UITableViewCell that was selected
+		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];		
 		
-		EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
-		[eventVC setEvent:event];
-		[eventVC setManagedObjectContext:self.managedObjectContext];
-		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:eventVC animated:YES];
-		[eventVC release];
-	}
-	
-	else if ([[sectionInfo name] isEqualToString:@"Food venues"]) {
-	
-		FoodVenue *foodVenue = [FoodVenue getFoodVenueWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
-		
-		FoodVenueVC *foodVenueVC = [[FoodVenueVC alloc] initWithNibName:@"FoodVenueVC" bundle:nil];
-		[foodVenueVC setFoodVenue:foodVenue];
-		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:foodVenueVC animated:YES];
-		[foodVenueVC release];
-	}
-		
-	else if ([[sectionInfo name] isEqualToString:@"Offers"]) {
-	
-		Offer *offer = [Offer getOfferWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
-		
-		OfferVC *offerVC = [[OfferVC alloc] initWithNibName:@"OfferVC" bundle:nil];
-		[offerVC setOffer:offer];
-		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:offerVC animated:YES];
-		[offerVC release];
-	}
+		if ([self.deletePaths containsObject:indexPath]) {
 			
-	else if ([[sectionInfo name] isEqualToString:@"Showbags"]) {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+			
+			// Remove the indexPaths from the delete array
+			[self.deletePaths removeObject:indexPath];
+		}
+		
+		else {
+		
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+			
+			// Add the indexPath of the cell to the delete array
+			[self.deletePaths addObject:indexPath];
+		}
+	}
 	
-		Showbag *showbag = [Showbag getShowbagWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+	else {
+	
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:[indexPath section]];
+		Favourite *favourite = (Favourite *)[fetchedResultsController objectAtIndexPath:indexPath];
+		NSLog(@"selected:%@|%i", [favourite title], [indexPath section]);
 		
-		ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
-		[showbagVC setShowbag:showbag];
+		if ([[sectionInfo name] isEqualToString:@"Events"]) {
+			
+			EventDateTime *dateTime = [EventDateTime getDateTimeWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
+			[eventVC setEventDateTime:dateTime];
+			[eventVC setManagedObjectContext:self.managedObjectContext];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:eventVC animated:YES];
+			[eventVC release];
+		}
 		
-		// Pass the selected object to the new view controller.
-		[self.navigationController pushViewController:showbagVC animated:YES];
-		[showbagVC release];
+		else if ([[sectionInfo name] isEqualToString:@"Food venues"]) {
+		
+			FoodVenue *foodVenue = [FoodVenue getFoodVenueWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			FoodVenueVC *foodVenueVC = [[FoodVenueVC alloc] initWithNibName:@"FoodVenueVC" bundle:nil];
+			[foodVenueVC setFoodVenue:foodVenue];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:foodVenueVC animated:YES];
+			[foodVenueVC release];
+		}
+			
+		else if ([[sectionInfo name] isEqualToString:@"Offers"]) {
+		
+			Offer *offer = [Offer getOfferWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			OfferVC *offerVC = [[OfferVC alloc] initWithNibName:@"OfferVC" bundle:nil];
+			[offerVC setOffer:offer];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:offerVC animated:YES];
+			[offerVC release];
+		}
+				
+		else if ([[sectionInfo name] isEqualToString:@"Showbags"]) {
+		
+			Showbag *showbag = [Showbag getShowbagWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
+			[showbagVC setShowbag:showbag];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:showbagVC animated:YES];
+			[showbagVC release];
+		}
 	}
 }
 
@@ -298,8 +340,51 @@
 }
 
 
+- (void)setupNavBar {
+
+	UIButton *editButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	[editButton addTarget:self action:@selector(editButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+	
+	UIBarButtonItem *editButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+	editButtonItem.target = self;
+	self.navigationItem.rightBarButtonItem = editButtonItem;
+	[editButtonItem release];
+}
+
+
+- (void)editButtonClicked:(id)sender {
+
+	// Put the table into editing mode
+	editing = YES;
+	
+	// Show the actions panel (Delete/Cancel)
+	[self.actionsView setHidden:!self.actionsView.hidden];
+	
+	// If the actions panel was just hidden - clear out the delete array
+	if (self.actionsView.hidden) [self.deletePaths removeAllObjects];
+}
+
+
+- (IBAction)deleteSelectedFavourites:(id)sender {
+
+	// Iterate through the indexPaths that have been marked
+	// as the Favs to be deleted.
+	for (NSIndexPath *indexPath in self.deletePaths) {
+	
+		// Retrieve the managed object and delete it from the managed context
+		Favourite *fav = [fetchedResultsController objectAtIndexPath:indexPath];
+		[self.managedObjectContext deleteObject:fav];
+	}
+	
+	// Clear out the array
+	[self.deletePaths removeAllObjects];
+}
+
+
 - (void)dealloc {
 	
+	[actionsView release];
+	[deletePaths release];
 	[fetchedResultsController release];
 	[managedObjectContext release];
 	[menuTable release]; 

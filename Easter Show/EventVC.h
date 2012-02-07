@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@class Event;
+@class EventDateTime;
 @class SRESAppDelegate;
 
 @interface EventVC : UIViewController {
 
-	Event *event;
+	EventDateTime *eventDateTime;
 	
 	NSManagedObjectContext *managedObjectContext;
 	
@@ -35,7 +35,7 @@
 	UIButton *mapButton;
 }
 
-@property (nonatomic, retain) Event *event;
+@property (nonatomic, retain) EventDateTime *eventDateTime;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) IBOutlet UITextView *dateLabel;

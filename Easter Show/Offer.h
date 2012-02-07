@@ -23,10 +23,14 @@
 @property (nonatomic, retain) NSString * provider;
 @property (nonatomic, retain) NSNumber * version;
 
++ (Offer *)newOfferWithData:(NSDictionary *)offerData 
+	 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Offer *)offerWithOfferData:(NSDictionary *)offerData 
 	   inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Offer *)getOfferWithID:(NSNumber *)offerID inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;

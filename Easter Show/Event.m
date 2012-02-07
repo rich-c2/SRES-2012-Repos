@@ -22,8 +22,6 @@
 		
         id value = [keyedValues objectForKey:attribute];
 		
-		NSLog(@"STARTING:%@", attribute);
-		
         if (value == nil || value == (id)[NSNull null]) {
             continue;
         }
@@ -57,7 +55,6 @@
 			continue;
 		}
 		
-		NSLog(@"VALUE:%@|ATT:%@", value, attribute);
         [self setValue:value forKey:attribute];
     }
 }
@@ -166,8 +163,6 @@
 		
 		for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) {
 			
-			NSLog(@"dateDictionary:%@", dateDictionary);
-			
 			[datesArray addObject:[EventDateTime dateTimeWithData:dateDictionary inManagedObjectContext:context]];
 		}
 		
@@ -177,12 +172,10 @@
 		
 		////////////////////////////////////////////////////////////////////////////////////
 		
-		NSLog(@"Event UPDATED:%@", event.title);
-		
 		[dateFormat release];
 	}
 	
-	else if (!error && !event) event = [self insertEventWithData:eventData inManagedObjectContext:context];
+	else if (!error && !event) event = [self newEventWithData:eventData inManagedObjectContext:context];
 	
 	return event;
 }

@@ -283,19 +283,14 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	Event *selectedEvent;
 	EventDateTime *dateTime;
 	
 	// Retrieve the FoodVenue object
-	if (tableView == self.menuTable)
-		dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
-	else
-		dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
-	
-	selectedEvent = [dateTime forEvent];
+	if (tableView == self.menuTable) dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
+	else dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
 					
 	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
-	[eventVC setEvent:selectedEvent];
+	[eventVC setEventDateTime:dateTime];
 	[eventVC setManagedObjectContext:self.managedObjectContext];
 	
 	// Pass the selected object to the new view controller.
@@ -499,7 +494,10 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
 	
 	// April 17 9:00 AM - 6:30 PM
-	NSDate *date = [self.dateFormat dateFromString:[NSString stringWithFormat:@"%@ 12:00 AM", self.selectedDate]];
+	NSDateFormatter *tempDateFormat = [[NSDateFormatter alloc] init];
+	[tempDateFormat setDateFormat:@"MMMM dd"];
+	
+	NSDate *date = [tempDateFormat dateFromString:[NSString stringWithFormat:@"%@", self.selectedDate]];
 	NSDate *endDate = [date dateByAddingTimeInterval:86400];
 	
 	// FETCH PREDICATE
@@ -507,11 +505,15 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	if ([self.selectedCategory length] > 0) {
 		
-		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(forEvent.category like[cd] %@)", self.selectedCategory];
-		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(startDate >= %@)", date];
-		NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(endDate < %@)", endDate];
+		NSLog(@"DATE:%@", [tempDateFormat stringFromDate:date]);
 		
-		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, predicate3, nil];
+		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(forEvent.category like[cd] %@)", self.selectedCategory];
+		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(day = %@)", self.selectedDate];
+		
+		//NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(startDate >= %@)", date];
+		//NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(endDate < %@)", endDate];
+		
+		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, nil]; //, predicate3, nil];
 		
 		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 	}
@@ -524,6 +526,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
 	else
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
+	
+	[tempDateFormat release];
 	
 	// Execute the fetch request
 	NSError *error = nil;

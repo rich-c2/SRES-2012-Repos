@@ -24,7 +24,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 @synthesize offer, managedObjectContext, contentScrollView;
 @synthesize descriptionLabel, titleLabel, providerLabel, offerImage;
-@synthesize shareButton, addToPlannerButton;
+@synthesize shareButton, addToPlannerButton, redeemButton;
 @synthesize loadingSpinner, selectedURL;
 
 
@@ -98,6 +98,9 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	self.titleLabel = nil;
 	self.offerImage = nil;
 	self.managedObjectContext = nil;
+	self.addToPlannerButton = nil;
+	self.shareButton = nil;
+	self.redeemButton = nil;
 }
 
 
@@ -298,6 +301,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	[shareButton release];
 	[addToPlannerButton release];
+	[redeemButton release];
 	
 	[loadingSpinner release];
 	
