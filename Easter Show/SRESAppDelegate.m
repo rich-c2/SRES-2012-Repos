@@ -45,6 +45,9 @@ static NSString *kAppVersionKey = @"appVersionKey";
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
 	
+	// STATUS BAR STYLE - BLACK
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
+	
 	/* //////////////////////////////////////////////////////////////////////////////////////////
 	 
 		APP VERSION 

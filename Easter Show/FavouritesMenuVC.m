@@ -342,23 +342,18 @@
 
 - (void)setupNavBar {
 
-	UIButton *editButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	[editButton addTarget:self action:@selector(editButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-	
-	UIBarButtonItem *editButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];
-	editButtonItem.target = self;
-	self.navigationItem.rightBarButtonItem = editButtonItem;
-	[editButtonItem release];
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 
-- (void)editButtonClicked:(id)sender {
+- (IBAction)editButtonClicked:(id)sender {
 
 	// Put the table into editing mode
 	editing = YES;
 	
 	// Show the actions panel (Delete/Cancel)
-	[self.actionsView setHidden:!self.actionsView.hidden];
+	[self.actionsView setHidden:NO]; //!self.actionsView.hidden];
 	
 	// If the actions panel was just hidden - clear out the delete array
 	if (self.actionsView.hidden) [self.deletePaths removeAllObjects];
@@ -378,6 +373,13 @@
 	
 	// Clear out the array
 	[self.deletePaths removeAllObjects];
+}
+
+
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

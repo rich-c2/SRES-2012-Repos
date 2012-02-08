@@ -45,24 +45,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	// Add button to Navigation Title 
-	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 66.0, 22.0)];
-	[image setBackgroundColor:[UIColor clearColor]];
-	[image setImage:[UIImage imageNamed:@"screenTitle-more.png"]];
-	
-	self.navigationItem.titleView = image;
-	[image release];
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
 	
 	NSArray *tempArray = [[NSArray alloc] initWithObjects:@"Showbags", @"Shopping", @"Food", @"Carnival", @"About", nil];
 	
 	self.menuArray = tempArray;
 	[tempArray release];
-	
-	/*self.cellLabelImageNames = [[NSArray alloc] initWithObjects:@"moreTableCellLabel-showbags.png", @"moreTableCellLabel-shopping.png", 
-								@"moreTableCellLabel-food.png", @"moreTableCellLabel-carnival.png", @"moreTableCellLabel-offers.png", nil];*/
-	
-	// Clear coloured cell separators
-	[self.menuTable setSeparatorColor:[UIColor clearColor]];
 }
 
 - (void)viewDidUnload
@@ -130,26 +119,16 @@
 		
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellID] autorelease];
     }
-    
-    // Configure the cell...
-	/*cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
-	NSString *imageFilename = [self.cellLabelImageNames objectAtIndex:[indexPath row]];
-	NSArray *stringParts = [imageFilename componentsSeparatedByString:@"."];
-	NSString *selectedImageFilename = [NSString stringWithFormat:@"%@-on.%@", [stringParts objectAtIndex:0], [stringParts objectAtIndex:1]];
+	UIImage *bgViewImage = [UIImage imageNamed:@"more-table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
 	
-	UIImage *cellImage = [UIImage imageNamed:imageFilename];
-	cell.unselectedLabelImage = cellImage;
-	
-	UIImage *selectedImage = [UIImage imageNamed:selectedImageFilename];
-	cell.selectedLabelImage = selectedImage;
-	
-	cell.labelImage.image = cellImage;
-	
-	CGRect currFrame = cell.labelImage.frame;
-	[cell.labelImage setFrame:CGRectMake(currFrame.origin.x, currFrame.origin.y, cellImage.size.width, cellImage.size.height)];*/
-	
-	cell.textLabel.text = [self.menuArray objectAtIndex:[indexPath row]];
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+	cell.textLabel.textAlignment = UITextAlignmentCenter;
+	cell.textLabel.text = [[self.menuArray objectAtIndex:[indexPath row]] uppercaseString];
     
     return cell;
 }

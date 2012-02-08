@@ -35,6 +35,8 @@
 - (void)fetchFavouritesFromCoreData;
 - (void)setupNavBar;
 - (IBAction)deleteSelectedFavourites:(id)sender;
+- (IBAction)editButtonClicked:(id)sender;
+- (IBAction)goBack:(id)sender;
 
 
 @end

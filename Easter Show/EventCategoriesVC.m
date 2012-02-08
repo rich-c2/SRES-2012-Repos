@@ -11,7 +11,7 @@
 
 @implementation EventCategoriesVC
 
-@synthesize menuTable, categories, selectedDate;
+@synthesize menuTable, categories, selectedDate, navigationTitle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +37,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
+	
+	// Set the navigation bar's title label
+	[self.navigationTitle setText:[self.selectedDate uppercaseString]];
+	
 	self.categories = [NSArray arrayWithObjects:@"Entertainment", @"Animals", @"Competitions", nil];
 }
 
@@ -49,6 +55,7 @@
 	self.selectedDate = nil;
 	self.menuTable = nil;
 	self.categories = nil;
+	self.navigationTitle = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -79,8 +86,15 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	
-	NSString *category = [self.categories objectAtIndex:[indexPath row]];
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	NSString *category = [[self.categories objectAtIndex:[indexPath row]] uppercaseString];
 	cell.textLabel.text = category;
+	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
 }
 
 
@@ -120,8 +134,16 @@
 }
 
 
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)dealloc {
 
+	[navigationTitle release];
 	[selectedDate release];
 	[categories release];
 	[menuTable release];

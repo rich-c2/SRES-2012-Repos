@@ -16,8 +16,6 @@
 	
 	XMLFetcher *fetcher;
 	
-	UIButton *bigButton;
-	
 	NSManagedObjectContext *managedObjectContext;
 	
 	BOOL eventsLoaded;
@@ -25,22 +23,18 @@
 	
 	NSMutableArray *days;
 	UIView *calendarContainer;
-	
-	// Progress
-	UIView *progressContainer;
-	NSTimer *progressTimer;
+	UILabel *navigationTitle;
 	
 	BOOL addingEvent;
 	BOOL updatingEvent;
 }
-
-@property (nonatomic, retain) IBOutlet UIButton *bigButton;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) NSMutableArray *days;
 
 @property (nonatomic, retain) IBOutlet UIView *calendarContainer;
+@property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
 
 
 - (void)initCalendarData;
@@ -50,6 +44,7 @@
 - (void)setupNavBar;
 - (void)showLoading;
 - (void)hideLoading;
+- (IBAction)goBack:(id)sender;
 
 
 @end

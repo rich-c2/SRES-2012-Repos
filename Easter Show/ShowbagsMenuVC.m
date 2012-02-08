@@ -52,6 +52,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	self.filteredListContent = [NSMutableArray array];
 	
+	[self.navigationController setNavigationBarHidden:NO];
+	
 	[self setupNavBar];
 	
 	[self.filterButton1 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-under10-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];

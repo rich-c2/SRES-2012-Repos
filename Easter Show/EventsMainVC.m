@@ -16,7 +16,7 @@
 
 @implementation EventsMainVC
 
-@synthesize days, bigButton;
+@synthesize days, navigationTitle;
 @synthesize calendarContainer, managedObjectContext;
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	//[self setupNavBar];
+	[self setupNavBar];
 
 	[self initCalendarData];
 	[self createCalendar];
@@ -66,7 +66,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
-	self.bigButton = nil;
+	self.navigationTitle = nil;
 	self.days = nil;
 	self.calendarContainer = nil;
 	self.managedObjectContext = nil;
@@ -233,12 +233,18 @@
 - (void)setupNavBar {
 	
 	// Add button to Navigation Title 
-	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 123.0, 22.0)];
+	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 123.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-whatsOn.png"]];
 	
 	self.navigationItem.titleView = image;
-	[image release];
+	[image release];*/
+	
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
+	
+	// Set the navigation bar's title label
+	[self.navigationTitle setText:[NSString stringWithString:@"FULL PROGRAM"]];
 
 }
 	 
@@ -348,12 +354,18 @@
 } 
 
 
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)dealloc {
 	
-	[bigButton release];
+	[navigationTitle release];
 	[days release];
 	[calendarContainer release];
-	[progressContainer release];
 	[managedObjectContext release];
 	
     [super dealloc];

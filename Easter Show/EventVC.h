@@ -27,7 +27,7 @@
 	NSNumber *eventTypeFilter;
 	NSString *eventDay;
 	
-	UIScrollView *contentScrollView;
+	UILabel *navigationTitle;
 	
 	// Buttons
 	UIButton *shareButton;
@@ -46,7 +46,7 @@
 @property (nonatomic, retain) NSNumber *eventTypeFilter;
 @property (nonatomic, retain) NSString *eventDay;
 
-@property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
+@property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
@@ -59,7 +59,7 @@
 - (void)addToFavourites:(id)sender;
 - (void)goToEventMap:(id)sender;
 - (void)adjustScrollViewContentHeight;
-- (void)goBack:(id)sender;
+- (IBAction)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;

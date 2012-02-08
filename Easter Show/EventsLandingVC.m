@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "Event.h"
 #import "EventSelectionVC.h"
+#import "EventsSearchVC.h"
 #import "EventTableCell.h"
 #import "EventVC.h"
 #import "EventsMainVC.h"
@@ -20,9 +21,8 @@
 
 @implementation EventsLandingVC
 
-@synthesize managedObjectContext, loadCell;
-@synthesize searchTable, events;
-@synthesize search, todaysEventsButton, fullProgramButton;
+@synthesize managedObjectContext, searchButton;
+@synthesize todaysEventsButton, fullProgramButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +49,9 @@
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 
@@ -67,12 +69,9 @@
     // e.g. self.myOutlet = nil;
 	
 	self.managedObjectContext = nil;
-	self.events = nil;
-	self.searchTable = nil;
-	self.search = nil; 
+	self.searchButton = nil;
 	self.todaysEventsButton = nil; 
 	self.fullProgramButton = nil;
-	self.loadCell = nil;
 }
 
 
@@ -93,191 +92,6 @@
 		
 		[self retrieveXML];
 	}
-}
-
-
-- (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated {
-
-	NSLog(@"touchesShouldBegin");
-}
-
-
-#pragma mark
-#pragma mark Search Bar Delegate methods
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarSearchButtonClicked");
-	
-	// Make the search table visible
-	[self.searchTable setHidden:NO];
-	
-	// Move the search bar to the top of the visible content area
-	CGRect newFrame = self.search.frame;
-	newFrame.origin.y = 0.0;
-	[self.search setFrame:newFrame];
-	
-	NSString *searchTerm = [searchBar text];
-	[self handleSearchForTerm:searchTerm];
-}
-
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-
-	NSLog(@"searchBarShouldBeginEditing");
-	
-	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
-	[self.searchTable setFrame:newTableFrame];
-	
-	// Make the search table visible
-	[self.searchTable setHidden:NO];
-	
-	// Move the search bar to the top of the visible content area
-	CGRect newFrame = self.search.frame;
-	newFrame.origin.y = 0.0;
-	[self.search setFrame:newFrame];
-	
-	return YES;
-}
-
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	
-	NSLog(@"textDidChange");
-	
-	if ([searchText length] == 0) {
-		
-		NSLog(@"length == 0");
-		
-		[self resetSearch];
-		[self.searchTable reloadData];
-		return;
-	}
-	
-	[self handleSearchForTerm:searchText];
-}
-
-
-- (void)resetSearch {
-	
-	NSLog(@"reset search");
-		
-	if ([self.events count] > 0) self.events = [NSMutableArray array];
-}
-
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarCancelButtonClicked");
-	
-	search.text = @"";
-	[self resetSearch];
-	[self.searchTable reloadData];
-	[searchBar resignFirstResponder];
-	
-	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
-	
-	[self.searchTable setHidden:YES];
-	
-	// Move the search bar it's original position
-	CGRect newSearchFrame = self.search.frame;
-	newSearchFrame.origin.y = 130.0;
-	[self.search setFrame:newSearchFrame];
-}
-
-
-- (void)handleSearchForTerm:(NSString *)searchTerm {
-	
-	NSLog(@"handleSearchForTerm");
-	
-	// Create fetch request
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext]];
-	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
-	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-	
-	// Execute the fetch request
-	NSError *error = nil;
-	self.events = (NSMutableArray *)[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-	[fetchRequest release];
-	
-	// Reload the table
-	[self.searchTable reloadData];
-}
-
-
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return [self.events count];
-}
-
-
-- (void)configureCell:(EventTableCell *)cell withEvent:(Event *)event {
-	
-	cell.nameLabel.text = event.title;
-	
-	/*NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"h:mm a"];
-	
-	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
-	[dateFormat release];*/
-	
-	[cell initImage];
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    EventTableCell *cell = (EventTableCell *)[tableView dequeueReusableCellWithIdentifier:[EventTableCell reuseIdentifier]];
-	
-    if (cell == nil) {
-		
-        [[NSBundle mainBundle] loadNibNamed:@"EventTableCell" owner:self options:nil];
-        cell = loadCell;
-        self.loadCell = nil;
-    }
-	
-	// Retrieve Event object
-	Event *event = [self.events objectAtIndex:[indexPath row]];
-	
-	// Configure the cell using the object's attributes
-	[self configureCell:cell withEvent:event];
-	
-    return cell;
-}
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	// Go to particular Event
-	Event *event = (Event *)[self.events objectAtIndex:[indexPath row]];
-	
-	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
-	[eventVC setManagedObjectContext:self.managedObjectContext];
-	[eventVC setEvent:event];
-	
-	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:eventVC animated:YES];
-	[eventVC release];
 }
 
 
@@ -384,23 +198,14 @@
 }
 
 
-- (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url {
+- (IBAction)searchButtonClicked:(id)sender {
+
+	EventsSearchVC *eventsSearchVC = [[EventsSearchVC alloc] initWithNibName:@"EventsSearchVC" bundle:nil];
+	[eventsSearchVC setManagedObjectContext:self.managedObjectContext];
 	
-	NSArray *cells = [self.searchTable visibleCells];
-    [cells retain];
-    SEL selector = @selector(imageLoaded:withURL:);
-	
-    for (int i = 0; i < [cells count]; i++) {
-		
-		UITableViewCell* c = [[cells objectAtIndex: i] retain];
-        if ([c respondsToSelector:selector]) {
-            [c performSelector:selector withObject:image withObject:url];
-        }
-        [c release];
-		c = nil;
-    }
-	
-    [cells release];
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:eventsSearchVC animated:YES];
+	[eventsSearchVC release];
 }
 
 
@@ -454,22 +259,12 @@
 } 
 
 
--(void)dismissKeyboard {
-	[self.search resignFirstResponder];
-}
-
-
-
 - (void)dealloc {
 	
 	[managedObjectContext release];
-	[events release];
-	[searchTable release];
-	[search release];
+	[searchButton release];
 	[todaysEventsButton release];
 	[fullProgramButton release];
-	[search release];
-	[loadCell release];
 	
     [super dealloc];
 }

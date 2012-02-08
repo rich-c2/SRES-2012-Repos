@@ -28,7 +28,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 @synthesize eventDateTime, managedObjectContext;
 @synthesize dateLabel, descriptionLabel, titleLabel, eventImage;
 @synthesize eventTypeFilter, eventDay;
-@synthesize contentScrollView;
+@synthesize navigationTitle;
 @synthesize shareButton, addToPlannerButton, mapButton;
 
 
@@ -91,7 +91,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	self.eventImage = nil;
 	self.eventDay = nil;
 	self.eventTypeFilter = nil;
-	self.contentScrollView = nil;
+	self.navigationTitle = nil;
 }
 
 
@@ -239,13 +239,13 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 - (void)setDetailFields {
 	
 	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.titleLabel.text = self.eventDateTime.forEvent.title;
+	self.titleLabel.text = [self.eventDateTime.forEvent.title uppercaseString];
 	[self resizeTextView:self.titleLabel];
 	
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 	
-	self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.dateLabel.contentInset = UIEdgeInsetsMake(-12,-8,0,0);
 	self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:self.eventDateTime.startDate], [dateFormat stringFromDate:self.eventDateTime.endDate]];
 	[self resizeTextView:self.dateLabel];
 
@@ -255,12 +255,12 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
 	[self.dateLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(16,-8,0,0);
 	self.descriptionLabel.text = self.eventDateTime.forEvent.eventDescription;
-	[self resizeTextView:self.descriptionLabel];
+	//[self resizeTextView:self.descriptionLabel];
 	
 	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];	
+	//[self adjustScrollViewContentHeight];	
 	
 	// Event image
 	[self initImage];
@@ -276,7 +276,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 }
 
-
+/*
 - (void)adjustScrollViewContentHeight {
 	
 	CGFloat bottomPadding = 15.0;
@@ -284,16 +284,23 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
 	
 	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
-}
+}*/
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 - (void)setupNavBar {
+	
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
+	
+	// Set the navigation bar's title label
+	[self.navigationTitle setText:[self.eventDateTime.forEvent.title uppercaseString]];
 	
 	// Add back button to nav bar
 	/*CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
@@ -377,7 +384,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[eventImage release];
 	[eventDay release];
 	[eventTypeFilter release];
-	[contentScrollView release];
+	[navigationTitle release];
 	
     [super dealloc];
 }

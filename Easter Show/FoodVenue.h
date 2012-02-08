@@ -23,6 +23,9 @@
 @property (nonatomic, retain) NSString * subtitle;
 
 
++ (FoodVenue *)newFoodVenueWithData:(NSDictionary *)venueData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (FoodVenue *)venueWithVenueData:(NSDictionary *)venueData 
 		   inManagedObjectContext:(NSManagedObjectContext *)context;
 

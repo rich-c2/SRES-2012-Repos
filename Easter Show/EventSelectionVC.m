@@ -21,7 +21,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 @implementation EventSelectionVC
 
-@synthesize selectedFilterButton, dateTimes;
+@synthesize selectedFilterButton, dateTimes, navigationTitle;
 @synthesize menuTable, events, selectedDate, selectedCategory;
 @synthesize loadCell, managedObjectContext, dateFormat;
 @synthesize search, searchTable, filteredListContent;
@@ -47,6 +47,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Set the title
 	self.title = self.selectedDate;
 	
+	// Init search array
 	self.filteredListContent = [NSMutableArray array];
 	
 	// Initialise the date form that we are using
@@ -59,11 +60,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Navigation bar elements
 	[self setupNavBar];
 	
-	alphabeticallySorted = YES;
-	
-	// Get the Event objects
+	// Get the EventDateTime objects
 	// By default, get them in alphabetical order
-	//[self fetchEventsFromCoreData];
+	alphabeticallySorted = YES;
 	[self fetchEventDateTimesFromCoreData];
 
 	// Populate sub nav
@@ -102,6 +101,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	self.search = nil; 
 	self.searchTable = nil; 
 	self.filteredListContent = nil;
+	self.navigationTitle = nil;
 }
 
 
@@ -203,13 +203,22 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    EventTableCell *cell = (EventTableCell *)[tableView dequeueReusableCellWithIdentifier:[EventTableCell reuseIdentifier]];
+    /*EventTableCell *cell = (EventTableCell *)[tableView dequeueReusableCellWithIdentifier:[EventTableCell reuseIdentifier]];
 	
     if (cell == nil) {
 		
         [[NSBundle mainBundle] loadNibNamed:@"EventTableCell" owner:self options:nil];
         cell = loadCell;
         self.loadCell = nil;
+    }*/
+	
+	static NSString *CellIdentifier = @"Cell";
+	
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	
+    if (cell == nil) {
+		
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	// Retrieve Event object
@@ -240,41 +249,28 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
-- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime {
+//- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime {
+- (void)configureCell:(UITableViewCell *)cell withDateTime:(EventDateTime *)dateTime {
 	
-	cell.nameLabel.text = [[dateTime forEvent] title];
-	cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
+	//cell.nameLabel.text = [[dateTime forEvent] title];
+	//cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
 	
-	[cell initImage];
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	//[cell initImage];
 	
-	NSString *sectionTitle = @"All";
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
 	
-	return sectionTitle;
+	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+	cell.textLabel.text = [[[dateTime forEvent] title] uppercaseString];
 	
-}
-
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	cell.detailTextLabel.textColor = [UIColor colorWithRed:97.0/255.0 green:46.0/255.0 blue:106.0/255.0 alpha:1.0];
+	cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
 	
-	CGFloat footerHeight = 4.0;
-	
-	UIView *returnView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, footerHeight)];
-	[returnView setBackgroundColor:[UIColor clearColor]];
-	
-	return [returnView autorelease];
-	
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	
-	CGFloat footerHeight = 4.0;
-	
-	return footerHeight;
+	//[cell initImage];
 }
 
 
@@ -393,13 +389,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
-- (void)goBack:(id)sender { 
-
-	[self.navigationController popViewControllerAnimated:YES];
-
-}
-
-
 - (void)setupNavBar {
 
 	// Add back button to nav bar
@@ -427,6 +416,12 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	// Hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES];
+	
+	// Set the navigation bar's title label
+	[self.navigationTitle setText:[self.selectedDate uppercaseString]];
+	
 	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
 	
@@ -435,7 +430,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	self.navigationItem.rightBarButtonItem = searchItem;
 
 }
-
 
 
 - (void)fetchEventsFromCoreData {
@@ -491,49 +485,46 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	// CREATE FETCH REQUEST
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" 
+										inManagedObjectContext:self.managedObjectContext]];
 	
-	// April 17 9:00 AM - 6:30 PM
-	NSDateFormatter *tempDateFormat = [[NSDateFormatter alloc] init];
-	[tempDateFormat setDateFormat:@"MMMM dd"];
-	
-	NSDate *date = [tempDateFormat dateFromString:[NSString stringWithFormat:@"%@", self.selectedDate]];
-	NSDate *endDate = [date dateByAddingTimeInterval:86400];
-	
-	// FETCH PREDICATE
-	NSPredicate *fetchPredicate;
+	/* ///////////////////////////////////////////////////////////////////////////
+	 
+		FETCH PREDICATE
+	 
+		If a Event category has been selected, then results
+		must match the category as well as the day that was selected.
+	 
+		Otherwise, just match EventDateTimes that start on the selected day
+	 */
+	 NSPredicate *fetchPredicate;
 	
 	if ([self.selectedCategory length] > 0) {
-		
-		NSLog(@"DATE:%@", [tempDateFormat stringFromDate:date]);
-		
+				
 		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(forEvent.category like[cd] %@)", self.selectedCategory];
 		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(day = %@)", self.selectedDate];
-		
-		//NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(startDate >= %@)", date];
-		//NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(endDate < %@)", endDate];
-		
-		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, nil]; //, predicate3, nil];
+		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, nil];
 		
 		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 	}
-	else 
-		fetchPredicate = [NSPredicate predicateWithFormat:@"(occursOnDays.startDate >= %@) AND (occursOnDays.endDate < %@)", date, endDate];
+	
+	else fetchPredicate = [NSPredicate predicateWithFormat:@"(day = %@)", self.selectedDate];
 	
 	[fetchRequest setPredicate:fetchPredicate];
 	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	// SORT BY: Event title or by start time
 	if (alphabeticallySorted)
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
 	else
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
 	
-	[tempDateFormat release];
-	
 	// Execute the fetch request
 	NSError *error = nil;
 	NSArray *tempDateTimes = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
-	
 	self.dateTimes = [NSMutableArray arrayWithArray:tempDateTimes];
 	
 	// Reload the table
@@ -598,6 +589,13 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)dealloc {
 	
 	[dateTimes release];
@@ -611,6 +609,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[selectedCategory release];
 	[selectedDate release];
 	[events release];
+	[navigationTitle release];
 	
     [super dealloc];
 }

@@ -31,7 +31,7 @@ typedef enum  {
 	NSString *selectedDate;
 	NSString *selectedCategory;
 	NSDateFormatter *dateFormat;
-	
+	UILabel *navigationTitle;
 	
 	
 	UIButton *selectedFilterButton;
@@ -54,6 +54,7 @@ typedef enum  {
 @property (nonatomic, retain) NSString *selectedDate;
 @property (nonatomic, retain) NSString *selectedCategory;
 @property (nonatomic, retain) NSDateFormatter *dateFormat;
+@property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
 
 @property (nonatomic, retain) NSMutableArray *filteredListContent;
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
@@ -65,13 +66,14 @@ typedef enum  {
 - (void)setupSubNav;
 - (void)goBack:(id)sender;
 - (void)setupNavBar;
-- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime;
+- (void)configureCell:(UITableViewCell *)cell withDateTime:(EventDateTime *)dateTime;
 - (void)fetchEventsFromCoreData;
 - (void)fetchEventDateTimesFromCoreData;
 - (IBAction)alphabeticalSortButtonClicked:(id)sender;
 - (IBAction)timeSortButtonClicked:(id)sender;
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)resetSearch;
+- (IBAction)goBack:(id)sender;
 
 
 @end

@@ -14,11 +14,18 @@
 	
 	NSArray *categories;
 	NSString *selectedDate;
+	
+	// Nav title
+	UILabel *navigationTitle;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 
 @property (nonatomic, retain) NSArray *categories;
 @property (nonatomic, retain) NSString *selectedDate;
+
+@property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
+
+- (IBAction)goBack:(id)sender;
 
 @end
