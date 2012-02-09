@@ -109,7 +109,7 @@
 		//fetchRequest.predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice]];
 		fetchRequest.fetchBatchSize = 20;
         
-        // Edit the section name key path and cache name if appropriate.
+        // Edit the section name key ppath and cache name if appropriate.
         // nil for section name key path means "no sections".
         NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 		[fetchRequest release];
@@ -274,11 +274,34 @@
 
 - (void)retrieveXML {
 	
-	NSString *docName = @"offers.xml";
-	NSInteger lastShowbagID = 0;
-	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSLog(@"OFFERS URL:%@", urlString);
+	NSString *docName = @"get_offers.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
+	
+	NSString *deviceID = [[self appDelegate] getDeviceID];
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"];
+	
+	if ([[fetchedResultsController fetchedObjects] count] > 0) {
+		
+		[mutableXML appendFormat:@"<offers uid=\"%@\">", deviceID];
+		
+		for (Offer *offer in [fetchedResultsController fetchedObjects]) {
+			
+			[mutableXML appendFormat:@"<o id=\"%i\" v=\"%i\" />", [offer.offerID intValue], [offer.version intValue]];
+		}
+		
+		[mutableXML appendString:@"</offers>"];
+	}
+	else [mutableXML appendFormat:@"<offers uid=\"%@\" />", deviceID];
+	
+	
+	NSLog(@"XML:%@", mutableXML);
+	
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -287,11 +310,17 @@
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
 	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"GET"];	
+	//[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+	//[request setValue:[NSString stringWithFormat:@"%d", [requestBody length]] forHTTPHeaderField:@"Content-Length"];
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
 	
-	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
 	[fetcher start];
 }
 
@@ -388,7 +417,7 @@
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -398,7 +427,7 @@
 	if ([theJSONFetcher.data length] > 0) {
 		
 		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
 		
 		// Create a dictionary from the JSON string
 		NSDictionary *results = [jsonString JSONValue];
@@ -410,7 +439,7 @@
 		
 		NSMutableArray *offersDict = [adds objectForKey:@"offer"];
 		
-		NSLog(@"KEYS:%@", offersDict);
+		//NSLog(@"KEYS:%@", offersDict);
 		
 		for (int i = 0; i < [offersDict count]; i++) {
 			

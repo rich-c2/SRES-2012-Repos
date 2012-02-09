@@ -59,7 +59,7 @@
     // Hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
 	
-	[self fetchDateTimes];
+	//[self fetchDateTimes];
 }
 
 - (void)viewDidUnload {
@@ -91,212 +91,11 @@
 	
 	[self dismissKeyboard];
 	
-	[self fetchDateTimes];	
-	return YES;
-}
-
-
-#pragma mark -
-#pragma mark Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController {
-	
-    // Set up the fetched results controller if needed.
-    if (fetchedResultsController == nil) {
-		
-		NSString *searchTerm = self.searchField.text;
-		
-        // Create fetch request
-		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-		[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
-		
-		[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(forEvent.title BEGINSWITH[c] %@)", searchTerm]];	
-		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
-
-		fetchRequest.fetchBatchSize = 20;
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-		[fetchRequest release];
-		
-        aFetchedResultsController.delegate = self;
-        self.fetchedResultsController = aFetchedResultsController;
-        [aFetchedResultsController release];
-    }
-	
-	return fetchedResultsController;
-}  
-
-
-
-/**
- Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
- */
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-	
-	// The fetch controller is about to start sending change notifications, 
-	// so prepare the table view for updates.
-	[self.searchTable beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-	
-	EventDateTime *dateTime;
-	
-	switch(type) {
-		case NSFetchedResultsChangeInsert:
-			[self.searchTable insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeDelete:
-			[self.searchTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeUpdate:
-			dateTime = [fetchedResultsController objectAtIndexPath:indexPath];
-			[self configureCell:[self.searchTable cellForRowAtIndexPath:indexPath] withEvent:dateTime];
-			break;
-			
-		case NSFetchedResultsChangeMove:
-			[self.searchTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.searchTable insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-	}
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-	switch(type) {
-		case NSFetchedResultsChangeInsert:
-			[self.searchTable insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeDelete:
-			[self.searchTable deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-	}
-}
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	
-	// The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-	[self.searchTable endUpdates];
-}
-
-
-#pragma mark
-#pragma mark Search Bar Delegate methods
-/*
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarSearchButtonClicked");
-	
-	// Make the search table visible
-	[self.searchTable setHidden:NO];
-	
-	// Move the search bar to the top of the visible content area
-	CGRect newFrame = self.search.frame;
-	newFrame.origin.y = 0.0;
-	[self.search setFrame:newFrame];
-	
-	NSString *searchTerm = [searchBar text];
-	[self handleSearchForTerm:searchTerm];
-}
-
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarShouldBeginEditing");
-	
-	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
-	[self.searchTable setFrame:newTableFrame];
-	
-	// Make the search table visible
-	[self.searchTable setHidden:NO];
-	
-	// Move the search bar to the top of the visible content area
-	CGRect newFrame = self.search.frame;
-	newFrame.origin.y = 0.0;
-	[self.search setFrame:newFrame];
+	// Request JSON
+	[self retrieveXML];
 	
 	return YES;
 }
-
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	
-	NSLog(@"textDidChange");
-	
-	if ([searchText length] == 0) {
-		
-		NSLog(@"length == 0");
-		
-		[self resetSearch];
-		[self.searchTable reloadData];
-		return;
-	}
-	
-	[self handleSearchForTerm:searchText];
-}
-
-
-- (void)resetSearch {
-	
-	NSLog(@"reset search");
-	
-	if ([self.events count] > 0) self.events = [NSMutableArray array];
-}
-
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarCancelButtonClicked");
-	
-	search.text = @"";
-	[self resetSearch];
-	[self.searchTable reloadData];
-	[searchBar resignFirstResponder];
-	
-	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
-	
-	[self.searchTable setHidden:YES];
-	
-	// Move the search bar it's original position
-	CGRect newSearchFrame = self.search.frame;
-	newSearchFrame.origin.y = 130.0;
-	[self.search setFrame:newSearchFrame];
-}
-
-
-- (void)handleSearchForTerm:(NSString *)searchTerm {
-	
-	NSLog(@"handleSearchForTerm");
-	
-	// Create fetch request
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext]];
-	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
-	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-	
-	// Execute the fetch request
-	NSError *error = nil;
-	self.events = (NSMutableArray *)[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-	[fetchRequest release];
-	
-	// Reload the table
-	[self.searchTable reloadData];
-}*/
 
 
 #pragma mark -
@@ -310,25 +109,27 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	NSInteger numberOfRows = 0;
+	/*NSInteger numberOfRows = 0;
 	
 	if ([[fetchedResultsController sections] count] > 0) {
 		
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
 		numberOfRows = [sectionInfo numberOfObjects];
-    }
+    }*/
     
-    return numberOfRows;
+    return [self.events count];
 }
 
 
 - (void)configureCell:(UITableViewCell *)cell withEvent:(EventDateTime *)dateTime {
 	
-	/*UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
 	cell.backgroundView = bgView;
-	[bgView release];*/
+	[bgView release];
 	
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
 	cell.textLabel.text = dateTime.forEvent.title;
 	
 	/*NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -360,7 +161,7 @@
     }
 	
 	// Retrieve Event object
-	EventDateTime *dateTime = [fetchedResultsController objectAtIndexPath:indexPath];
+	EventDateTime *dateTime = [self.events objectAtIndex:[indexPath row]];//[fetchedResultsController objectAtIndexPath:indexPath];
 	
 	// Configure the cell using the object's attributes
 	[self configureCell:cell withEvent:dateTime];
@@ -375,11 +176,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Go to particular Event
-	//Event *event = (Event *)[self.events objectAtIndex:[indexPath row]];
+	EventDateTime *dateTime = [self.events objectAtIndex:[indexPath row]];
 	
 	EventVC *eventVC = [[EventVC alloc] initWithNibName:@"EventVC" bundle:nil];
 	[eventVC setManagedObjectContext:self.managedObjectContext];
-	//[eventVC setEvent:event];
+	[eventVC setEventDateTime:dateTime];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:eventVC animated:YES];
@@ -389,34 +190,29 @@
 
 - (void)retrieveXML {
 	
-	// TEST CODE
-	//NSString *docName = @"events.xml";
-	//NSString *docName = @"events-summaries.xml";
-	NSString *docName = @"getEvents.json";
+	NSString *docName = @"get_events.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
-	//NSInteger eventCount = 0; 
-	//NSInteger lastEventID = 5390;
-	//NSString *queryString;
+	NSString *mutableXML = [self compileRequestXML];
 	
-	//BOOL batchImport = NO;
+	NSLog(@"XML:%@", mutableXML);
 	
-	//if (batchImport) queryString = [NSString stringWithFormat:@"?first=true&start=%i&last=1000", eventCount]; 
-	//else queryString = [NSString stringWithFormat:@"?id=%i", lastEventID];
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	// TEST CODE
-	//NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://richardflee.me/test/", docName];
-	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
 	
 	NSURL *url = [urlString convertToURL];
-	
-	NSLog(@"EVENTS URL:%@", urlString);
 	
 	// Create the request.
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
-	[request setHTTPMethod:@"GET"];	
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
 	
 	// JSONFetcher
 	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
@@ -448,7 +244,6 @@
 		
 		// Build an array from the dictionary for easy access to each entry
 		NSDictionary *addObjects = [results objectForKey:@"events"];
-		// objectForKey:@"add"]
 		
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
 		
@@ -482,6 +277,10 @@
 	// Save the object context
 	[[self appDelegate] saveContext];
 	
+	[self fetchDateTimes];
+	
+	[self.searchTable reloadData];
+	
 	// Hide loading view
 	[self hideLoading];
 	
@@ -501,16 +300,16 @@
 	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
 } 
 
-/*
+
 - (void)fetchDateTimes {
 	
-	NSString *searchTerm = self.search.text;
+	NSString *searchTerm = self.searchField.text;
 
 	// Create fetch request
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
 	
-	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(forEvent.title BEGINSWITH[c] %@)", searchTerm]];	
+	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"((forEvent.title BEGINSWITH[c] %@) OR (forEvent.eventDescription CONTAINS[cd] %@))", searchTerm, searchTerm]];	
 	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
 	
 	// Execute the fetch request
@@ -520,26 +319,11 @@
 	
 	// Reload the table
 	[self.searchTable reloadData];
-}*/
-
-
-- (void)fetchDateTimes {
-	
-	NSError *error = nil;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
 }
 
 
 -(void)dismissKeyboard {
-	[self.search resignFirstResponder];
+	[self.searchField resignFirstResponder];
 }
 
 
@@ -548,6 +332,53 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+- (NSString *)compileRequestXML {
+	
+	NSString *searchTerm = self.searchField.text;
+	
+	// CREATE FETCH REQUEST
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
+	
+	// FETCH PREDICATE
+	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"((forEvent.title BEGINSWITH[c] %@) OR (forEvent.eventDescription CONTAINS[cd] %@))", searchTerm, searchTerm]];
+	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
+	
+	// Execute the fetch request
+	NSError *error = nil;
+	NSArray *storedEvents = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><day /><category />"];
+	
+	[mutableXML appendFormat:@"<searchTerm>%@</searchTerm>", searchTerm];
+	
+	if ([storedEvents count] > 0) {
+		
+		[mutableXML appendString:@"<events>"];
+		
+		for (EventDateTime *dateTime in storedEvents) {
+			
+			Event *event = dateTime.forEvent;
+			
+			[mutableXML appendFormat:@"<e id=\"%i\" v=\"%i\" />", [event.eventID intValue], [event.version intValue]];
+		}
+		
+		[mutableXML appendString:@"</events>"];
+	}
+	
+	else [mutableXML appendString:@"<events />"];
+	
+	[mutableXML appendString:@"</request>"];
+	
+	NSString *returnString = [NSString stringWithString:mutableXML];
+	
+	return returnString;
+}
+
 
 
 - (void)dealloc {

@@ -159,9 +159,9 @@
 	didReceiveResponse:(NSHTTPURLResponse *)aResponse
 {
     
-    NSLog(@"DID RECEIVE RESPONSE");
-    
 	responseHeaderFields = [[aResponse allHeaderFields] retain];
+	
+	NSLog(@"DID RECEIVE RESPONSE:%i", [aResponse statusCode]);
 
 	if ([aResponse statusCode] >= 400)
 	{
@@ -238,9 +238,9 @@
 - (void)connection:(NSURLConnection *)aConnection didReceiveData:(NSData *)newData
 {
     
-    NSLog(@"DID RECEIVE DATA");
-    
 	[data appendData:newData];
+	
+	 NSLog(@"DID RECEIVE DATA:%@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
 }
 
 //
@@ -429,6 +429,7 @@
 	if ([[error domain] isEqual:NSURLErrorDomain])
 	{
 		failureCode = [error code];
+		NSLog(@"FAILURE CODE:%i", [error code]);
 	}
 	
 #if TARGET_OS_IPHONE		

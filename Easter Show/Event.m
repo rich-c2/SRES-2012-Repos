@@ -28,6 +28,8 @@
 		
         NSAttributeType attributeType = [[attributes objectForKey:attribute] attributeType];
 		
+		NSLog(@"KEY:%@", attribute);
+		
         if ((attributeType == NSStringAttributeType) && ([value isKindOfClass:[NSNumber class]])) {
 			
             value = [value stringValue];
@@ -44,6 +46,10 @@
             value = [NSNumber numberWithDouble:[value doubleValue]];
         } 
 		
+		else if ((attributeType == NSDoubleAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
+            value = [NSNumber numberWithDouble:[value doubleValue]];
+        } 
+		
 		else if ((attributeType == NSDateAttributeType) && ([value isKindOfClass:[NSString class]]) 
 				 && (dateFormatter != nil)) {
 			
@@ -55,6 +61,7 @@
 			continue;
 		}
 		
+		NSLog(@"KEY:%@|VALUE:%@", attribute, value);
         [self setValue:value forKey:attribute];
     }
 }

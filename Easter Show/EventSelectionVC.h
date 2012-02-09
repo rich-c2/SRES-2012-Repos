@@ -19,10 +19,16 @@ typedef enum  {
 @class EventTableCell;
 @class Event;
 @class EventDateTime;
+@class JSONFetcher;
 
 @interface EventSelectionVC : UIViewController {
 
 	NSManagedObjectContext *managedObjectContext;	
+	
+	BOOL eventsLoaded;
+	BOOL loading;
+	
+	JSONFetcher *fetcher;
 	
 	NSMutableArray *dateTimes;
 	NSMutableArray *events;
@@ -74,6 +80,10 @@ typedef enum  {
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)resetSearch;
 - (IBAction)goBack:(id)sender;
+- (NSString *)compileRequestXML;
+- (void)showLoading;
+- (void)hideLoading;
+- (void)retrieveJSON;
 
 
 @end

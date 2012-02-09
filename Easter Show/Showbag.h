@@ -24,6 +24,9 @@
 @property (nonatomic, retain) NSNumber * version;
 
 
++ (Showbag *)newShowbagWithData:(NSDictionary *)showbagData 
+			  inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 

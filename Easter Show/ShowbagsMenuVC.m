@@ -12,7 +12,8 @@
 #import "Showbag.h"
 #import "ShowbagsTableCell.h"
 #import "StringHelper.h"
-#import "XMLFetcher.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
 #import "SVProgressHUD.h"
 
 #define UNDER10_TAG 1000
@@ -396,11 +397,32 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (void)retrieveXML {
 	
-	NSString *docName = @"showbags.xml";
-	NSInteger lastShowbagID = 0;
-	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSLog(@"SHOWBAGS URL:%@", urlString);
+	NSString *docName = @"get_showbags.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"];
+	
+	if ([[fetchedResultsController fetchedObjects] count] > 0) {
+	
+		[mutableXML appendString:@"<showbags>"];
+		
+		for (Showbag *showbag in [fetchedResultsController fetchedObjects]) {
+			
+			[mutableXML appendFormat:@"<s id=\"%i\" v=\"%i\" />", [showbag.showbagID intValue], [showbag.version intValue]];
+		}
+		
+		[mutableXML appendString:@"</showbags>"];
+	}
+	
+	else [mutableXML appendString:@"<showbags />"];
+	
+	NSLog(@"XML:%@", mutableXML);
+	
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -409,93 +431,75 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
 	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"GET"];	
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
 	
-	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
 	[fetcher start];
 }
 
 
-// The API Request has finished being processed. Deal with the return data.
-- (void)receiveResponse:(HTTPFetcher *)aFetcher {
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
     
-    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
 	loading = NO;
 	showbagsLoaded = YES;
 	
-	if ([theXMLFetcher.data length] > 0) {
-        
-        // loop through the XPathResultNode objects that the XMLFetcher fetched
-        for (XPathResultNode *node in theXMLFetcher.results) { 
+	if ([theJSONFetcher.data length] > 0) {
 		
-			if ([[node name] isEqualToString:@"add"]) {
-				
-				for (XPathResultNode *showbagNode in node.childNodes) { 
-					
-					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
-				
-					// Store the showbag's ID
-					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
-						
-						if ([[showbagChild contentString] length] > 0)
-							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
-					}
-					
-					// Store Showbag data in Core Data persistent store
-					[Showbag showbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"update"]) {
-				
-				for (XPathResultNode *showbagNode in node.childNodes) { 
-					
-					NSMutableDictionary *showbagData = [NSMutableDictionary dictionary];
-					
-					// Store the showbag's ID
-					[showbagData setObject:[[showbagNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *showbagChild in showbagNode.childNodes) {
-						
-						if ([[showbagChild contentString] length] > 0)
-							[showbagData setObject:[showbagChild contentString] forKey:[showbagChild name]];
-					}
-					
-					// Store Showbag data in Core Data persistent store
-					[Showbag updateShowbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"remove"]) {
-				
-				for (XPathResultNode *showbagNode in node.childNodes) {
-				
-					NSString *idString = [[showbagNode attributes] objectForKey:@"id"];
-					NSNumber *showbagID = [NSNumber numberWithInt:[idString intValue]];
-					
-					// Delete Showbag from the persistent store
-					Showbag *showbag = [Showbag showbagWithID:showbagID inManagedObjectContext:self.managedObjectContext];
-					
-					if (showbag) [self.managedObjectContext deleteObject:showbag];
-				}
-			}
-		}		
+		// Store incoming data into a string
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		// Build an array from the dictionary for easy access to each entry
+		NSDictionary *addObjects = [results objectForKey:@"showbags"];
+		
+		NSDictionary *adds = [addObjects objectForKey:@"add"];
+		
+		NSMutableArray *showbagsDict = [adds objectForKey:@"showbag"];
+		
+		NSLog(@"KEYS:%@", showbagsDict);
+		
+		for (int i = 0; i < [showbagsDict count]; i++) {
+			
+			NSDictionary *showbag = [showbagsDict objectAtIndex:i];
+			
+			NSLog(@"showbag:%@", showbag);
+			
+			// Store Showbag data in Core Data persistent store
+			[Showbag newShowbagWithData:showbag inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		
+		NSMutableArray *updatesDict = [updates objectForKey:@"showbag"];
+		
+		for (int i = 0; i < [updatesDict count]; i++) {
+			
+			NSDictionary *showbag = [updatesDict objectAtIndex:i];
+			
+			// Store Showbag data in Core Data persistent store
+			[Showbag updateShowbagWithShowbagData:showbag inManagedObjectContext:self.managedObjectContext];
+		}	
+		
+		[jsonString release];
 	}
 	
 	// Save the object context
 	[[self appDelegate] saveContext];
-	
-	// Fetch Showbag objets from Core Data
-	[self fetchShowbagsFromCoreData];
 	
 	// Hide loading view
 	[self hideLoading];

@@ -211,8 +211,10 @@
     if (cell == nil) {
 		
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		
     }
+	
+	// No tick mark/check mark
+	cell.accessoryType = UITableViewCellAccessoryNone;
 	
 	// Retrieve FoodVenue object and set it's name to the cell
 	[self configureCell:cell atIndexPath:indexPath];
@@ -350,13 +352,19 @@
 - (IBAction)editButtonClicked:(id)sender {
 
 	// Put the table into editing mode
-	editing = YES;
+	editing = !editing;
 	
 	// Show the actions panel (Delete/Cancel)
-	[self.actionsView setHidden:NO]; //!self.actionsView.hidden];
+	[self.actionsView setHidden:!self.actionsView.hidden];
 	
 	// If the actions panel was just hidden - clear out the delete array
-	if (self.actionsView.hidden) [self.deletePaths removeAllObjects];
+	if (self.actionsView.hidden) {
+		
+		[self.deletePaths removeAllObjects];
+		
+		// refresh table to clear check marks
+		[self.menuTable reloadData];
+	}
 }
 
 
@@ -371,7 +379,23 @@
 		[self.managedObjectContext deleteObject:fav];
 	}
 	
-	// Clear out the array
+	// Clear out the delete array
+	[self.deletePaths removeAllObjects];
+}
+
+
+- (IBAction)cancelButtonClicked:(id)sender { 
+
+	// We are not in editing mode anymore
+	editing = NO;
+	
+	// Hide the actions panel
+	[self.actionsView setHidden:YES];
+	
+	// refresh table to clear check marks
+	[self.menuTable reloadData];
+	
+	// Clear out the delete array
 	[self.deletePaths removeAllObjects];
 }
 

@@ -62,7 +62,7 @@
 								<string key="NSFrame">{{6, 5}, {45, 23}}</string>
 								<reference key="NSSuperview" ref="481334913"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="662742288"/>
+								<reference key="NSNextKeyView" ref="1021513453"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -99,7 +99,7 @@
 								<string key="NSFrame">{{60, 7}, {200, 21}}</string>
 								<reference key="NSSuperview" ref="481334913"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="365666076"/>
+								<reference key="NSNextKeyView" ref="662742288"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -162,7 +162,7 @@
 						<string key="NSFrameSize">{320, 36}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1021513453"/>
+						<reference key="NSNextKeyView" ref="365666076"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMTEzNzI1NDkwMiAwLjIxMTc2NDcwNTkAA</bytes>
@@ -183,7 +183,6 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
-						<int key="IBUISeparatorStyle">1</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 						<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 						<float key="IBUIRowHeight">44</float>
@@ -222,6 +221,7 @@
 								<string key="NSFrame">{{165, 7}, {145, 37}}</string>
 								<reference key="NSSuperview" ref="895067692"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -315,6 +315,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">11</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">cancelButtonClicked:</string>
+						<reference key="source" ref="18921228"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">19</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -433,7 +442,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">18</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -441,11 +450,16 @@
 					<string key="className">FavouritesMenuVC</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="cancelButtonClicked:">id</string>
 						<string key="deleteSelectedFavourites:">id</string>
 						<string key="editButtonClicked:">id</string>
 						<string key="goBack:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="cancelButtonClicked:">
+							<string key="name">cancelButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="deleteSelectedFavourites:">
 							<string key="name">deleteSelectedFavourites:</string>
 							<string key="candidateClassName">id</string>

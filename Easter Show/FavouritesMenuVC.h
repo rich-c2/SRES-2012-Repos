@@ -37,6 +37,7 @@
 - (IBAction)deleteSelectedFavourites:(id)sender;
 - (IBAction)editButtonClicked:(id)sender;
 - (IBAction)goBack:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
 
 
 @end

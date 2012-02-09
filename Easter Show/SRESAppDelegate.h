@@ -42,5 +42,6 @@ extern NSString* const API_SERVER_ADDRESS;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+- (NSString *)getDeviceID;
 
 @end

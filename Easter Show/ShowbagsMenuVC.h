@@ -10,14 +10,14 @@
 
 @class Showbag;
 @class ShowbagsTableCell;
-@class XMLFetcher;
+@class JSONFetcher;
 
 @interface ShowbagsMenuVC : UIViewController <NSFetchedResultsControllerDelegate> {
 	
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 	
-	XMLFetcher *fetcher;
+	JSONFetcher *fetcher;
 	
 	BOOL viewLoaded;
 	BOOL showbagsLoaded;

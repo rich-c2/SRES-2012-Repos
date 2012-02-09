@@ -15,6 +15,7 @@
 NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
 
 static NSString *kAppVersionKey = @"appVersionKey";
+static NSString *kDeviceIDKey = @"deviceIDKey";
 
 @implementation SRESAppDelegate
 
@@ -282,5 +283,22 @@ static NSString *kAppVersionKey = @"appVersionKey";
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+
+- (NSString *)getDeviceID {
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *deviceID = [defaults objectForKey:kDeviceIDKey];
+	
+	if ([deviceID length] < 1) {
+	
+		deviceID = [UIDevice currentDevice].uniqueIdentifier;
+		
+		[defaults setObject:deviceID forKey:kDeviceIDKey];
+	}
+	
+	return deviceID;
+}
+
 
 @end

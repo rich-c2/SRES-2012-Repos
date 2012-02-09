@@ -12,6 +12,10 @@
 #import "SRESAppDelegate.h"
 #import "EventVC.h"
 #import "EventDateTime.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
+#import "SVProgressHUD.h"
+#import "StringHelper.h"
 
 
 static NSString* kTableCellFont = @"HelveticaNeue-Bold";
@@ -114,6 +118,19 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (void)viewWillAppear:(BOOL)animated {
 	
 	[self.menuTable reloadData];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	
+	// If this view has not already been loaded 
+	//(i.e not coming back from an Offer detail view)
+	if (!eventsLoaded && !loading) {
+		
+		[self showLoading];
+		
+		[self retrieveJSON];
+	}
 }
 
 
@@ -593,6 +610,186 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (IBAction)goBack:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)showLoading {
+	
+	[SVProgressHUD showInView:self.view status:nil networkIndicator:YES posY:-1 maskType:SVProgressHUDMaskTypeClear];
+}
+
+
+- (void)hideLoading {
+	
+	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
+} 
+
+
+- (void)retrieveJSON {
+	
+	NSString *docName = @"get_events.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
+	
+	NSString *mutableXML = [self compileRequestXML];
+	
+	NSLog(@"XML:%@", mutableXML);
+	
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	
+	NSURL *url = [urlString convertToURL];
+	
+	// Create the request.
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+														   cachePolicy:NSURLRequestUseProtocolCachePolicy
+													   timeoutInterval:45.0];
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
+	
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
+	[fetcher start];
+}
+
+
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
+    
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
+	
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	loading = NO;
+	eventsLoaded = YES;
+	
+	if ([theJSONFetcher.data length] > 0) {
+		
+		// Store incoming data into a string
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		// Build an array from the dictionary for easy access to each entry
+		NSDictionary *addObjects = [results objectForKey:@"events"];
+		// objectForKey:@"add"]
+		
+		NSDictionary *adds = [addObjects objectForKey:@"add"];
+		
+		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
+		
+		NSLog(@"KEYS:%@", eventsDict);
+		
+		for (int i = 0; i < [eventsDict count]; i++) {
+			
+			NSDictionary *event = [eventsDict objectAtIndex:i];
+			
+			// Store Event data in Core Data persistent store
+			[Event newEventWithData:event inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		
+		NSMutableArray *updatesDict = [updates objectForKey:@"event"];
+		
+		for (int i = 0; i < [updatesDict count]; i++) {
+			
+			NSDictionary *event = [updatesDict objectAtIndex:i];
+			
+			// Store Event data in Core Data persistent store
+			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
+		}	
+		
+		[jsonString release];
+	}
+	
+	// Save the object context
+	[[self appDelegate] saveContext];
+	
+	[self fetchEventDateTimesFromCoreData];
+	
+	[self.menuTable reloadData];
+	
+	// Hide loading view
+	[self hideLoading];
+	
+	[fetcher release];
+	fetcher = nil;
+}
+
+
+
+- (NSString *)compileRequestXML {
+
+	// CREATE FETCH REQUEST
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
+	
+	// FETCH PREDICATE
+	NSPredicate *fetchPredicate;
+	
+	if ([self.selectedCategory length] > 0) {
+		
+		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(forEvent.category like[cd] %@)", self.selectedCategory];
+		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(day = %@)", self.selectedDate];
+		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, nil];
+		
+		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+	}
+	
+	else fetchPredicate = [NSPredicate predicateWithFormat:@"(day = %@)", self.selectedDate];
+	
+	[fetchRequest setPredicate:fetchPredicate];
+	
+	
+	// FETCH SORT DESCRIPTORS
+	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.eventID" ascending:YES]];
+	
+	// Execute the fetch request
+	NSError *error = nil;
+	NSArray *storedEvents = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><day>%@</day>", self.selectedDate];
+	
+	NSString *categoryElement;
+	if ([self.selectedCategory length] > 0) categoryElement = [NSString stringWithFormat:@"<category>%@</category>", self.selectedCategory];
+	else categoryElement = [NSString stringWithString:@"<category />"];
+	[mutableXML appendString:categoryElement];
+	
+	[mutableXML appendString:@"<searchTerm />"];
+	
+	if ([storedEvents count] > 0) {
+	
+		[mutableXML appendString:@"<events>"];
+		
+		for (EventDateTime *dateTime in storedEvents) {
+			
+			Event *event = dateTime.forEvent;
+			
+			[mutableXML appendFormat:@"<e id=\"%i\" v=\"%i\" />", [event.eventID intValue], [event.version intValue]];
+		}
+	
+		[mutableXML appendString:@"</events>"];
+	}
+	
+	else [mutableXML appendString:@"<events />"];
+		
+	[mutableXML appendString:@"</request>"];
+	
+	NSString *returnString = [NSString stringWithString:mutableXML];
+	
+	return returnString;
 }
 
 

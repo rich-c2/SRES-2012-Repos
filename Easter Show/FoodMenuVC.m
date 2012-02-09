@@ -370,10 +370,33 @@
 
 - (void)retrieveXML {
 	
-	NSString *docName = @"foodvenues.xml";
-	NSInteger lastShowbagID = 0;
-	NSString *queryString = [NSString stringWithFormat:@"?id=%i", lastShowbagID];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
+	NSString *docName = @"get_foodvenues.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
+	
+	if ([[fetchedResultsController fetchedObjects] count] > 0) {
+	
+		[mutableXML appendString:@"<foodvenues>"];
+	
+		for (FoodVenue *venue in [fetchedResultsController fetchedObjects]) {
+			
+			[mutableXML appendFormat:@"<f id=\"%i\" v=\"%i\" />", [venue.venueID intValue], [venue.version intValue]];
+		}
+		
+		[mutableXML appendString:@"</foodvenues>"];
+	}
+	
+	else [mutableXML appendString:@"<foodvenues />"];
+	
+	
+	NSLog(@"XML:%@", mutableXML);
+
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
 	NSLog(@"FOOD VENUES URL:%@", urlString);
 	
 	NSURL *url = [urlString convertToURL];
@@ -383,108 +406,26 @@
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
 	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"GET"];	
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
 	
-	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//add | //update | //remove" receiver:self action:@selector(receiveResponse:)];
+	
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
 	[fetcher start];
 }
 
 
-// The API Request has finished being processed. Deal with the return data.
-- (void)receiveResponse:(HTTPFetcher *)aFetcher {
-    
-    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
-	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
-    
-	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
-	
-	loading = NO;
-	venuesLoaded = YES;
-	
-	if ([theXMLFetcher.data length] > 0) {
-        
-        // loop through the XPathResultNode objects that the XMLFetcher fetched
-        for (XPathResultNode *node in theXMLFetcher.results) { 
-			
-			if ([[node name] isEqualToString:@"add"]) {
-				
-				for (XPathResultNode *venueNode in node.childNodes) { 
-					
-					NSMutableDictionary *venueData = [NSMutableDictionary dictionary];
-					
-					// Store the showbag's ID
-					[venueData setObject:[[venueNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *venueChild in venueNode.childNodes) {
-						
-						if ([[venueChild contentString] length] > 0)
-							[venueData setObject:[venueChild contentString] forKey:[venueChild name]];
-					}
-					
-					// Store FoodVenue data in Core Data persistent store
-					[FoodVenue venueWithVenueData:venueData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"update"]) {
-				
-				for (XPathResultNode *venueNode in node.childNodes) { 
-					
-					NSMutableDictionary *venueData = [NSMutableDictionary dictionary];
-					
-					// Store the showbag's ID
-					[venueData setObject:[[venueNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *venueChild in venueNode.childNodes) {
-						
-						if ([[venueChild contentString] length] > 0)
-							[venueData setObject:[venueChild contentString] forKey:[venueChild name]];
-					}
-					
-					// Store FoodVenue data in Core Data persistent store
-					[FoodVenue updateVenueWithVenueData:venueData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"remove"]) {
-				
-				for (XPathResultNode *venueNode in node.childNodes) {
-					
-					NSString *idString = [[venueNode attributes] objectForKey:@"id"];
-					NSNumber *showbagID = [NSNumber numberWithInt:[idString intValue]];
-					
-					// Delete FoodVenue from the persistent store
-					FoodVenue *foodVenue = [FoodVenue venueWithID:showbagID inManagedObjectContext:self.managedObjectContext];
-					
-					if (foodVenue) [self.managedObjectContext deleteObject:foodVenue];
-				}
-			}
-		}		
-	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
-	
-	// Fetch Food venue objets from Core Data
-	[self fetchVenuesFromCoreData];
-	
-	// Hide loading view
-	[self hideLoading];
-	
-	[fetcher release];
-	fetcher = nil;
-}
-
-/*
 // Example fetcher response handling
 - (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -494,7 +435,7 @@
 	if ([theJSONFetcher.data length] > 0) {
 		
 		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
 		
 		// Create a dictionary from the JSON string
 		NSDictionary *results = [jsonString JSONValue];
@@ -506,14 +447,16 @@
 		
 		NSMutableArray *venuesDict = [adds objectForKey:@"venue"];
 		
-		NSLog(@"KEYS:%@", venuesDict);
+		//NSLog(@"KEYS:%@", venuesDict);
 		
 		for (int i = 0; i < [venuesDict count]; i++) {
 			
 			NSDictionary *venue = [venuesDict objectAtIndex:i];
 			
+			NSLog(@"venue:%@", venue);
+			
 			// Store FoodVenue data in Core Data persistent store
-			[FoodVenue newVenueWithData:venue inManagedObjectContext:self.managedObjectContext];
+			[FoodVenue newFoodVenueWithData:venue inManagedObjectContext:self.managedObjectContext];
 		}
 		
 		NSDictionary *updates = [addObjects objectForKey:@"update"];
@@ -539,7 +482,7 @@
 	
 	[fetcher release];
 	fetcher = nil;
-}*/
+}
 
 
 - (void)showLoading {

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class XMLFetcher;
 @class JSONFetcher;
 @class FoodTableCell;
 @class FoodVenue;
@@ -18,7 +17,7 @@
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 
-	XMLFetcher *fetcher;
+	JSONFetcher *fetcher;
 
 	BOOL venuesLoaded;
 	BOOL loading;

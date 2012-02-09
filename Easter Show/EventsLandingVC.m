@@ -18,6 +18,7 @@
 #import "EventsMainVC.h"
 #import "JSONFetcher.h"
 #import "SBJson.h"
+#import "XMLFetcher.h"
 
 @implementation EventsLandingVC
 
@@ -86,50 +87,49 @@
 	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
-	if (!eventsLoaded && !loading) {
+	/*if (!eventsLoaded && !loading) {
 		
 		[self showLoading];
 		
 		[self retrieveXML];
-	}
+	}*/
 }
 
 
 - (void)retrieveXML {
 	
-	// TEST CODE
-	//NSString *docName = @"events.xml";
-	//NSString *docName = @"events-summaries.xml";
-	NSString *docName = @"getEvents.json";
+	NSString *docName = @"get_init.json";
+	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
-	//NSInteger eventCount = 0; 
-	//NSInteger lastEventID = 5390;
-	//NSString *queryString;
+	//NSString *mutableXML = [self compileRequestXML];
 	
-	//BOOL batchImport = NO;
+	//NSLog(@"XML:%@", mutableXML);
 	
-	//if (batchImport) queryString = [NSString stringWithFormat:@"?first=true&start=%i&last=1000", eventCount]; 
-	//else queryString = [NSString stringWithFormat:@"?id=%i", lastEventID];
+	// Change the string to NSData for transmission
+	//NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	// TEST CODE
-	//NSString *urlString = [NSString stringWithFormat:@"%@%@%@", API_SERVER_ADDRESS, docName, queryString];
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://richardflee.me/test/", docName];
-	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
 	
 	NSURL *url = [urlString convertToURL];
-	
-	NSLog(@"EVENTS URL:%@", urlString);
 	
 	// Create the request.
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:45.0];
-	[request setHTTPMethod:@"GET"];	
+	
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	//[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"GET"];
+	//[request setHTTPBody:requestBody];
 	
 	// JSONFetcher
-	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+	/*fetcher = [[JSONFetcher alloc] initWithURLRequest:request
 											 receiver:self
 											   action:@selector(receivedFeedResponse:)];
+	[fetcher start];*/
+	
+	// XML Fetcher
+	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//versions" receiver:self action:@selector(receivedResponse:)];
 	[fetcher start];
 }
 
@@ -139,7 +139,7 @@
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -156,7 +156,6 @@
 		
 		// Build an array from the dictionary for easy access to each entry
 		NSDictionary *addObjects = [results objectForKey:@"events"];
-									// objectForKey:@"add"]
 		
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
 				
@@ -189,6 +188,54 @@
 	
 	// Save the object context
 	[[self appDelegate] saveContext];
+	
+	// Hide loading view
+	[self hideLoading];
+	
+	[fetcher release];
+	fetcher = nil;
+}
+
+
+// The API Request has finished being processed. Deal with the return data.
+- (void)receiveResponse:(HTTPFetcher *)aFetcher {
+    
+    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
+	
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	loading = NO;
+	eventsLoaded = YES;
+	
+	if ([theXMLFetcher.data length] > 0) {
+        
+        // loop through the XPathResultNode objects that the XMLFetcher fetched
+        for (XPathResultNode *node in theXMLFetcher.results) { 
+			
+			if ([[node name] isEqualToString:@"init"]) {
+				
+				for (XPathResultNode *initNode in node.childNodes) { 
+					
+					NSMutableDictionary *initData = [NSMutableDictionary dictionary];
+					
+					// Store the showbag's ID
+					/*[initData setObject:[[offerNode attributes] objectForKey:@"id"] forKey:@"id"];
+					
+					// Store the rest of the showbag's attributes
+					for (XPathResultNode *offerChild in offerNode.childNodes) {
+						
+						if ([[offerChild contentString] length] > 0)
+							[offerData setObject:[offerChild contentString] forKey:[offerChild name]];
+					}
+					
+					// Store Offer data in Core Data persistent store
+					[Offer offerWithOfferData:offerData inManagedObjectContext:self.managedObjectContext];*/
+				}
+			}
+		}		
+	}
 	
 	// Hide loading view
 	[self hideLoading];

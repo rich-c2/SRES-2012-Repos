@@ -34,30 +34,17 @@
 		
 		[dateTime setDateTimeID:[NSNumber numberWithInt:[[dateData objectForKey:@"dateTimeID"] intValue]]];
 		
-		// DAY
-		/*NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
-		[dayFormat setDateFormat:@"MMMM dd"];
-		NSDate *dayDate = [dayFormat dateFromString:[dateData objectForKey:@"startDate"]];
-		[dateTime setDay:[dayFormat stringFromDate:dayDate]];
-		[dayFormat release];*/
-		
-		
 		// EVENT DATE
 		NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 		[dateFormat setDateFormat:@"MMMM dd h:mm a"];
 		
+		// Start Date
 		[dateTime setStartDate:[dateFormat dateFromString:[dateData objectForKey:@"startDate"]]];
 		
+		// Day
+		[dateTime setDay:[dateData objectForKey:@"day"]];
 		
-		NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-		NSDateComponents *weekdayComponents = [gregorian components:(NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dateTime.startDate];
-		
-		NSInteger day = [weekdayComponents day];
-		NSInteger weekday = [weekdayComponents month];
-		
-		[dateTime setDay:[NSString stringWithFormat:@"April %i", day]];
-		[gregorian release];
-		
+		// End date
 		[dateTime setEndDate:[dateFormat dateFromString:[dateData objectForKey:@"endDate"]]];
 		
 		NSLog(@"EventDateTime CREATED:%@", dateTime.day);

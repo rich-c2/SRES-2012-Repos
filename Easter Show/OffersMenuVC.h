@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class XMLFetcher;
+@class JSONFetcher;
 @class OfferTableCell;
 @class Offer;
 
@@ -17,7 +17,7 @@
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 
-	XMLFetcher *fetcher;
+	JSONFetcher *fetcher;
 
 	BOOL offersLoaded;
 	BOOL loading;
