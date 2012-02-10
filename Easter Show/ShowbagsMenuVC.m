@@ -398,12 +398,22 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_showbags.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
+	
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	fetchRequest.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:managedObjectContext];
+	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+	fetchRequest.predicate = nil;
+	fetchRequest.fetchBatchSize = 30000;
+	
+	// Execute the fetch request
+	NSError *error = nil;
+	NSArray *storedShowbags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
 	
 	NSMutableString *mutableXML = [NSMutableString string];
 	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"];
 	
-	if ([[fetchedResultsController fetchedObjects] count] > 0) {
+	if ([storedShowbags count] > 0) {
 	
 		[mutableXML appendString:@"<showbags>"];
 		
@@ -422,7 +432,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	// Change the string to NSData for transmission
 	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -471,7 +481,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		
 		NSMutableArray *showbagsDict = [adds objectForKey:@"showbag"];
 		
-		NSLog(@"KEYS:%@", showbagsDict);
+		//NSLog(@"KEYS:%@", showbagsDict);
 		
 		for (int i = 0; i < [showbagsDict count]; i++) {
 			
@@ -561,10 +571,10 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -597,24 +607,16 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (void)setupNavBar {
 	
+	// Hide default navigation bar
+	[self.navigationController setNavigationBarHidden:YES];
+	
 	// Add button to Navigation Title 
 	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
 	
 	self.navigationItem.titleView = image;
-	[image release];
-	
-	// Add back button to nav bar
-	CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
-	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;*/
+	[image release];*/
 	
 	
 	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];

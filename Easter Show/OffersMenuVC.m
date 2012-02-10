@@ -49,6 +49,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
+	// Hide default navigation bar
+	[self.navigationController setNavigationBarHidden:YES];
+	
 	[self fetchOffersFromCoreData];
 }
 
@@ -275,7 +278,6 @@
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_offers.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
 	NSString *deviceID = [[self appDelegate] getDeviceID];
 	
@@ -288,7 +290,7 @@
 		
 		for (Offer *offer in [fetchedResultsController fetchedObjects]) {
 			
-			[mutableXML appendFormat:@"<o id=\"%i\" v=\"%i\" />", [offer.offerID intValue], [offer.version intValue]];
+			[mutableXML appendFormat:@"<o id=\"%i\" v=\"%i\" r=\"%i\" />", [offer.offerID intValue], [offer.version intValue], [offer.redeemed intValue]];
 		}
 		
 		[mutableXML appendString:@"</offers>"];
@@ -301,7 +303,7 @@
 	// Change the string to NSData for transmission
 	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -312,8 +314,6 @@
 	
 	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	//[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-	//[request setValue:[NSString stringWithFormat:@"%d", [requestBody length]] forHTTPHeaderField:@"Content-Length"];
 	[request setHTTPMethod:@"POST"];
 	[request setHTTPBody:requestBody];
 	
@@ -427,7 +427,9 @@
 	if ([theJSONFetcher.data length] > 0) {
 		
 		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		NSLog(@"jsonString:%@", jsonString);
 		
 		// Create a dictionary from the JSON string
 		NSDictionary *results = [jsonString JSONValue];
@@ -460,6 +462,18 @@
 			// Store Offer data in Core Data persistent store
 			[Offer updateOfferWithOfferData:offer inManagedObjectContext:self.managedObjectContext];
 		}	
+		
+		NSDictionary *removes = [addObjects objectForKey:@"remove"];
+		NSMutableArray *removeObjects = [removes objectForKey:@"offer"];
+		
+		for (int i = 0; i < [removeObjects count]; i++) { 
+			
+			NSDictionary *offerDict = [removeObjects objectAtIndex:i];
+			NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"offerID"] intValue]];
+		
+			Offer *offer = [Offer getOfferWithID:idNum inManagedObjectContext:self.managedObjectContext];
+			if (offer) [self.managedObjectContext deleteObject:offer];
+		}
 		
 		[jsonString release];
 	}
@@ -499,6 +513,13 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
+}
+
+
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

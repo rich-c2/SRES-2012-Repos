@@ -211,10 +211,10 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -235,25 +235,16 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)setupNavBar {
 	
+	// Hide default navigation bar
+	[self.navigationController setNavigationBarHidden:YES];
+	
 	// Add button to Navigation Title 
 	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
 	
 	self.navigationItem.titleView = image;
-	[image release];
-	
-	// Add back button to nav bar
-	CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
-	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;
-	[backItem release];*/
+	[image release];*/
 }
 
 

@@ -80,9 +80,11 @@
 		9B67C45414C3DA0200C4A78C /* OffersMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */; };
 		9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45614C3E55F00C4A78C /* OfferTableCell.m */; };
 		9B67C45914C3E56100C4A78C /* OfferTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45714C3E56000C4A78C /* OfferTableCell.xib */; };
-		9B67C45C14C3E94800C4A78C /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45B14C3E94700C4A78C /* Offer.m */; };
 		9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45E14C3F24E00C4A78C /* FavouritesMenuVC.m */; };
 		9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */; };
+		9B6EEF2914E4963C002C85BF /* AnnouncementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */; };
+		9B6EEF2A14E4963C002C85BF /* AnnouncementVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */; };
+		9B6EEF2E14E4B951002C85BF /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2D14E4B950002C85BF /* Offer.m */; };
 		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
 		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
 		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
@@ -379,11 +381,14 @@
 		9B67C45514C3E55F00C4A78C /* OfferTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferTableCell.h; sourceTree = "<group>"; };
 		9B67C45614C3E55F00C4A78C /* OfferTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferTableCell.m; sourceTree = "<group>"; };
 		9B67C45714C3E56000C4A78C /* OfferTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferTableCell.xib; sourceTree = "<group>"; };
-		9B67C45A14C3E94600C4A78C /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offer.h; sourceTree = "<group>"; };
-		9B67C45B14C3E94700C4A78C /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offer.m; sourceTree = "<group>"; };
 		9B67C45D14C3F24E00C4A78C /* FavouritesMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavouritesMenuVC.h; sourceTree = "<group>"; };
 		9B67C45E14C3F24E00C4A78C /* FavouritesMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavouritesMenuVC.m; sourceTree = "<group>"; };
 		9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesMenuVC.xib; sourceTree = "<group>"; };
+		9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementVC.h; sourceTree = "<group>"; };
+		9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementVC.m; sourceTree = "<group>"; };
+		9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementVC.xib; sourceTree = "<group>"; };
+		9B6EEF2C14E4B94F002C85BF /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Offer.h; path = "Easter Show/Offer.h"; sourceTree = "<group>"; };
+		9B6EEF2D14E4B950002C85BF /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Offer.m; path = "Easter Show/Offer.m"; sourceTree = "<group>"; };
 		9B830A5814BEBFD30028336C /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
 		9B830A5914BEBFD30028336C /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
 		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
@@ -1107,6 +1112,8 @@
 		9B93B6F014BBFEFB00FB31CE = {
 			isa = PBXGroup;
 			children = (
+				9B6EEF2C14E4B94F002C85BF /* Offer.h */,
+				9B6EEF2D14E4B950002C85BF /* Offer.m */,
 				9B93B70714BBFEFC00FB31CE /* Easter Show */,
 				9B93B72314BBFEFC00FB31CE /* Easter ShowTests */,
 				9B93B6FE14BBFEFC00FB31CE /* Frameworks */,
@@ -1313,8 +1320,6 @@
 		9B93B73714BC025700FB31CE /* Offers */ = {
 			isa = PBXGroup;
 			children = (
-				9B67C45A14C3E94600C4A78C /* Offer.h */,
-				9B67C45B14C3E94700C4A78C /* Offer.m */,
 				9BC8251D14C90CAB00D67A23 /* OfferVC.h */,
 				9BC8251E14C90CAB00D67A23 /* OfferVC.m */,
 				9BC8251F14C90CAB00D67A23 /* OfferVC.xib */,
@@ -1331,6 +1336,9 @@
 		9B93B73814BC025D00FB31CE /* More */ = {
 			isa = PBXGroup;
 			children = (
+				9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */,
+				9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */,
+				9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */,
 				9B67C44D14C3D3F700C4A78C /* FoodVenue.h */,
 				9B67C44E14C3D3F700C4A78C /* FoodVenue.m */,
 				9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */,
@@ -1682,6 +1690,7 @@
 				9B9CA61A14E2405000A92D5E /* more-list-background@2x.png in Resources */,
 				9B9CA61D14E2413900A92D5E /* more-table-cell-background.png in Resources */,
 				9B9CA61E14E2413900A92D5E /* more-table-cell-background@2x.png in Resources */,
+				9B6EEF2A14E4963C002C85BF /* AnnouncementVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1808,7 +1817,6 @@
 				9B67C44F14C3D3F800C4A78C /* FoodVenue.m in Sources */,
 				9B67C45314C3DA0200C4A78C /* OffersMenuVC.m in Sources */,
 				9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */,
-				9B67C45C14C3E94800C4A78C /* Offer.m in Sources */,
 				9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */,
 				9B3D0C9F14C3F84C00B9B233 /* EventVC.m in Sources */,
 				9B28000C14C4002F004231CC /* Favourite.m in Sources */,
@@ -1838,6 +1846,8 @@
 				9B9A4ACB14DF4CC3007837B7 /* Event.m in Sources */,
 				9B9439F814E0E6C500AB4173 /* EventDateTime.m in Sources */,
 				9BB0411A14E1D4C900542201 /* EventsSearchVC.m in Sources */,
+				9B6EEF2914E4963C002C85BF /* AnnouncementVC.m in Sources */,
+				9B6EEF2E14E4B951002C85BF /* Offer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

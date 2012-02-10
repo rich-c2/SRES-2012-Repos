@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AnnouncementVC.h"
 
-@class JSONFetcher;
+@class XMLFetcher;
 @class EventTableCell;
 
-@interface EventsLandingVC : UIViewController {
+@interface EventsLandingVC : UIViewController <AnnouncementDelegate> {
 
-	JSONFetcher *fetcher;
+	XMLFetcher *fetcher;
 	
 	NSManagedObjectContext *managedObjectContext;
 	
@@ -38,6 +39,7 @@
 - (void)showLoading;
 - (void)hideLoading;
 - (void)retrieveXML;
+- (void)processInitData:(NSMutableDictionary *)initData;
 
 
 @end

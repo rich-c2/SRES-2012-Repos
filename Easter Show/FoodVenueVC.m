@@ -210,11 +210,12 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 
 - (void)setupNavBar {

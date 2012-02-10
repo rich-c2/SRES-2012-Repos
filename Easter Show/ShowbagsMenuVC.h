@@ -84,5 +84,6 @@
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)resetSearch;
+- (IBAction)goBack:(id)sender;
 
 @end

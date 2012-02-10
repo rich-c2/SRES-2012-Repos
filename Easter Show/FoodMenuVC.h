@@ -52,6 +52,7 @@
 - (void)resetSearch;
 - (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue;
 - (void)setupNavBar;
+- (IBAction)goBack:(id)sender;
 
 
 

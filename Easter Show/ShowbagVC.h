@@ -79,6 +79,7 @@
 - (void)updateAddToFavouritesButton;
 - (void)initImage:(NSString *)urlString;
 - (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
+- (IBAction)goBack:(id)sender;
 
 
 @end

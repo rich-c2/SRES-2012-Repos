@@ -43,5 +43,7 @@ extern NSString* const API_SERVER_ADDRESS;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (NSString *)getDeviceID;
+- (CGFloat)getAppVersion;
+- (NSString *)replaceHtmlEntities:(NSString *)htmlCode;
 
 @end

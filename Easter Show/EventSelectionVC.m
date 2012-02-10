@@ -628,8 +628,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 - (void)retrieveJSON {
 	
 	NSString *docName = @"get_events.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
-	
 	NSString *mutableXML = [self compileRequestXML];
 	
 	NSLog(@"XML:%@", mutableXML);
@@ -637,7 +635,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Change the string to NSData for transmission
 	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -681,7 +679,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 		
 		// Build an array from the dictionary for easy access to each entry
 		NSDictionary *addObjects = [results objectForKey:@"events"];
-		// objectForKey:@"add"]
 		
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
 		
@@ -717,7 +714,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	[self fetchEventDateTimesFromCoreData];
 	
-	[self.menuTable reloadData];
+	[self checkEventsCount];
 	
 	// Hide loading view
 	[self hideLoading];
@@ -725,7 +722,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[fetcher release];
 	fetcher = nil;
 }
-
 
 
 - (NSString *)compileRequestXML {
@@ -790,6 +786,15 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	NSString *returnString = [NSString stringWithString:mutableXML];
 	
 	return returnString;
+}
+
+
+- (void)checkEventsCount {
+
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" 
+													message:@"There are no Events on today." delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+	[alert show];    
+	[alert release];
 }
 
 

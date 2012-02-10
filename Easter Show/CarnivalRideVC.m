@@ -25,7 +25,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 @synthesize carnivalRide, contentScrollView, managedObjectContext;
 @synthesize descriptionLabel, titleLabel, subTitleLabel, rideImage;
 @synthesize shareButton, addToPlannerButton, mapButton;
-@synthesize loadingSpinner, selectedURL;
+@synthesize loadingSpinner, selectedURL, navigationTitle;
 
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -94,6 +94,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	self.titleLabel = nil;
 	self.rideImage = nil;
 	self.loadingSpinner = nil;
+	self.navigationTitle = nil;
 }
 
 
@@ -191,10 +192,10 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -234,17 +235,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)setupNavBar {
 	
-	// Add back button to nav bar
-	/*CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
-	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;
-	
+	/*
 	// Add button to Navigation Title 
 	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 97.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
@@ -318,6 +309,8 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	[subTitleLabel release];
 	[rideImage release];
 	[loadingSpinner release];
+	[navigationTitle release];
+	
     [super dealloc];
 }
 

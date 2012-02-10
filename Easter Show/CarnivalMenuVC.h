@@ -35,6 +35,7 @@
 - (void)configureCell:(CarnivalTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)setupNavBar;
 - (void)addCarnivaRidesToCoreData:(NSArray *)rideNodes;
+- (IBAction)goBack:(id)sender;
 
 
 @end

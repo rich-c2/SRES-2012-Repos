@@ -16,6 +16,7 @@
 	NSManagedObjectContext *managedObjectContext;
 	CarnivalRide *carnivalRide;
 	
+	UILabel *navigationTitle;
 	UIScrollView *contentScrollView;
 	
 	// Display
@@ -37,6 +38,7 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) CarnivalRide *carnivalRide;
 
+@property (nonatomic, retain) UILabel *navigationTitle;
 @property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
@@ -56,7 +58,7 @@
 - (void)addToFavourites:(id)sender;
 - (void)setDetailFields;
 - (void)resizeTextView:(UITextView *)_textView;
-- (void)goBack:(id)sender;
+- (IBAction)goBack:(id)sender;
 - (void)goToMap:(id)sender;
 - (void)setupNavBar;
 - (void)adjustScrollViewContentHeight;

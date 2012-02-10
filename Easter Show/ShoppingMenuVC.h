@@ -35,5 +35,6 @@
 - (void)configureCell:(ShoppingTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)setupNavBar;
 - (void)addShoppingVendorsToCoreData:(NSArray *)vendorNodes;
+- (IBAction)goBack:(id)sender;
 
 @end

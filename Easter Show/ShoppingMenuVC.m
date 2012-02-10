@@ -369,6 +369,13 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 }
 
 
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)dealloc {
 	
 	[fetchedResultsController release];

@@ -51,6 +51,7 @@
         <attribute name="offerID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="offerType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="redeemed" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -82,7 +83,7 @@
         <element name="EventDateTime" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Favourite" positionX="180" positionY="324" width="128" height="105"/>
         <element name="FoodVenue" positionX="162" positionY="270" width="128" height="150"/>
-        <element name="Offer" positionX="171" positionY="297" width="128" height="195"/>
+        <element name="Offer" positionX="171" positionY="297" width="128" height="210"/>
         <element name="ShoppingVendor" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Showbag" positionX="160" positionY="192" width="128" height="180"/>
     </elements>

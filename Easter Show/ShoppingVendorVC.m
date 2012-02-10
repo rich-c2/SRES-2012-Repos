@@ -49,6 +49,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+	
+	[self setupNavBar];
+	
+	[self setDetailFields];
 }
 
 
@@ -76,6 +80,7 @@
 	self.contentScrollView = nil;
 	self.loadingSpinner = nil;
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -225,14 +230,6 @@
 	self.titleLabel.text = self.shoppingVendor.title;
 	[self resizeTextView:self.titleLabel];
 	
-	/*self.dateLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	self.dateLabel.text = [NSString	stringWithFormat:@"%@", self.shoppingVendor.eventDate];
-	[self resizeTextView:self.dateLabel];
-	
-	CGRect currFrame = self.dateLabel.frame;
-	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
-	[self.dateLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];*/
-	
 	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
 	self.descriptionLabel.text = self.shoppingVendor.vendorDescription;
 	[self resizeTextView:self.descriptionLabel];
@@ -265,26 +262,19 @@
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 - (void)setupNavBar {
 	
-	// Add back button to nav bar
-	/*CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	 UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	 [backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	 [backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	 backButton.frame = btnFrame;
+	// Hide the default navigation bar
+	[self.navigationController setNavigationBarHidden:YES];
 	 
-	 UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	 backItem.target = self;
-	 self.navigationItem.leftBarButtonItem = backItem;
-	 [backItem release];
-	 
+	 /*
 	 NSArray *stringParts = [self.eventDay componentsSeparatedByString:@" "];
 	 NSString *titleImageName = [NSString stringWithFormat:@"screenTitle-%@%@.png", [stringParts objectAtIndex:0], [stringParts objectAtIndex:1]];
 	 UIImage *titleImage = [UIImage imageNamed:titleImageName];

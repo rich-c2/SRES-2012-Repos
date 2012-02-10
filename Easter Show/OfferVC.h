@@ -10,10 +10,13 @@
 #import <MessageUI/MessageUI.h>
 
 @class Offer;
+@class JSONFetcher;
 
 @interface OfferVC : UIViewController {
 
 	NSManagedObjectContext *managedObjectContext;
+	
+	JSONFetcher *fetcher;
 	
 	Offer *offer;
 	NSURL *selectedURL;
@@ -55,13 +58,16 @@
 - (void)addToFavourites:(id)sender;
 - (void)resizeTextView:(UITextView *)_textView;
 - (void)showShareOptions:(id)sender;
-- (void)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
 - (void)adjustScrollViewContentHeight;
 - (void)initImage:(NSString *)urlString;
 - (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
+- (IBAction)redeemButtonClicked:(id)sender;
+- (IBAction)goBack:(id)sender;
+- (void)showLoading;
+- (void)hideLoading;
 
 
 @end

@@ -22,7 +22,7 @@
 @implementation EventsSearchVC
 
 @synthesize managedObjectContext, events, fetchedResultsController;
-@synthesize searchTable, search, loadCell, searchField;
+@synthesize searchTable, search, loadCell, searchField, dateFormat;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,7 +59,12 @@
     // Hide navigation bar
     [self.navigationController setNavigationBarHidden:YES];
 	
-	//[self fetchDateTimes];
+	// Initialise the date form that we are using
+	// across all dates/times
+	NSDateFormatter *tempDateFormat = [[NSDateFormatter alloc] init];
+	[tempDateFormat setDateFormat:@"MMMM dd h:mm a"];
+	self.dateFormat = tempDateFormat;
+	[tempDateFormat release];
 }
 
 - (void)viewDidUnload {
@@ -72,6 +77,7 @@
 	self.events = nil;
 	self.fetchedResultsController = nil;
 	
+	self.dateFormat = nil;
 	self.searchTable = nil; 
 	self.search = nil;
 	self.searchField = nil;
@@ -84,15 +90,36 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
+	// Hide keyboard
 	[self dismissKeyboard];
 	
-	// Request JSON
-	[self retrieveXML];
+	// Validate that enough characters have been entered to
+	// warrant a search.
+	NSString *searchTerm = [textField.text trim];
+	NSInteger minSearchLength = 4;
+	
+	if ([searchTerm length] >= minSearchLength) {
+		
+		// Show loading animation 
+		[self showLoading];
+	
+		// Request JSON
+		[self retrieveXML];
+	}
+	
+	else {
+	
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" 
+														message:@"Your search term was too short. Please be more specific before clicking Search" delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+	}
 	
 	return YES;
 }
@@ -130,13 +157,11 @@
 	
 	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
 	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
-	cell.textLabel.text = dateTime.forEvent.title;
+	cell.textLabel.text = [dateTime.forEvent.title uppercaseString];
 	
-	/*NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	 [dateFormat setDateFormat:@"h:mm a"];
-	 
-	 cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [dateFormat stringFromDate:event.startDate], [dateFormat stringFromDate:event.endDate]];
-	 [dateFormat release];*/
+	cell.detailTextLabel.textColor = [UIColor colorWithRed:97.0/255.0 green:46.0/255.0 blue:106.0/255.0 alpha:1.0];
+	cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
 	
 	//[cell initImage];
 }
@@ -157,7 +182,7 @@
         cell = loadCell;
         self.loadCell = nil;*/
 		
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	// Retrieve Event object
@@ -191,7 +216,6 @@
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_events.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
 	NSString *mutableXML = [self compileRequestXML];
 	
@@ -200,7 +224,7 @@
 	// Change the string to NSData for transmission
 	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -239,6 +263,8 @@
 		// Store incoming data into a string
 		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
 		
+		NSLog(@"jsonString:%@", jsonString);
+		
 		// Create a dictionary from the JSON string
 		NSDictionary *results = [jsonString JSONValue];
 		
@@ -249,7 +275,7 @@
 		
 		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
 		
-		NSLog(@"KEYS:%@", eventsDict);
+		//NSLog(@"KEYS:%@", eventsDict);
 		
 		for (int i = 0; i < [eventsDict count]; i++) {
 			
@@ -269,7 +295,22 @@
 			
 			// Store Event data in Core Data persistent store
 			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
-		}	
+		}
+		
+		NSDictionary *removes = [addObjects objectForKey:@"remove"];
+		
+		NSMutableArray *removeDict = [removes objectForKey:@"event"];
+		
+		for (int i = 0; i < [removeDict count]; i++) {
+			
+			NSDictionary *eventDict = [removeDict objectAtIndex:i];
+			NSNumber *idNum = [NSNumber numberWithInt:[[eventDict objectForKey:@"eventID"] intValue]];
+			
+			Event *event = [Event getEventWithID:idNum inManagedObjectContext:self.managedObjectContext];
+			
+			// Store Event data in Core Data persistent store
+			if (event) [self.managedObjectContext deleteObject:event];
+		}
 		
 		[jsonString release];
 	}
@@ -316,6 +357,14 @@
 	NSError *error = nil;
 	self.events = (NSMutableArray *)[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
+	
+	if ([self.events count] == 0) {
+	
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" 
+														message:@"There were no Events matching your search. Please try again." delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+	}
 	
 	// Reload the table
 	[self.searchTable reloadData];
@@ -380,7 +429,6 @@
 }
 
 
-
 - (void)dealloc {
 	
 	[managedObjectContext release]; 
@@ -388,6 +436,7 @@
 	[fetchedResultsController release];
 
 	[searchTable release];
+	[dateFormat release];
 	
 	[search release];
 	[searchField release];

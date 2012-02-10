@@ -61,7 +61,7 @@
 - (void)adjustScrollViewContentHeight;
 - (void)goToMap:(id)sender;
 - (void)setupNavBar;
-- (void)goBack:(id)sender;
+- (IBAction)goBack:(id)sender;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
 

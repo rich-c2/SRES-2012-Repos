@@ -19,6 +19,7 @@
 #import "JSONFetcher.h"
 #import "SBJson.h"
 #import "XMLFetcher.h"
+#import "AnnouncementVC.h"
 
 @implementation EventsLandingVC
 
@@ -87,19 +88,26 @@
 	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
-	/*if (!eventsLoaded && !loading) {
+	if (!eventsLoaded && !loading) {
 		
 		[self showLoading];
 		
 		[self retrieveXML];
-	}*/
+	}
+}
+
+
+#pragma AnnouncementDelegate methods
+
+- (void)announcementCloseButtonClicked {
+
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_init.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
 	//NSString *mutableXML = [self compileRequestXML];
 	
@@ -108,7 +116,7 @@
 	// Change the string to NSData for transmission
 	//NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	
 	NSURL *url = [urlString convertToURL];
 	
@@ -129,7 +137,7 @@
 	[fetcher start];*/
 	
 	// XML Fetcher
-	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//versions" receiver:self action:@selector(receivedResponse:)];
+	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//init" receiver:self action:@selector(receiveResponse:)];
 	[fetcher start];
 }
 
@@ -209,6 +217,8 @@
 	loading = NO;
 	eventsLoaded = YES;
 	
+	NSMutableDictionary *initData = [NSMutableDictionary dictionary];
+	
 	if ([theXMLFetcher.data length] > 0) {
         
         // loop through the XPathResultNode objects that the XMLFetcher fetched
@@ -218,30 +228,140 @@
 				
 				for (XPathResultNode *initNode in node.childNodes) { 
 					
-					NSMutableDictionary *initData = [NSMutableDictionary dictionary];
+					if ([[initNode name] isEqualToString:@"latestVersion"]) {
 					
-					// Store the showbag's ID
-					/*[initData setObject:[[offerNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *offerChild in offerNode.childNodes) {
+						if ([[initNode contentString] length] > 0)
+							[initData setObject:[initNode contentString] forKey:[initNode name]];
+					}
 						
-						if ([[offerChild contentString] length] > 0)
-							[offerData setObject:[offerChild contentString] forKey:[offerChild name]];
+					else if ([[initNode name] isEqualToString:@"minVersion"]) {
+						
+						NSMutableDictionary *minVersionDict = [NSMutableDictionary dictionary];
+						
+						[minVersionDict setObject:[[initNode attributes] objectForKey:@"version"] forKey:@"version"];
+						
+						for (XPathResultNode *versionChild in initNode.childNodes) {
+						
+							if ([[versionChild name] isEqualToString:@"message"]) {
+							
+								for (XPathResultNode *messageChild in versionChild.childNodes) {
+								
+									if ([[messageChild name] isEqualToString:@"text"])
+										[minVersionDict setObject:[messageChild contentString] forKey:[messageChild name]];
+								}
+							}
+						}
+						
+						[initData setObject:minVersionDict forKey:@"minVersion"];
+					}
+						
+					else if ([[initNode name] isEqualToString:@"offlineMode"]) {
+					
+						if ([[initNode contentString] length] > 0)
+							[initData setObject:[initNode contentString] forKey:[initNode name]];
+					}
+						
+					else if ([[initNode name] isEqualToString:@"lockDown"]) {
+					
+						[initData setObject:[[initNode attributes] objectForKey:@"enabled"] forKey:[initNode name]];
 					}
 					
-					// Store Offer data in Core Data persistent store
-					[Offer offerWithOfferData:offerData inManagedObjectContext:self.managedObjectContext];*/
+					else if ([[initNode name] isEqualToString:@"announcement"]) {
+						
+						NSMutableDictionary *announcementDict = [NSMutableDictionary dictionary];
+						
+						[announcementDict setObject:[[initNode attributes] objectForKey:@"enabled"] forKey:@"enabled"];
+						
+						for (XPathResultNode *announcementChild in initNode.childNodes) {
+							
+							if ([[announcementChild name] isEqualToString:@"message"]) {
+								
+								for (XPathResultNode *messageChild in announcementChild.childNodes) {
+									
+									if ([[messageChild name] isEqualToString:@"text"])
+										[announcementDict setObject:[messageChild contentString] forKey:[messageChild name]];
+								}
+							}
+						}
+						
+						[initData setObject:announcementDict forKey:@"announcement"];
+					}
 				}
 			}
-		}		
+		}	
 	}
 	
 	// Hide loading view
 	[self hideLoading];
 	
+	// Process the results of the get_init API response
+	[self processInitData:initData];
+	
 	[fetcher release];
 	fetcher = nil;
+}
+
+
+- (void)processInitData:(NSMutableDictionary *)initData {
+
+	if ([[initData objectForKey:@"lockDown"] isEqualToString:@"True"]) {
+		
+		NSString *message = @"This app is currently in lock down mode. Bye!";
+	
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"LOCK DOWN" message:message 
+													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+		
+		return;
+	}
+	
+	if ([[initData objectForKey:@"offlineMode"] isEqualToString:@"True"]) {
+	
+		NSString *message = @"This app is currently in offline mode. Cheers!";
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OFFLINE MODE" message:message 
+													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+		
+		return;
+	}
+	
+	NSArray *keys = [initData allKeys];
+	
+	if ([keys containsObject:@"minVersion"]) {
+	
+		NSMutableDictionary *minVersionDict = [initData objectForKey:@"minVersion"];
+		
+		// Compare the version number parsed in the dictionary to the one that this app
+		CGFloat minVersion = [[minVersionDict objectForKey:@"version"] floatValue];
+		CGFloat appVersion = [[self appDelegate] getAppVersion];
+		
+		if (minVersion > appVersion) {
+			
+			NSString *message = [minVersionDict objectForKey:@"text"];
+		
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please upgrade" message:message 
+													delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+			[alert show];    
+			[alert release];
+		}
+	}
+	
+	if ([keys containsObject:@"announcement"]) {
+		
+		NSMutableDictionary *announcementDict = [initData objectForKey:@"announcement"];
+	
+		if ([[announcementDict objectForKey:@"enabled"] isEqualToString:@"True"]) {
+		
+			AnnouncementVC *announcementVC = [[AnnouncementVC alloc] initWithNibName:@"AnnouncementVC" bundle:nil];
+			[announcementVC setDelegate:self];
+			[announcementVC setAnnouncementText:[announcementDict objectForKey:@"text"]];
+			[self presentModalViewController:announcementVC animated:YES];
+			[announcementVC release];
+		}
+	}
 }
 
 

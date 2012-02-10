@@ -12,7 +12,8 @@
 #import "OffersMenuVC.h"
 #import "FavouritesMenuVC.h"
 
-NSString* const API_SERVER_ADDRESS = @"http://sres.c2gloo.net/xml/";
+NSString* const API_SERVER_ADDRESS = @"http://sres2012.supergloo.net.au/api/";
+//OLD API @"http://sres.c2gloo.net/xml/";
 
 static NSString *kAppVersionKey = @"appVersionKey";
 static NSString *kDeviceIDKey = @"deviceIDKey";
@@ -298,6 +299,208 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	}
 	
 	return deviceID;
+}
+
+
+- (CGFloat)getAppVersion {
+
+	// Store the current version to NSUserDefaults
+	return [[NSUserDefaults standardUserDefaults] floatForKey:kAppVersionKey];
+}
+
+
+- (NSString *)replaceHtmlEntities:(NSString *)htmlCode {
+	
+	//NSLog(@"replace:%@", htmlCode);
+	
+	NSError *error = NULL;
+    NSMutableString *temp = [NSMutableString stringWithString:htmlCode];
+	
+	[temp replaceOccurrencesOfString:@"#128;" withString:@"€" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#129;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#130;" withString:@"‚" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#131;" withString:@"ƒ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#132;" withString:@"„" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#133;" withString:@"…" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#134;" withString:@"†" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#135;" withString:@"‡" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#136;" withString:@"ˆ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#137;" withString:@"‰" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#138;" withString:@"Š" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#139;" withString:@"‹" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#140;" withString:@"Œ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#141;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#142;" withString:@"Ž" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#143;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#144;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#145;" withString:@"‘" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#146;" withString:@"'" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#147;" withString:@"“" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#148;" withString:@"”" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#149;" withString:@"•" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#150;" withString:@"–" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#151;" withString:@"—" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#152;" withString:@"˜" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#153;" withString:@"™" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#154;" withString:@"š" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#155;" withString:@"›" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#156;" withString:@"œ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#157;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#158;" withString:@"ž" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#159;" withString:@"Ÿ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	
+	[temp replaceOccurrencesOfString:@"#160;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#161;" withString:@"¡" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#162;" withString:@"¢" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#163;" withString:@"£" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#164;" withString:@"¤" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#165;" withString:@"¥" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#166;" withString:@"¦" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#167;" withString:@"§" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#168;" withString:@"¨" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#169;" withString:@"©" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#170;" withString:@"ª" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#171;" withString:@"«" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#172;" withString:@"¬" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#173;" withString:@" " options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#174;" withString:@"®" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	
+	[temp replaceOccurrencesOfString:@"#175;" withString:@"¯" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#176;" withString:@"°" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#177;" withString:@"±" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#178;" withString:@"²" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#179;" withString:@"³" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#180;" withString:@"´" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#181;" withString:@"µ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#182;" withString:@"¶" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#183;" withString:@"·" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#184;" withString:@"¸" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#185;" withString:@"¹" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#186;" withString:@"º" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#187;" withString:@"»" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#188;" withString:@"¼" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#189;" withString:@"½" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#190;" withString:@"¾" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#191;" withString:@"¿" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	
+	[temp replaceOccurrencesOfString:@"#192;" withString:@"À" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#193;" withString:@"Á" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#194;" withString:@"Â" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#195;" withString:@"Ã" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#196;" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#197;" withString:@"Å" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#198;" withString:@"Æ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#199;" withString:@"Ç" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#200;" withString:@"È" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#201;" withString:@"É" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#202;" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#203;" withString:@"Ë" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#204;" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#205;" withString:@"Í" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#206;" withString:@"Î" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#207;" withString:@"Ï" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#208;" withString:@"Ð" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#209;" withString:@"Ñ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#210;" withString:@"Ò" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#211;" withString:@"Ó" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#212;" withString:@"Ô" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#213;" withString:@"Õ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#214;" withString:@"Ö" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#216;" withString:@"Ø" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#217;" withString:@"Ù" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#218;" withString:@"Ú" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#219;" withString:@"Û" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#220;" withString:@"Ü" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#221;" withString:@"Ý" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#222;" withString:@"Þ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#223;" withString:@"ß" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#224;" withString:@"à" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#225;" withString:@"á" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#226;" withString:@"â" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#227;" withString:@"ã" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#228;" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#229;" withString:@"å" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#230;" withString:@"æ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#231;" withString:@"ç" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#232;" withString:@"è" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#233;" withString:@"é" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#234;" withString:@"ê" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#235;" withString:@"ë" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#236;" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#237;" withString:@"í" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#238;" withString:@"î" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#239;" withString:@"ï" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#240;" withString:@"ð" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#241;" withString:@"ñ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#242;" withString:@"ò" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#243;" withString:@"ó" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#244;" withString:@"ô" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#245;" withString:@"õ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#246;" withString:@"ö" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#248;" withString:@"ø" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#249;" withString:@"ù" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#250;" withString:@"ú" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#251;" withString:@"û" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#252;" withString:@"ü" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#253;" withString:@"ý" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#254;" withString:@"þ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	[temp replaceOccurrencesOfString:@"#255;" withString:@"ÿ" options:NSLiteralSearch range:NSMakeRange(0, [temp length])];
+	
+	
+	
+	// Create reg ex
+	//NSString *regexString = @"#[0-9]{1,2}";
+	NSString *regexString2 = @"&?#([0-9]{1,3});";
+	
+	// Cretea reg ex Object and find matches
+	NSRegularExpression *regExpressionObj = [NSRegularExpression regularExpressionWithPattern:regexString2 options:NSRegularExpressionCaseInsensitive error:&error];
+	NSArray *matches = [regExpressionObj matchesInString:temp options:0 range:NSMakeRange(0, [temp length])]; 
+	
+	NSMutableArray *stringNumericMatches = [NSMutableArray array];
+	NSMutableArray *stringMatches = [NSMutableArray array];
+	
+	// Gather and store and the matches that were found
+	for (NSTextCheckingResult *match in matches) {
+		
+		// Get the match
+		NSRange matchRange = [match rangeAtIndex:1]; // e.g 39
+		NSRange matchRange2 = [match rangeAtIndex:0]; // e.g &#39;
+		
+		// Convert to string
+		NSString *matchResult = [temp substringWithRange:matchRange]; // e.g. "39"
+		
+		// Retain in the numeric array
+		[stringNumericMatches addObject:matchResult];
+		
+		NSString *matchResult2 = [temp substringWithRange:matchRange2]; // e.g. "&#39;"
+		
+		// Retain the string in our array
+		[stringMatches addObject:matchResult2];
+	}
+	
+	//NSLog(@"stringNumericMatches:%@", stringNumericMatches);
+	//NSLog(@"stringMatches:%@", stringMatches);
+	
+	// Lopp through the matches and replace them with the appropriate char
+	for (int i = 0; i < [stringNumericMatches count]; i++) {
+		
+		NSString *numericResult = [stringNumericMatches objectAtIndex:i]; // e.g. "39"
+		NSString *stringResult = [stringMatches objectAtIndex:i]; // e.g. "&#39;"
+		
+		// Convert to int
+		int myInt = [numericResult intValue];
+		
+		// Convert back to string
+		NSString *convertedString = [NSString stringWithFormat:@"%c", myInt];
+		//NSLog(@"convertedString:%@", convertedString);
+		
+		[temp replaceOccurrencesOfString:stringResult withString:convertedString options:NSLiteralSearch range:NSMakeRange(0, [temp length])];	
+	}
+	
+	//NSLog(@"FINAL:%@", temp);
+	
+    return [NSString stringWithString:temp];
+	
 }
 
 

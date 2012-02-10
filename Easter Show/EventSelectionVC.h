@@ -84,6 +84,7 @@ typedef enum  {
 - (void)showLoading;
 - (void)hideLoading;
 - (void)retrieveJSON;
+- (void)checkEventsCount;
 
 
 @end

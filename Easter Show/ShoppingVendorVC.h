@@ -56,6 +56,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *mapButton;
 
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *loadingSpinner;
+- (IBAction)goBack:(id)sender;
 
 
 - (void)showShareOptions:(id)sender;
@@ -64,7 +65,7 @@
 - (void)addToFavourites:(id)sender;
 - (void)goToEventMap:(id)sender;
 - (void)adjustScrollViewContentHeight;
-- (void)goBack:(id)sender;
+- (IBAction)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;

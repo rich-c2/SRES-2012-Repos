@@ -12,8 +12,12 @@
 //#import "GANTracker.h"
 #import "SHK.h"
 #import "Favourite.h"
+#import "SVProgressHUD.h"
+#import "StringHelper.h"
 #import "ImageManager.h"
 #import "StringHelper.h"
+#import "JSONFetcher.h"
+#import "SBJson.h"
 
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
@@ -44,6 +48,9 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
+	
+	// Setup navigation bar elements
+	[self setupNavBar];
 		
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
@@ -54,9 +61,6 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
 	
 	[self updateAddToFavouritesButton];	
-	
-	// Setup navigation bar elements
-	[self setupNavBar];
 
 }
 
@@ -123,11 +127,17 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
 	
+	// Only show the redeem button if this is a single redeem offer
+	if ([self.offer.offerType isEqualToString:@"single"]) [self.redeemButton setHidden:NO];
+	
+	// OFFER TITLE
 	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
 	self.titleLabel.text = self.offer.title;
 	self.titleLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.titleLabel];
 	
+	
+	// PROVIDER LABEL
 	self.providerLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
 	
 	NSString *providerText = [NSString	stringWithFormat:@"%@", self.offer.provider];
@@ -140,6 +150,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
 	[self.providerLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
+	// DESCRIPTION
 	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
 	self.descriptionLabel.text = self.offer.offerDescription;
 	[self resizeTextView:self.descriptionLabel];
@@ -176,29 +187,13 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 }
 
 
-- (void)goBack:(id)sender { 
-	
-	[self.navigationController popViewControllerAnimated:YES];
-	
-}
-
-
 - (void)setupNavBar {
-
-	// Add back button to nav bar
-	/*CGRect btnFrame = CGRectMake(0.0, 0.0, 50.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
 	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;
-	
+	// Hide default navigation bar
+	[self.navigationController setNavigationBarHidden:YES];
 	
 	// Add button to Navigation Title 
-	UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 79.0, 22.0)];
+	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 79.0, 22.0)];
 	[image setBackgroundColor:[UIColor clearColor]];
 	[image setImage:[UIImage imageNamed:@"screenTitle-offers.png"]];
 	
@@ -283,6 +278,133 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 		[self.loadingSpinner setHidden:YES];
 		[self.offerImage setImage:image];
 	}
+}
+
+
+- (IBAction)redeemButtonClicked:(id)sender {
+	
+	if ([self.offer.offerType isEqualToString:@"single"]) {
+		
+		// Set the object's redeemed property to 1
+		self.offer.redeemed = [NSNumber numberWithInt:1];
+		[[self appDelegate] saveContext];
+		
+		[self showLoading];
+	
+		// Disable redeem button
+		[self.redeemButton setEnabled:NO];
+
+		NSString *docName = @"put_redeem";
+		
+		NSMutableString *mutableXML = [NSMutableString string];
+		[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
+		[mutableXML appendString:@"<redeem>"];
+		[mutableXML appendFormat:@"<uID>%@</uID>", [[self appDelegate] getDeviceID]];
+		[mutableXML appendFormat:@"<offerID>%i</offerID>", [self.offer.offerID intValue]];
+		[mutableXML appendString:@"</redeem>"];
+		
+		NSLog(@"XML:%@", mutableXML);
+		
+		// Change the string to NSData for transmission
+		NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+		
+		NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
+		NSLog(@"FOOD VENUES URL:%@", urlString);
+		
+		NSURL *url = [urlString convertToURL];
+		
+		// Create the request.
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+															   cachePolicy:NSURLRequestUseProtocolCachePolicy
+														   timeoutInterval:45.0];
+		
+		//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+		[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+		[request setHTTPMethod:@"POST"];
+		[request setHTTPBody:requestBody];
+		
+		
+		// JSONFetcher
+		fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+												 receiver:self
+												   action:@selector(receivedFeedResponse:)];
+		[fetcher start];
+	}
+}
+
+
+// Example fetcher response handling
+- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
+    
+    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
+	
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+    
+	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
+	
+	NSString *result;
+	
+	if ([theJSONFetcher.data length] > 0) {
+		
+		// Store incoming data into a string
+		result = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
+	}
+	
+	// Hide loading view
+	[self hideLoading];
+	
+	NSString *title;
+	NSString *message;
+	
+	if ([result length] > 0) {
+	
+		if ([result isEqualToString:@"success"]) {
+		
+			title = @"Success!";
+			message = [NSString stringWithFormat:@"You successfully redeemed %@", self.offer.title];
+		}
+		
+		else {
+			
+			title = @"Sorry!";
+			message = [NSString stringWithFormat:@"There was an error redeeming %@. Check your network connection and try again.", self.offer.title];
+		}
+	}
+	
+	else {
+	
+		title = @"Sorry!";
+		message = [NSString stringWithFormat:@"There was an error redeeming %@. Check your network connection and try again.", self.offer.title];
+	}
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message 
+	 delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+	[alert show];    
+	[alert release];
+	
+	[result release];
+	
+	[fetcher release];
+	fetcher = nil;
+}
+
+
+- (void)showLoading {
+	
+	[SVProgressHUD showInView:self.view status:nil networkIndicator:YES posY:-1 maskType:SVProgressHUDMaskTypeClear];
+}
+
+
+- (void)hideLoading {
+	
+	[SVProgressHUD dismissWithSuccess:@"Loaded!"];
+} 
+
+
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

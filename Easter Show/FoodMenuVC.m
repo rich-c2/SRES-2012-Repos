@@ -371,7 +371,6 @@
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_foodvenues.json";
-	//http://sres2012.supergloo.net.au/api/get_foodvenues.json
 	
 	NSMutableString *mutableXML = [NSMutableString string];
 	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
@@ -396,7 +395,7 @@
 	// Change the string to NSData for transmission
 	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://sres2012.supergloo.net.au/api/", docName];
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
 	NSLog(@"FOOD VENUES URL:%@", urlString);
 	
 	NSURL *url = [urlString convertToURL];
@@ -425,7 +424,7 @@
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -435,7 +434,9 @@
 	if ([theJSONFetcher.data length] > 0) {
 		
 		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		NSLog(@"jsonString:%@", jsonString);
 		
 		// Create a dictionary from the JSON string
 		NSDictionary *results = [jsonString JSONValue];
@@ -470,6 +471,18 @@
 			// Store FoodVenue data in Core Data persistent store
 			[FoodVenue updateVenueWithVenueData:venue inManagedObjectContext:self.managedObjectContext];
 		}	
+		
+		NSDictionary *removes = [addObjects objectForKey:@"remove"];
+		NSMutableArray *removeObjects = [removes objectForKey:@"venue"];
+		
+		for (int i = 0; i < [removeObjects count]; i++) { 
+			
+			NSDictionary *offerDict = [removeObjects objectAtIndex:i];
+			NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"venueID"] intValue]];
+			
+			FoodVenue *venue = [FoodVenue getFoodVenueWithID:idNum inManagedObjectContext:self.managedObjectContext];
+			if (venue) [self.managedObjectContext deleteObject:venue];
+		}
 		
 		[jsonString release];
 	}
@@ -562,6 +575,14 @@
 	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
 	[self.searchTable setFrame:newTableFrame];
 }
+
+
+// 'Pop' this VC off the stack (go back one screen)
+- (IBAction)goBack:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 - (void)dealloc {

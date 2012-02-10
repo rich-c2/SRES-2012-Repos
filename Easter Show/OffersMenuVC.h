@@ -41,5 +41,6 @@
 - (void)fetchOffersFromCoreData;
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
 - (void)configureCell:(OfferTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (IBAction)goBack:(id)sender;
 
 @end

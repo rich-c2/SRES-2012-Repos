@@ -21,6 +21,7 @@
 	
 	NSMutableArray *events;	
 	UITableView *searchTable;
+	NSDateFormatter *dateFormat;
 	
 	BOOL eventsLoaded;
 	BOOL loading;
@@ -36,6 +37,7 @@
 
 @property (nonatomic, retain) NSMutableArray *events;
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
+@property (nonatomic, retain) NSDateFormatter *dateFormat;
 
 @property (nonatomic, retain) IBOutlet UISearchBar *search;
 @property (nonatomic, retain) IBOutlet UITextField *searchField;
@@ -51,5 +53,6 @@
 - (void)configureCell:(UITableViewCell *)cell withEvent:(EventDateTime *)dateTime;
 - (IBAction)goBack:(id)sender;
 - (void)dismissKeyboard;
+- (NSString *)compileRequestXML;
 
 @end
