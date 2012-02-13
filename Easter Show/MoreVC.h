@@ -10,21 +10,16 @@
 
 @interface MoreVC : UIViewController {
 	
-	NSArray *menuArray;
-	UITableView *menuTable;
-	//NSArray *cellLabelImageNames;
-	
-	//MoreTableCell *loadCell;
-	
 	NSManagedObjectContext *managedObjectContext;
 }
 
-@property (nonatomic, retain) NSArray *menuArray;
-@property (nonatomic, retain) IBOutlet UITableView *menuTable;
-//@property (nonatomic, retain) NSArray *cellLabelImageNames;
-
-//@property (nonatomic, retain) IBOutlet MoreTableCell *loadCell;
-
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+
+- (IBAction)showbagsButtonClicked:(id)sender;
+- (IBAction)carnivalButtonClicked:(id)sender;
+- (IBAction)foodButtonClicked:(id)sender;
+- (IBAction)shoppingButtonClicked:(id)sender;
+- (IBAction)aboutButtonClicked:(id)sender;
 
 @end

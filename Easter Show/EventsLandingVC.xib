@@ -39,7 +39,7 @@
 					<object class="IBUIImageView" id="982290616">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 411}</string>
+						<string key="NSFrameSize">{320, 287}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="304386555"/>
@@ -53,7 +53,7 @@
 					<object class="IBUIButton" id="304386555">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 200}, {320, 53}}</string>
+						<string key="NSFrame">{{0, 285}, {320, 42}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="278295336"/>
@@ -77,6 +77,10 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">events-search-button-on.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">events-search-button.png</string>
@@ -94,7 +98,7 @@
 					<object class="IBUIButton" id="278295336">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 253}, {320, 53}}</string>
+						<string key="NSFrame">{{0, 327}, {320, 42}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="369539615"/>
@@ -106,6 +110,10 @@
 						<reference key="IBUIHighlightedTitleColor" ref="914771584"/>
 						<reference key="IBUINormalTitleColor" ref="590008188"/>
 						<reference key="IBUINormalTitleShadowColor" ref="505976336"/>
+						<object class="NSCustomResource" key="IBUIHighlightedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">todays-program-button-on.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">todays-program-button.png</string>
@@ -116,9 +124,10 @@
 					<object class="IBUIButton" id="369539615">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 306}, {320, 53}}</string>
+						<string key="NSFrame">{{0, 369}, {320, 42}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="896365831"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -127,6 +136,10 @@
 						<reference key="IBUIHighlightedTitleColor" ref="914771584"/>
 						<reference key="IBUINormalTitleColor" ref="590008188"/>
 						<reference key="IBUINormalTitleShadowColor" ref="505976336"/>
+						<object class="NSCustomResource" key="IBUIHighlightedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">full-program-button-on.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">full-program-button.png</string>
@@ -274,9 +287,12 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="17.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -339,10 +355,13 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="events-search-button.png">{320, 53}</string>
-			<string key="full-program-button.png">{320, 53}</string>
-			<string key="landing-screen-bg.png">{320, 411}</string>
-			<string key="todays-program-button.png">{320, 53}</string>
+			<string key="events-search-button-on.png">{320, 42}</string>
+			<string key="events-search-button.png">{320, 42}</string>
+			<string key="full-program-button-on.png">{320, 42}</string>
+			<string key="full-program-button.png">{320, 42}</string>
+			<string key="landing-screen-bg.png">{320, 287}</string>
+			<string key="todays-program-button-on.png">{320, 42}</string>
+			<string key="todays-program-button.png">{320, 42}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

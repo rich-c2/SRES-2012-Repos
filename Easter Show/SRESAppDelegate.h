@@ -10,6 +10,7 @@
 
 extern NSString* const API_SERVER_ADDRESS;
 
+@class MapsVC;
 @class MoreVC;
 @class EventsLandingVC;
 @class OffersMenuVC;
@@ -23,6 +24,7 @@ extern NSString* const API_SERVER_ADDRESS;
 	
 	FavouritesMenuVC *favsMenuVC;
 	OffersMenuVC *offersMenuVC;
+	MapsVC *mapsVC;
 	MoreVC *moreVC;
 	EventsLandingVC *eventsLandingVC;
 }
@@ -33,6 +35,7 @@ extern NSString* const API_SERVER_ADDRESS;
 
 @property (nonatomic, retain) FavouritesMenuVC *favsMenuVC;
 @property (nonatomic, retain) OffersMenuVC *offersMenuVC;
+@property (nonatomic, retain) MapsVC *mapsVC;
 @property (nonatomic, retain) MoreVC *moreVC;
 @property (nonatomic, retain) EventsLandingVC *eventsLandingVC;
 

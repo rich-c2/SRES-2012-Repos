@@ -1,0 +1,56 @@
+//
+//  Constants.h
+//  Elk
+//
+//  Created by Richard Lee on 23/02/10.
+//  Copyright 2010 C2 Media Pty Ltd. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#define SCREEN_WIDTH 320.0
+#define SCREEN_HEIGHT 480.0
+
+#define FAVOURITE_TYPE_EVENT 0
+#define FAVOURITE_TYPE_OFFER 1
+#define FAVOURITE_TYPE_SHOWBAG 2
+#define FAVOURITE_TYPE_SHOPPING 3
+#define FAVOURITE_TYPE_CARNIVAL 4
+#define FAVOURITE_TYPE_FOOD 5
+
+#define FOOD_TYPE_EATIN 0
+#define FOOD_TYPE_TAKEAWAY 1
+
+#define CARNIVAL_TYPE_COKE 0
+#define CARNIVAL_TYPE_KIDS 1
+
+#define IS_TRUE 1
+#define IS_FALSE 0
+
+#define MAP_ID_ALL 1
+#define MAP_ID_AMENITIES 2
+#define MAP_ID_ANIMALS 3
+#define MAP_ID_CARNIVALS 4
+#define MAP_ID_ENTERTAINMENT 5
+#define MAP_ID_FOOD 6
+#define MAP_ID_HELP 7
+#define MAP_ID_SHOPPING 8
+#define MAP_ID_COMPETITIONS 5
+#define MAP_ID_COKE 9
+
+#define COKE_EVENT_ID 0
+#define COKE_EVENT_ID1 5361
+#define COKE_EVENT_ID2 5362
+#define COKE_EVENT_ID3 5363
+#define COKE_EVENT_ID4 5364
+#define COKE_EVENT_ID5 5365
+#define COKE_EVENT_ID6 5366
+#define COKE_EVENT_ID7 5367
+#define COKE_EVENT_ID8 5368
+#define COKE_EVENT_ID9 5369
+#define COKE_EVENT_ID10 5370
+#define COKE_EVENT_ID11 5371
+#define COKE_EVENT_ID12 5372
+#define COKE_EVENT_ID13 5373
+#define COKE_EVENT_ID14 5374
+#define COKE_CARNIVALOBJECT_ID 0

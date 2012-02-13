@@ -7,6 +7,7 @@
 //
 
 #import "EventsLandingVC.h"
+#import "CustomTabBarItem.h"
 #import "SRESAppDelegate.h"
 #import "StringHelper.h"
 #import "SVProgressHUD.h"
@@ -30,10 +31,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+		
+		CustomTabBarItem *tabItem = [[CustomTabBarItem alloc] initWithTitle:@"" image:nil tag:0];
         
-		// Custom initialization
-		self.title = @"Events";
-		self.tabBarItem.title = @"Events";
+        tabItem.customHighlightedImage = [UIImage imageNamed:@"events-tab-button-on.png"];
+        tabItem.customStdImage = [UIImage imageNamed:@"events-tab-button.png"];
+        self.tabBarItem = tabItem;
+        [tabItem release];
+        tabItem = nil;
     }
     return self;
 }

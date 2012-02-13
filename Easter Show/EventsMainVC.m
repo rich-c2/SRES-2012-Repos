@@ -41,7 +41,7 @@
 	[self setupNavBar];
 
 	[self initCalendarData];
-	[self createCalendar];
+	//[self createCalendar];
 }
 
 
@@ -80,8 +80,6 @@
 
 
 - (void)initCalendarData {
-
-	self.days = [NSMutableArray array];
 	
 	NSString *month = @"April";
 	
@@ -100,10 +98,14 @@
 	NSString *day13 = [[NSString alloc] initWithFormat:@"%@ 17", month];
 	NSString *day14 = [[NSString alloc] initWithFormat:@"%@ 18", month];
 	
-	NSArray *dayStrings = [NSArray arrayWithObjects:day1, day2, day3, day4, 
+	NSArray *dayStrings = [[NSArray alloc] initWithObjects:day1, day2, day3, day4, 
 						   day5, day6, day7, day8, day9, day10,
 						   day11, day12, day13, day14, nil];
 	
+	self.days = [NSMutableArray arrayWithArray:dayStrings];
+	[dayStrings release];
+	
+	/*
 	[day1 release]; 
 	[day2 release]; 
 	[day3 release]; 
@@ -135,7 +137,7 @@
 		
 		dayInt++;
 	}
-
+	 */
 }
 
 
@@ -227,6 +229,25 @@
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:eventCategoriesVC animated:YES];
 	[eventCategoriesVC release];
+}
+
+
+- (IBAction)dayButtonClicked:(id)sender {
+
+	UIButton *selectedBtn = (UIButton *)sender;
+	NSString *selectedDay = [NSString stringWithFormat:@"April %@", selectedBtn.titleLabel.text];
+	
+	BOOL validDay = [self.days containsObject:selectedDay];
+	
+	if (validDay) {
+	
+		EventCategoriesVC *eventCategoriesVC = [[EventCategoriesVC alloc] initWithNibName:@"EventCategoriesVC" bundle:nil];
+		[eventCategoriesVC setSelectedDate:selectedDay];
+		
+		// Pass the selected object to the new view controller.
+		[self.navigationController pushViewController:eventCategoriesVC animated:YES];
+		[eventCategoriesVC release];
+	}
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "FavouritesMenuVC.h"
+#import "CustomTabBarItem.h"
 #import "Favourite.h"
 #import "EventDateTime.h"
 #import "EventVC.h"
@@ -28,9 +29,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-		// Custom initialization
-		self.title = @"Favourites";
-		self.tabBarItem.title = @"Favourites";
+		CustomTabBarItem *tabItem = [[CustomTabBarItem alloc] initWithTitle:@"" image:nil tag:0];
+        
+        tabItem.customHighlightedImage = [UIImage imageNamed:@"faves-tab-button-on.png"];
+        tabItem.customStdImage = [UIImage imageNamed:@"faves-tab-button.png"];
+        self.tabBarItem = tabItem;
+        [tabItem release];
+        tabItem = nil;
     }
     return self;
 }

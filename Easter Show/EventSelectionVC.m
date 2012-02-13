@@ -269,25 +269,25 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 //- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime {
 - (void)configureCell:(UITableViewCell *)cell withDateTime:(EventDateTime *)dateTime {
 	
-	//cell.nameLabel.text = [[dateTime forEvent] title];
-	//cell.detailLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
-	
-	//[cell initImage];
+	[cell setBackgroundColor:[UIColor clearColor]];
 	
 	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
 	cell.backgroundView = bgView;
 	[bgView release];
 	
-	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+	
+	cell.textLabel.textColor = [UIColor whiteColor];
 	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
 	cell.textLabel.text = [[[dateTime forEvent] title] uppercaseString];
 	
-	cell.detailTextLabel.textColor = [UIColor colorWithRed:97.0/255.0 green:46.0/255.0 blue:106.0/255.0 alpha:1.0];
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
 	cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
-	
-	//[cell initImage];
 }
 
 

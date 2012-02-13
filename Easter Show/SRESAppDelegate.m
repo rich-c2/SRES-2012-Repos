@@ -11,6 +11,7 @@
 #import "EventsLandingVC.h"
 #import "OffersMenuVC.h"
 #import "FavouritesMenuVC.h"
+#import "MapsVC.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres2012.supergloo.net.au/api/";
 //OLD API @"http://sres.c2gloo.net/xml/";
@@ -24,7 +25,7 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC, favsMenuVC;
+@synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC, favsMenuVC, mapsVC;
 
 - (void)dealloc {
 	
@@ -34,6 +35,7 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	[eventsLandingVC release];
 	[offersMenuVC release];
 	[favsMenuVC release];
+	[mapsVC release];
 	
 	[__managedObjectContext release];
 	[__managedObjectModel release];
@@ -111,11 +113,41 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	[navcon pushViewController:moreVC animated:NO];
 	[moreVC release];
 	
+	// MapsVC
+	mapsVC = [[MapsVC alloc] initWithNibName:@"MapsVC" bundle:nil];
+	
+	UINavigationController *navcon5 = [[UINavigationController alloc] init];
+	[navcon5.navigationBar setTintColor:[UIColor redColor]];
+	[navcon5 pushViewController:mapsVC animated:NO];
+	[mapsVC release];
+	
+	CGFloat screenWidth = 320.0;
+    CGFloat screenHeight = 480.0;
+	
 	// Create a tabbar controller and an array to contain the view controllers
 	tabBarController = [[UITabBarController alloc] init];
+	tabBarController.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+	
+    // Adding custom tab bar imagery
+    UIImageView *bgImageView = [[ UIImageView alloc ] initWithImage: [UIImage imageNamed:@"tabBarBackground.png"]];
+	bgImageView.frame = CGRectMake(0, 0, screenWidth, 49);
+	
+	
+	// Detect what iOS the iPad is running and insert the tab bar background
+	// image at the appropriate index. If it's OS5 then the image has to be 
+	// placed at index 1.
+	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 5)
+		[[tabBarController tabBar] insertSubview:bgImageView atIndex:0];
+	
+	else [[tabBarController tabBar] insertSubview:bgImageView atIndex:1];
+	
+	tabBarController.tabBar.frame = CGRectMake(0, (screenHeight - 49), screenWidth, 60);
+	[bgImageView release];
+	
 	NSMutableArray *localViewControllersArray = [[NSMutableArray alloc] initWithCapacity:4];
 	[localViewControllersArray addObject:navcon2];
 	[localViewControllersArray addObject:navcon3];
+	[localViewControllersArray addObject:navcon5];
 	[localViewControllersArray addObject:navcon];
 	[localViewControllersArray addObject:navcon4];
 	
@@ -123,6 +155,7 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	[navcon2 release];
 	[navcon3 release];
 	[navcon4 release];
+	[navcon5 release];
 	
 	// set the tab bar controller view controller array to the localViewControllersArray
 	tabBarController.viewControllers = localViewControllersArray;

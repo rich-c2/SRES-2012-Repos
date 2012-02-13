@@ -136,41 +136,36 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	/*NSInteger numberOfRows = 0;
-	
-	if ([[fetchedResultsController sections] count] > 0) {
-		
-		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-		numberOfRows = [sectionInfo numberOfObjects];
-    }*/
-    
     return [self.events count];
 }
 
 
 - (void)configureCell:(UITableViewCell *)cell withEvent:(EventDateTime *)dateTime {
 	
+	[cell setBackgroundColor:[UIColor clearColor]];
+	
 	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
 	cell.backgroundView = bgView;
 	[bgView release];
 	
-	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
-	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
-	cell.textLabel.text = [dateTime.forEvent.title uppercaseString];
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
 	
-	cell.detailTextLabel.textColor = [UIColor colorWithRed:97.0/255.0 green:46.0/255.0 blue:106.0/255.0 alpha:1.0];
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+	cell.textLabel.text = [[[dateTime forEvent] title] uppercaseString];
+	
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
 	cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
-	
-	//[cell initImage];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //EventTableCell *cell = (EventTableCell *)[tableView dequeueReusableCellWithIdentifier:[EventTableCell reuseIdentifier]];
 	
 	static NSString *CellIdentifier = @"Cell";
 	
@@ -178,15 +173,11 @@
 	
     if (cell == nil) {
 		
-        /*[[NSBundle mainBundle] loadNibNamed:@"EventTableCell" owner:self options:nil];
-        cell = loadCell;
-        self.loadCell = nil;*/
-		
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	// Retrieve Event object
-	EventDateTime *dateTime = [self.events objectAtIndex:[indexPath row]];//[fetchedResultsController objectAtIndexPath:indexPath];
+	EventDateTime *dateTime = [self.events objectAtIndex:[indexPath row]];
 	
 	// Configure the cell using the object's attributes
 	[self configureCell:cell withEvent:dateTime];

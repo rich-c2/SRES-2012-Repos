@@ -45,6 +45,7 @@
 - (void)showLoading;
 - (void)hideLoading;
 - (IBAction)goBack:(id)sender;
+- (IBAction)dayButtonClicked:(id)sender;
 
 
 @end

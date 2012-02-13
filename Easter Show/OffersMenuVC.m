@@ -7,10 +7,10 @@
 //
 
 #import "OffersMenuVC.h"
+#import "CustomTabBarItem.h"
 #import "SRESAppDelegate.h"
 #import "OfferTableCell.h"
 #import "Offer.h"
-//#import "OfferVC.h"
 #import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
@@ -27,9 +27,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-		self.title = @"Offers";
-		self.tabBarItem.title = @"Offers";
+        
+		CustomTabBarItem *tabItem = [[CustomTabBarItem alloc] initWithTitle:@"" image:nil tag:0];
+        
+        tabItem.customHighlightedImage = [UIImage imageNamed:@"offers-tab-button-on.png"];
+        tabItem.customStdImage = [UIImage imageNamed:@"offers-tab-button.png"];
+        self.tabBarItem = tabItem;
+        [tabItem release];
+        tabItem = nil;
     }
     return self;
 }
