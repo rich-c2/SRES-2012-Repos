@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>IBUIImageView</string>
 			<string>IBUITableView</string>
 			<string>IBUIButton</string>
 			<string>IBUIView</string>
@@ -42,20 +41,6 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="702331729">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 411}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1047792208"/>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">list-background.png</string>
-						</object>
-					</object>
 					<object class="IBUIView" id="1047792208">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
@@ -211,10 +196,18 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">A-Z</string>
 								<reference key="IBUIHighlightedTitleColor" ref="527471614"/>
 								<reference key="IBUINormalTitleColor" ref="527471614"/>
 								<reference key="IBUINormalTitleShadowColor" ref="749500736"/>
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="674541666">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">alphabetical-button-on.png</string>
+								</object>
+								<reference key="IBUISelectedImage" ref="674541666"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">alphabetical-button.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="14310850"/>
 								<reference key="IBUIFont" ref="47068556"/>
 							</object>
@@ -233,13 +226,21 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">Time</string>
 								<reference key="IBUIHighlightedTitleColor" ref="527471614"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="749500736"/>
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="133121487">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">time-button-on.png</string>
+								</object>
+								<reference key="IBUISelectedImage" ref="133121487"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">time-button.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="14310850"/>
 								<reference key="IBUIFont" ref="47068556"/>
 							</object>
@@ -258,10 +259,10 @@
 				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="702331729"/>
+				<reference key="NSNextKeyView" ref="1047792208"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MC41OTIxNTY4NjI3IDAuMjU4ODIzNTI5NCAwLjE4MDM5MjE1NjkAA</bytes>
+					<bytes key="NSRGB">MC4zMTM3MjU0OTAyIDAuMDgyMzUyOTQxMTggMC4yOTAxOTYwNzg0AA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
@@ -304,6 +305,22 @@
 						<reference key="destination" ref="885289242"/>
 					</object>
 					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">alphabeticalSortButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="591179601"/>
+					</object>
+					<int key="connectionID">36</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">timeSortButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="887228403"/>
+					</object>
+					<int key="connectionID">37</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -385,7 +402,6 @@
 							<reference ref="885289242"/>
 							<reference ref="620616350"/>
 							<reference ref="1047792208"/>
-							<reference ref="702331729"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -449,11 +465,6 @@
 						<reference key="parent" ref="1047792208"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">33</int>
-						<reference key="object" ref="702331729"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
 						<reference key="object" ref="885289242"/>
 						<reference key="parent" ref="191373211"/>
@@ -471,12 +482,13 @@
 					<string>1.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
+					<string>19.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>20.IBPluginDependency</string>
+					<string>20.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>21.IBPluginDependency</string>
 					<string>30.IBPluginDependency</string>
 					<string>31.IBPluginDependency</string>
 					<string>32.IBPluginDependency</string>
-					<string>33.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -488,8 +500,9 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -509,7 +522,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">37</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -560,33 +573,43 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>alphabeticalSortButton</string>
 							<string>loadCell</string>
 							<string>menuTable</string>
 							<string>navigationTitle</string>
 							<string>search</string>
 							<string>searchTable</string>
+							<string>timeSortButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIButton</string>
 							<string>EventTableCell</string>
 							<string>UITableView</string>
 							<string>UILabel</string>
 							<string>UISearchBar</string>
 							<string>UITableView</string>
+							<string>UIButton</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>alphabeticalSortButton</string>
 							<string>loadCell</string>
 							<string>menuTable</string>
 							<string>navigationTitle</string>
 							<string>search</string>
 							<string>searchTable</string>
+							<string>timeSortButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">alphabeticalSortButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">loadCell</string>
 								<string key="candidateClassName">EventTableCell</string>
@@ -606,6 +629,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">searchTable</string>
 								<string key="candidateClassName">UITableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">timeSortButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 						</object>
 					</object>
@@ -679,13 +706,19 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>alphabetical-button-on.png</string>
+				<string>alphabetical-button.png</string>
 				<string>back-button.png</string>
-				<string>list-background.png</string>
+				<string>time-button-on.png</string>
+				<string>time-button.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{45, 23}</string>
-				<string>{320, 411}</string>
+				<string>{160, 27}</string>
+				<string>{160, 27}</string>
+				<string>{45, 24}</string>
+				<string>{160, 27}</string>
+				<string>{160, 27}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>

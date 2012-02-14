@@ -19,14 +19,10 @@
 	NSManagedObjectContext *managedObjectContext;
 	
 	// Display
-	UITextView *dateLabel;
+	UILabel *dateLabel;
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
-	UIImageView *eventImage;
-	
-	NSNumber *eventTypeFilter;
-	NSString *eventDay;
-	
+		
 	UILabel *navigationTitle;
 	
 	// Buttons
@@ -38,13 +34,10 @@
 @property (nonatomic, retain) EventDateTime *eventDateTime;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) IBOutlet UITextView *dateLabel;
+
+@property (nonatomic, retain) IBOutlet UILabel *dateLabel;
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
-@property (nonatomic, retain) IBOutlet UIImageView *eventImage;
-
-@property (nonatomic, retain) NSNumber *eventTypeFilter;
-@property (nonatomic, retain) NSString *eventDay;
 
 @property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
 
@@ -58,13 +51,10 @@
 - (void)resizeTextView:(UITextView *)_textView;
 - (void)addToFavourites:(id)sender;
 - (void)goToEventMap:(id)sender;
-- (void)adjustScrollViewContentHeight;
 - (IBAction)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
-
-- (void)initImage;
 
 
 @end

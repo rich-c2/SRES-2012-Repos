@@ -48,6 +48,6 @@
 - (void)setupNavBar;
 - (void)focusUserLocationInWindow:(CGPoint)locationPoint;
 - (void)locateMe:(id)sender;
-- (void)goBack:(id)sender;
+- (IBAction)goBack:(id)sender;
 
 @end

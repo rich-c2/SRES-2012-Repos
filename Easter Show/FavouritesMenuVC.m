@@ -17,12 +17,17 @@
 #import "OfferVC.h"
 #import "Showbag.h"
 #import "ShowbagVC.h"
+#import "Constants.h"
+#import "FavouriteTableCell.h"
+#import "CarnivalRideVC.h"
+#import "CarnivalRide.h"
 
+#define HEADER_HEIGHT 27.0
 
 @implementation FavouritesMenuVC
 
 @synthesize managedObjectContext, favourites, menuTable, fetchedResultsController;
-@synthesize deletePaths, actionsView;
+@synthesize deletePaths, actionsView, loadCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,6 +77,7 @@
 	self.fetchedResultsController = nil;
 	self.deletePaths = nil;
 	self.actionsView = nil;
+	self.loadCell = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -142,7 +148,7 @@
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			[self configureCell:[self.menuTable cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+			[self configureCell:(FavouriteTableCell *)[self.menuTable cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
 			break;
 			
 		case NSFetchedResultsChangeMove:
@@ -208,18 +214,15 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
 	
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	
-    if (cell == nil) {
-		
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-	
-	// No tick mark/check mark
-	cell.accessoryType = UITableViewCellAccessoryNone;
+	FavouriteTableCell *cell = (FavouriteTableCell *)[tableView dequeueReusableCellWithIdentifier:[FavouriteTableCell reuseIdentifier]];
+	 
+	if (cell == nil) {
+	 
+		[[NSBundle mainBundle] loadNibNamed:@"FavouriteTableCell" owner:self options:nil];
+		cell = loadCell;
+		self.loadCell = nil;
+	}
 	
 	// Retrieve FoodVenue object and set it's name to the cell
 	[self configureCell:cell atIndexPath:indexPath];
@@ -228,14 +231,19 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	
+- (void)configureCell:(FavouriteTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+
     // Retrieve the Dictionary at the given index that's in self.followers
 	Favourite *favourite = [fetchedResultsController objectAtIndexPath:indexPath];
 	
-	NSLog(@"favourite:%@|%i", [favourite title], [indexPath section]);
-	
+	// Set the favourite title to the text of the cell
 	cell.textLabel.text = favourite.title;
+	
+	// By default, the cell's tick mark must be hidden
+	cell.tickMark.hidden = YES;
+	
+	// No selection style?
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 
@@ -247,6 +255,37 @@
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+	return HEADER_HEIGHT;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+	// Retrieve the corresponding section title for this section
+	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+    NSString *title = [[sectionInfo name] lowercaseString];
+	
+	NSString *formatted = [title stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+	
+	NSString *imageName = [NSString stringWithFormat:@"%@-header.png", formatted];
+	UIImage *image = [UIImage imageNamed:imageName];
+	
+	
+	CGRect viewFrame = CGRectMake(0.0, 0.0, SCREEN_WIDTH, HEADER_HEIGHT);
+	UIView *headerView = [[[UIView alloc] initWithFrame:viewFrame] autorelease];
+	[headerView setBackgroundColor:[UIColor colorWithRed:114.0/255.0 green:81.0/255.0 blue:159.0/255.0 alpha:1.0]];
+	
+	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+	[imageView setFrame:CGRectMake(17.0, 9.0, image.size.width, image.size.height)];
+	[headerView addSubview:imageView];
+	[imageView release];
+	
+	return headerView;
+}
+
+
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -255,11 +294,11 @@
 	if (editing) {
 		
 		// Grab the UITableViewCell that was selected
-		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];		
+		FavouriteTableCell *cell = (FavouriteTableCell *)[tableView cellForRowAtIndexPath:indexPath];		
 		
 		if ([self.deletePaths containsObject:indexPath]) {
 			
-			cell.accessoryType = UITableViewCellAccessoryNone;
+			[cell.tickMark setHidden:YES];
 			
 			// Remove the indexPaths from the delete array
 			[self.deletePaths removeObject:indexPath];
@@ -267,7 +306,7 @@
 		
 		else {
 		
-			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+			[cell.tickMark setHidden:NO];
 			
 			// Add the indexPath of the cell to the delete array
 			[self.deletePaths addObject:indexPath];
@@ -278,7 +317,6 @@
 	
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:[indexPath section]];
 		Favourite *favourite = (Favourite *)[fetchedResultsController objectAtIndexPath:indexPath];
-		NSLog(@"selected:%@|%i", [favourite title], [indexPath section]);
 		
 		if ([[sectionInfo name] isEqualToString:@"Events"]) {
 			
@@ -303,6 +341,18 @@
 			// Pass the selected object to the new view controller.
 			[self.navigationController pushViewController:foodVenueVC animated:YES];
 			[foodVenueVC release];
+		}
+		
+		else if ([[sectionInfo name] isEqualToString:@"Carnival rides"]) {
+			
+			CarnivalRide *carnivalRide = [CarnivalRide getCarnivalRideWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			CarnivalRideVC *carnivalRideVC = [[CarnivalRideVC alloc] initWithNibName:@"CarnivalRideVC" bundle:nil];
+			[carnivalRideVC setCarnivalRide:carnivalRide];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:carnivalRideVC animated:YES];
+			[carnivalRideVC release];
 		}
 			
 		else if ([[sectionInfo name] isEqualToString:@"Offers"]) {
@@ -365,10 +415,24 @@
 	// If the actions panel was just hidden - clear out the delete array
 	if (self.actionsView.hidden) {
 		
+		// Adjust the table's frame
+		CGRect tableFrame = self.menuTable.frame;
+		tableFrame.size.height += self.actionsView.frame.size.height;
+		[self.menuTable setFrame:tableFrame];
+		
+		// Clear the delete array
 		[self.deletePaths removeAllObjects];
 		
 		// refresh table to clear check marks
 		[self.menuTable reloadData];
+	}
+	
+	else {
+	
+		// Adjust the table's frame
+		CGRect tableFrame = self.menuTable.frame;
+		tableFrame.size.height -= self.actionsView.frame.size.height;
+		[self.menuTable setFrame:tableFrame];
 	}
 }
 
@@ -420,6 +484,7 @@
 	[managedObjectContext release];
 	[menuTable release]; 
 	[favourites release];
+	[loadCell release];
 	
     [super dealloc];
 }

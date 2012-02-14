@@ -13,6 +13,7 @@
 #import "OffersMenuVC.h"
 #import "CarnivalMenuVC.h"
 #import "ShoppingMenuVC.h"
+#import "AboutMenuVC.h"
 
 @implementation MoreVC
 
@@ -119,7 +120,11 @@
 
 - (IBAction)aboutButtonClicked:(id)sender {
 
-
+	AboutMenuVC *aboutMenuVC = [[AboutMenuVC alloc] initWithNibName:@"AboutMenuVC" bundle:nil];
+	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:aboutMenuVC animated:YES];
+	[aboutMenuVC release];
 }
 
 

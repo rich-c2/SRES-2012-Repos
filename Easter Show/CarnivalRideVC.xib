@@ -52,7 +52,7 @@
 							<object class="IBUIButton" id="617910417">
 								<reference key="NSNextResponder" ref="312625796"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 23}}</string>
+								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
 								<reference key="NSSuperview" ref="312625796"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="133216718"/>
@@ -71,6 +71,10 @@
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="167861154">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button-on.png</string>
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
@@ -92,7 +96,7 @@
 								<string key="NSFrame">{{59, 7}, {253, 21}}</string>
 								<reference key="NSSuperview" ref="312625796"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="353259405"/>
+								<reference key="NSNextKeyView" ref="798776559"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -322,7 +326,7 @@
 						<string key="NSFrame">{{141.5, 115}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="312625796"/>
+						<reference key="NSNextKeyView" ref="353259405"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIHidesWhenStopped">NO</bool>
@@ -406,7 +410,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="798776559"/>
+				<reference key="NSNextKeyView" ref="312625796"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MCAwLjQgMC4yAA</bytes>
@@ -681,6 +685,7 @@
 					<string>33.IBPluginDependency</string>
 					<string>34.IBPluginDependency</string>
 					<string>35.IBPluginDependency</string>
+					<string>35.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
@@ -703,6 +708,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -853,6 +859,7 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>addToFavouritesButton-on.png</string>
+				<string>back-button-on.png</string>
 				<string>back-button.png</string>
 				<string>shareButton-on.png</string>
 				<string>subNavBackground.png</string>
@@ -861,7 +868,8 @@
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{156, 31}</string>
-				<string>{45, 23}</string>
+				<string>{16, 16}</string>
+				<string>{45, 24}</string>
 				<string>{71, 31}</string>
 				<string>{320, 46}</string>
 				<string>{57, 31}</string>

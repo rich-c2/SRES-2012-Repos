@@ -91,9 +91,14 @@
 	cell.backgroundView = bgView;
 	[bgView release];
 	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+	
 	NSString *category = [[self.categories objectAtIndex:[indexPath row]] uppercaseString];
 	cell.textLabel.text = category;
-	cell.textLabel.textColor = [UIColor colorWithRed:63.0/255.0 green:23.0/255.0 blue:56.0/255.0 alpha:1.0];
+	cell.textLabel.textColor = [UIColor whiteColor];
 	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
 }
 

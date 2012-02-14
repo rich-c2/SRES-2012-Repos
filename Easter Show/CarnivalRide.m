@@ -45,6 +45,23 @@
 	return carnivalRide;
 }
 
+
++ (CarnivalRide *)getCarnivalRideWithID:(NSNumber *)rideID inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	CarnivalRide *foodVenue = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"CarnivalRide" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"rideID == %@", rideID];
+	
+	NSError *error = nil;
+	foodVenue = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return foodVenue;
+}
+
+
 @dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;

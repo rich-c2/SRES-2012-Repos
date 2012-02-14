@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class FavouriteTableCell;
+
 @interface FavouritesMenuVC : UIViewController <NSFetchedResultsControllerDelegate> {
 
 	NSFetchedResultsController *fetchedResultsController;
@@ -18,6 +20,8 @@
 
 	UITableView *menuTable;
 	UIView *actionsView;
+	
+	FavouriteTableCell *loadCell;
 	
 	BOOL editing;
 }
@@ -30,8 +34,10 @@
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 @property (nonatomic, retain) IBOutlet UIView *actionsView;
 
+@property (nonatomic, retain) IBOutlet FavouriteTableCell *loadCell;
+
 //- (void)fetchFavouritesFromCoreData;
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(FavouriteTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)fetchFavouritesFromCoreData;
 - (void)setupNavBar;
 - (IBAction)deleteSelectedFavourites:(id)sender;

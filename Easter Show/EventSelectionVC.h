@@ -39,8 +39,10 @@ typedef enum  {
 	NSDateFormatter *dateFormat;
 	UILabel *navigationTitle;
 	
-	
+	UIButton *alphabeticalSortButton;
+	UIButton *timeSortButton;
 	UIButton *selectedFilterButton;
+	
 	UITableView *menuTable;
 	UITableView *searchTable;
 	UISearchBar *search;
@@ -52,7 +54,10 @@ typedef enum  {
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, retain) IBOutlet UIButton *alphabeticalSortButton;
+@property (nonatomic, retain) IBOutlet UIButton *timeSortButton;
 @property (nonatomic, retain) UIButton *selectedFilterButton;
+
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 
 @property (nonatomic, retain) NSMutableArray *dateTimes;

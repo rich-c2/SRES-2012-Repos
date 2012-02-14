@@ -23,4 +23,7 @@
 + (CarnivalRide *)rideWithRideData:(NSDictionary *)rideData 
 			inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (CarnivalRide *)getCarnivalRideWithID:(NSNumber *)rideID 
+				 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

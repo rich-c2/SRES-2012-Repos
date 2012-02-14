@@ -217,7 +217,17 @@
 	
 	Offer *offer = (Offer *)[fetchedResultsController objectAtIndexPath:indexPath];
 	
-	cell.nameLabel.text = offer.title;
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+	
+	cell.nameLabel.text = [offer.title uppercaseString];
 	cell.descriptionLabel.text = [NSString stringWithFormat:@"%@", [offer offerDescription]];
 	
 	[cell initImage:offer.thumbURL];

@@ -29,6 +29,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 @synthesize menuTable, events, selectedDate, selectedCategory;
 @synthesize loadCell, managedObjectContext, dateFormat;
 @synthesize search, searchTable, filteredListContent;
+@synthesize alphabeticalSortButton, timeSortButton;
 
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -60,6 +61,16 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[tempDateFormat setDateFormat:@"MMMM dd h:mm a"];
 	self.dateFormat = tempDateFormat;
 	[tempDateFormat release];
+	
+	
+	// Set the image for when the button's are selected
+	[self.alphabeticalSortButton setImage:[UIImage imageNamed:@"alphabetical-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	[self.timeSortButton setImage:[UIImage imageNamed:@"time-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	
+	[self.alphabeticalSortButton setSelected:YES];
+    [self.alphabeticalSortButton setHighlighted:NO];
+    [self.alphabeticalSortButton setUserInteractionEnabled:NO];
+	
 	
 	// Navigation bar elements
 	[self setupNavBar];
@@ -94,6 +105,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.alphabeticalSortButton = nil; 
+	self.timeSortButton = nil;
 	self.dateTimes = nil;
 	self.dateFormat = nil;
 	self.managedObjectContext = nil;
@@ -219,15 +232,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    /*EventTableCell *cell = (EventTableCell *)[tableView dequeueReusableCellWithIdentifier:[EventTableCell reuseIdentifier]];
-	
-    if (cell == nil) {
-		
-        [[NSBundle mainBundle] loadNibNamed:@"EventTableCell" owner:self options:nil];
-        cell = loadCell;
-        self.loadCell = nil;
-    }*/
 	
 	static NSString *CellIdentifier = @"Cell";
 	
@@ -243,19 +247,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	EventDateTime *dateTime;
 	
 	// Retrieve the Showbag object
-	if (tableView == self.menuTable) {
-		
-		//if (alphabeticallySorted)
-			//event = [self.events objectAtIndex:[indexPath row]];
-		//else {
-			
-			dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
-			
-		//}
-	}
-		
-	else 
-		dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
+	if (tableView == self.menuTable) dateTime = [self.dateTimes objectAtIndex:[indexPath row]];
+	else dateTime = [self.filteredListContent objectAtIndex:[indexPath row]];
 		
 	event = [dateTime forEvent];
 	
@@ -266,7 +259,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
-//- (void)configureCell:(EventTableCell *)cell withDateTime:(EventDateTime *)dateTime {
 - (void)configureCell:(UITableViewCell *)cell withDateTime:(EventDateTime *)dateTime {
 	
 	[cell setBackgroundColor:[UIColor clearColor]];
@@ -553,8 +545,14 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 	if (!alphabeticallySorted) {
 		
-		// make a fetch request to get an alphabetically sorted list of data
-		//[self fetchEventsFromCoreData];
+		UIButton *selectedButton = (UIButton *)sender;
+		[selectedButton setSelected:YES];
+		[selectedButton setHighlighted:NO];
+		[selectedButton setUserInteractionEnabled:NO];
+		
+		[self.timeSortButton setSelected:NO];
+		[self.timeSortButton setHighlighted:NO];
+		[self.timeSortButton setUserInteractionEnabled:YES];
 		
 		// Sort alphabetically by venue title
 		NSSortDescriptor *alphaDesc = [[NSSortDescriptor alloc] initWithKey:@"forEvent.title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
@@ -572,8 +570,14 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 	if (alphabeticallySorted) {
 		
-		// make a fetch request to get a time sorted list of data
-		//[self fetchEventsFromCoreData];
+		UIButton *selectedButton = (UIButton *)sender;
+		[selectedButton setSelected:YES];
+		[selectedButton setHighlighted:NO];
+		[selectedButton setUserInteractionEnabled:NO];
+		
+		[self.alphabeticalSortButton setSelected:NO];
+		[self.alphabeticalSortButton setHighlighted:NO];
+		[self.alphabeticalSortButton setUserInteractionEnabled:YES];
 		
 		// Sort the events by their start time
 		NSSortDescriptor *timeDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES selector:@selector(compare:)];
@@ -800,6 +804,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (void)dealloc {
 	
+	[alphabeticalSortButton release];
+	[timeSortButton release];
 	[dateTimes release];
 	[dateFormat release];
 	[search release]; 
