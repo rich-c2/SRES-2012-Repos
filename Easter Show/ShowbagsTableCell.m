@@ -51,23 +51,28 @@
 		if (img) {
 			
 			[self.thumbView setImage:img];
+			[self.cellSpinner stopAnimating];
 		}
     }
 	
 	else {
 	
 		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
+		[self.cellSpinner stopAnimating];
 	}
 }
 
 
 - (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
 	
-	if ([imageURL isEqual:url]) {
+	if ([self.imageURL isEqual:url]) {
 		
 		NSLog(@"IMAGE LOADED:%@", [url description]);
 		
-		[self.thumbView setImage:image];
+		if (image) [self.thumbView setImage:image];
+		else [self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
+		
+		[self.cellSpinner stopAnimating];
 	}
 }
 

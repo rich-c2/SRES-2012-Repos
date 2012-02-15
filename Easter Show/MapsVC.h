@@ -23,8 +23,6 @@
 	
 	UIButton *locateMeButton;
 	UIButton *legendButton;
-	UIButton *cokeFilterButton;
-	UIButton *carnivalFilterButton;
 	
 	CGFloat mapWidth;
 	CGFloat mapHeight;

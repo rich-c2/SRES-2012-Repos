@@ -22,8 +22,8 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 @implementation CarnivalRideVC
 
-@synthesize carnivalRide, contentScrollView, managedObjectContext;
-@synthesize descriptionLabel, titleLabel, subTitleLabel, rideImage;
+@synthesize carnivalRide, managedObjectContext, stitchedBorder;
+@synthesize descriptionLabel, titleLabel, rideImage;
 @synthesize shareButton, addToPlannerButton, mapButton;
 @synthesize loadingSpinner, selectedURL, navigationTitle;
 
@@ -47,10 +47,6 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
-	
-	self.titleLabel.font = [UIFont fontWithName:kTitleFont size:16.0];
-	self.descriptionLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
-	self.subTitleLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
 	
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,16 +81,18 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 	
+	self.stitchedBorder = nil;
 	self.managedObjectContext = nil;
 	self.selectedURL = nil;
 	self.carnivalRide = nil;
-	self.contentScrollView = nil;
 	self.descriptionLabel = nil;
-	self.subTitleLabel = nil;
 	self.titleLabel = nil;
 	self.rideImage = nil;
 	self.loadingSpinner = nil;
 	self.navigationTitle = nil;
+	self.shareButton = nil;
+	self.mapButton = nil;
+	self.addToPlannerButton = nil;
 }
 
 
@@ -140,45 +138,25 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
 	
-	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	// RIDE TITLE
+	self.titleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.titleLabel.text = self.carnivalRide.title;
-	self.titleLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.titleLabel];
 	
-	//NSString *subtitle;
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 4.0; 
+	[self.stitchedBorder setFrame:borderFrame];
 	
-	//if ([self.carnivalRide.subTitle length] != 0) subtitle = self.carnivalRide.s;
-	//else subtitle = @"";
-	
-	//self.subTitleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
-	//self.subTitleLabel.text = subtitle;
-	//[self resizeTextView:self.subTitleLabel];
-	
-	//CGRect currFrame = self.subTitleLabel.frame;
-	//CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
-	//[self.subTitleLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
-	
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
+	// DESCRIPTION
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.descriptionLabel.text = self.carnivalRide.rideDescription;
-	[self resizeTextView:self.descriptionLabel];
 	
-	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];
-	
-	// Event image
+	// IMAGE
 	[self initImage:self.carnivalRide.imageURL];
-}
-
-
-- (void)adjustScrollViewContentHeight {
-	
-	CGFloat bottomPadding = 15.0;
-	CGSize currSize = [self.contentScrollView contentSize];
-	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
-	
-	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
-	
-	
 }
 
 
@@ -188,7 +166,6 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	frame = _textView.frame;
 	frame.size.height = [_textView contentSize].height;
 	_textView.frame = frame;
-	
 }
 
 
@@ -201,35 +178,17 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)goToMap:(id)sender {
 	
-	/*double lat;
-	double lon;
-	
-	if ([self.carnivalRide rideType] == RideTypeCocaCola) {
-	
-		lat = -33.84462;
-		lon = 151.07213;
-	}
-	else if ([self.carnivalRide rideType] == RideTypeKids) {
-		
-		lat = -33.84422;
-		lon = 151.06363;
-	}
-	else {
-		
-		lat = -33.84462;
-		lon = 151.07213;
-	}
-	
+	double lat = [self.carnivalRide.latitude doubleValue];
+	double lon = [self.carnivalRide.longitude doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	[mapVC setMapID:MAP_ID_CARNIVALS];
+	//[mapVC setMapID:MAP_ID_CARNIVALS];
 	[mapVC setCenterLatitude:lat];
 	[mapVC setCenterLongitude:lon];
 	
 	// Pass the selected object to the new view controller.
 	[self.navigationController pushViewController:mapVC animated:YES];
 	[mapVC release];
-	*/
 }
 
 
@@ -279,9 +238,9 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 		
 		if (img) {
 			
-			[self.loadingSpinner stopAnimating];
+			[self.loadingSpinner setHidden:YES];
 			[self.rideImage setImage:img];
-		}
+		}	
     }
 }
 
@@ -292,7 +251,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 		
 		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
 		
-		[self.loadingSpinner stopAnimating];
+		[self.loadingSpinner setHidden:YES];
 		[self.rideImage setImage:image];
 	}
 }
@@ -300,16 +259,20 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)dealloc {
 	
+	[stitchedBorder release];
 	[managedObjectContext release];
 	[selectedURL release];
 	[carnivalRide release];
-	[contentScrollView release];
+	
 	[descriptionLabel release];
 	[titleLabel release];
-	[subTitleLabel release];
 	[rideImage release];
 	[loadingSpinner release];
 	[navigationTitle release];
+	
+	[shareButton release];
+	[mapButton release];
+	[addToPlannerButton release];
 	
     [super dealloc];
 }

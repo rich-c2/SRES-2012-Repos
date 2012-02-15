@@ -21,13 +21,12 @@
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
 	UIImageView *vendorImage;
+	UIImageView *stitchedBorder;
 	
 	NSNumber *eventTypeFilter;
 	NSString *eventDay;
 	NSURL *selectedURL;
-	
-	UIScrollView *contentScrollView;
-	
+		
 	// Buttons
 	UIButton *shareButton;
 	UIButton *addToPlannerButton;
@@ -44,12 +43,11 @@
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *vendorImage;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) NSNumber *eventTypeFilter;
 @property (nonatomic, retain) NSString *eventDay;
 @property (nonatomic, retain) NSURL *selectedURL;
-
-@property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;

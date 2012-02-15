@@ -15,6 +15,8 @@
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 	
+	BOOL viewLoaded;
+	
 	UITableView *menuTable;
 	
 	ShoppingTableCell *loadCell;

@@ -27,5 +27,6 @@
 
 + (NSString *)reuseIdentifier;
 - (void)initImage:(NSString *)urlString;
+- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
 
 @end

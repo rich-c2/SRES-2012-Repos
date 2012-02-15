@@ -23,7 +23,7 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 @implementation FoodVenueVC
 
 @synthesize foodVenue, managedObjectContext;
-@synthesize contentScrollView;
+@synthesize stitchedBorder;
 @synthesize descriptionLabel, titleLabel, subTitleLabel, venueImage;
 @synthesize shareButton, addToPlannerButton, mapButton;
 @synthesize loadingSpinner, selectedURL;
@@ -48,12 +48,6 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
-	
-	appDelegate = (SRESAppDelegate *)[[UIApplication sharedApplication] delegate];
-
-	self.titleLabel.font = [UIFont fontWithName:kTitleFont size:16.0];
-	self.subTitleLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
-	self.descriptionLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
 	
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
@@ -91,12 +85,18 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	
 	self.managedObjectContext = nil;
 	self.foodVenue = nil;
-	self.contentScrollView = nil;
 	self.descriptionLabel = nil;
 	self.titleLabel = nil;
 	self.subTitleLabel = nil;
 	self.venueImage = nil;
 	self.loadingSpinner = nil;
+	self.stitchedBorder = nil;
+	
+	self.shareButton = nil; 
+	self.addToPlannerButton = nil; 
+	self.mapButton = nil;
+	self.loadingSpinner = nil; 
+	self.selectedURL = nil;
 }
 
 
@@ -142,12 +142,13 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
 	
-	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.titleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.titleLabel.text = self.foodVenue.title;
 	[self resizeTextView:self.titleLabel];
 	
+	// SUBTITLE
 	NSString *subtitle;
-	self.subTitleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.subTitleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	if ([self.foodVenue.subtitle length] != 0) subtitle = [NSString stringWithFormat:@"%@", self.foodVenue.subtitle];
 	else subtitle = @"";
 	
@@ -155,31 +156,19 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	[self resizeTextView:self.subTitleLabel];
 	
 	CGRect currFrame = self.subTitleLabel.frame;
-	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
-	[self.subTitleLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
+	currFrame.origin.y = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 16.0;
+	[self.subTitleLabel setFrame:currFrame];
 	
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.subTitleLabel.frame.origin.y + self.subTitleLabel.frame.size.height + 4.0; 
+	[self.stitchedBorder setFrame:borderFrame];
+	
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.descriptionLabel.text = self.foodVenue.venueDescription;
-	[self resizeTextView:self.descriptionLabel];
-	
-	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];
-	
-	UIImage *fImage = [UIImage imageNamed:kPlaceholderImage];
-	
-	self.venueImage.image = fImage;
-}
-
-
-- (void)adjustScrollViewContentHeight {
-
-	CGFloat bottomPadding = 15.0;
-	CGSize currSize = [self.contentScrollView contentSize];
-	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
-
-	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
-
-
 }
 
 
@@ -298,9 +287,9 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)dealloc {
 	
+	[stitchedBorder release];
 	[managedObjectContext release];
 	[foodVenue release];
-	[contentScrollView release];
 	[descriptionLabel release];
 	[titleLabel release];
 	[subTitleLabel release];

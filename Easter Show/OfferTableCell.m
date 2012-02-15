@@ -51,12 +51,14 @@
 		UIImage* img = [ImageManager loadImage:imageURL];
 		if (img) {
 			
+			[self.cellSpinner setHidden:YES];
 			[self.thumbView setImage:img];
 		}
     }
 	
 	else {
 		
+		[self.cellSpinner setHidden:YES];
 		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
 	}
 }
@@ -69,6 +71,7 @@
 		NSLog(@"IMAGE LOADED:%@", [url description]);
 		
 		[self.thumbView setImage:image];
+		[self.cellSpinner setHidden:YES];
 	}
 }
 

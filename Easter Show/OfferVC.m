@@ -128,17 +128,25 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 - (void)setDetailFields {
 	
 	// Only show the redeem button if this is a single redeem offer
-	if ([self.offer.offerType isEqualToString:@"single"]) [self.redeemButton setHidden:NO];
+	if ([self.offer.offerType isEqualToString:@"single"]) {
+		
+		// Show the button
+		[self.redeemButton setHidden:NO];
+		
+		// Adjust the description text view's frame accordingly
+		CGRect descFrame =	self.descriptionLabel.frame;
+		descFrame.size.height -= self.redeemButton.frame.size.height;
+		[self.descriptionLabel setFrame:descFrame];
+	}
 	
 	// OFFER TITLE
-	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.titleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.titleLabel.text = self.offer.title;
-	self.titleLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.titleLabel];
 	
 	
 	// PROVIDER LABEL
-	self.providerLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.providerLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	
 	NSString *providerText = [NSString	stringWithFormat:@"%@", self.offer.provider];
 	if ([providerText length] <= 0) providerText = @"";
@@ -147,16 +155,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[self resizeTextView:self.providerLabel];
 	
 	CGRect currFrame = self.providerLabel.frame;
-	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
+	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 16.0;
 	[self.providerLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
 	// DESCRIPTION
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.descriptionLabel.text = self.offer.offerDescription;
-	[self resizeTextView:self.descriptionLabel];
-	
-	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];
 	
 	// Showbag image
 	[self initImage:self.offer.imageURL];
@@ -234,17 +238,6 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
 	else [self.addToPlannerButton setSelected:NO];*/
-}
-
-
-- (void)adjustScrollViewContentHeight {
-	
-	CGFloat bottomPadding = 15.0;
-	CGSize currSize = [self.contentScrollView contentSize];
-	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
-	
-	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
-	
 }
 
 

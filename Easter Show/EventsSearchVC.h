@@ -26,7 +26,6 @@
 	BOOL eventsLoaded;
 	BOOL loading;
 	
-	UISearchBar *search;
 	UITextField *searchField;
 	
 	EventTableCell *loadCell;
@@ -39,7 +38,6 @@
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
 @property (nonatomic, retain) NSDateFormatter *dateFormat;
 
-@property (nonatomic, retain) IBOutlet UISearchBar *search;
 @property (nonatomic, retain) IBOutlet UITextField *searchField;
 
 @property (nonatomic, retain) IBOutlet EventTableCell *loadCell;
@@ -47,8 +45,6 @@
 - (void)showLoading;
 - (void)hideLoading;
 - (void)retrieveXML;
-//- (void)resetSearch;
-//- (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)fetchDateTimes;
 - (void)configureCell:(UITableViewCell *)cell withEvent:(EventDateTime *)dateTime;
 - (IBAction)goBack:(id)sender;

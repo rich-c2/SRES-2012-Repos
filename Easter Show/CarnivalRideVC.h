@@ -17,13 +17,12 @@
 	CarnivalRide *carnivalRide;
 	
 	UILabel *navigationTitle;
-	UIScrollView *contentScrollView;
 	
 	// Display
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
-	UITextView *subTitleLabel;
 	UIImageView *rideImage;
+	UIImageView *stitchedBorder;
 	
 	// Buttons
 	UIButton *shareButton;
@@ -39,12 +38,11 @@
 @property (nonatomic, retain) CarnivalRide *carnivalRide;
 
 @property (nonatomic, retain) UILabel *navigationTitle;
-@property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
-@property (nonatomic, retain) IBOutlet UITextView *subTitleLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *rideImage;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
@@ -61,7 +59,6 @@
 - (IBAction)goBack:(id)sender;
 - (void)goToMap:(id)sender;
 - (void)setupNavBar;
-- (void)adjustScrollViewContentHeight;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
 - (void)initImage:(NSString *)urlString;

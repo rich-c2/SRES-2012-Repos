@@ -17,8 +17,8 @@
 #import "SVProgressHUD.h"
 
 #define UNDER10_TAG 1000
-#define OVER10_UNDER1750_TAG 1001
-#define OVER1750_TAG 1002
+#define OVER10_UNDER20_TAG 1001
+#define OVER20_TAG 1002
 
 static NSString* kTableCellFont = @"Arial-BoldMT";
 static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
@@ -26,10 +26,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 @implementation ShowbagsMenuVC
 
 @synthesize fetchedResultsController, managedObjectContext;
-@synthesize internetConnectionPresent, cokeOfferButton, menuTable, search;
-@synthesize priceRanges, viewLoaded, filteredListContent, searchTable;
-@synthesize filterButton1, filterButton2, filterButton3, selectedFilterButton;
-@synthesize loadCell;
+@synthesize menuTable, search, loadCell, cancelButton, searchButton;
+@synthesize priceRanges, filteredListContent, searchTable;
+@synthesize filterButton1, filterButton2, filterButton3;
 
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -57,14 +56,13 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	[self setupNavBar];
 	
-	[self.filterButton1 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-under10-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	[self.filterButton2 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-10-17-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	[self.filterButton3 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-over17-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	
+	[self.filterButton1 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-under10-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	[self.filterButton2 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-10-20-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	[self.filterButton3 setBackgroundImage:[UIImage imageNamed:@"showbagFilter-over20-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+		
 	[self.filterButton1 setSelected:YES];
-	
-	[self.selectedFilterButton setSelected:NO];
-	self.selectedFilterButton = self.filterButton1;
+    [self.filterButton1 setHighlighted:NO];
+    [self.filterButton1 setUserInteractionEnabled:NO];	
 	
 	[self initPriceRanges];
 	
@@ -105,6 +103,12 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	self.searchTable = nil;
 	self.search = nil;
 	self.priceRanges = nil;
+	self.loadCell = nil;
+	self.filterButton1 = nil;
+	self.filterButton2 = nil;
+	self.filterButton3 = nil;
+	self.cancelButton = nil;
+	self.searchButton = nil;
 }
 
 
@@ -116,6 +120,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (void)viewDidAppear:(BOOL)animated {
 	
+	[super viewDidAppear:animated];
+	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
 	if (!showbagsLoaded && !loading) {
@@ -124,6 +130,32 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		
 		[self retrieveXML];
 	}
+	
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
+}
+
+
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	
+	// Hide keyboard
+	[self dismissKeyboard];
+	
+	// Adjust search table's frame now that 
+	// keyboard has disappeared
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	// Conduct search
+	[self handleSearchForTerm:textField.text];
+	
+	return YES;
 }
 
 
@@ -183,9 +215,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)handleSearchForTerm:(NSString *)searchTerm {
-	
-	NSLog(@"handleSearchForTerm");
-	
+		
 	self.filteredListContent = (NSMutableArray *)[[self.fetchedResultsController fetchedObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
 	
 	[self.searchTable reloadData];
@@ -317,9 +347,19 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 
 - (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag {
+	
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
 		
-	cell.nameLabel.text = showbag.title;
-	cell.dateLable.text = [NSString stringWithFormat:@"%.2f", [showbag.price floatValue]];
+	cell.nameLabel.text = [showbag.title uppercaseString];
+	cell.dateLable.text = [showbag showbagDescription];
 	
 	[cell initImage:showbag.thumbURL];
 }
@@ -584,11 +624,41 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	NSMutableArray *range;
 	
 	[btn setSelected:YES];
+	[btn setUserInteractionEnabled:NO];
 	
-	[self.selectedFilterButton setSelected:NO];
-	self.selectedFilterButton = btn;
+	switch ([btn tag]) {
+        case UNDER10_TAG:
+			[self.filterButton2 setSelected:NO];
+            [self.filterButton2 setHighlighted:NO];
+			[self.filterButton2 setUserInteractionEnabled:YES];
+			[self.filterButton3 setSelected:NO];
+            [self.filterButton3 setHighlighted:NO];
+			[self.filterButton3 setUserInteractionEnabled:YES];
+			break;
+            
+        case OVER10_UNDER20_TAG:
+			[self.filterButton1 setSelected:NO];
+            [self.filterButton1 setHighlighted:NO];
+			[self.filterButton1 setUserInteractionEnabled:YES];
+			[self.filterButton3 setSelected:NO];
+            [self.filterButton3 setHighlighted:NO];
+			[self.filterButton3 setUserInteractionEnabled:YES];
+			break;
+			
+		case OVER20_TAG:
+			[self.filterButton1 setSelected:NO];
+            [self.filterButton1 setHighlighted:NO];
+			[self.filterButton1 setUserInteractionEnabled:YES];
+			[self.filterButton2 setSelected:NO];
+            [self.filterButton2 setHighlighted:NO];
+			[self.filterButton2 setUserInteractionEnabled:YES];
+			break;
+			
+        default:
+            break;
+    }
 
-	range = [self.priceRanges objectAtIndex:btn.tag];
+	range = [self.priceRanges objectAtIndex:(btn.tag - 1000)];
 
 	// min price is at 0, max at 1
 	minPrice = [[range objectAtIndex:0] doubleValue];
@@ -617,18 +687,10 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	self.navigationItem.titleView = image;
 	[image release];*/
-	
-	
-	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
-	
-	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-	searchItem.target = self;
-	self.navigationItem.rightBarButtonItem = searchItem;
 }
 
 
-- (void)startSearch:(id)sender {
+- (IBAction)startSearch:(id)sender {
 	
 	// if already searching, then hide
 	// the search table and search field
@@ -646,14 +708,23 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		
 		[self.searchTable setHidden:YES];
 		[self.search setHidden:YES];
+		[self.menuTable setHidden:NO];
 	}
 	
 	else {
 
 		// MAKE THE SEARCH RESULTS TABLE VISIBLE
 		// MAKE THE SEARCH BAR VISIBLE 
+		// MAKE THE CANCEL BUTTON VISIBLE
 		[self.search setHidden:NO];
 		[self.searchTable setHidden:NO];
+		[self.cancelButton setHidden:NO];
+		[self.menuTable setHidden:YES];
+		
+		// DISABLE FILTER BUTTONS
+		[self.filterButton1 setEnabled:NO];
+		[self.filterButton2 setEnabled:NO];
+		[self.filterButton3 setEnabled:NO];
 		
 		// Put the focus on the search bar field. 
 		// Keyboard will now be visible
@@ -666,6 +737,42 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	}
 	
 	searching = !searching;
+}
+
+
+- (IBAction)cancelButtonClicked:(id)sender { 
+
+	// Reset search and search results
+	search.text = @"";
+	[self resetSearch];
+	[self.searchTable reloadData];
+	
+	// Hide keyboard
+	[self.search resignFirstResponder];
+	
+	// Adjust searchTable's frame height
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	// HIDE SEARCH TABLE AND SEARCH FIELD
+	[self.searchTable setHidden:YES];
+	[self.search setHidden:YES];
+	
+	// hide cancel button
+	[self.cancelButton setHidden:YES];
+	
+	// show regular table
+	[self.menuTable setHidden:NO];
+	
+	// ENABLE FILTER BUTTONS
+	[self.filterButton1 setEnabled:YES];
+	[self.filterButton2 setEnabled:YES];
+	[self.filterButton3 setEnabled:YES];
+	
+	// Update instance var
+	searching = NO;
 }
 
 
@@ -691,6 +798,11 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
+-(void)dismissKeyboard {
+	[self.search resignFirstResponder];
+}
+
+
 - (void)dealloc {
 	
 	[fetchedResultsController release];
@@ -701,6 +813,13 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[searchTable release];
 	[search release];
 	[priceRanges release];
+	
+	[loadCell release];
+	[filterButton1 release];
+	[filterButton2 release];
+	[filterButton3 release];
+	[cancelButton release];
+	[searchButton release];
 	
     [super dealloc];
 }

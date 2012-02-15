@@ -65,6 +65,14 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+	
+	[super viewDidAppear:animated];
+
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+}
+
+
 #pragma mark -
 #pragma mark Table view data source
 

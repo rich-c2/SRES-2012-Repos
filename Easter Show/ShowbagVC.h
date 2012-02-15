@@ -28,6 +28,7 @@
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
 	UIImageView *showbagImage;
+	UIImageView *stitchedBorder;
 	
 	NSURL *selectedURL;
 	
@@ -56,6 +57,7 @@
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *showbagImage;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) NSURL *selectedURL;
 

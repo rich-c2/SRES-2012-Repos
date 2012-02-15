@@ -20,7 +20,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 @implementation MapsVC
 
 @synthesize subNavScrollView, mapScrollView, mapOverlay, userLocationView;
-@synthesize locateMeButton, legendButton, cokeFilterButton, carnivalFilterButton;
+@synthesize locateMeButton, legendButton, carnivalFilterButton;
 @synthesize keys, imageNames, selectedFilterButton;
 @synthesize locationManager, filterHeading, filterHeaderImageNames;
 
@@ -47,11 +47,11 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
     [super viewDidLoad];
 	
-	self.keys = [NSArray arrayWithObjects:@"Amenities", @"Animals", @"Carnivals", @"Entertainment", @"Food", @"Help", @"Shopping", @"Coke", nil];
+	self.keys = [NSArray arrayWithObjects:@"Showbags", @"Shopping", @"Food", @"Carnivals", @"Animals", @"Amenities", @"Entertainment", @"Help", nil];
 	
-	NSArray *headerImageNames = [[NSArray alloc] initWithObjects:@"eventsSectionHeader-all.png", @"eventsSectionHeader-amenities.png", @"eventsSectionHeader-animals.png", 
-									@"eventsSectionHeader-carnivals.png", @"eventsSectionHeader-entertainment.png", @"eventsSectionHeader-food.png", 
-									@"eventsSectionHeader-help.png", @"eventsSectionHeader-shopping.png", @"eventsSectionHeader-coke.png", nil];
+	NSArray *headerImageNames = [[NSArray alloc] initWithObjects:@"eventsSectionHeader-all.png", @"eventsSectionHeader-showbags.png", @"eventsSectionHeader-shopping.png", 
+									@"eventsSectionHeader-food.png", @"eventsSectionHeader-carnivals.png", @"eventsSectionHeader-animals.png", 
+									@"eventsSectionHeader-amenities.png", @"eventsSectionHeader-entertainment.png", @"eventsSectionHeader-help.png", nil];
 	
 	self.filterHeaderImageNames = headerImageNames;
 	[headerImageNames release];
@@ -118,7 +118,6 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
 	self.locateMeButton = nil; 
 	self.legendButton = nil; 
-	self.cokeFilterButton = nil; 
 	self.carnivalFilterButton = nil;
 	self.selectedFilterButton = nil;
 	
@@ -349,16 +348,16 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 
 - (void)setupSubNav {
 	
-	NSArray *iconImages = [NSArray arrayWithObjects:@"subNavButton-amenities.png", @"subNavButton-animals.png",
-						   @"subNavButton-carnivals.png", @"subNavButton-entertainment.png", @"subNavButton-food.png",
-						   @"subNavButton-help.png", @"subNavButton-shopping.png", @"subNavButton-coke.png", nil];
+	NSArray *iconImages = [NSArray arrayWithObjects:@"subNavButton-showbags.png", @"subNavButton-shopping.png",
+						   @"subNavButton-food.png", @"subNavButton-carnivals.png", @"subNavButton-animals.png",
+						   @"subNavButton-amenities.png", @"subNavButton-entertainment.png", @"subNavButton-help.png", nil];
 	
-	CGFloat btnWidth = 30.0;
-	CGFloat btnHeight = 31.0;
+	CGFloat btnWidth = 26.0;
+	CGFloat btnHeight = 26.0;
 	
-	CGFloat xPos = 5.0;
-	CGFloat xPadding = 5.0;
-	CGFloat yPos = 5.0;
+	CGFloat xPos = 8.0;
+	CGFloat xPadding = 9.0;
+	CGFloat yPos = 7.0;
 	
 	// Create button for 'ALL'
 	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -405,23 +404,8 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 		[btn setBackgroundImage:[UIImage imageNamed:selectedImageFilename] forState:UIControlStateSelected];
 		[btn setBackgroundImage:[UIImage imageNamed:selectedImageFilename] forState:UIControlStateHighlighted|UIControlStateSelected];
 		
-		if ([key isEqualToString:@"Coke"]) {
-			
-			self.cokeFilterButton = btn;
-			self.cokeFilterButton.enabled = NO;
-			[self.subNavScrollView addSubview:self.cokeFilterButton];
-		}
-		else if ([key isEqualToString:@"Carnivals"]) {
-			
-			self.carnivalFilterButton = btn;
-			self.carnivalFilterButton.enabled = NO;
-			[self.subNavScrollView addSubview:self.carnivalFilterButton];
-		}
-		else {
-			
-			// Add button to sub nav scroll view
-			[self.subNavScrollView addSubview:btn];
-		}
+		// Add button to sub nav scroll view
+		[self.subNavScrollView addSubview:btn];
 		
 		// Update xPos for next button
 		xPos += (btnWidth + xPadding);
@@ -816,7 +800,6 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
 	[locateMeButton release];
 	[legendButton release];
-	[cokeFilterButton release]; 
 	[carnivalFilterButton release];
 	[selectedFilterButton release];
 	

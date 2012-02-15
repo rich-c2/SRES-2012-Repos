@@ -38,6 +38,7 @@ typedef enum  {
 	NSString *selectedCategory;
 	NSDateFormatter *dateFormat;
 	UILabel *navigationTitle;
+	UITextField *searchField;
 	
 	UIButton *alphabeticalSortButton;
 	UIButton *timeSortButton;
@@ -45,9 +46,12 @@ typedef enum  {
 	
 	UITableView *menuTable;
 	UITableView *searchTable;
-	UISearchBar *search;
+	
+	UIButton *cancelButton;
+	UIButton *searchButton;
 	
 	BOOL alphabeticallySorted;
+	BOOL searching;
 		
 	EventTableCell *loadCell;
 }
@@ -66,10 +70,13 @@ typedef enum  {
 @property (nonatomic, retain) NSString *selectedCategory;
 @property (nonatomic, retain) NSDateFormatter *dateFormat;
 @property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
+@property (nonatomic, retain) IBOutlet UITextField *searchField;
 
 @property (nonatomic, retain) NSMutableArray *filteredListContent;
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
-@property (nonatomic, retain) IBOutlet UISearchBar *search;
+
+@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
+@property (nonatomic, retain) IBOutlet UIButton *searchButton;
 
 @property (nonatomic, retain) IBOutlet EventTableCell *loadCell;
 
@@ -90,6 +97,9 @@ typedef enum  {
 - (void)hideLoading;
 - (void)retrieveJSON;
 - (void)checkEventsCount;
+-(void)dismissKeyboard;
+- (IBAction)startSearch:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
 
 
 @end

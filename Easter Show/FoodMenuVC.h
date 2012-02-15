@@ -27,7 +27,10 @@
 	UITableView *searchTable;
 
 	NSMutableArray *filteredListContent;
-	UISearchBar *search;
+	UITextField *search;
+	
+	UIButton *cancelButton;
+	UIButton *searchButton;
 
 	FoodTableCell *loadCell;
 }
@@ -38,7 +41,11 @@
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 @property (nonatomic, retain) IBOutlet UITableView *searchTable;
 @property (nonatomic, retain) NSMutableArray *filteredListContent;
-@property (nonatomic, retain) IBOutlet UISearchBar *search;
+@property (nonatomic, retain) IBOutlet UITextField *search;
+
+
+@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
+@property (nonatomic, retain) IBOutlet UIButton *searchButton;
 
 @property (nonatomic, retain) IBOutlet FoodTableCell *loadCell;
 
@@ -53,7 +60,9 @@
 - (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue;
 - (void)setupNavBar;
 - (IBAction)goBack:(id)sender;
-
+- (IBAction)startSearch:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
+-(void)dismissKeyboard;
 
 
 @end

@@ -89,9 +89,16 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	[self fetchFavouritesFromCoreData];
+	if (!loaded) {
 	
-	[self.menuTable reloadData];
+		[self fetchFavouritesFromCoreData];		
+		[self.menuTable reloadData];
+		
+		loaded = YES;
+	}
+	
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
 }
 
 
@@ -236,14 +243,18 @@
     // Retrieve the Dictionary at the given index that's in self.followers
 	Favourite *favourite = [fetchedResultsController objectAtIndexPath:indexPath];
 	
+	// Red background for selection
+	CGRect bgFrame = cell.frame;
+	UIView *selBGView = [[UIView alloc] initWithFrame:bgFrame];
+	[selBGView setBackgroundColor:[UIColor colorWithRed:198./255.0 green:26./255.0 blue:36./255.0 alpha:1.0]];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+	
 	// Set the favourite title to the text of the cell
 	cell.textLabel.text = favourite.title;
 	
 	// By default, the cell's tick mark must be hidden
 	cell.tickMark.hidden = YES;
-	
-	// No selection style?
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 
@@ -460,6 +471,11 @@
 	
 	// Hide the actions panel
 	[self.actionsView setHidden:YES];
+	
+	// Adjust the table's frame
+	CGRect tableFrame = self.menuTable.frame;
+	tableFrame.size.height += self.actionsView.frame.size.height;
+	[self.menuTable setFrame:tableFrame];
 	
 	// refresh table to clear check marks
 	[self.menuTable reloadData];

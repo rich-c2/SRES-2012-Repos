@@ -22,7 +22,7 @@
 
 @synthesize shoppingVendor, managedObjectContext;
 @synthesize dateLabel, descriptionLabel, titleLabel, vendorImage;
-@synthesize eventTypeFilter, eventDay, contentScrollView, selectedURL;
+@synthesize eventTypeFilter, eventDay, stitchedBorder, selectedURL;
 @synthesize shareButton, addToPlannerButton, mapButton;
 @synthesize loadingSpinner;
 
@@ -77,7 +77,7 @@
 	self.vendorImage = nil;
 	self.eventDay = nil;
 	self.eventTypeFilter = nil;
-	self.contentScrollView = nil;
+	self.stitchedBorder = nil;
 	self.loadingSpinner = nil;
 }
 
@@ -226,16 +226,20 @@
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
 	
-	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	self.titleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.titleLabel.text = self.shoppingVendor.title;
 	[self resizeTextView:self.titleLabel];
 	
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
-	self.descriptionLabel.text = self.shoppingVendor.vendorDescription;
-	[self resizeTextView:self.descriptionLabel];
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 4.0; 
+	[self.stitchedBorder setFrame:borderFrame];
 	
-	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];	
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.descriptionLabel.text = self.shoppingVendor.vendorDescription;
 	
 	// Event image
 	[self initImage:self.shoppingVendor.imageURL];
@@ -249,16 +253,6 @@
 	frame.size.height = [_textView contentSize].height;
 	_textView.frame = frame;
 	
-}
-
-
-- (void)adjustScrollViewContentHeight {
-	
-	CGFloat bottomPadding = 15.0;
-	CGSize currSize = [self.contentScrollView contentSize];
-	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
-	
-	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
 }
 
 
@@ -351,7 +345,7 @@
 	[vendorImage release];
 	[eventDay release];
 	[eventTypeFilter release];
-	[contentScrollView release];
+	[stitchedBorder release];
 	[loadingSpinner release];
 	
     [super dealloc];

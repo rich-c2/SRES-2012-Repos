@@ -9,18 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@class SRESAppDelegate;
 @class FoodVenue;
 
 @interface FoodVenueVC : UIViewController {
 
-	SRESAppDelegate *appDelegate;
 	NSManagedObjectContext *managedObjectContext;
+	UIImageView *stitchedBorder;
 	
 	FoodVenue *foodVenue;
-	
-	UIScrollView *contentScrollView;
-	
+		
 	// Display
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
@@ -37,10 +34,9 @@
 }
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) FoodVenue *foodVenue;
-
-@property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
 
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
@@ -58,7 +54,6 @@
 - (void)addToFavourites:(id)sender;
 - (void)setDetailFields;
 - (void)resizeTextView:(UITextView *)_textView;
-- (void)adjustScrollViewContentHeight;
 - (void)goToMap:(id)sender;
 - (void)setupNavBar;
 - (IBAction)goBack:(id)sender;

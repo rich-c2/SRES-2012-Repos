@@ -79,14 +79,14 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	[self showLoading];
-	
 	// Check in the NSUSerDefaults whether this is the 
 	// first time the Carnival Rides are being loaded. If so, we need to load the data from the xml
 	// file and add the data to Core Data for future use.
 	BOOL previouslyLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kShoppingVendorsPreviouslyLoadedKey];
 	
 	if (!previouslyLoaded) {
+		
+		[self showLoading];
 		
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"shoppingVendors" ofType:@"xml"];  
 		NSData *myData = [NSData dataWithContentsOfFile:filePath];  
@@ -103,13 +103,17 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 				[self addShoppingVendorsToCoreData:results];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShoppingVendorsPreviouslyLoadedKey];
 			}
-			
 		}  
+		
+		[self fetchVendorsFromCoreData];
+		
+		[self hideLoading];
 	}
 	
-	[self fetchVendorsFromCoreData];
 	
-	[self hideLoading];
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	//[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 
@@ -231,7 +235,17 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 	
 	ShoppingVendor *vendor = [fetchedResultsController objectAtIndexPath:indexPath];
 	
-	cell.nameLabel.text = vendor.title;
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+	
+	cell.nameLabel.text = [vendor.title uppercaseString];
 	cell.descriptionLabel.text = [NSString stringWithFormat:@"%@", [vendor vendorDescription]];
 	
 	[cell initImage:vendor.thumbURL];

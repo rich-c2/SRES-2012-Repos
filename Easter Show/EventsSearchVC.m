@@ -22,7 +22,7 @@
 @implementation EventsSearchVC
 
 @synthesize managedObjectContext, events, fetchedResultsController;
-@synthesize searchTable, search, loadCell, searchField, dateFormat;
+@synthesize searchTable, loadCell, searchField, dateFormat;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,7 +79,6 @@
 	
 	self.dateFormat = nil;
 	self.searchTable = nil; 
-	self.search = nil;
 	self.searchField = nil;
 	self.loadCell = nil;
 }
@@ -429,7 +428,6 @@
 	[searchTable release];
 	[dateFormat release];
 	
-	[search release];
 	[searchField release];
 	[loadCell release];
 	

@@ -25,7 +25,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 @synthesize showbag, minPrice, maxPrice, rrPriceLabel, managedObjectContext;
 @synthesize contentScrollView, priceLabel, descriptionLabel, titleLabel, showbagImage;
 @synthesize shareButton, addToPlannerButton, mapButton, loadingSpinner, downloads;
-@synthesize selectedURL;
+@synthesize selectedURL, stitchedBorder;
 
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -46,11 +46,6 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
-	
-	self.titleLabel.font = [UIFont fontWithName:kTitleFont size:16.0];
-	self.priceLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
-	self.rrPriceLabel.font = [UIFont fontWithName:kTitleFont size:12.0];
-	self.descriptionLabel.font = [UIFont fontWithName:kDescriptionFont size:12.0];
 	
 	// Assign the data to their appropriate UI elements
 	[self setDetailFields];
@@ -97,6 +92,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	self.minPrice = nil;
 	self.maxPrice = nil;
 	self.loadingSpinner = nil;
+	self.stitchedBorder = nil;
 	
 	self.selectedURL = nil;
 }
@@ -144,45 +140,46 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
 	
-	self.titleLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	
+	// TITLE
+	self.titleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.titleLabel.text = self.showbag.title;
-	self.titleLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.titleLabel];
 	
-	self.priceLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	// PRICE 
+	self.priceLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.priceLabel.text = [NSString stringWithFormat:@"Price: $%.2f", [[self.showbag price] floatValue]];
-	self.priceLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.priceLabel];
 	
-	
 	CGRect currFrame = self.priceLabel.frame;
-	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 12.0;
-	[self.priceLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
+	currFrame.origin.y = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 16.0;
+	[self.priceLabel setFrame:currFrame];
 	
-	
-	self.rrPriceLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	// RRP 
+	self.rrPriceLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.rrPriceLabel.text = [NSString stringWithFormat:@"RRP: $%.2f", [[self.showbag rrPrice] floatValue]];
-	self.rrPriceLabel.backgroundColor = [UIColor clearColor];
 	[self resizeTextView:self.rrPriceLabel];
 	
-	
 	CGRect currFrame2 = self.rrPriceLabel.frame;
-	CGFloat newYPos2 = (self.priceLabel.frame.origin.y + self.priceLabel.frame.size.height) - 12.0;
-	[self.rrPriceLabel setFrame:CGRectMake(currFrame2.origin.x, newYPos2, currFrame2.size.width, currFrame2.size.height)];
+	currFrame2.origin.y = self.priceLabel.frame.origin.y;
+	[self.rrPriceLabel setFrame:currFrame2];
 	
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.rrPriceLabel.frame.origin.y + self.rrPriceLabel.frame.size.height + 4.0; 
+	[self.stitchedBorder setFrame:borderFrame];
 	
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
-	
+	// DESCRIPTION
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	NSString *description;
 	if ([self.showbag.showbagDescription length] > 0) 
 		description = [self.showbag.showbagDescription stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
 	else description = @"";
 	
 	self.descriptionLabel.text = description;
-	[self resizeTextView:self.descriptionLabel];
-	
-	// Adjust the scroll view content size
-	[self adjustScrollViewContentHeight];
 	
 	// Showbag image
 	[self initImage:self.showbag.imageURL];
@@ -195,18 +192,6 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	frame = _textView.frame;
 	frame.size.height = [_textView contentSize].height;
 	_textView.frame = frame;
-	
-}
-
-
-- (void)adjustScrollViewContentHeight {
-	
-	CGFloat bottomPadding = 15.0;
-	CGSize currSize = [self.contentScrollView contentSize];
-	CGFloat newContentHeight = [self.descriptionLabel frame].origin.y + [self.descriptionLabel frame].size.height + bottomPadding;
-	
-	[self.contentScrollView setContentSize:CGSizeMake(currSize.width, newContentHeight)];
-	
 	
 }
 
@@ -315,6 +300,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	[minPrice release];
 	[maxPrice release];
 	[loadingSpinner release];
+	[stitchedBorder release];
 	
 	[selectedURL release];
 	

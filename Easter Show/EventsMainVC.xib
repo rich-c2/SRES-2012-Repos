@@ -63,7 +63,7 @@
 							<object class="IBUIButton" id="1055170767">
 								<reference key="NSNextResponder" ref="166887102"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 23}}</string>
+								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
 								<reference key="NSSuperview" ref="166887102"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="854094868"/>
@@ -82,6 +82,10 @@
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="559155149">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button-on.png</string>
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
@@ -1673,6 +1677,7 @@
 					<string>69.IBPluginDependency</string>
 					<string>70.IBPluginDependency</string>
 					<string>71.IBPluginDependency</string>
+					<string>71.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>74.IBPluginDependency</string>
 					<string>75.IBPluginDependency</string>
 					<string>76.IBPluginDependency</string>
@@ -1751,6 +1756,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1887,6 +1893,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>back-button-on.png</string>
 				<string>back-button.png</string>
 				<string>calendar-background.png</string>
 				<string>calendar-button-on.png</string>
@@ -1894,10 +1901,11 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{45, 23}</string>
+				<string>{45, 24}</string>
+				<string>{45, 24}</string>
 				<string>{320, 198}</string>
 				<string>{44, 41}</string>
-				<string>{320, 180}</string>
+				<string>{320, 178}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>

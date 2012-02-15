@@ -14,6 +14,8 @@
 
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
+	
+	BOOL loaded;
 
 	NSMutableArray *favourites;
 	NSMutableArray *deletePaths;

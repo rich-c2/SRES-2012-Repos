@@ -81,8 +81,7 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 
 
 - (void)viewDidAppear:(BOOL)animated {
-	
-	[self showLoading];
+
 	
 	// Check in the NSUSerDefaults whether this is the 
 	// first time the Carnival Rides are being loaded. If so, we need to load the data from the xml
@@ -90,6 +89,8 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	BOOL previouslyLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kCarnivalsPreviouslyLoadedKey];
 	
 	if (!previouslyLoaded) {
+		
+		[self showLoading];
 	
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"CarnivalRides" ofType:@"xml"];  
 		NSData *myData = [NSData dataWithContentsOfFile:filePath];  
@@ -106,13 +107,16 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 				[self addCarnivaRidesToCoreData:results];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCarnivalsPreviouslyLoadedKey];
 			}
-			
 		}  
+		
+		[self fetchRidesFromCoreData];
+		
+		[self hideLoading];
 	}
 	
-	[self fetchRidesFromCoreData];
-	
-	[self hideLoading];
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	//[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 
@@ -233,9 +237,18 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 - (void)configureCell:(CarnivalTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	
 	CarnivalRide *ride = [fetchedResultsController objectAtIndexPath:indexPath];
-	NSLog(@"RIDE:%@|DESC:%@", ride.title, ride.rideDescription);
 	
-	cell.nameLabel.text = ride.title;
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
+
+	cell.nameLabel.text = [ride.title uppercaseString];;
 	cell.descriptionLabel.text = [NSString stringWithFormat:@"%@", [ride rideDescription]];
 	
 	[cell initImage:ride.thumbURL];

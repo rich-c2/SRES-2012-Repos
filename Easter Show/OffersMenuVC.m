@@ -90,6 +90,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
+	[super viewDidAppear:animated];
+	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
 	if (!offersLoaded && !loading) {
@@ -98,6 +100,10 @@
 		
 		[self retrieveXML];
 	}
+	
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	//[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 

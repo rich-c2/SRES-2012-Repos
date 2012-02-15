@@ -21,7 +21,7 @@
 
 @synthesize fetchedResultsController, managedObjectContext;
 @synthesize menuTable, searchTable, filteredListContent;
-@synthesize search, loadCell;
+@synthesize search, loadCell, cancelButton, searchButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	
@@ -76,6 +76,8 @@
 	self.filteredListContent = nil;
 	self.search = nil; 
 	self.loadCell = nil;
+	self.cancelButton = nil;
+	self.searchButton = nil;
 }
 
 
@@ -88,6 +90,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
+	[super viewDidAppear:animated];
+	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
 	if (!venuesLoaded && !loading) {
@@ -96,6 +100,32 @@
 		
 		[self retrieveXML];
 	}
+	
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
+}
+
+
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	
+	// Hide keyboard
+	[self dismissKeyboard];
+	
+	// Adjust search table's frame now that 
+	// keyboard has disappeared
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	// Conduct search
+	[self handleSearchForTerm:textField.text];
+	
+	return YES;
 }
 
 
@@ -290,6 +320,16 @@
 
 
 - (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue {
+	
+	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
+	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
+	cell.backgroundView = bgView;
+	[bgView release];
+	
+	UIImage *selBGViewImage = [UIImage imageNamed:@"table-cell-background-on.png"];
+	UIImageView *selBGView = [[UIImageView alloc] initWithImage:selBGViewImage];
+	cell.selectedBackgroundView = selBGView;
+	[selBGView release];
 	
 	cell.nameLabel.text = foodVenue.title;
 	cell.dateLabel.text = [NSString stringWithFormat:@"%@", [foodVenue venueDescription]];
@@ -547,33 +587,29 @@
 	 UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 	 backItem.target = self;
 	 self.navigationItem.leftBarButtonItem = backItem;*/
-	
-	
-	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
-	
-	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-	searchItem.target = self;
-	self.navigationItem.rightBarButtonItem = searchItem;
 }
 
 
-- (void)startSearch:(id)sender {
+- (IBAction)startSearch:(id)sender {
 	
 	// MAKE THE SEARCH RESULTS TABLE VISIBLE
 	// MAKE THE SEARCH BAR VISIBLE 
+	// MAKE THE CANCEL BUTTON VISIBLE
 	[self.search setHidden:NO];
 	[self.searchTable setHidden:NO];
+	[self.cancelButton setHidden:NO];
+	[self.menuTable setHidden:YES];
 	
 	// Put the focus on the search bar field. 
 	// Keyboard will now be visible
 	[self.search becomeFirstResponder];
 	
-	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
-	[self.searchTable setFrame:newTableFrame];
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height - keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	searching = YES;
 }
 
 
@@ -583,6 +619,32 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (IBAction)cancelButtonClicked:(id)sender { 
+	
+	search.text = @"";
+	[self resetSearch];
+	[self.searchTable reloadData];
+	[self.search resignFirstResponder];
+	
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	[self.searchTable setHidden:YES];
+	[self.search setHidden:YES];
+	[self.cancelButton setHidden:YES];
+	[self.menuTable setHidden:NO];
+	
+	searching = NO;
+}
+
+
+-(void)dismissKeyboard {
+	
+	[self.search resignFirstResponder];
+}
 
 
 - (void)dealloc {
@@ -595,6 +657,8 @@
 	[searchTable release];
 	[search release];
 	[loadCell release];
+	[cancelButton release];
+	[searchButton release];
 	
     [super dealloc];
 }

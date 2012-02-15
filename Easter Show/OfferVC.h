@@ -61,7 +61,6 @@
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
-- (void)adjustScrollViewContentHeight;
 - (void)initImage:(NSString *)urlString;
 - (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
 - (IBAction)redeemButtonClicked:(id)sender;

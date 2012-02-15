@@ -28,8 +28,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 @synthesize selectedFilterButton, dateTimes, navigationTitle;
 @synthesize menuTable, events, selectedDate, selectedCategory;
 @synthesize loadCell, managedObjectContext, dateFormat;
-@synthesize search, searchTable, filteredListContent;
-@synthesize alphabeticalSortButton, timeSortButton;
+@synthesize searchTable, filteredListContent;
+@synthesize alphabeticalSortButton, timeSortButton, searchField;
+@synthesize cancelButton, searchButton;
 
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -115,10 +116,12 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	self.selectedDate = nil;
 	self.selectedCategory = nil;
 	self.loadCell = nil;
-	self.search = nil; 
 	self.searchTable = nil; 
 	self.filteredListContent = nil;
 	self.navigationTitle = nil;
+	self.searchField = nil;
+	self.cancelButton = nil; 
+	self.searchButton = nil;
 }
 
 
@@ -136,6 +139,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (void)viewDidAppear:(BOOL)animated {
 	
+	[super viewDidAppear:animated];
+	
 	// If this view has not already been loaded 
 	//(i.e not coming back from an Offer detail view)
 	if (!eventsLoaded && !loading) {
@@ -144,34 +149,25 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 		
 		[self retrieveJSON];
 	}
+	
+	// Deselect the selected table cell
+	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
+	[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 
-#pragma mark
-#pragma mark Search Bar Delegate methods
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	
-	[self.searchTable setHidden:NO];
-	
-	NSString *searchTerm = [searchBar text];
-	[self handleSearchForTerm:searchTerm];
-}
+#pragma mark -
+#pragma mark UITextFieldDelegate
 
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	NSLog(@"textDidChange");
+	// Hide keyboard
+	[self dismissKeyboard];
 	
-	if ([searchText length] == 0) {
-		
-		NSLog(@"length == 0");
-		
-		[self resetSearch];
-		[self.searchTable reloadData];
-		return;
-	}
+	// Conduct a search
+	[self handleSearchForTerm:textField.text];
 	
-	[self handleSearchForTerm:searchText];
+	return YES;
 }
 
 
@@ -183,30 +179,15 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarCancelButtonClicked");
-	
-	search.text = @"";
-	[self resetSearch];
-	[self.searchTable reloadData];
-	[searchBar resignFirstResponder];
-	
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
-	
-	[self.searchTable setHidden:YES];
-	[self.search setHidden:YES];
-}
-
-
 - (void)handleSearchForTerm:(NSString *)searchTerm {
 	
 	NSLog(@"handleSearchForTerm");
 	
 	self.filteredListContent = (NSMutableArray *)[self.dateTimes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"forEvent.title BEGINSWITH[c] %@", searchTerm]];
+	
+	// Check how many results were returned and give
+	// user feedback if there were no results
+	[self checkEventsCount];
 	
 	[self.searchTable reloadData];
 }
@@ -591,22 +572,61 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 }
 
 
-- (void)startSearch:(id)sender {
+- (IBAction)startSearch:(id)sender {
+	
+	searching = YES;
 	
 	// MAKE THE SEARCH RESULTS TABLE VISIBLE
 	// MAKE THE SEARCH BAR VISIBLE 
-	[self.search setHidden:NO];
+	[self.searchField setHidden:NO];
 	[self.searchTable setHidden:NO];
+	
+	// Show cancel button
+	[self.cancelButton setHidden:NO];
+	
+	// Hide regular menu
+	[self.menuTable setHidden:YES];
 	
 	// Put the focus on the search bar field. 
 	// Keyboard will now be visible
-	[self.search becomeFirstResponder];
+	[self.searchField becomeFirstResponder];
 	
 	// Reset the height of the Table's frame and hide it from view
 	//CGFloat keyboardHeight = 166.0;
 	CGRect newTableFrame = self.searchTable.frame;
 	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
 	[self.searchTable setFrame:newTableFrame];
+}
+
+
+- (IBAction)cancelButtonClicked:(id)sender { 
+	
+	// Reset search and search results
+	self.searchField.text = @"";
+	[self resetSearch];
+	[self.searchTable reloadData];
+	
+	// Hide keyboard
+	[self dismissKeyboard];
+	
+	// Adjust searchTable's frame height
+	CGFloat keyboardHeight = 166.0;
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	[self.searchTable setFrame:newFrame];
+	
+	// HIDE SEARCH TABLE AND SEARCH FIELD
+	[self.searchTable setHidden:YES];
+	[self.searchField setHidden:YES];
+	
+	// hide cancel button
+	[self.cancelButton setHidden:YES];
+	
+	// show regular table
+	[self.menuTable setHidden:NO];
+	
+	// Update instance var
+	searching = NO;
 }
 
 
@@ -794,11 +814,38 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 
 - (void)checkEventsCount {
+	
+	BOOL showAlert = NO;
+	NSString *message = nil;
 
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" 
-													message:@"There are no Events on today." delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
-	[alert show];    
-	[alert release];
+	if (!searching && ([self.dateTimes count] < 1)) {
+		
+		showAlert = YES;
+		
+		if ([self.selectedCategory length] > 0)
+			message = [NSString stringWithFormat:@"There are no %@ events on this day. Please try another category.", self.selectedCategory];		
+		else
+			message = [NSString stringWithString:@"There are no events on this day. Please try select another day."];		
+	}
+	
+	else if (searching && ([self.filteredListContent count] < 1)) { 
+	
+		showAlert = YES;
+		message = [NSString stringWithString:@"Your search returned no matches. Please try again"];	
+	}
+	
+	if (showAlert) {
+	
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" 
+														message:message delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+	}
+}
+
+
+-(void)dismissKeyboard {
+	[self.searchField resignFirstResponder];
 }
 
 
@@ -808,7 +855,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[timeSortButton release];
 	[dateTimes release];
 	[dateFormat release];
-	[search release]; 
 	[searchTable release]; 
 	[filteredListContent release];
 	[managedObjectContext release];
@@ -818,6 +864,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[selectedDate release];
 	[events release];
 	[navigationTitle release];
+	[searchField release];
+	[searchButton release];
+	[cancelButton release];
 	
     [super dealloc];
 }

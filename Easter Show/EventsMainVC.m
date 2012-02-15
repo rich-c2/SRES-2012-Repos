@@ -248,6 +248,16 @@
 		[self.navigationController pushViewController:eventCategoriesVC animated:YES];
 		[eventCategoriesVC release];
 	}
+	
+	else {
+		
+		NSString *message = @"The 2012 Sydney Royal Easter Show is held from April 5th until April 18th."; 
+	
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select an appropriate day" 
+														message:message delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert show];    
+		[alert release];
+	}
 }
 
 
