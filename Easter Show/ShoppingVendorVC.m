@@ -17,6 +17,7 @@
 #import "ImageManager.h"
 #import "ShoppingVendor.h"
 #import "ImageManager.h"
+#import "Constants.h"
 
 @implementation ShoppingVendorVC
 
@@ -53,6 +54,11 @@
 	[self setupNavBar];
 	
 	[self setDetailFields];
+	
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	
+	// Update add to favs button
+	[self updateAddToFavouritesButton];
 }
 
 
@@ -100,7 +106,7 @@
 }
 
 
-- (void)showShareOptions:(id)sender {
+- (IBAction)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
 	NSURL *url = [NSURL URLWithString:@"http://www.eastershow.com.au/"];
@@ -115,7 +121,7 @@
 }
 
 
-- (void)addToFavourites:(id)sender {
+- (IBAction)addToFavourites:(id)sender {
 	
 	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
 	[favouriteData setObject:[self.shoppingVendor shopID] forKey:@"id"];
@@ -129,97 +135,20 @@
 }
 
 
-- (void)goToEventMap:(id)sender {
+- (IBAction)goToVendorMap:(id)sender {
 	
-	/*double lat;
-	 double lon;
+	double lat = [self.shoppingVendor.latitude doubleValue];
+	double lon = [self.shoppingVendor.latitude doubleValue];
 	 
-	 if ([[self.event eventID] intValue] == COKE_EVENT_ID1) {
+	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
+	[mapVC setTitleText:self.shoppingVendor.title];
+	[mapVC setMapID:MAP_ID_SHOPPING];
+	[mapVC setCenterLatitude:lat];
+	[mapVC setCenterLongitude:lon];
 	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID2) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID3) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID4) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID5) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID6) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID7) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID8) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID9) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID10) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID11) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID12) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID13) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else if ([[self.event eventID] intValue] == COKE_EVENT_ID14) {
-	 
-	 lat = -33.84462;
-	 lon = 151.07213;
-	 }
-	 else {
-	 
-	 lat = [[self.event eventLatitude] doubleValue];
-	 lon = [[self.event eventLongitude] doubleValue];
-	 }
-	 
-	 
-	 MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	 [mapVC setMapID:[[self.event eventMap] intValue]];
-	 [mapVC setCenterLatitude:lat];
-	 [mapVC setCenterLongitude:lon];
-	 
-	 // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:mapVC animated:YES];
-	 [mapVC release];*/
-	
+	// Pass the selected object to the new view controller.
+	[self.navigationController pushViewController:mapVC animated:YES];
+	[mapVC release];
 }
 
 
@@ -297,10 +226,14 @@
 
 - (void)updateAddToFavouritesButton {
 	
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.event.eventID intValue] favType:FAVOURITE_TYPE_EVENT];
-	 
-	 if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	 else [self.addToPlannerButton setSelected:NO];*/
+	BOOL favourite = [Favourite isItemFavourite:[self.shoppingVendor shopID] favouriteType:@"Shopping vendors" inManagedObjectContext:self.managedObjectContext];
+	
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 

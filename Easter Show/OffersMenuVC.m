@@ -120,7 +120,7 @@
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		fetchRequest.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:managedObjectContext];
         fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-		//fetchRequest.predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice]];
+		fetchRequest.predicate = [NSPredicate predicateWithFormat:@"redeemed != 1"];
 		fetchRequest.fetchBatchSize = 20;
         
         // Edit the section name key ppath and cache name if appropriate.

@@ -85,7 +85,6 @@ typedef enum  {
 - (void)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)configureCell:(UITableViewCell *)cell withDateTime:(EventDateTime *)dateTime;
-- (void)fetchEventsFromCoreData;
 - (void)fetchEventDateTimesFromCoreData;
 - (IBAction)alphabeticalSortButtonClicked:(id)sender;
 - (IBAction)timeSortButtonClicked:(id)sender;

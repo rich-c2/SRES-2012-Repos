@@ -237,14 +237,11 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="356159733"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="946468029">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">fav-button-on.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUISelectedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">addToFavouritesButton-on.png</string>
-								</object>
+								<reference key="IBUISelectedImage" ref="946468029"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">fav-button.png</string>
@@ -700,7 +697,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="1"/>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -749,7 +746,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addToPlannerButton</string>
-							<string>contentScrollView</string>
 							<string>descriptionLabel</string>
 							<string>loadingSpinner</string>
 							<string>mapButton</string>
@@ -762,7 +758,6 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
-							<string>UIScrollView</string>
 							<string>UITextView</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
@@ -778,7 +773,6 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addToPlannerButton</string>
-							<string>contentScrollView</string>
 							<string>descriptionLabel</string>
 							<string>loadingSpinner</string>
 							<string>mapButton</string>
@@ -793,10 +787,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">addToPlannerButton</string>
 								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">contentScrollView</string>
-								<string key="candidateClassName">UIScrollView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">descriptionLabel</string>
@@ -855,7 +845,6 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>addToFavouritesButton-on.png</string>
 				<string>back-button.png</string>
 				<string>fav-button-on.png</string>
 				<string>fav-button.png</string>
@@ -870,7 +859,6 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{156, 31}</string>
 				<string>{45, 24}</string>
 				<string>{107, 28}</string>
 				<string>{107, 28}</string>

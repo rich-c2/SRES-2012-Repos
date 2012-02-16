@@ -21,6 +21,8 @@
 #import "FavouriteTableCell.h"
 #import "CarnivalRideVC.h"
 #import "CarnivalRide.h"
+#import "ShoppingVendorVC.h"
+#import "ShoppingVendor.h"
 
 #define HEADER_HEIGHT 27.0
 
@@ -348,6 +350,7 @@
 			
 			FoodVenueVC *foodVenueVC = [[FoodVenueVC alloc] initWithNibName:@"FoodVenueVC" bundle:nil];
 			[foodVenueVC setFoodVenue:foodVenue];
+			[foodVenueVC setManagedObjectContext:self.managedObjectContext];
 			
 			// Pass the selected object to the new view controller.
 			[self.navigationController pushViewController:foodVenueVC animated:YES];
@@ -360,6 +363,7 @@
 			
 			CarnivalRideVC *carnivalRideVC = [[CarnivalRideVC alloc] initWithNibName:@"CarnivalRideVC" bundle:nil];
 			[carnivalRideVC setCarnivalRide:carnivalRide];
+			[carnivalRideVC setManagedObjectContext:self.managedObjectContext];
 			
 			// Pass the selected object to the new view controller.
 			[self.navigationController pushViewController:carnivalRideVC animated:YES];
@@ -372,6 +376,7 @@
 			
 			OfferVC *offerVC = [[OfferVC alloc] initWithNibName:@"OfferVC" bundle:nil];
 			[offerVC setOffer:offer];
+			[offerVC setManagedObjectContext:self.managedObjectContext];
 			
 			// Pass the selected object to the new view controller.
 			[self.navigationController pushViewController:offerVC animated:YES];
@@ -384,10 +389,24 @@
 			
 			ShowbagVC *showbagVC = [[ShowbagVC alloc] initWithNibName:@"ShowbagVC" bundle:nil];
 			[showbagVC setShowbag:showbag];
+			[showbagVC setManagedObjectContext:self.managedObjectContext];
 			
 			// Pass the selected object to the new view controller.
 			[self.navigationController pushViewController:showbagVC animated:YES];
 			[showbagVC release];
+		}
+		
+		else if ([[sectionInfo name] isEqualToString:@"Shopping vendors"]) {
+			
+			ShoppingVendor *shoppingVendor = [ShoppingVendor getShoppingVendorWithID:[favourite itemID] inManagedObjectContext:self.managedObjectContext];
+			
+			ShoppingVendorVC *shoppingVendorVC = [[ShoppingVendorVC alloc] initWithNibName:@"ShoppingVendorVC" bundle:nil];
+			[shoppingVendorVC setShoppingVendor:shoppingVendor];
+			[shoppingVendorVC setManagedObjectContext:self.managedObjectContext];
+			
+			// Pass the selected object to the new view controller.
+			[self.navigationController pushViewController:shoppingVendorVC animated:YES];
+			[shoppingVendorVC release];
 		}
 	}
 }

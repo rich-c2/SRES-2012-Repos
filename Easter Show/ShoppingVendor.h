@@ -23,4 +23,7 @@
 + (ShoppingVendor *)vendorWithVendorData:(NSDictionary *)vendorData 
 				  inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (ShoppingVendor *)getShoppingVendorWithID:(NSNumber *)shopID 
+					 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

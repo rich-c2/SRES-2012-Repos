@@ -380,18 +380,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 
 - (void)setupNavBar {
-
-	// Add back button to nav bar
-	/*CGRect btnFrame = CGRectMake(0.0, 0.0, 60.0, 30.0);
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[backButton setBackgroundImage:[UIImage imageNamed:@"backButton-Events.png"] forState:UIControlStateNormal];
-	[backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-	backButton.frame = btnFrame;
 	
-	UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-	backItem.target = self;
-	self.navigationItem.leftBarButtonItem = backItem;
-	
+	/*
 	NSArray *stringParts = [self.selectedDate componentsSeparatedByString:@" "];
 	NSString *titleImageName = [NSString stringWithFormat:@"screenTitle-%@%@.png", [stringParts objectAtIndex:0], [stringParts objectAtIndex:1]];
 	UIImage *titleImage = [UIImage imageNamed:titleImageName];
@@ -411,61 +401,6 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	// Set the navigation bar's title label
 	[self.navigationTitle setText:[self.selectedDate uppercaseString]];
-	
-	UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	[searchButton addTarget:self action:@selector(startSearch:) forControlEvents:UIControlEventTouchUpInside];
-	
-	UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
-	searchItem.target = self;
-	self.navigationItem.rightBarButtonItem = searchItem;
-
-}
-
-
-- (void)fetchEventsFromCoreData {
-	
-	if (!self.managedObjectContext) self.managedObjectContext = [[self appDelegate] managedObjectContext];
-
-	// CREATE FETCH REQUEST
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext]];
-	
-	// April 17 9:00 AM - 6:30 PM
-	NSDate *date = [self.dateFormat dateFromString:[NSString stringWithFormat:@"%@ 12:00 AM", self.selectedDate]];
-	NSDate *endDate = [date dateByAddingTimeInterval:86400];
-		
-	// FETCH PREDICATE
-	NSPredicate *fetchPredicate;
-	
-	if ([self.selectedCategory length] > 0) {
-		
-		NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(category like[cd] %@)", self.selectedCategory];
-		NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.startDate >= %@)", date];
-		NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.endDate < %@)", endDate];
-
-		NSArray *predicates = [NSArray arrayWithObjects:predicate1, predicate2, predicate3, nil];
-		
-		fetchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
-	}
-	else 
-		fetchPredicate = [NSPredicate predicateWithFormat:@"(ANY occursOnDays.startDate >= %@) AND (ANY occursOnDays.endDate < %@)", date, endDate];
-	
-	[fetchRequest setPredicate:fetchPredicate];
-	
-	
-	// FETCH SORT DESCRIPTORS
-	//if (!alphabeticallySorted)
-		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-	//else
-		//fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"occursOnDays.startDate" ascending:YES]];
-	
-	// Execute the fetch request
-	NSError *error = nil;
-	self.events = (NSMutableArray *)[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-	[fetchRequest release];
-	
-	// Reload the table
-	//[self.menuTable reloadData];
 }
 
 

@@ -15,6 +15,7 @@
 #import "StringHelper.h"
 #import "ImageManager.h"
 #import "Favourite.h"
+#import "Constants.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -55,7 +56,7 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
 	[self updateAddToFavouritesButton];
 	
@@ -188,7 +189,8 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	double lon = [[self.foodVenue longitude] doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	//[mapVC setMapID:MAP_ID_FOOD];
+	[mapVC setTitleText:self.foodVenue.title];
+	[mapVC setMapID:MAP_ID_FOOD];
 	[mapVC setCenterLatitude:lat];
 	[mapVC setCenterLongitude:lon];
 	
@@ -245,10 +247,14 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)updateAddToFavouritesButton {
 	
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.foodVenue.venueID intValue] favType:FAVOURITE_TYPE_FOOD];
+	BOOL favourite = [Favourite isItemFavourite:[self.foodVenue venueID] favouriteType:@"Food venues" inManagedObjectContext:self.managedObjectContext];
 	
-	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];*/
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 

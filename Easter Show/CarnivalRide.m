@@ -2,7 +2,7 @@
 //  CarnivalRide.m
 //  Easter Show
 //
-//  Created by Richard Lee on 23/01/12.
+//  Created by Richard Lee on 16/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 
 
 @implementation CarnivalRide
-
 
 + (CarnivalRide *)rideWithRideData:(NSDictionary *)rideData 
 			inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -40,6 +39,7 @@
 		carnivalRide.thumbURL = [rideData objectForKey:@"thumbURL"];
 		carnivalRide.latitude = [NSNumber numberWithDouble:-33.84476];
 		carnivalRide.longitude = [NSNumber numberWithDouble:151.07062];
+		carnivalRide.type = [rideData objectForKey:@"type"];
 	}
 	
 	return carnivalRide;
@@ -61,7 +61,6 @@
 	return foodVenue;
 }
 
-
 @dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;
@@ -69,5 +68,6 @@
 @dynamic rideID;
 @dynamic thumbURL;
 @dynamic title;
+@dynamic type;
 
 @end

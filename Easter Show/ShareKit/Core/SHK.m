@@ -118,11 +118,20 @@ BOOL SHKinit;
 		NSAssert(NO, @"ShareKit: There is no view controller to display from");
 	
 		
-	// If a view is already being shown, hide it, and then try again
-	if (currentView != nil)
-	{
+	if (currentView != nil) {
+		
 		self.pendingView = vc;
-		[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
+				
+		if ([currentView respondsToSelector:@selector(presentingViewController)]) {
+			
+			[[currentView presentingViewController] dismissModalViewControllerAnimated:YES];	
+		}
+		
+		else {
+				
+			[[currentView parentViewController] dismissModalViewControllerAnimated:YES];		
+		}
+		
 		return;
 	}
 		
@@ -174,12 +183,17 @@ BOOL SHKinit;
 	if (currentView != nil)
 	{
 		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
-		{
+		if ([currentView respondsToSelector:@selector(presentingViewController)] 
+			&& [currentView presentingViewController] != nil) {
+			
+			self.isDismissingView = YES;
+			[[currentView presentingViewController] dismissModalViewControllerAnimated:animated];
+		}
+		else if ([currentView parentViewController] != nil) {
+			
 			self.isDismissingView = YES;
 			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
 		}
-		
 		else
 			self.currentView = nil;
 	}
@@ -274,7 +288,7 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKMail",nil];
 				break;
 				
 			case SHKShareTypeImage:

@@ -56,7 +56,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	self.filterHeaderImageNames = headerImageNames;
 	[headerImageNames release];
 	
-	self.imageNames = [NSArray arrayWithObjects:@"maps-all.jpg", @"maps-amenities.jpg", @"maps-animals.jpg", @"coke-map-new.jpg", @"maps-entertainment.jpg", @"maps-food.jpg", @"maps-help.jpg", @"maps-shopping.jpg", @"coke-map-new.jpg", nil];
+	self.imageNames = [NSArray arrayWithObjects:@"maps-all.jpg", @"maps-amenities.jpg", @"maps-shopping.jpg", @"maps-food.jpg", @"maps-carnivals.jpg", @"maps-animals.jpg", @"maps-amenities.jpg", @"maps-entertainment.jpg", @"maps-help.jpg", nil];
 	
 	// Set up navigation bar
 	[self setupNavBar];

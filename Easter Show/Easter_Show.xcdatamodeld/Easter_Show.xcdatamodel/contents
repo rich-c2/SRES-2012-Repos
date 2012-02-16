@@ -8,6 +8,7 @@
         <attribute name="rideID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -78,7 +79,7 @@
         <attribute name="version" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CarnivalRide" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="CarnivalRide" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Event" positionX="160" positionY="192" width="128" height="165"/>
         <element name="EventDateTime" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Favourite" positionX="180" positionY="324" width="128" height="105"/>

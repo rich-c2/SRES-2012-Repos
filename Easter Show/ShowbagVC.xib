@@ -158,14 +158,11 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="383477175"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="38858640">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">share-button-on.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUISelectedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">shareButton-on.png</string>
-								</object>
+								<reference key="IBUISelectedImage" ref="38858640"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">share-button.png</string>
@@ -199,14 +196,11 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="383477175"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="395592912">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">map-button-on.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUISelectedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">viewMapButton-on.png</string>
-								</object>
+								<reference key="IBUISelectedImage" ref="395592912"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">map-button.png</string>
@@ -238,14 +232,11 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="383477175"/>
-								<object class="NSCustomResource" key="IBUIHighlightedImage">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="509694048">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">fav-button-on.png</string>
 								</object>
-								<object class="NSCustomResource" key="IBUISelectedImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">addToFavouritesButton-on.png</string>
-								</object>
+								<reference key="IBUISelectedImage" ref="509694048"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">fav-button.png</string>
@@ -773,11 +764,11 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="1"/>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="1"/>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="1"/>
+					<real value="2"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -930,7 +921,6 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>addToFavouritesButton-on.png</string>
 				<string>back-button.png</string>
 				<string>fav-button-on.png</string>
 				<string>fav-button.png</string>
@@ -938,14 +928,11 @@
 				<string>map-button.png</string>
 				<string>share-button-on.png</string>
 				<string>share-button.png</string>
-				<string>shareButton-on.png</string>
 				<string>showbags-placeholder.png</string>
-				<string>viewMapButton-on.png</string>
 				<string>white-stiched-border.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{156, 31}</string>
 				<string>{45, 24}</string>
 				<string>{107, 28}</string>
 				<string>{107, 28}</string>
@@ -953,9 +940,7 @@
 				<string>{107, 28}</string>
 				<string>{106, 28}</string>
 				<string>{106, 28}</string>
-				<string>{71, 31}</string>
 				<string>{320, 150}</string>
-				<string>{57, 31}</string>
 				<string>{320, 1}</string>
 			</object>
 		</object>

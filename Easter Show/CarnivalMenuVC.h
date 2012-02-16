@@ -15,9 +15,16 @@
 	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext *managedObjectContext;
 	
+	BOOL viewLoaded;
+	
 	UITableView *menuTable;
 
 	CarnivalTableCell *loadCell;
+	
+	UIButton *cokeFilterButton;
+	UIButton *kidsFilterButton;
+	
+	BOOL viewingCoke;
 }
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
@@ -26,6 +33,9 @@
 @property (nonatomic, retain) IBOutlet UITableView *menuTable;
 
 @property (nonatomic, retain) IBOutlet CarnivalTableCell *loadCell;
+
+@property (nonatomic, retain) IBOutlet UIButton *cokeFilterButton;
+@property (nonatomic, retain) IBOutlet UIButton *kidsFilterButton;
 
 
 - (void)showLoading;
@@ -36,6 +46,9 @@
 - (void)setupNavBar;
 - (void)addCarnivaRidesToCoreData:(NSArray *)rideNodes;
 - (IBAction)goBack:(id)sender;
+- (NSPredicate *)getPredicateForSelectedFilter;
 
+- (IBAction)cocaColaCarnivalButtonClicked:(id)sender;
+- (IBAction)kidsCarnivalButtonClicked:(id)sender;
 
 @end

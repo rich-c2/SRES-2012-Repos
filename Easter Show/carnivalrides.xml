@@ -7,6 +7,7 @@
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
 		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
 	</ride>
 	<ride id="2">
 		<title>Wild Raft</title>
@@ -15,6 +16,7 @@
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
 		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
 	</ride>
 	<ride id="3">
 		<title>Surf's Up</title>
@@ -23,6 +25,7 @@
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
 		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
 	</ride>
 	<ride id="4">
 		<title>Bounce Around</title>
@@ -31,6 +34,7 @@
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
 		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
 	</ride>
 	<ride id="5">
 		<title>Carousel</title>
@@ -39,5 +43,24 @@
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
 		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="6">
+		<title>Break Dance</title>
+		<description>Hop around and hold on tight for an experience full of colour, thumping music and thrills.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="7">
+		<title>Crazy Cars</title>
+		<description>Crazy The latest from the world of European dodgems, Crazy Cars ramps up the action with the biggest track, the most cars, 8000 throbbing LED lights and a red hot sound system pumping out the beat. Cars are designed by world-leading Italian designers and all cars are fitted with padded seat belts.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Coca-Cola Carnival</type>
 	</ride>
 </rides>	

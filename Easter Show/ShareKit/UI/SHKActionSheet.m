@@ -67,9 +67,6 @@
 		}
 	}
 	
-	// Add More button
-	[as addButtonWithTitle:SHKLocalizedString(@"More...")];
-	
 	// Add Cancel button
 	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
 	as.cancelButtonIndex = as.numberOfButtons -1;
@@ -90,15 +87,6 @@
 	if (buttonIndex >= 0 && buttonIndex < sharers.count)
 	{
 		[NSClassFromString([sharers objectAtIndex:buttonIndex]) performSelector:@selector(shareItem:) withObject:item];
-	}
-	
-	// More
-	else if (buttonIndex == sharers.count)
-	{
-		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
-		shareMenu.item = item;
-		[[SHK currentHelper] showViewController:shareMenu];
-		[shareMenu release];
 	}
 	
 	[super dismissWithClickedButtonIndex:buttonIndex animated:animated];

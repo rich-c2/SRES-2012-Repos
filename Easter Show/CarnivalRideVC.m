@@ -15,6 +15,7 @@
 #import "ImageManager.h"
 #import "StringHelper.h"
 #import "Favourite.h"
+#import "Constants.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -51,7 +52,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
 	[self updateAddToFavouritesButton];
 	
@@ -101,8 +102,6 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	[super viewDidAppear:NO];
 	
 	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
 }
 
 
@@ -182,7 +181,8 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	double lon = [self.carnivalRide.longitude doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	//[mapVC setMapID:MAP_ID_CARNIVALS];
+	[mapVC setTitleText:self.carnivalRide.title];
+	[mapVC setMapID:MAP_ID_CARNIVALS];
 	[mapVC setCenterLatitude:lat];
 	[mapVC setCenterLongitude:lon];
 	
@@ -219,10 +219,14 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)updateAddToFavouritesButton {
 	
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.carnivalRide.rideID intValue] favType:FAVOURITE_TYPE_CARNIVAL];
+	BOOL favourite = [Favourite isItemFavourite:[self.carnivalRide rideID] favouriteType:@"Carnival rides" inManagedObjectContext:self.managedObjectContext];
 	
-	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];*/
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 

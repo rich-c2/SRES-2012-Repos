@@ -46,8 +46,8 @@
 // If SHKFacebookUseSessionProxy is enabled then SHKFacebookSecret is ignored and should be left blank
 
 #define SHKFacebookUseSessionProxy  NO 
-#define SHKFacebookKey				@""
-#define SHKFacebookSecret			@""
+#define SHKFacebookKey				@"d687a83100e1f0f54c917e4124f54b38"
+#define SHKFacebookSecret			@"70ca7a67e072c650f0d9d96e05f68490"
 #define SHKFacebookSessionProxyURL  @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
@@ -69,15 +69,15 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
-#define SHKTwitterConsumerKey		@""
-#define SHKTwitterSecret			@""
-#define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
+#define SHKTwitterConsumerKey		@"q8FlLM888l32qsTMF22SeA"
+#define SHKTwitterSecret			@"PqFw7mDFULNGpMmuv8992KE5oPauYlf0poydXOuS5I0"
+#define SHKTwitterCallbackUrl		@"http://www.c2.net.au/sres/twitter/" // You need to set this if using OAuth, see note above (xAuth users can skip it)
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
-#define SHKBitLyLogin				@""
-#define SHKBitLyKey					@""
+#define SHKBitLyLogin				@"sresiphone"
+#define SHKBitLyKey					@"R_fb5f4406c9c7614ac9ff0b31b3ada8da"
 
 // ShareMenu Ordering
 #define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist

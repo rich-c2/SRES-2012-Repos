@@ -36,7 +36,7 @@
 #define MAP_ID_HELP 7
 #define MAP_ID_SHOPPING 8
 #define MAP_ID_COMPETITIONS 5
-#define MAP_ID_COKE 9
+#define MAP_ID_SHOWBAGS 9
 
 #define COKE_EVENT_ID 0
 #define COKE_EVENT_ID1 5361

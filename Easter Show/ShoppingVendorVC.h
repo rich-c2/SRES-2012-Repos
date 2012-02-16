@@ -61,13 +61,13 @@
 - (void)setDetailFields;
 - (void)resizeTextView:(UITextView *)_textView;
 - (void)addToFavourites:(id)sender;
-- (void)goToEventMap:(id)sender;
-- (void)adjustScrollViewContentHeight;
+- (IBAction)goToVendorMap:(id)sender;
 - (IBAction)goBack:(id)sender;
 - (void)setupNavBar;
 - (void)recordPageView;
 - (void)updateAddToFavouritesButton;
-
+- (IBAction)showShareOptions:(id)sender;
+- (IBAction)addToFavourites:(id)sender;
 - (void)initImage:(NSString *)urlString;
 - (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url;
 

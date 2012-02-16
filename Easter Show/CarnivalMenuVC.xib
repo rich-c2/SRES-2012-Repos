@@ -144,13 +144,21 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">COCA-COLA</string>
 						<reference key="IBUIHighlightedTitleColor" ref="1046534637"/>
 						<object class="NSColor" key="IBUINormalTitleColor" id="913586016">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="73046343"/>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="711766039">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">coke-carnival-button-on.png</string>
+						</object>
+						<reference key="IBUISelectedImage" ref="711766039"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">coke-carnival-button.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="314946974"/>
 						<reference key="IBUIFont" ref="982746769"/>
 					</object>
@@ -169,10 +177,18 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">KIDS</string>
 						<reference key="IBUIHighlightedTitleColor" ref="1046534637"/>
 						<reference key="IBUINormalTitleColor" ref="913586016"/>
 						<reference key="IBUINormalTitleShadowColor" ref="73046343"/>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="144939734">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">kids-carnival-button-on.png</string>
+						</object>
+						<reference key="IBUISelectedImage" ref="144939734"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">kids-carnival-button.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="314946974"/>
 						<reference key="IBUIFont" ref="982746769"/>
 					</object>
@@ -216,6 +232,22 @@
 			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">menuTable</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="790395546"/>
+					</object>
+					<int key="connectionID">5</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cokeFilterButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="206742565"/>
+					</object>
+					<int key="connectionID">16</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="191373211"/>
@@ -224,11 +256,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">menuTable</string>
+						<string key="label">kidsFilterButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="790395546"/>
+						<reference key="destination" ref="350806150"/>
 					</object>
-					<int key="connectionID">5</int>
+					<int key="connectionID">19</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -245,6 +277,24 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">7</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">cocaColaCarnivalButtonClicked:</string>
+						<reference key="source" ref="206742565"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">17</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">kidsCarnivalButtonClicked:</string>
+						<reference key="source" ref="350806150"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">20</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -329,7 +379,9 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="2" key="12.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="2" key="13.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="14.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -340,29 +392,47 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">20</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">CarnivalMenuVC</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">goBack:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">goBack:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="cocaColaCarnivalButtonClicked:">id</string>
+						<string key="goBack:">id</string>
+						<string key="kidsCarnivalButtonClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="cocaColaCarnivalButtonClicked:">
+							<string key="name">cocaColaCarnivalButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goBack:">
 							<string key="name">goBack:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+						<object class="IBActionInfo" key="kidsCarnivalButtonClicked:">
+							<string key="name">kidsCarnivalButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="cokeFilterButton">UIButton</string>
+						<string key="kidsFilterButton">UIButton</string>
 						<string key="loadCell">CarnivalTableCell</string>
 						<string key="menuTable">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="cokeFilterButton">
+							<string key="name">cokeFilterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="kidsFilterButton">
+							<string key="name">kidsFilterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="loadCell">
 							<string key="name">loadCell</string>
 							<string key="candidateClassName">CarnivalTableCell</string>
@@ -418,6 +488,10 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="back-button-on.png">{45, 24}</string>
 			<string key="back-button.png">{45, 24}</string>
+			<string key="coke-carnival-button-on.png">{160, 28}</string>
+			<string key="coke-carnival-button.png">{160, 28}</string>
+			<string key="kids-carnival-button-on.png">{160, 28}</string>
+			<string key="kids-carnival-button.png">{160, 28}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

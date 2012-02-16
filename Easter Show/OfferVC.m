@@ -58,7 +58,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-large-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
 	[self updateAddToFavouritesButton];	
 
@@ -76,8 +76,6 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[super viewDidAppear:NO];
 	
 	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
 }
 
 
@@ -114,6 +112,18 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
     [super viewWillDisappear:animated];
 }
+
+
+/*
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	
+	// CONTINUE ORDER WAS PRESSED /////////////////////////////////////////////////
+	if (buttonIndex == 0) {
+		
+		// Push redeem to API
+		[self pushRedeemToAPI];
+	}
+}*/
 
 
 #pragma mark TwitterVCDelegate
@@ -234,10 +244,14 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 - (void)updateAddToFavouritesButton {
 
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.offer.offerID intValue] favType:FAVOURITE_TYPE_OFFER];
+	BOOL favourite = [Favourite isItemFavourite:[self.offer offerID] favouriteType:@"Offers" inManagedObjectContext:self.managedObjectContext];
 	
-	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];*/
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 
@@ -278,51 +292,65 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	if ([self.offer.offerType isEqualToString:@"single"]) {
 		
-		// Set the object's redeemed property to 1
-		self.offer.redeemed = [NSNumber numberWithInt:1];
-		[[self appDelegate] saveContext];
+		// open an alert with just an OK button
+		/*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to proceed - this offer can only be redeemed once."
+													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"YES", nil];
+		[alert addButtonWithTitle:@"NO"];
 		
-		[self showLoading];
-	
-		// Disable redeem button
-		[self.redeemButton setEnabled:NO];
-
-		NSString *docName = @"put_redeem";
+		[alert show];	
+		[alert release];*/
 		
-		NSMutableString *mutableXML = [NSMutableString string];
-		[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
-		[mutableXML appendString:@"<redeem>"];
-		[mutableXML appendFormat:@"<uID>%@</uID>", [[self appDelegate] getDeviceID]];
-		[mutableXML appendFormat:@"<offerID>%i</offerID>", [self.offer.offerID intValue]];
-		[mutableXML appendString:@"</redeem>"];
-		
-		NSLog(@"XML:%@", mutableXML);
-		
-		// Change the string to NSData for transmission
-		NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
-		
-		NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
-		NSLog(@"FOOD VENUES URL:%@", urlString);
-		
-		NSURL *url = [urlString convertToURL];
-		
-		// Create the request.
-		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-															   cachePolicy:NSURLRequestUseProtocolCachePolicy
-														   timeoutInterval:45.0];
-		
-		//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-		[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-		[request setHTTPMethod:@"POST"];
-		[request setHTTPBody:requestBody];
-		
-		
-		// JSONFetcher
-		fetcher = [[JSONFetcher alloc] initWithURLRequest:request
-												 receiver:self
-												   action:@selector(receivedFeedResponse:)];
-		[fetcher start];
+		[self pushRedeemToAPI];
 	}
+}
+
+
+- (void)pushRedeemToAPI {
+
+	// Set the object's redeemed property to 1
+	self.offer.redeemed = [NSNumber numberWithInt:1];
+	[[self appDelegate] saveContext];
+	
+	[self showLoading];
+	
+	// Disable redeem button
+	[self.redeemButton setEnabled:NO];
+	
+	NSString *docName = @"put_redeem";
+	
+	NSMutableString *mutableXML = [NSMutableString string];
+	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
+	[mutableXML appendString:@"<redeem>"];
+	[mutableXML appendFormat:@"<uID>%@</uID>", [[self appDelegate] getDeviceID]];
+	[mutableXML appendFormat:@"<offerID>%i</offerID>", [self.offer.offerID intValue]];
+	[mutableXML appendString:@"</redeem>"];
+	
+	NSLog(@"XML:%@", mutableXML);
+	
+	// Change the string to NSData for transmission
+	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+	
+	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
+	NSLog(@"FOOD VENUES URL:%@", urlString);
+	
+	NSURL *url = [urlString convertToURL];
+	
+	// Create the request.
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+														   cachePolicy:NSURLRequestUseProtocolCachePolicy
+													   timeoutInterval:45.0];
+	
+	//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPMethod:@"POST"];
+	[request setHTTPBody:requestBody];
+	
+	
+	// JSONFetcher
+	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
+											 receiver:self
+											   action:@selector(receivedFeedResponse:)];
+	[fetcher start];
 }
 
 

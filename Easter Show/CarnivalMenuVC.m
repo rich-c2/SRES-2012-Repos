@@ -19,7 +19,7 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 @implementation CarnivalMenuVC
 
 @synthesize fetchedResultsController, managedObjectContext;
-@synthesize menuTable, loadCell;
+@synthesize menuTable, loadCell, cokeFilterButton, kidsFilterButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +49,19 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	
 	[self setupNavBar];
 	
+	[self.cokeFilterButton setBackgroundImage:[UIImage imageNamed:@"coke-carnival-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	[self.kidsFilterButton setBackgroundImage:[UIImage imageNamed:@"kids-carnival-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
+	
+	[self.cokeFilterButton setSelected:YES];
+    [self.cokeFilterButton setHighlighted:NO];
+    [self.cokeFilterButton setUserInteractionEnabled:NO];	
+	
+	// By default we're viewing coke rides
+	viewingCoke = YES;
+	
 	[self fetchRidesFromCoreData];
+	
+	
 }
 
 
@@ -70,6 +82,9 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	self.managedObjectContext = nil;
 	self.menuTable = nil; 
 	self.loadCell = nil;
+	
+	self.cokeFilterButton = nil;
+	self.kidsFilterButton = nil;
 }
 
 
@@ -88,11 +103,15 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	// file and add the data to Core Data for future use.
 	BOOL previouslyLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kCarnivalsPreviouslyLoadedKey];
 	
+	// Show the loading animation
+	if (!viewLoaded || !previouslyLoaded) [self showLoading];
+	
+	// Load the Shopping objects from the relevant XML file
 	if (!previouslyLoaded) {
 		
 		[self showLoading];
 	
-		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"CarnivalRides" ofType:@"xml"];  
+		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"carnivalrides" ofType:@"xml"];  
 		NSData *myData = [NSData dataWithContentsOfFile:filePath];  
 		NSString *xPathQuery;
 		
@@ -108,8 +127,13 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCarnivalsPreviouslyLoadedKey];
 			}
 		}  
+	}
+	
+	if (!viewLoaded) {
 		
 		[self fetchRidesFromCoreData];
+		
+		viewLoaded = YES;
 		
 		[self hideLoading];
 	}
@@ -133,6 +157,7 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 		fetchRequest.entity = [NSEntityDescription entityForName:@"CarnivalRide" inManagedObjectContext:managedObjectContext];
         fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
 		fetchRequest.fetchBatchSize = 20;
+		fetchRequest.predicate = [self getPredicateForSelectedFilter];
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
@@ -304,7 +329,6 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 
 			if ([[rideNode contentString] length] > 0)
 				[rideData setObject:[rideNode contentString] forKey:[rideNode name]];
-			
 		}
 		
 		// Store CarnivalRide data in Core Data persistent store
@@ -393,7 +417,63 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 }
 
 
+- (IBAction)cocaColaCarnivalButtonClicked:(id)sender {
+	
+	[self.cokeFilterButton setSelected:YES];
+	[self.cokeFilterButton setUserInteractionEnabled:NO];
+	
+	[self.kidsFilterButton setSelected:NO];
+    [self.kidsFilterButton setHighlighted:NO];
+	[self.kidsFilterButton setUserInteractionEnabled:YES];
+	
+	viewingCoke = YES;
+	
+	[NSFetchedResultsController deleteCacheWithName:nil];
+	self.fetchedResultsController.fetchRequest.predicate = [self getPredicateForSelectedFilter];
+	
+	// Query the persistent store
+	[self fetchRidesFromCoreData];
+	
+	[self.menuTable reloadData];
+}
+
+
+- (IBAction)kidsCarnivalButtonClicked:(id)sender {
+
+	[self.kidsFilterButton setSelected:YES];
+	[self.kidsFilterButton setUserInteractionEnabled:NO];
+	
+	[self.cokeFilterButton setSelected:NO];
+    [self.cokeFilterButton setHighlighted:NO];
+	[self.cokeFilterButton setUserInteractionEnabled:YES];
+	
+	viewingCoke = NO;
+	
+	[NSFetchedResultsController deleteCacheWithName:nil];
+	self.fetchedResultsController.fetchRequest.predicate = [self getPredicateForSelectedFilter];
+	
+	// Query the persistent store
+	[self fetchRidesFromCoreData];
+	
+	[self.menuTable reloadData];
+}
+
+
+- (NSPredicate *)getPredicateForSelectedFilter {
+		
+	NSPredicate *predicate;
+	
+	if (viewingCoke) predicate = [NSPredicate predicateWithFormat:@"type = 'Coca-Cola Carnival'"];
+	else predicate = [NSPredicate predicateWithFormat:@"type = 'Kids Carnival'"];
+	
+	return predicate;
+}
+
+
 - (void)dealloc {
+	
+	[cokeFilterButton release];
+	[kidsFilterButton release];
 	
 	[fetchedResultsController release];
 	[managedObjectContext release];

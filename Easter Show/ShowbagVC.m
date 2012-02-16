@@ -15,6 +15,7 @@
 #import "ImageManager.h"
 #import "StringHelper.h"
 #import "Favourite.h"
+#import "Constants.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -52,7 +53,7 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
 	[self updateAddToFavouritesButton];
 	
@@ -103,8 +104,6 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	[super viewDidAppear:NO];
 	
 	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
 }
 
 
@@ -209,6 +208,8 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	double lon = [[self.showbag longitude] doubleValue];
 	
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
+	[mapVC setTitleText:self.showbag.title];
+	[mapVC setMapID:MAP_ID_SHOWBAGS];
 	[mapVC setCenterLatitude:lat];
 	[mapVC setCenterLongitude:lon];
 	
@@ -247,10 +248,14 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)updateAddToFavouritesButton {
 	
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.showbag.showbagID intValue] favType:FAVOURITE_TYPE_SHOWBAG];
+	BOOL favourite = [Favourite isItemFavourite:[self.showbag showbagID] favouriteType:@"Showbags" inManagedObjectContext:self.managedObjectContext];
 	
-	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];*/
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 

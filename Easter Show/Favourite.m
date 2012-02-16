@@ -43,6 +43,27 @@
 }
 
 
++ (BOOL)isItemFavourite:(NSNumber *)itemID favouriteType:(NSString *)type 
+			inManagedObjectContext:(NSManagedObjectContext *)context {
+
+	Favourite *favourite = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:context];
+	
+	//NSNumber *idNum = [NSNumber numberWithInt:[[favouriteData objectForKey:@"itemID"] intValue]];
+	request.predicate = [NSPredicate predicateWithFormat:@"itemID == %@ AND favouriteType = %@", itemID, type];
+	
+	NSError *error = nil;
+	favourite = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && favourite) return YES;
+	
+	return NO;
+}
+
+
 @dynamic favouriteID;
 @dynamic favouriteType;
 @dynamic itemID;

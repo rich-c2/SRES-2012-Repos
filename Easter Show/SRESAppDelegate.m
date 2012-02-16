@@ -12,6 +12,7 @@
 #import "OffersMenuVC.h"
 #import "FavouritesMenuVC.h"
 #import "MapsVC.h"
+#import "Constants.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres2012.supergloo.net.au/api/";
 //OLD API @"http://sres.c2gloo.net/xml/";
@@ -534,6 +535,56 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	
     return [NSString stringWithString:temp];
 	
+}
+
+
+- (NSString *)getMapFileNameWithID:(NSInteger)_mapID { 
+	
+	NSString *fileName = nil;
+	
+	switch (_mapID) {
+			
+		case MAP_ID_ALL:
+			fileName = @"maps-all.jpg";
+			break;
+			
+		case MAP_ID_AMENITIES:
+			fileName = @"maps-amenities.jpg";
+			break;
+			
+		case MAP_ID_ANIMALS:
+			fileName = @"maps-animals.jpg";
+			break;
+			
+		case MAP_ID_CARNIVALS:
+			fileName = @"maps-carnivals.jpg";
+			break;
+			
+		case MAP_ID_ENTERTAINMENT:
+			fileName = @"maps-entertainmen.jpg";
+			break;
+			
+		case MAP_ID_FOOD:
+			fileName = @"maps-food.jpg";
+			break;
+			
+		case MAP_ID_HELP:
+			fileName = @"maps-help.jpg";
+			break;
+			
+		case MAP_ID_SHOPPING:
+			fileName = @"maps-shopping.jpg";
+			break;
+			
+		case MAP_ID_SHOWBAGS:
+			fileName = @"maps-all.jpg";
+			break;
+			
+		default:
+			break;
+	}
+	
+	return fileName;
 }
 
 

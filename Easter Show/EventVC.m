@@ -16,6 +16,7 @@
 #import "StringHelper.h"
 #import "ImageManager.h"
 #import "EventDateTime.h"
+#import "Constants.h"
 
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
@@ -52,13 +53,13 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	[self.addToPlannerButton setImage:[UIImage imageNamed:@"addToFavouritesButton-on.png"] forState:UIControlStateHighlighted|UIControlStateSelected];
-	
-	// Is it already added to favourites?
-	[self updateAddToFavouritesButton];
+	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
 	// Setup navigation bar elements
 	[self setupNavBar];
+	
+	// Update add to favs button
+	[self updateAddToFavouritesButton];
 }
 
 
@@ -99,9 +100,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[super viewDidAppear:NO];
 	
 	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
-	
 }
 
 
@@ -141,9 +139,26 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 
 - (void)goToEventMap:(id)sender {
+	
+	NSInteger mapID;
+	
+	if ([self.eventDateTime.forEvent.category isEqualToString:@"Entertainment"]) {
+		mapID = MAP_ID_ENTERTAINMENT;
+	}
+	
+	else if ([self.eventDateTime.forEvent.category isEqualToString:@"Animals"]) {
+		mapID = MAP_ID_ANIMALS;
+	}
+	
+	else if ([self.eventDateTime.forEvent.category isEqualToString:@"Competitions"]) {
+		mapID = MAP_ID_COMPETITIONS;
+	}
+	
+	else mapID = MAP_ID_ALL;
 
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
-	[mapVC setMapID:[self.eventDateTime.forEvent.eventID intValue]];
+	[mapVC setTitleText:self.eventDateTime.forEvent.title];
+	[mapVC setMapID:mapID];
 	[mapVC setCenterLatitude:[self.eventDateTime.forEvent.latitude doubleValue]];
 	[mapVC setCenterLongitude:[self.eventDateTime.forEvent.longitude doubleValue]];
 
@@ -234,10 +249,14 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 - (void)updateAddToFavouritesButton {
 	
-	/*BOOL alreadyFavourite = [appDelegate alreadyAddedToFavourites:[self.event.eventID intValue] favType:FAVOURITE_TYPE_EVENT];
+	BOOL favourite = [Favourite isItemFavourite:[self.eventDateTime dateTimeID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
 	
-	if (alreadyFavourite) [self.addToPlannerButton setSelected:YES];
-	else [self.addToPlannerButton setSelected:NO];*/
+	if (favourite) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 }
 
 

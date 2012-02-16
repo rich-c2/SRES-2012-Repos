@@ -84,10 +84,12 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 	// file and add the data to Core Data for future use.
 	BOOL previouslyLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kShoppingVendorsPreviouslyLoadedKey];
 	
+	// Show the loading animation
+	if (!viewLoaded || !previouslyLoaded) [self showLoading];
+	
+	// Load the Shopping objects from the relevant XML file
 	if (!previouslyLoaded) {
-		
-		[self showLoading];
-		
+				
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"shoppingVendors" ofType:@"xml"];  
 		NSData *myData = [NSData dataWithContentsOfFile:filePath];  
 		NSString *xPathQuery;
@@ -104,8 +106,13 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShoppingVendorsPreviouslyLoadedKey];
 			}
 		}  
-		
+	}
+	
+	if (!viewLoaded) {
+	
 		[self fetchVendorsFromCoreData];
+		
+		viewLoaded = YES;
 		
 		[self hideLoading];
 	}

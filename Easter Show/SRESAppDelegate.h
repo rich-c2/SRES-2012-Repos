@@ -48,5 +48,6 @@ extern NSString* const API_SERVER_ADDRESS;
 - (NSString *)getDeviceID;
 - (CGFloat)getAppVersion;
 - (NSString *)replaceHtmlEntities:(NSString *)htmlCode;
+- (NSString *)getMapFileNameWithID:(NSInteger)_mapID;
 
 @end

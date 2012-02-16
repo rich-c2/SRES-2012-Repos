@@ -67,6 +67,7 @@
 - (IBAction)goBack:(id)sender;
 - (void)showLoading;
 - (void)hideLoading;
+- (void)pushRedeemToAPI;
 
 
 @end

@@ -46,6 +46,22 @@
 }
 
 
++ (ShoppingVendor *)getShoppingVendorWithID:(NSNumber *)shopID inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	ShoppingVendor *vendor = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"ShoppingVendor" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"shopID == %@", shopID];
+	
+	NSError *error = nil;
+	vendor = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return vendor;
+}
+
+
 @dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;
