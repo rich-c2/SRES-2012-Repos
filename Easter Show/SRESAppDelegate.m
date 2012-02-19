@@ -19,6 +19,9 @@ NSString* const API_SERVER_ADDRESS = @"http://sres2012.supergloo.net.au/api/";
 
 static NSString *kAppVersionKey = @"appVersionKey";
 static NSString *kDeviceIDKey = @"deviceIDKey";
+static NSString *kOffersLoadedKey = @"offersLoadedKey";
+static NSString *kFoodVenuesLoadedKey = @"foodVenuesLoadedKey";
+static NSString *kShowbagsLoadedKey = @"showbagsLoadedKey";
 
 @implementation SRESAppDelegate
 
@@ -27,6 +30,7 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize tabBarController, moreVC, eventsLandingVC, offersMenuVC, favsMenuVC, mapsVC;
+@synthesize offlineMode;
 
 - (void)dealloc {
 	
@@ -75,6 +79,14 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
     }
 
 	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	// Set the booleans for the dynamic data sets to NO
+	// so that they are loaded this session
+	[self setOffersLoaded:NO];
+	[self setFoodVenuesLoaded:NO];
+	[self setShowbagsLoaded:NO];
+	
 	
 	// EventsLandingVC
 	eventsLandingVC = [[EventsLandingVC alloc] initWithNibName:@"EventsLandingVC" bundle:nil];
@@ -560,8 +572,12 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 			fileName = @"maps-carnivals.jpg";
 			break;
 			
+		case MAP_ID_COMPETITIONS:
+			fileName = @"maps-all.jpg";
+			break;
+			
 		case MAP_ID_ENTERTAINMENT:
-			fileName = @"maps-entertainmen.jpg";
+			fileName = @"maps-entertainment.jpg";
 			break;
 			
 		case MAP_ID_FOOD:
@@ -585,6 +601,45 @@ static NSString *kDeviceIDKey = @"deviceIDKey";
 	}
 	
 	return fileName;
+}
+
+
+- (BOOL)offersLoaded {
+	
+	// Return the BOOL indicating whether Offers have been loaded this session
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kOffersLoadedKey];
+}
+
+
+- (void)setOffersLoaded:(BOOL)loaded {
+
+	[[NSUserDefaults standardUserDefaults] setBool:loaded forKey:kOffersLoadedKey];
+}
+
+
+- (BOOL)showbagsLoaded {
+	
+	// Return the BOOL indicating whether Showbags have been loaded this session
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kShowbagsLoadedKey];
+}
+
+
+- (void)setShowbagsLoaded:(BOOL)loaded {
+	
+	[[NSUserDefaults standardUserDefaults] setBool:loaded forKey:kShowbagsLoadedKey];
+}
+
+
+- (BOOL)foodVenuesLoaded {
+	
+	// Return the BOOL indicating whether foodVenues have been loaded this session
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kFoodVenuesLoadedKey];
+}
+
+
+- (void)setFoodVenuesLoaded:(BOOL)loaded {
+	
+	[[NSUserDefaults standardUserDefaults] setBool:loaded forKey:kFoodVenuesLoadedKey];
 }
 
 

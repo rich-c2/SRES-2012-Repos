@@ -27,7 +27,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 @implementation EventVC
 
 @synthesize eventDateTime, managedObjectContext, navigationTitle;
-@synthesize dateLabel, descriptionLabel, titleLabel;
+@synthesize dateLabel, descriptionLabel, titleLabel, stitchedBorder;
 @synthesize shareButton, addToPlannerButton, mapButton;
 
 
@@ -92,6 +92,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	self.shareButton = nil;
 	self.mapButton = nil;
 	self.addToPlannerButton = nil;
+	self.stitchedBorder = nil;
 }
 
 
@@ -189,9 +190,16 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 6.0;
 	[self.dateLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.dateLabel.frame.origin.y + self.dateLabel.frame.size.height + 12.0; 
+	[self.stitchedBorder setFrame:borderFrame];
 	
 	// EVENT DESCRIPTION
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(-8,-8,0,0);
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.descriptionLabel.text = self.eventDateTime.forEvent.eventDescription;
 }
 
@@ -268,6 +276,7 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[dateLabel release];
 	[descriptionLabel release];
 	[titleLabel release];
+	[stitchedBorder release];
 	
 	[navigationTitle release];
 	

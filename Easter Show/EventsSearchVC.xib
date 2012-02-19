@@ -44,10 +44,14 @@
 							<object class="IBUIButton" id="231266838">
 								<reference key="NSNextResponder" ref="992366135"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="992366135"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="62242659"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="575442422">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MCAwAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -85,7 +89,7 @@
 							<object class="IBUITextField" id="62242659">
 								<reference key="NSNextResponder" ref="992366135"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{59, 5}, {254, 23}}</string>
+								<string key="NSFrame">{{59, 8}, {255, 28}}</string>
 								<reference key="NSSuperview" ref="992366135"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="564398034"/>
@@ -121,7 +125,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="231266838"/>
@@ -134,14 +138,11 @@
 					<object class="IBUITableView" id="564398034">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 36}, {320, 375}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 367}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="575442422"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
@@ -350,7 +351,6 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="loadCell">EventTableCell</string>
-						<string key="search">UISearchBar</string>
 						<string key="searchField">UITextField</string>
 						<string key="searchTable">UITableView</string>
 					</dictionary>
@@ -358,10 +358,6 @@
 						<object class="IBToOneOutletInfo" key="loadCell">
 							<string key="name">loadCell</string>
 							<string key="candidateClassName">EventTableCell</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="search">
-							<string key="name">search</string>
-							<string key="candidateClassName">UISearchBar</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="searchField">
 							<string key="name">searchField</string>
@@ -384,8 +380,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="back-button-on.png">{45, 24}</string>
-			<string key="back-button.png">{45, 24}</string>
+			<string key="back-button-on.png">{45, 28}</string>
+			<string key="back-button.png">{45, 28}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>

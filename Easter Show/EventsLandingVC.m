@@ -113,16 +113,7 @@
 - (void)retrieveXML {
 	
 	NSString *docName = @"get_init.json";
-	
-	//NSString *mutableXML = [self compileRequestXML];
-	
-	//NSLog(@"XML:%@", mutableXML);
-	
-	// Change the string to NSData for transmission
-	//NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
-	
 	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
-	
 	NSURL *url = [urlString convertToURL];
 	
 	// Create the request.
@@ -133,80 +124,11 @@
 	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 	//[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPMethod:@"GET"];
-	//[request setHTTPBody:requestBody];
-	
-	// JSONFetcher
-	/*fetcher = [[JSONFetcher alloc] initWithURLRequest:request
-											 receiver:self
-											   action:@selector(receivedFeedResponse:)];
-	[fetcher start];*/
+
 	
 	// XML Fetcher
 	fetcher = [[XMLFetcher alloc] initWithURLRequest:request xPathQuery:@"//init" receiver:self action:@selector(receiveResponse:)];
 	[fetcher start];
-}
-
-
-// Example fetcher response handling
-- (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
-    
-    JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
-	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
-    
-	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
-	
-	loading = NO;
-	eventsLoaded = YES;
-	
-	if ([theJSONFetcher.data length] > 0) {
-		
-		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
-		
-		// Create a dictionary from the JSON string
-		NSDictionary *results = [jsonString JSONValue];
-		
-		// Build an array from the dictionary for easy access to each entry
-		NSDictionary *addObjects = [results objectForKey:@"events"];
-		
-		NSDictionary *adds = [addObjects objectForKey:@"add"];
-				
-		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
-		
-		NSLog(@"KEYS:%@", eventsDict);
-		
-		for (int i = 0; i < [eventsDict count]; i++) {
-			
-			NSDictionary *event = [eventsDict objectAtIndex:i];
-		
-			// Store Event data in Core Data persistent store
-			[Event newEventWithData:event inManagedObjectContext:self.managedObjectContext];
-		}
-		
-		NSDictionary *updates = [addObjects objectForKey:@"update"];
-		
-		NSMutableArray *updatesDict = [updates objectForKey:@"event"];
-		
-		for (int i = 0; i < [updatesDict count]; i++) {
-			
-			NSDictionary *event = [updatesDict objectAtIndex:i];
-			
-			// Store Event data in Core Data persistent store
-			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
-		}	
-		
-		[jsonString release];
-	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
-	
-	// Hide loading view
-	[self hideLoading];
-	
-	[fetcher release];
-	fetcher = nil;
 }
 
 
@@ -311,27 +233,28 @@
 
 	if ([[initData objectForKey:@"lockDown"] isEqualToString:@"True"]) {
 		
-		NSString *message = @"This app is currently in lock down mode. Bye!";
+		NSString *message = @"The app is currently undergoing maintenance and is out of action for the time being. Please visit the app again soon and it should be running as expected!";
 	
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"LOCK DOWN" message:message 
-													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
-		[alert show];    
-		[alert release];
+		AnnouncementVC *announcementVC = [[AnnouncementVC alloc] initWithNibName:@"AnnouncementVC" bundle:nil];
+		[announcementVC setDelegate:self];
+		[announcementVC setLockDown:YES];
+		[announcementVC setAnnouncementText:message];
+		[self presentModalViewController:announcementVC animated:YES];
+		[announcementVC release];
 		
 		return;
 	}
 	
+	
+	// OFFLINE MODE
 	if ([[initData objectForKey:@"offlineMode"] isEqualToString:@"True"]) {
-	
-		NSString *message = @"This app is currently in offline mode. Cheers!";
 		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OFFLINE MODE" message:message 
-													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
-		[alert show];    
-		[alert release];
+		[[self appDelegate] setOfflineMode:YES];
 		
 		return;
 	}
+	
+	else [[self appDelegate] setOfflineMode:NO];
 	
 	NSArray *keys = [initData allKeys];
 	
@@ -365,6 +288,8 @@
 			[announcementVC setAnnouncementText:[announcementDict objectForKey:@"text"]];
 			[self presentModalViewController:announcementVC animated:YES];
 			[announcementVC release];
+			
+			return;
 		}
 	}
 }

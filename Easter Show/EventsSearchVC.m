@@ -109,7 +109,18 @@
 		[self showLoading];
 	
 		// Request JSON
-		[self retrieveXML];
+		if (![[self appDelegate] offlineMode])
+			[self retrieveXML];
+		
+		else {
+		
+			[self fetchDateTimes];
+			
+			[self.searchTable reloadData];
+			
+			// Hide loading view
+			[self hideLoading];
+		}
 	}
 	
 	else {

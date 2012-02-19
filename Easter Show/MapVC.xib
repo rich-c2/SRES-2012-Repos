@@ -49,7 +49,7 @@
 							<object class="IBUIButton" id="400693963">
 								<reference key="NSNextResponder" ref="809577025"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="809577025"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="754581796"/>
@@ -90,7 +90,7 @@
 							<object class="IBUILabel" id="754581796">
 								<reference key="NSNextResponder" ref="809577025"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{59, 7}, {202, 21}}</string>
+								<string key="NSFrame">{{59, 8}, {202, 28}}</string>
 								<reference key="NSSuperview" ref="809577025"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="261277952"/>
@@ -125,7 +125,7 @@
 								</object>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="400693963"/>
@@ -138,7 +138,7 @@
 					<object class="IBUIScrollView" id="261277952">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{0, 36}, {320, 375}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 367}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="155961300"/>
@@ -157,8 +157,8 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAwIDAAA</bytes>
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -175,6 +175,10 @@
 							<string key="NSResourceName">locateMeButton-on.png</string>
 						</object>
 						<reference key="IBUISelectedImage" ref="50569470"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">locateMeButton.png</string>
+						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
@@ -336,6 +340,7 @@
 					<string>-2.IBPluginDependency</string>
 					<string>1.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
+					<string>10.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>16.IBPluginDependency</string>
 					<string>17.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
@@ -350,10 +355,11 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -474,11 +480,13 @@
 				<string>back-button-on.png</string>
 				<string>back-button.png</string>
 				<string>locateMeButton-on.png</string>
+				<string>locateMeButton.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{45, 24}</string>
-				<string>{45, 24}</string>
+				<string>{45, 28}</string>
+				<string>{45, 28}</string>
+				<string>{32, 35}</string>
 				<string>{32, 35}</string>
 			</object>
 		</object>

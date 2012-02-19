@@ -159,6 +159,7 @@
 	didReceiveResponse:(NSHTTPURLResponse *)aResponse
 {
     
+	responseStatusCode = [aResponse statusCode];
 	responseHeaderFields = [[aResponse allHeaderFields] retain];
 	
 	if ([aResponse statusCode] >= 400)
@@ -495,6 +496,14 @@
 {
 	[self close];
 }
+
+
+// Return the statusCode that was returned by the HTTPResponse
+- (NSInteger)statusCode {
+	
+	return responseStatusCode;
+}
+
 
 //
 // dealloc

@@ -37,6 +37,20 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="134973793">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrame">{{0, 36}, {320, 84}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="909077957"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">about-list-background.png</string>
+						</object>
+					</object>
 					<object class="IBUIView" id="44137102">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
@@ -44,7 +58,7 @@
 							<object class="IBUIButton" id="494032297">
 								<reference key="NSNextResponder" ref="44137102"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 23}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="44137102"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="134973793"/>
@@ -64,6 +78,10 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
 								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button-on.png</string>
+								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">back-button.png</string>
@@ -81,7 +99,7 @@
 							<object class="IBUILabel" id="134402471">
 								<reference key="NSNextResponder" ref="44137102"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 7}, {320, 21}}</string>
+								<string key="NSFrame">{{0, 8}, {320, 28}}</string>
 								<reference key="NSSuperview" ref="44137102"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="494032297"/>
@@ -115,7 +133,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="134402471"/>
@@ -124,20 +142,6 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMTEzNzI1NDkwMiAwLjIxMTc2NDcwNTkAA</bytes>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
-					<object class="IBUIImageView" id="134973793">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 34}, {320, 84}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="909077957"/>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">about-list-background.png</string>
-						</object>
 					</object>
 					<object class="IBUIButton" id="909077957">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -322,6 +326,7 @@
 						<string key="NSFrame">{{0, 370}, {320, 42}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="611607182"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -458,7 +463,6 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="134973793"/>
 							<reference ref="44137102"/>
 							<reference ref="285527654"/>
 							<reference ref="192334077"/>
@@ -466,6 +470,7 @@
 							<reference ref="1027379218"/>
 							<reference ref="909077957"/>
 							<reference ref="1039759655"/>
+							<reference ref="134973793"/>
 							<reference ref="980288919"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -563,6 +568,7 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="7.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="9.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -635,7 +641,8 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="about-list-background.png">{320, 84}</string>
-			<string key="back-button.png">{45, 23}</string>
+			<string key="back-button-on.png">{45, 28}</string>
+			<string key="back-button.png">{45, 28}</string>
 			<string key="basic-info-button-background-on.png">{320, 42}</string>
 			<string key="basic-info-button-background.png">{320, 42}</string>
 			<string key="contact-us-button-background-on.png">{320, 42}</string>

@@ -15,6 +15,7 @@
 #import "JSONFetcher.h"
 #import "SBJson.h"
 #import "SVProgressHUD.h"
+#import "Constants.h"
 
 #define UNDER10_TAG 1000
 #define OVER10_UNDER20_TAG 1001
@@ -122,13 +123,26 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	[super viewDidAppear:animated];
 	
-	// If this view has not already been loaded 
-	//(i.e not coming back from an Offer detail view)
-	if (!showbagsLoaded && !loading) {
-
-		[self showLoading];
+	if (!showbagsLoaded) {
 		
-		[self retrieveXML];
+		BOOL previouslyLoaded = [[self appDelegate] showbagsLoaded];
+		
+		if (previouslyLoaded) {
+			
+			// Fetch Showbag objets from Core Data
+			[self fetchShowbagsFromCoreData];
+			
+			showbagsLoaded = YES;
+		}
+	
+		// If this view has not already been loaded 
+		// AND the app is not in offlineMode
+		else if (!loading && ![[self appDelegate] offlineMode]) {
+
+			[self showLoading];
+			
+			[self retrieveXML];
+		}
 	}
 	
 	// Deselect the selected table cell
@@ -145,78 +159,51 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	// Hide keyboard
 	[self dismissKeyboard];
 	
-	// Adjust search table's frame now that 
-	// keyboard has disappeared
-	CGFloat keyboardHeight = 166.0;
+	// Adjust searchTable's frame height
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
 	[self.searchTable setFrame:newFrame];
-	
-	// Conduct search
-	[self handleSearchForTerm:textField.text];
 	
 	return YES;
 }
 
 
-#pragma mark
-#pragma mark Search Bar Delegate methods
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	
-	[self.searchTable setHidden:NO];
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
 
-	NSString *searchTerm = [searchBar text];
-	[self handleSearchForTerm:searchTerm];
+	[self resetSearch];
+	
+	[self.searchTable reloadData];
+	
+	return YES;
 }
 
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	
-	NSLog(@"textDidChange");
-
-	if ([searchText length] == 0) {
-		
-		NSLog(@"length == 0");
+	if ([textField.text length] == 0) [self resetSearch];
 	
-		[self resetSearch];
-		[self.searchTable reloadData];
-		return;
-	}
+	// The new search term - takes what has already been entered in the text field and combines it with 
+	// what character has been added/removed
+	NSString *searchTerm = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	
-	[self handleSearchForTerm:searchText];
+	[self handleSearchForTerm:searchTerm];
+	
+	return YES;
 }
 
 
 - (void)resetSearch {
-	
-	NSLog(@"reset search");
 
-	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
-}
-
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-
-	NSLog(@"searchBarCancelButtonClicked");
-	
-	search.text = @"";
-	[self resetSearch];
-	[self.searchTable reloadData];
-	[searchBar resignFirstResponder];
-	
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
-	
-	[self.searchTable setHidden:YES];
-	[self.search setHidden:YES];
+	if ([self.filteredListContent count] > 0) [self.filteredListContent removeAllObjects];
 }
 
 
 - (void)handleSearchForTerm:(NSString *)searchTerm {
 		
-	self.filteredListContent = (NSMutableArray *)[[self.fetchedResultsController fetchedObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
+	NSMutableArray *filteredObjects = [[NSMutableArray alloc] initWithArray:[[self.fetchedResultsController fetchedObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]]];
+		
+	self.filteredListContent = filteredObjects;
+	[filteredObjects release];
 	
 	[self.searchTable reloadData];
 }
@@ -499,58 +486,81 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
+	// The API call has finished
 	loading = NO;
-	showbagsLoaded = YES;
 	
-	if ([theJSONFetcher.data length] > 0) {
-		
-		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
-		
-		// Create a dictionary from the JSON string
-		NSDictionary *results = [jsonString JSONValue];
-		
-		// Build an array from the dictionary for easy access to each entry
-		NSDictionary *addObjects = [results objectForKey:@"showbags"];
-		
-		NSDictionary *adds = [addObjects objectForKey:@"add"];
-		
-		NSMutableArray *showbagsDict = [adds objectForKey:@"showbag"];
-		
-		//NSLog(@"KEYS:%@", showbagsDict);
-		
-		for (int i = 0; i < [showbagsDict count]; i++) {
+	// IF STATUS CODE WAS OKAY (200)
+	if ([theJSONFetcher statusCode] == 200) {
+	
+		if ([theJSONFetcher.data length] > 0) {
 			
-			NSDictionary *showbag = [showbagsDict objectAtIndex:i];
+			// Store incoming data into a string
+			NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
 			
-			NSLog(@"showbag:%@", showbag);
+			// Create a dictionary from the JSON string
+			NSDictionary *results = [jsonString JSONValue];
 			
-			// Store Showbag data in Core Data persistent store
-			[Showbag newShowbagWithData:showbag inManagedObjectContext:self.managedObjectContext];
+			// Build an array from the dictionary for easy access to each entry
+			NSDictionary *addObjects = [results objectForKey:@"showbags"];
+			
+			// ADD DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *adds = [addObjects objectForKey:@"add"];
+			NSMutableArray *showbagsDict = [adds objectForKey:@"showbag"];
+			
+			for (int i = 0; i < [showbagsDict count]; i++) {
+				
+				NSDictionary *showbag = [showbagsDict objectAtIndex:i];
+				
+				// Store Showbag data in Core Data persistent store
+				[Showbag newShowbagWithData:showbag inManagedObjectContext:self.managedObjectContext];
+			}
+			
+			
+			// UPDATE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *updates = [addObjects objectForKey:@"update"];
+			NSMutableArray *updatesDict = [updates objectForKey:@"showbag"];
+			
+			for (int i = 0; i < [updatesDict count]; i++) {
+				
+				NSDictionary *showbag = [updatesDict objectAtIndex:i];
+				
+				// Store Showbag data in Core Data persistent store
+				[Showbag updateShowbagWithShowbagData:showbag inManagedObjectContext:self.managedObjectContext];
+			}	
+			
+			
+			// REMOVE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *removes = [addObjects objectForKey:@"remove"];
+			NSMutableArray *removeObjects = [removes objectForKey:@"offer"];
+			
+			for (int i = 0; i < [removeObjects count]; i++) { 
+				
+				NSDictionary *offerDict = [removeObjects objectAtIndex:i];
+				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"showbagID"] intValue]];
+				
+				Showbag *showbag = [Showbag getShowbagWithID:idNum inManagedObjectContext:self.managedObjectContext];
+				if (showbag) [self.managedObjectContext deleteObject:showbag];
+			}
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			[jsonString release];
 		}
 		
-		NSDictionary *updates = [addObjects objectForKey:@"update"];
-		
-		NSMutableArray *updatesDict = [updates objectForKey:@"showbag"];
-		
-		for (int i = 0; i < [updatesDict count]; i++) {
+		// Save the object context
+		[[self appDelegate] saveContext];
 			
-			NSDictionary *showbag = [updatesDict objectAtIndex:i];
-			
-			// Store Showbag data in Core Data persistent store
-			[Showbag updateShowbagWithShowbagData:showbag inManagedObjectContext:self.managedObjectContext];
-		}	
+		// The API call was successful
+		showbagsLoaded = YES;
 		
-		[jsonString release];
+		// Set showbagsLoaded in the NSUserDefaults
+		[[self appDelegate] setShowbagsLoaded:YES];
 	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
-	
+		
 	// Hide loading view
 	[self hideLoading];
 	
@@ -701,9 +711,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		[self.searchTable reloadData];
 		[self.search resignFirstResponder];
 		
-		CGFloat keyboardHeight = 166.0;
 		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height = (newFrame.size.height + keyboardHeight);
+		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
 		[self.searchTable setFrame:newFrame];
 		
 		[self.searchTable setHidden:YES];
@@ -730,10 +739,10 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		// Keyboard will now be visible
 		[self.search becomeFirstResponder];
 		
-		CGFloat keyboardHeight = 166.0;
-		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height = (newFrame.size.height - keyboardHeight);
-		[self.searchTable setFrame:newFrame];
+		// Reset the height of the Table's frame and hide it from view
+		CGRect newTableFrame = self.searchTable.frame;
+		newTableFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		[self.searchTable setFrame:newTableFrame];
 	}
 	
 	searching = !searching;
@@ -747,14 +756,16 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[self resetSearch];
 	[self.searchTable reloadData];
 	
-	// Hide keyboard
-	[self.search resignFirstResponder];
-	
 	// Adjust searchTable's frame height
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
+	if ([self.search isEditing]) {
+		
+		CGRect newFrame = self.searchTable.frame;
+		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		[self.searchTable setFrame:newFrame];
+	}
+	
+	// Hide keyboard
+	[self dismissKeyboard];
 	
 	// HIDE SEARCH TABLE AND SEARCH FIELD
 	[self.searchTable setHidden:YES];

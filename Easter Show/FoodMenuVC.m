@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "JSONFetcher.h"
 #import "SBJson.h"
+#import "Constants.h"
 
 @implementation FoodMenuVC
 
@@ -92,13 +93,26 @@
 	
 	[super viewDidAppear:animated];
 	
-	// If this view has not already been loaded 
-	//(i.e not coming back from an Offer detail view)
-	if (!venuesLoaded && !loading) {
+	if (!venuesLoaded) {
 		
-		[self showLoading];
+		BOOL previouslyLoaded = [[self appDelegate] foodVenuesLoaded];
 		
-		[self retrieveXML];
+		if (previouslyLoaded) {
+			
+			// Fetch Offer objets from Core Data
+			[self fetchVenuesFromCoreData];
+			
+			venuesLoaded = YES;
+		}
+	
+		// If this view has not already been loaded 
+		// AND the app is not in offlineMode
+		else if (!loading && ![[self appDelegate] offlineMode]) {
+			
+			[self showLoading];
+			
+			[self retrieveXML];
+		}
 	}
 	
 	// Deselect the selected table cell
@@ -115,81 +129,52 @@
 	// Hide keyboard
 	[self dismissKeyboard];
 	
-	// Adjust search table's frame now that 
-	// keyboard has disappeared
-	CGFloat keyboardHeight = 166.0;
+	// Adjust searchTable's frame height
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
+	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
 	[self.searchTable setFrame:newFrame];
-	
-	// Conduct search
-	[self handleSearchForTerm:textField.text];
 	
 	return YES;
 }
 
 
-#pragma mark
-#pragma mark Search Bar Delegate methods
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
 	
-	[self.searchTable setHidden:NO];
+	[self resetSearch];
 	
-	NSString *searchTerm = [searchBar text];
-	[self handleSearchForTerm:searchTerm];
+	[self.searchTable reloadData];
+	
+	return YES;
 }
 
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	
-	NSLog(@"textDidChange");
+	if ([textField.text length] == 0) [self resetSearch];
 	
-	if ([searchText length] == 0) {
-		
-		NSLog(@"length == 0");
-		
-		[self resetSearch];
-		[self.searchTable reloadData];
-		return;
-	}
+	// The new search term - takes what has already been entered in the text field and combines it with 
+	// what character has been added/removed
+	NSString *searchTerm = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	
-	[self handleSearchForTerm:searchText];
+	[self handleSearchForTerm:searchTerm];
+	
+	return YES;
 }
 
 
 - (void)resetSearch {
 	
-	NSLog(@"reset search");
-	
-	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
-}
-
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	
-	NSLog(@"searchBarCancelButtonClicked");
-	
-	search.text = @"";
-	[self resetSearch];
-	[self.searchTable reloadData];
-	[searchBar resignFirstResponder];
-	
-	//CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = 157.0; //(newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
-	
-	[self.searchTable setHidden:YES];
-	[self.search setHidden:YES];
+	if ([self.filteredListContent count] > 0) [self.filteredListContent removeAllObjects];
 }
 
 
 - (void)handleSearchForTerm:(NSString *)searchTerm {
 	
-	NSLog(@"handleSearchForTerm");
-	
-	self.filteredListContent = (NSMutableArray *)[[self.fetchedResultsController fetchedObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]];
-	
+	NSMutableArray *filteredObjects = [[NSMutableArray alloc] initWithArray:[[self.fetchedResultsController fetchedObjects] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title BEGINSWITH[c] %@", searchTerm]]];
+
+	self.filteredListContent = filteredObjects;
+	[filteredObjects release];								   
+									   
 	[self.searchTable reloadData];
 }
 
@@ -468,67 +453,78 @@
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
+	//The API call has finished
 	loading = NO;
-	venuesLoaded = YES;
 	
-	if ([theJSONFetcher.data length] > 0) {
-		
-		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
-		
-		NSLog(@"jsonString:%@", jsonString);
-		
-		// Create a dictionary from the JSON string
-		NSDictionary *results = [jsonString JSONValue];
-		
-		// Build an array from the dictionary for easy access to each entry
-		NSDictionary *addObjects = [results objectForKey:@"foodVenues"];
-		
-		NSDictionary *adds = [addObjects objectForKey:@"add"];
-		
-		NSMutableArray *venuesDict = [adds objectForKey:@"venue"];
-		
-		//NSLog(@"KEYS:%@", venuesDict);
-		
-		for (int i = 0; i < [venuesDict count]; i++) {
+	// IF STATUS CODE WAS OKAY (200)
+	if ([theJSONFetcher statusCode] == 200) {
+	
+		if ([theJSONFetcher.data length] > 0) {
 			
-			NSDictionary *venue = [venuesDict objectAtIndex:i];
+			// Store incoming data into a string
+			NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
 			
-			NSLog(@"venue:%@", venue);
+			// Create a dictionary from the JSON string
+			NSDictionary *results = [jsonString JSONValue];
 			
-			// Store FoodVenue data in Core Data persistent store
-			[FoodVenue newFoodVenueWithData:venue inManagedObjectContext:self.managedObjectContext];
+			// Build an array from the dictionary for easy access to each entry
+			NSDictionary *addObjects = [results objectForKey:@"foodVenues"];
+			
+			// ADD DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *adds = [addObjects objectForKey:@"add"];
+			NSMutableArray *venuesDict = [adds objectForKey:@"venue"];
+						
+			for (int i = 0; i < [venuesDict count]; i++) {
+				
+				NSDictionary *venue = [venuesDict objectAtIndex:i];
+				
+				NSLog(@"venue:%@", venue);
+				
+				// Store FoodVenue data in Core Data persistent store
+				[FoodVenue newFoodVenueWithData:venue inManagedObjectContext:self.managedObjectContext];
+			}
+			
+			
+			// UPDATE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *updates = [addObjects objectForKey:@"update"];
+			NSMutableArray *updatesDict = [updates objectForKey:@"venue"];
+			
+			for (int i = 0; i < [updatesDict count]; i++) {
+				
+				NSDictionary *venue = [updatesDict objectAtIndex:i];
+				
+				// Store FoodVenue data in Core Data persistent store
+				[FoodVenue updateVenueWithVenueData:venue inManagedObjectContext:self.managedObjectContext];
+			}	
+			
+			
+			// REMOVE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *removes = [addObjects objectForKey:@"remove"];
+			NSMutableArray *removeObjects = [removes objectForKey:@"venue"];
+			
+			for (int i = 0; i < [removeObjects count]; i++) { 
+				
+				NSDictionary *offerDict = [removeObjects objectAtIndex:i];
+				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"venueID"] intValue]];
+				
+				FoodVenue *venue = [FoodVenue getFoodVenueWithID:idNum inManagedObjectContext:self.managedObjectContext];
+				if (venue) [self.managedObjectContext deleteObject:venue];
+			}
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			[jsonString release];
 		}
 		
-		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		// Save the object context
+		[[self appDelegate] saveContext];
 		
-		NSMutableArray *updatesDict = [updates objectForKey:@"venue"];
+		// The API call was successful
+		venuesLoaded = YES;
 		
-		for (int i = 0; i < [updatesDict count]; i++) {
-			
-			NSDictionary *venue = [updatesDict objectAtIndex:i];
-			
-			// Store FoodVenue data in Core Data persistent store
-			[FoodVenue updateVenueWithVenueData:venue inManagedObjectContext:self.managedObjectContext];
-		}	
-		
-		NSDictionary *removes = [addObjects objectForKey:@"remove"];
-		NSMutableArray *removeObjects = [removes objectForKey:@"venue"];
-		
-		for (int i = 0; i < [removeObjects count]; i++) { 
-			
-			NSDictionary *offerDict = [removeObjects objectAtIndex:i];
-			NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"venueID"] intValue]];
-			
-			FoodVenue *venue = [FoodVenue getFoodVenueWithID:idNum inManagedObjectContext:self.managedObjectContext];
-			if (venue) [self.managedObjectContext deleteObject:venue];
-		}
-		
-		[jsonString release];
+		// Set foodVenuesLoaded in the NSUserDefaults
+		[[self appDelegate] setFoodVenuesLoaded:YES];
 	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
 	
 	// Hide loading view
 	[self hideLoading];
@@ -562,8 +558,6 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
-	
-	else self.filteredListContent = [[self.fetchedResultsController fetchedObjects] mutableCopy];
 }
 
 
@@ -604,9 +598,8 @@
 	// Keyboard will now be visible
 	[self.search becomeFirstResponder];
 	
-	CGFloat keyboardHeight = 166.0;
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height - keyboardHeight);
+	newFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
 	[self.searchTable setFrame:newFrame];
 	
 	searching = YES;
@@ -627,10 +620,16 @@
 	[self.searchTable reloadData];
 	[self.search resignFirstResponder];
 	
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
+	// Adjust searchTable's frame height
+	if ([self.search isEditing]) {
+		
+		CGRect newFrame = self.searchTable.frame;
+		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		[self.searchTable setFrame:newFrame];
+	}
+	
+	// Hide keyboard
+	[self dismissKeyboard];
 	
 	[self.searchTable setHidden:YES];
 	[self.search setHidden:YES];

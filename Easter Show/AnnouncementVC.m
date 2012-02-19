@@ -12,7 +12,7 @@
 @implementation AnnouncementVC
 
 @synthesize doneButton, delegate, announcementText, announcementTextView;
-@synthesize contentScrollView;
+@synthesize lockDown;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -29,29 +29,13 @@
 	
     [super viewDidLoad];
 	
-	CGFloat minHeight = self.doneButton.frame.origin.y - 10.0;
-	
-	[self.announcementTextView setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
-	[self.announcementTextView setTextColor:[UIColor whiteColor]];
-	[self.announcementTextView setText:self.announcementText];
-	
-	// Re-size text view
-	[self resizeTextView:self.announcementTextView];
-	
-	// Re-position button if the announcement text is lengthy
-	CGFloat textBottomYVal = self.announcementTextView.frame.origin.y + self.announcementTextView.frame.size.height;
-	
-	if (textBottomYVal > minHeight) {
+	// If the app is in lockDown mode then hide the doneButton
+	// so the user cannot proceed beyond this screen
+	if (self.lockDown) 
+		[self.doneButton setHidden:YES];
 		
-		CGRect newFrame = self.doneButton.frame;
-		newFrame.origin.y = self.announcementTextView.frame.origin.y + self.announcementTextView.frame.size.height + 10.0;
-		[self.doneButton setFrame:newFrame];
-	}
-	
-	// Re-size scroll view content size
-	CGFloat newHeight = self.doneButton.frame.origin.y + self.doneButton.frame.size.height + 10.0;
-	CGSize newSize = CGSizeMake(self.contentScrollView.frame.size.width, newHeight);
-	[self.contentScrollView setContentSize:newSize];
+	// Display the assigned text
+	[self.announcementTextView setText:self.announcementText];
 }
 
 
@@ -69,7 +53,6 @@
     // e.g. self.myOutlet = nil;
 	
 	self.doneButton = nil;
-	self.contentScrollView = nil;
 	self.announcementText = nil;
 	self.announcementTextView = nil;
 }
@@ -78,17 +61,6 @@
 - (void)close:(id)sender {
 
 	[self.delegate announcementCloseButtonClicked];
-
-}
-
-
-- (void)resizeTextView:(UITextView *)_textView {
-	
-	CGRect frame;
-	frame = _textView.frame;
-	frame.size.height = [_textView contentSize].height;
-	_textView.frame = frame;
-	
 }
 
 

@@ -576,7 +576,7 @@ static NSString *kItemLocationIconImage = @"mapPinIcon.png";
 	[titleText release];
 	
 	[mapOverlay release]; 
-	[mapScrollView release]; 
+	//[mapScrollView release]; 
 	[userLocationView release]; 
 	[itemLocationView release];
 	
@@ -584,6 +584,7 @@ static NSString *kItemLocationIconImage = @"mapPinIcon.png";
 	[centerLongitude release];
 	[loadingSpinner release];
 	[locationManager release];
+	
     [super dealloc];
 }
 

@@ -44,7 +44,7 @@
 							<object class="IBUIButton" id="825611921">
 								<reference key="NSNextResponder" ref="246258287"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="246258287"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="206742565"/>
@@ -85,7 +85,7 @@
 							<object class="IBUILabel" id="520809519">
 								<reference key="NSNextResponder" ref="246258287"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 7}, {320, 21}}</string>
+								<string key="NSFrame">{{0, 8}, {320, 28}}</string>
 								<reference key="NSSuperview" ref="246258287"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="825611921"/>
@@ -119,7 +119,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="520809519"/>
@@ -132,10 +132,10 @@
 					<object class="IBUIButton" id="206742565">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 36}, {160, 28}}</string>
+						<string key="NSFrame">{{0, 44}, {160, 28}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="350806150"/>
+						<reference key="NSNextKeyView" ref="790395546"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAwIDAAA</bytes>
@@ -165,10 +165,10 @@
 					<object class="IBUIButton" id="350806150">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{160, 36}, {160, 28}}</string>
+						<string key="NSFrame">{{160, 44}, {160, 28}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="790395546"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC40IDAgMC44AA</bytes>
@@ -195,10 +195,10 @@
 					<object class="IBUITableView" id="790395546">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 64}, {320, 347}}</string>
+						<string key="NSFrame">{{0, 72}, {320, 339}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="350806150"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -486,8 +486,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="back-button-on.png">{45, 24}</string>
-			<string key="back-button.png">{45, 24}</string>
+			<string key="back-button-on.png">{45, 28}</string>
+			<string key="back-button.png">{45, 28}</string>
 			<string key="coke-carnival-button-on.png">{160, 28}</string>
 			<string key="coke-carnival-button.png">{160, 28}</string>
 			<string key="kids-carnival-button-on.png">{160, 28}</string>

@@ -250,8 +250,8 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 		CLLocationCoordinate2D myCoord = (CLLocationCoordinate2D)currentLocation.coordinate;
 		
 		//CLLocationCoordinate2D myCoord; 
-		myCoord.latitude = -33.84271;
-		myCoord.longitude = 151.0651;
+		//myCoord.latitude = -33.84271;
+		//myCoord.longitude = 151.0651;
 		
 		BOOL withinLatBounds = FALSE;
 		BOOL withinLonBounds = FALSE;

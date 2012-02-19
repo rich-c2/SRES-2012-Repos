@@ -208,7 +208,6 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 }
 
 
-
 - (void)setupNavBar {
 	
 	// Add button to Navigation Title 

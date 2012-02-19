@@ -19,7 +19,8 @@
 #import "JSONFetcher.h"
 #import "SBJson.h"
 
-
+static NSInteger kConfirmRedeemAlertTag = 5000;
+static NSInteger kRedeemResponseAlertTag = 5001;
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
 static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
@@ -29,7 +30,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 @synthesize offer, managedObjectContext, contentScrollView;
 @synthesize descriptionLabel, titleLabel, providerLabel, offerImage;
 @synthesize shareButton, addToPlannerButton, redeemButton;
-@synthesize loadingSpinner, selectedURL;
+@synthesize loadingSpinner, selectedURL, stitchedBorder;
 
 
 // The designated initializer.  Override if you create the controller programmatically 
@@ -88,6 +89,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 
 - (void)viewDidUnload {
+	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -103,6 +105,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	self.addToPlannerButton = nil;
 	self.shareButton = nil;
 	self.redeemButton = nil;
+	self.stitchedBorder = nil;
 }
 
 
@@ -114,25 +117,30 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 }
 
 
-/*
+#pragma UIAlertView delegate methods
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	
-	// CONTINUE ORDER WAS PRESSED /////////////////////////////////////////////////
-	if (buttonIndex == 0) {
+	// Check that the alertView in question is in fact the confirm redeem alert view
+	// Also check that the button that was pressed was the 'Yes' one before
+	// making the call to the API
+	if (alertView.tag == kConfirmRedeemAlertTag &&  buttonIndex == 0) {
 		
 		// Push redeem to API
 		[self pushRedeemToAPI];
 	}
-}*/
-
-
-#pragma mark TwitterVCDelegate
-
-- (void)closeTwitterVC {
 	
-	[self dismissModalViewControllerAnimated:YES];
+	
+	// If it was the pop-up for the API response and it was a successful redeem
+	// then pop the user back to the Offers menu
+	else if (alertView.tag == kRedeemResponseAlertTag && successfulRedeem) {
+	
+		[self goBack:nil];
+	}
 }
 
+
+#pragma mark MY METHODS
 
 // Assign the data to their appropriate UI elements
 - (void)setDetailFields {
@@ -168,7 +176,17 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	CGFloat newYPos = (self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height) - 16.0;
 	[self.providerLabel setFrame:CGRectMake(currFrame.origin.x, newYPos, currFrame.size.width, currFrame.size.height)];
 	
+	
+	// STITCHED BORDER
+	CGRect borderFrame = self.stitchedBorder.frame;
+	borderFrame.origin.y = self.providerLabel.frame.origin.y + self.providerLabel.frame.size.height + 4.0; 
+	[self.stitchedBorder setFrame:borderFrame];
+	
+	
 	// DESCRIPTION
+	CGRect descFrame = self.descriptionLabel.frame;
+	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	[self.descriptionLabel setFrame:descFrame];
 	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
 	self.descriptionLabel.text = self.offer.offerDescription;
 	
@@ -290,17 +308,18 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 - (IBAction)redeemButtonClicked:(id)sender {
 	
+	// Double check that we're dealing with an Offer
+	// that is redeemed with the click of a button
 	if ([self.offer.offerType isEqualToString:@"single"]) {
 		
 		// open an alert with just an OK button
-		/*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to proceed - this offer can only be redeemed once."
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to proceed - this offer can only be redeemed once."
 													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"YES", nil];
 		[alert addButtonWithTitle:@"NO"];
+		[alert setTag:kConfirmRedeemAlertTag];
 		
 		[alert show];	
-		[alert release];*/
-		
-		[self pushRedeemToAPI];
+		[alert release];
 	}
 }
 
@@ -311,46 +330,70 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	self.offer.redeemed = [NSNumber numberWithInt:1];
 	[[self appDelegate] saveContext];
 	
-	[self showLoading];
 	
-	// Disable redeem button
-	[self.redeemButton setEnabled:NO];
+	// If the app is not currently in offlineMode
+	// Then initiate the redeem API with the offerID
+	// as well as the deviceID 
+	if (![[self appDelegate] offlineMode]) {
 	
-	NSString *docName = @"put_redeem";
+		[self showLoading];
+		
+		// Disable redeem button
+		[self.redeemButton setEnabled:NO];
+		
+		NSString *docName = @"put_redeem";
+		
+		NSMutableString *mutableXML = [NSMutableString string];
+		[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
+		[mutableXML appendString:@"<redeem>"];
+		[mutableXML appendFormat:@"<uID>%@</uID>", [[self appDelegate] getDeviceID]];
+		[mutableXML appendFormat:@"<offerID>%i</offerID>", [self.offer.offerID intValue]];
+		[mutableXML appendString:@"</redeem>"];
+		
+		NSLog(@"XML:%@", mutableXML);
+		
+		// Change the string to NSData for transmission
+		NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
+		
+		NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
+		NSLog(@"FOOD VENUES URL:%@", urlString);
+		
+		NSURL *url = [urlString convertToURL];
+		
+		// Create the request.
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+															   cachePolicy:NSURLRequestUseProtocolCachePolicy
+														   timeoutInterval:45.0];
+		
+		//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+		[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+		[request setHTTPMethod:@"POST"];
+		[request setHTTPBody:requestBody];
+		
+		
+		// JSONFetcher
+		fetcher = [[JSONFetcher alloc] initWithURLRequest:request receiver:self
+												   action:@selector(receivedFeedResponse:)];
+		[fetcher start];
+	}
 	
-	NSMutableString *mutableXML = [NSMutableString string];
-	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"]; 
-	[mutableXML appendString:@"<redeem>"];
-	[mutableXML appendFormat:@"<uID>%@</uID>", [[self appDelegate] getDeviceID]];
-	[mutableXML appendFormat:@"<offerID>%i</offerID>", [self.offer.offerID intValue]];
-	[mutableXML appendString:@"</redeem>"];
 	
-	NSLog(@"XML:%@", mutableXML);
-	
-	// Change the string to NSData for transmission
-	NSData *requestBody = [mutableXML dataUsingEncoding:NSASCIIStringEncoding];
-	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", API_SERVER_ADDRESS, docName];
-	NSLog(@"FOOD VENUES URL:%@", urlString);
-	
-	NSURL *url = [urlString convertToURL];
-	
-	// Create the request.
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-														   cachePolicy:NSURLRequestUseProtocolCachePolicy
-													   timeoutInterval:45.0];
-	
-	//[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-	[request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
-	[request setHTTPMethod:@"POST"];
-	[request setHTTPBody:requestBody];
-	
-	
-	// JSONFetcher
-	fetcher = [[JSONFetcher alloc] initWithURLRequest:request
-											 receiver:self
-											   action:@selector(receivedFeedResponse:)];
-	[fetcher start];
+	// Show a success pop-up for user feedback
+	// Then pop the user back to the Offers menu
+	else {
+		
+		successfulRedeem = YES;
+		
+		NSString *title = @"Success!";
+		NSString *message = [NSString stringWithFormat:@"You successfully redeemed %@", self.offer.title];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message 
+													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+		[alert setTag:kRedeemResponseAlertTag];
+		
+		[alert show];    
+		[alert release];
+	}
 }
 
 
@@ -359,7 +402,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -368,7 +411,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	if ([theJSONFetcher.data length] > 0) {
 		
 		// Store incoming data into a string
-		result = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding];
+		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
+		
+		// Create a dictionary from the JSON string
+		NSDictionary *results = [jsonString JSONValue];
+		
+		result = [results objectForKey:@"response"];
 	}
 	
 	// Hide loading view
@@ -381,6 +429,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 		if ([result isEqualToString:@"success"]) {
 		
+			successfulRedeem = YES;
 			title = @"Success!";
 			message = [NSString stringWithFormat:@"You successfully redeemed %@", self.offer.title];
 		}
@@ -400,10 +449,10 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message 
 	 delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
+	[alert setTag:kRedeemResponseAlertTag];
+	
 	[alert show];    
 	[alert release];
-	
-	[result release];
 	
 	[fetcher release];
 	fetcher = nil;
@@ -447,6 +496,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[redeemButton release];
 	
 	[loadingSpinner release];
+	[stitchedBorder release];
 	
     [super dealloc];
 }

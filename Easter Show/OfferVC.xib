@@ -51,7 +51,7 @@
 							<object class="IBUIButton" id="200748589">
 								<reference key="NSNextResponder" ref="979448203"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 23}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="979448203"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="3547014"/>
@@ -71,6 +71,10 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
 								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button-on.png</string>
+								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">back-button.png</string>
@@ -88,7 +92,7 @@
 							<object class="IBUILabel" id="117357782">
 								<reference key="NSNextResponder" ref="979448203"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 7}, {320, 21}}</string>
+								<string key="NSFrame">{{0, 8}, {320, 28}}</string>
 								<reference key="NSSuperview" ref="979448203"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="200748589"/>
@@ -122,7 +126,7 @@
 								</object>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="117357782"/>
@@ -215,7 +219,7 @@
 								<reference key="IBUIFont" ref="556569333"/>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 36}, {320, 28}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 28}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="521488003"/>
@@ -228,7 +232,7 @@
 					<object class="IBUITextView" id="489725215">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{14, 270}, {292, 141}}</string>
+						<string key="NSFrame">{{14, 278}, {292, 133}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -295,7 +299,7 @@
 					<object class="IBUIImageView" id="494743303">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 64}, {320, 150}}</string>
+						<string key="NSFrame">{{0, 72}, {320, 150}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1071072149"/>
@@ -315,7 +319,7 @@
 					<object class="IBUIActivityIndicatorView" id="904748211">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{141, 121}, {37, 37}}</string>
+						<string key="NSFrame">{{141, 129}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="464999025"/>
@@ -326,7 +330,7 @@
 					<object class="IBUIImageView" id="680429805">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 266}, {320, 1}}</string>
+						<string key="NSFrame">{{0, 274}, {320, 1}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="376533127"/>
@@ -340,7 +344,7 @@
 					<object class="IBUIImageView" id="1071072149">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 64}, {126, 150}}</string>
+						<string key="NSFrame">{{0, 72}, {126, 150}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="904748211"/>
@@ -356,7 +360,7 @@
 					<object class="IBUITextView" id="464999025">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{14, 214}, {292, 22}}</string>
+						<string key="NSFrame">{{14, 222}, {292, 22}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="161448507"/>
@@ -385,7 +389,7 @@
 					<object class="IBUITextView" id="161448507">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{14, 233}, {292, 22}}</string>
+						<string key="NSFrame">{{14, 241}, {292, 22}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="680429805"/>
@@ -510,6 +514,14 @@
 						<reference key="destination" ref="1071072149"/>
 					</object>
 					<int key="connectionID">42</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">stitchedBorder</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="680429805"/>
+					</object>
+					<int key="connectionID">43</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -688,6 +700,7 @@
 					<string>34.IBPluginDependency</string>
 					<string>35.IBPluginDependency</string>
 					<string>36.IBPluginDependency</string>
+					<string>36.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>4.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
 					<string>41.IBPluginDependency</string>
@@ -713,6 +726,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -735,7 +749,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">42</int>
+			<int key="maxID">43</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -787,6 +801,7 @@
 							<string>providerLabel</string>
 							<string>redeemButton</string>
 							<string>shareButton</string>
+							<string>stitchedBorder</string>
 							<string>titleLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -799,6 +814,7 @@
 							<string>UITextView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIImageView</string>
 							<string>UITextView</string>
 						</object>
 					</object>
@@ -814,6 +830,7 @@
 							<string>providerLabel</string>
 							<string>redeemButton</string>
 							<string>shareButton</string>
+							<string>stitchedBorder</string>
 							<string>titleLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -851,6 +868,10 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">stitchedBorder</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">titleLabel</string>
 								<string key="candidateClassName">UITextView</string>
 							</object>
@@ -879,6 +900,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>back-button-on.png</string>
 				<string>back-button.png</string>
 				<string>fav-button-large-on.png</string>
 				<string>fav-button-large.png</string>
@@ -892,7 +914,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{45, 24}</string>
+				<string>{45, 28}</string>
+				<string>{45, 28}</string>
 				<string>{160, 28}</string>
 				<string>{160, 28}</string>
 				<string>{320, 150}</string>

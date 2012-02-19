@@ -21,6 +21,7 @@
 	NSString *announcementText;
 	UITextView *announcementTextView;
 	UIScrollView *contentScrollView;
+	BOOL lockDown;
 }
 
 @property (nonatomic, retain) id <AnnouncementDelegate> delegate;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) NSString *announcementText;
 @property (nonatomic, retain) IBOutlet UITextView *announcementTextView;
 @property (nonatomic, retain) IBOutlet UIScrollView *contentScrollView;
+@property (assign) BOOL lockDown;
 
 - (void)close:(id)sender;
 - (void)resizeTextView:(UITextView *)_textView;

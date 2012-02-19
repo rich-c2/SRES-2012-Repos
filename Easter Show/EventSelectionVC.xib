@@ -50,7 +50,7 @@
 							<object class="IBUIButton" id="930260402">
 								<reference key="NSNextResponder" ref="1047792208"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 5}, {45, 24}}</string>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
 								<reference key="NSSuperview" ref="1047792208"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="289787208"/>
@@ -91,7 +91,7 @@
 							<object class="IBUITextField" id="289787208">
 								<reference key="NSNextResponder" ref="1047792208"/>
 								<int key="NSvFlags">-2147483356</int>
-								<string key="NSFrame">{{59, 5}, {199, 23}}</string>
+								<string key="NSFrame">{{59, 8}, {199, 28}}</string>
 								<reference key="NSSuperview" ref="1047792208"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="749965856"/>
@@ -110,7 +110,7 @@
 								<float key="IBUIMinimumFontSize">17</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocorrectionType">1</int>
-									<int key="IBUIReturnKeyType">6</int>
+									<int key="IBUIReturnKeyType">9</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
@@ -129,7 +129,7 @@
 							<object class="IBUIButton" id="749965856">
 								<reference key="NSNextResponder" ref="1047792208"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{266, 5}, {48, 23}}</string>
+								<string key="NSFrame">{{266, 8}, {48, 28}}</string>
 								<reference key="NSSuperview" ref="1047792208"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="445016429"/>
@@ -165,7 +165,7 @@
 							<object class="IBUIButton" id="445016429">
 								<reference key="NSNextResponder" ref="1047792208"/>
 								<int key="NSvFlags">-2147483356</int>
-								<string key="NSFrame">{{266, 5}, {48, 23}}</string>
+								<string key="NSFrame">{{266, 8}, {48, 28}}</string>
 								<reference key="NSSuperview" ref="1047792208"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="620616350"/>
@@ -174,13 +174,20 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">Close</string>
 								<reference key="IBUIHighlightedTitleColor" ref="527471614"/>
 								<object class="NSColor" key="IBUINormalTitleColor" id="390195496">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="749500736"/>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">cancel-button-small-on.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">cancel-button-small.png</string>
+								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
 									<double key="pointSize">12</double>
@@ -194,7 +201,7 @@
 							<object class="IBUILabel" id="704900623">
 								<reference key="NSNextResponder" ref="1047792208"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 7}, {320, 21}}</string>
+								<string key="NSFrame">{{0, 8}, {320, 28}}</string>
 								<reference key="NSSuperview" ref="1047792208"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="930260402"/>
@@ -228,7 +235,7 @@
 								</object>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 36}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="704900623"/>
@@ -241,7 +248,7 @@
 					<object class="IBUITableView" id="68028808">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 63}, {320, 348}}</string>
+						<string key="NSFrame">{{0, 71}, {320, 340}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="885289242"/>
@@ -267,7 +274,7 @@
 					<object class="IBUITableView" id="885289242">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483374</int>
-						<string key="NSFrame">{{0, 63}, {320, 348}}</string>
+						<string key="NSFrame">{{0, 71}, {320, 340}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -347,7 +354,7 @@
 								<reference key="IBUIFont" ref="47068556"/>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 36}, {320, 27}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 27}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="591179601"/>
@@ -665,6 +672,7 @@
 					<string>39.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>4.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
+					<string>40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -688,6 +696,7 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -918,6 +927,8 @@
 				<string>alphabetical-button.png</string>
 				<string>back-button-on.png</string>
 				<string>back-button.png</string>
+				<string>cancel-button-small-on.png</string>
+				<string>cancel-button-small.png</string>
 				<string>search-button-on.png</string>
 				<string>search-button.png</string>
 				<string>time-button-on.png</string>
@@ -927,10 +938,12 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{160, 27}</string>
 				<string>{160, 27}</string>
-				<string>{45, 24}</string>
-				<string>{45, 24}</string>
-				<string>{48, 23}</string>
-				<string>{48, 23}</string>
+				<string>{45, 28}</string>
+				<string>{45, 28}</string>
+				<string>{48, 28}</string>
+				<string>{48, 28}</string>
+				<string>{48, 28}</string>
+				<string>{48, 28}</string>
 				<string>{160, 27}</string>
 				<string>{160, 27}</string>
 			</object>

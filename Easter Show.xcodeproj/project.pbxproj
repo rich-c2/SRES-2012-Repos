@@ -172,6 +172,15 @@
 		9B8BF97614BEB1AC0025BE01 /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8BF97414BEB1AC0025BE01 /* MapVC.m */; };
 		9B8BF97714BEB1AC0025BE01 /* MapVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B8BF97514BEB1AC0025BE01 /* MapVC.xib */; };
 		9B8BF97914BEB53C0025BE01 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8BF97814BEB53C0025BE01 /* MapKit.framework */; };
+		9B8CE8C314EDE09500FEB049 /* cancel-button-small-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8BF14EDE09500FEB049 /* cancel-button-small-on.png */; };
+		9B8CE8C414EDE09500FEB049 /* cancel-button-small-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8C014EDE09500FEB049 /* cancel-button-small-on@2x.png */; };
+		9B8CE8C514EDE09500FEB049 /* cancel-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8C114EDE09500FEB049 /* cancel-button-small.png */; };
+		9B8CE8C614EDE09500FEB049 /* cancel-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8C214EDE09500FEB049 /* cancel-button-small@2x.png */; };
+		9B8CE8CC14EDF0E000FEB049 /* close-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8C814EDF0E000FEB049 /* close-button-on.png */; };
+		9B8CE8CD14EDF0E000FEB049 /* close-button-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8C914EDF0E000FEB049 /* close-button-on@2x.png */; };
+		9B8CE8CE14EDF0E000FEB049 /* close-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8CA14EDF0E000FEB049 /* close-button.png */; };
+		9B8CE8CF14EDF0E000FEB049 /* close-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8CB14EDF0E000FEB049 /* close-button@2x.png */; };
+		9B8CE8D114EDF52D00FEB049 /* mapPinIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8CE8D014EDF52B00FEB049 /* mapPinIcon.png */; };
 		9B8D4C2A14EB1A150053F375 /* carnival-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8D4C2814EB1A150053F375 /* carnival-placeholder.png */; };
 		9B8D4C2B14EB1A150053F375 /* carnival-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8D4C2914EB1A150053F375 /* carnival-placeholder@2x.png */; };
 		9B8D4C3114EB273E0053F375 /* search-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8D4C2D14EB273E0053F375 /* search-button-on.png */; };
@@ -803,6 +812,15 @@
 		9B8BF97414BEB1AC0025BE01 /* MapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapVC.m; sourceTree = "<group>"; };
 		9B8BF97514BEB1AC0025BE01 /* MapVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapVC.xib; sourceTree = "<group>"; };
 		9B8BF97814BEB53C0025BE01 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9B8CE8BF14EDE09500FEB049 /* cancel-button-small-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancel-button-small-on.png"; path = "Images/cancel-button-small-on.png"; sourceTree = "<group>"; };
+		9B8CE8C014EDE09500FEB049 /* cancel-button-small-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancel-button-small-on@2x.png"; path = "Images/cancel-button-small-on@2x.png"; sourceTree = "<group>"; };
+		9B8CE8C114EDE09500FEB049 /* cancel-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancel-button-small.png"; path = "Images/cancel-button-small.png"; sourceTree = "<group>"; };
+		9B8CE8C214EDE09500FEB049 /* cancel-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancel-button-small@2x.png"; path = "Images/cancel-button-small@2x.png"; sourceTree = "<group>"; };
+		9B8CE8C814EDF0E000FEB049 /* close-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close-button-on.png"; path = "Images/close-button-on.png"; sourceTree = "<group>"; };
+		9B8CE8C914EDF0E000FEB049 /* close-button-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close-button-on@2x.png"; path = "Images/close-button-on@2x.png"; sourceTree = "<group>"; };
+		9B8CE8CA14EDF0E000FEB049 /* close-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close-button.png"; path = "Images/close-button.png"; sourceTree = "<group>"; };
+		9B8CE8CB14EDF0E000FEB049 /* close-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close-button@2x.png"; path = "Images/close-button@2x.png"; sourceTree = "<group>"; };
+		9B8CE8D014EDF52B00FEB049 /* mapPinIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapPinIcon.png; path = Images/mapPinIcon.png; sourceTree = "<group>"; };
 		9B8D4C2814EB1A150053F375 /* carnival-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-placeholder.png"; path = "Images/carnival-placeholder.png"; sourceTree = "<group>"; };
 		9B8D4C2914EB1A150053F375 /* carnival-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-placeholder@2x.png"; path = "Images/carnival-placeholder@2x.png"; sourceTree = "<group>"; };
 		9B8D4C2D14EB273E0053F375 /* search-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-button-on.png"; path = "Images/search-button-on.png"; sourceTree = "<group>"; };
@@ -1310,6 +1328,7 @@
 		9B095DDC14CE501B0024285C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9B8CE8D014EDF52B00FEB049 /* mapPinIcon.png */,
 				9BE2C69D14ECB53E00624C84 /* shopping-vendors-header.png */,
 				9BE2C69E14ECB53E00624C84 /* shopping-vendors-header@2x.png */,
 				9B8D4CA914EB9F8D0053F375 /* Section headers */,
@@ -2204,6 +2223,14 @@
 		9BB0412214E1E68B00542201 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9B8CE8C814EDF0E000FEB049 /* close-button-on.png */,
+				9B8CE8C914EDF0E000FEB049 /* close-button-on@2x.png */,
+				9B8CE8CA14EDF0E000FEB049 /* close-button.png */,
+				9B8CE8CB14EDF0E000FEB049 /* close-button@2x.png */,
+				9B8CE8BF14EDE09500FEB049 /* cancel-button-small-on.png */,
+				9B8CE8C014EDE09500FEB049 /* cancel-button-small-on@2x.png */,
+				9B8CE8C114EDE09500FEB049 /* cancel-button-small.png */,
+				9B8CE8C214EDE09500FEB049 /* cancel-button-small@2x.png */,
 				9BE2C6A514ECD9E300624C84 /* coke-carnival-button-on.png */,
 				9BE2C6A614ECD9E300624C84 /* coke-carnival-button-on@2x.png */,
 				9BE2C6A714ECD9E300624C84 /* coke-carnival-button.png */,
@@ -2799,6 +2826,15 @@
 				9BE2C6B214ECD9E300624C84 /* kids-carnival-button-on@2x.png in Resources */,
 				9BE2C6B314ECD9E300624C84 /* kids-carnival-button.png in Resources */,
 				9BE2C6B414ECD9E300624C84 /* kids-carnival-button@2x.png in Resources */,
+				9B8CE8C314EDE09500FEB049 /* cancel-button-small-on.png in Resources */,
+				9B8CE8C414EDE09500FEB049 /* cancel-button-small-on@2x.png in Resources */,
+				9B8CE8C514EDE09500FEB049 /* cancel-button-small.png in Resources */,
+				9B8CE8C614EDE09500FEB049 /* cancel-button-small@2x.png in Resources */,
+				9B8CE8CC14EDF0E000FEB049 /* close-button-on.png in Resources */,
+				9B8CE8CD14EDF0E000FEB049 /* close-button-on@2x.png in Resources */,
+				9B8CE8CE14EDF0E000FEB049 /* close-button.png in Resources */,
+				9B8CE8CF14EDF0E000FEB049 /* close-button@2x.png in Resources */,
+				9B8CE8D114EDF52D00FEB049 /* mapPinIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3134,7 +3170,8 @@
 					armv7,
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: C2 Media Pty Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: C2 Media Pty Ltd";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3143,6 +3180,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "4146BAB5-63AB-4E15-A6CE-489D651A14B3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4146BAB5-63AB-4E15-A6CE-489D651A14B3";
 				SDKROOT = iphoneos5.0;
 				VALIDATE_PRODUCT = YES;
 			};

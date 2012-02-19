@@ -27,6 +27,8 @@ extern NSString* const API_SERVER_ADDRESS;
 	MapsVC *mapsVC;
 	MoreVC *moreVC;
 	EventsLandingVC *eventsLandingVC;
+	
+	BOOL offlineMode;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -43,11 +45,19 @@ extern NSString* const API_SERVER_ADDRESS;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (assign) BOOL offlineMode;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (NSString *)getDeviceID;
 - (CGFloat)getAppVersion;
 - (NSString *)replaceHtmlEntities:(NSString *)htmlCode;
 - (NSString *)getMapFileNameWithID:(NSInteger)_mapID;
+- (BOOL)offersLoaded;
+- (void)setOffersLoaded:(BOOL)loaded;
+- (BOOL)showbagsLoaded;
+- (void)setShowbagsLoaded:(BOOL)loaded;
+- (BOOL)foodVenuesLoaded;
+- (void)setFoodVenuesLoaded:(BOOL)loaded;
 
 @end

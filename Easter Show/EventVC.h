@@ -22,6 +22,7 @@
 	UILabel *dateLabel;
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
+	UIImageView *stitchedBorder;
 		
 	UILabel *navigationTitle;
 	
@@ -38,6 +39,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *dateLabel;
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) IBOutlet UILabel *navigationTitle;
 

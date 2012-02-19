@@ -16,6 +16,7 @@
 #import "SBJson.h"
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
+#import "Constants.h"
 
 
 static NSString* kTableCellFont = @"HelveticaNeue-Bold";
@@ -142,8 +143,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[super viewDidAppear:animated];
 	
 	// If this view has not already been loaded 
-	//(i.e not coming back from an Offer detail view)
-	if (!eventsLoaded && !loading) {
+	// (i.e not coming back from an Event detail view)
+	// AND is not currently AND the app is not in offlineMoe
+	if (!eventsLoaded && !loading && ![[self appDelegate] offlineMode]) {
 		
 		[self showLoading];
 		
@@ -153,7 +155,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Deselect the selected table cell
 	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
 	[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
-}
+	}
 
 
 #pragma mark -
@@ -164,30 +166,51 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Hide keyboard
 	[self dismissKeyboard];
 	
-	// Conduct a search
-	[self handleSearchForTerm:textField.text];
+	// Adjust searchTable's frame height
+	CGRect newFrame = self.searchTable.frame;
+	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	[self.searchTable setFrame:newFrame];
+
+	return YES;
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	
+	if ([textField.text length] == 0) [self resetSearch];
+	
+	// The new search term - takes what has already been entered in the text field and combines it with 
+	// what character has been added/removed
+	NSString *searchTerm = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	
+	[self handleSearchForTerm:searchTerm];
 	
 	return YES;
 }
 
 
 - (void)resetSearch {
+
+	if ([self.filteredListContent count] > 0) [self.filteredListContent removeAllObjects];
+}
+
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
 	
-	NSLog(@"reset search");
+	[self resetSearch];
 	
-	if ([self.filteredListContent count] > 0) self.filteredListContent = [NSMutableArray array];
+	[self.searchTable reloadData];
+	
+	return YES;
 }
 
 
 - (void)handleSearchForTerm:(NSString *)searchTerm {
 	
-	NSLog(@"handleSearchForTerm");
+	NSMutableArray *filteredObjects = [[NSMutableArray alloc] initWithArray:[self.dateTimes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"forEvent.title BEGINSWITH[c] %@", searchTerm]]];
 	
-	self.filteredListContent = (NSMutableArray *)[self.dateTimes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"forEvent.title BEGINSWITH[c] %@", searchTerm]];
-	
-	// Check how many results were returned and give
-	// user feedback if there were no results
-	[self checkEventsCount];
+	self.filteredListContent = filteredObjects;
+	[filteredObjects release];
 	
 	[self.searchTable reloadData];
 }
@@ -527,9 +550,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[self.searchField becomeFirstResponder];
 	
 	// Reset the height of the Table's frame and hide it from view
-	//CGFloat keyboardHeight = 166.0;
 	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height = 157.0; //(newTableFrame.size.height - (keyboardHeight));
+	newTableFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
 	[self.searchTable setFrame:newTableFrame];
 }
 
@@ -545,10 +567,12 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[self dismissKeyboard];
 	
 	// Adjust searchTable's frame height
-	CGFloat keyboardHeight = 166.0;
-	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height = (newFrame.size.height + keyboardHeight);
-	[self.searchTable setFrame:newFrame];
+	if ([self.searchField isEditing]) {
+		
+		CGRect newFrame = self.searchTable.frame;
+		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		[self.searchTable setFrame:newFrame];
+	}
 	
 	// HIDE SEARCH TABLE AND SEARCH FIELD
 	[self.searchTable setHidden:YES];

@@ -91,19 +91,31 @@
 - (void)viewDidAppear:(BOOL)animated {
 	
 	[super viewDidAppear:animated];
+		
+	if (!offersLoaded) {
 	
-	// If this view has not already been loaded 
-	//(i.e not coming back from an Offer detail view)
-	if (!offersLoaded && !loading) {
+		BOOL previouslyLoaded = [[self appDelegate] offersLoaded];
 		
-		[self showLoading];
+		if (previouslyLoaded) {
 		
-		[self retrieveXML];
+			// Fetch Offer objets from Core Data
+			[self fetchOffersFromCoreData];
+			
+			offersLoaded = YES;
+		}
+	
+		// If the offer data is not already being loaded
+		// AND the app is not in offlineMode
+		else if (!loading && ![[self appDelegate] offlineMode]) {
+			
+			[self showLoading];
+			
+			[self retrieveXML];
+		}
 	}
 	
 	// Deselect the selected table cell
 	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
-	//[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 
@@ -438,69 +450,80 @@
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
+	// The API call has finished
 	loading = NO;
-	offersLoaded = YES;
 	
-	if ([theJSONFetcher.data length] > 0) {
-		
-		// Store incoming data into a string
-		NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
-		
-		NSLog(@"jsonString:%@", jsonString);
-		
-		// Create a dictionary from the JSON string
-		NSDictionary *results = [jsonString JSONValue];
-		
-		// Build an array from the dictionary for easy access to each entry
-		NSDictionary *addObjects = [results objectForKey:@"offers"];
-		
-		NSDictionary *adds = [addObjects objectForKey:@"add"];
-		
-		NSMutableArray *offersDict = [adds objectForKey:@"offer"];
-		
-		//NSLog(@"KEYS:%@", offersDict);
-		
-		for (int i = 0; i < [offersDict count]; i++) {
+	// IF STATUS CODE WAS OKAY (200)
+	if ([theJSONFetcher statusCode] == 200) {
+	
+		if ([theJSONFetcher.data length] > 0) {
 			
-			NSDictionary *offer = [offersDict objectAtIndex:i];
+			// Store incoming data into a string
+			NSString *jsonString = [[NSString alloc] initWithData:theJSONFetcher.data encoding:NSUTF8StringEncoding];
 			
-			// Store Offer data in Core Data persistent store
-			[Offer newOfferWithData:offer inManagedObjectContext:self.managedObjectContext];
+			// Create a dictionary from the JSON string
+			NSDictionary *results = [jsonString JSONValue];
+			
+			// Build an array from the dictionary for easy access to each entry
+			NSDictionary *addObjects = [results objectForKey:@"offers"];
+			
+			// ADD DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *adds = [addObjects objectForKey:@"add"];
+			NSMutableArray *offersDict = [adds objectForKey:@"offer"];
+			
+			for (int i = 0; i < [offersDict count]; i++) {
+				
+				NSDictionary *offer = [offersDict objectAtIndex:i];
+				
+				// Store Offer data in Core Data persistent store
+				[Offer newOfferWithData:offer inManagedObjectContext:self.managedObjectContext];
+			}
+
+			
+			// UPDATE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *updates = [addObjects objectForKey:@"update"];
+			NSMutableArray *updatesDict = [updates objectForKey:@"offer"];
+			
+			for (int i = 0; i < [updatesDict count]; i++) {
+				
+				NSDictionary *offer = [updatesDict objectAtIndex:i];
+				
+				// Store Offer data in Core Data persistent store
+				[Offer updateOfferWithOfferData:offer inManagedObjectContext:self.managedObjectContext];
+			}				
+			
+			
+			// REMOVE DATA ////////////////////////////////////////////////////////////////////////
+			NSDictionary *removes = [addObjects objectForKey:@"remove"];
+			NSMutableArray *removeObjects = [removes objectForKey:@"offer"];
+			
+			for (int i = 0; i < [removeObjects count]; i++) { 
+				
+				NSDictionary *offerDict = [removeObjects objectAtIndex:i];
+				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"offerID"] intValue]];
+			
+				Offer *offer = [Offer getOfferWithID:idNum inManagedObjectContext:self.managedObjectContext];
+				if (offer) [self.managedObjectContext deleteObject:offer];
+			}
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			[jsonString release];
 		}
 		
-		NSDictionary *updates = [addObjects objectForKey:@"update"];
+		// Save the object context
+		[[self appDelegate] saveContext];
 		
-		NSMutableArray *updatesDict = [updates objectForKey:@"offer"];
+		// The API call was successful
+		offersLoaded = YES;
 		
-		for (int i = 0; i < [updatesDict count]; i++) {
-			
-			NSDictionary *offer = [updatesDict objectAtIndex:i];
-			
-			// Store Offer data in Core Data persistent store
-			[Offer updateOfferWithOfferData:offer inManagedObjectContext:self.managedObjectContext];
-		}	
-		
-		NSDictionary *removes = [addObjects objectForKey:@"remove"];
-		NSMutableArray *removeObjects = [removes objectForKey:@"offer"];
-		
-		for (int i = 0; i < [removeObjects count]; i++) { 
-			
-			NSDictionary *offerDict = [removeObjects objectAtIndex:i];
-			NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"offerID"] intValue]];
-		
-			Offer *offer = [Offer getOfferWithID:idNum inManagedObjectContext:self.managedObjectContext];
-			if (offer) [self.managedObjectContext deleteObject:offer];
-		}
-		
-		[jsonString release];
+		// Set offersLoaded in the NSUserDefaults
+		[[self appDelegate] setOffersLoaded:YES];
 	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
 	
 	// Hide loading view
 	[self hideLoading];

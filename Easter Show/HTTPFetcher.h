@@ -32,6 +32,8 @@
 	NSURLConnection *connection;
 	NSMutableData *data;
 	NSURLAuthenticationChallenge *challenge;
+	
+	NSInteger responseStatusCode;
 
 	NSURLRequest *urlRequest;
 	NSInteger failureCode;
@@ -69,5 +71,6 @@
 - (void)start;
 - (void)cancel;
 - (void)close;
+- (NSInteger)statusCode;
 
 @end

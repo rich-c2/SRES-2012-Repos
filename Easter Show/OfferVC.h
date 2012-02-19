@@ -17,6 +17,7 @@
 	NSManagedObjectContext *managedObjectContext;
 	
 	JSONFetcher *fetcher;
+	BOOL successfulRedeem;
 	
 	Offer *offer;
 	NSURL *selectedURL;
@@ -28,6 +29,7 @@
 	UITextView *titleLabel;
 	UITextView *providerLabel;
 	UIImageView *offerImage;
+	UIImageView *stitchedBorder;
 	
 	// Buttons
 	UIButton *shareButton;
@@ -47,6 +49,7 @@
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
 @property (nonatomic, retain) IBOutlet UITextView *providerLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *offerImage;
+@property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 
 @property (nonatomic, retain) IBOutlet UIButton *shareButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlannerButton;
