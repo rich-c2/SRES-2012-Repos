@@ -336,6 +336,7 @@
 		9B915AB014E8D1C80015A951 /* full-program-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B915AAF14E8D1C80015A951 /* full-program-background.png */; };
 		9B915AB714E8E5470015A951 /* table-cell-background-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B915AB514E8E5470015A951 /* table-cell-background-on.png */; };
 		9B915AB814E8E5470015A951 /* table-cell-background-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B915AB614E8E5470015A951 /* table-cell-background-on@2x.png */; };
+		9B9296DA14F1BBB800208BAD /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9296D914F1BBB800208BAD /* libGoogleAnalytics.a */; };
 		9B93B70014BBFEFC00FB31CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */; };
 		9B93B70214BBFEFC00FB31CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70114BBFEFC00FB31CE /* Foundation.framework */; };
 		9B93B70414BBFEFC00FB31CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B70314BBFEFC00FB31CE /* CoreGraphics.framework */; };
@@ -527,6 +528,19 @@
 		9BE2C6B214ECD9E300624C84 /* kids-carnival-button-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AA14ECD9E300624C84 /* kids-carnival-button-on@2x.png */; };
 		9BE2C6B314ECD9E300624C84 /* kids-carnival-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AB14ECD9E300624C84 /* kids-carnival-button.png */; };
 		9BE2C6B414ECD9E300624C84 /* kids-carnival-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AC14ECD9E300624C84 /* kids-carnival-button@2x.png */; };
+		9BF2914F14F1C8AA002B1E27 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF2914E14F1C8AA002B1E27 /* libsqlite3.0.dylib */; };
+		9BF2916114F23012002B1E27 /* carnival-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915514F23011002B1E27 /* carnival-title.png */; };
+		9BF2916214F23012002B1E27 /* carnival-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915614F23011002B1E27 /* carnival-title@2x.png */; };
+		9BF2916314F23012002B1E27 /* events-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915714F23011002B1E27 /* events-title.png */; };
+		9BF2916414F23012002B1E27 /* events-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915814F23011002B1E27 /* events-title@2x.png */; };
+		9BF2916514F23012002B1E27 /* food-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915914F23011002B1E27 /* food-title.png */; };
+		9BF2916614F23012002B1E27 /* food-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915A14F23011002B1E27 /* food-title@2x.png */; };
+		9BF2916714F23012002B1E27 /* offers-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915B14F23011002B1E27 /* offers-title.png */; };
+		9BF2916814F23012002B1E27 /* offers-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915C14F23011002B1E27 /* offers-title@2x.png */; };
+		9BF2916914F23012002B1E27 /* shopping-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915D14F23011002B1E27 /* shopping-title.png */; };
+		9BF2916A14F23012002B1E27 /* shopping-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915E14F23011002B1E27 /* shopping-title@2x.png */; };
+		9BF2916B14F23012002B1E27 /* showbags-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915F14F23011002B1E27 /* showbags-title.png */; };
+		9BF2916C14F23012002B1E27 /* showbags-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2916014F23012002B1E27 /* showbags-title@2x.png */; };
 		9BFB40E314D255AF00AA326E /* JSONFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFB40E214D255AF00AA326E /* JSONFetcher.m */; };
 		9BFB40FF14D2562600AA326E /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFB40E814D2562600AA326E /* NSObject+SBJson.m */; };
 		9BFB410014D2562600AA326E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFB40EA14D2562600AA326E /* SBJsonParser.m */; };
@@ -980,6 +994,8 @@
 		9B915AAF14E8D1C80015A951 /* full-program-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "full-program-background.png"; path = "Images/full-program-background.png"; sourceTree = "<group>"; };
 		9B915AB514E8E5470015A951 /* table-cell-background-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "table-cell-background-on.png"; path = "Images/table-cell-background-on.png"; sourceTree = "<group>"; };
 		9B915AB614E8E5470015A951 /* table-cell-background-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "table-cell-background-on@2x.png"; path = "Images/table-cell-background-on@2x.png"; sourceTree = "<group>"; };
+		9B9296D814F1BBB800208BAD /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
+		9B9296D914F1BBB800208BAD /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		9B93B6FB14BBFEFC00FB31CE /* Easter Show.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easter Show.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B93B6FF14BBFEFC00FB31CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B93B70114BBFEFC00FB31CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1201,6 +1217,19 @@
 		9BE2C6AA14ECD9E300624C84 /* kids-carnival-button-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button-on@2x.png"; path = "Images/kids-carnival-button-on@2x.png"; sourceTree = "<group>"; };
 		9BE2C6AB14ECD9E300624C84 /* kids-carnival-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button.png"; path = "Images/kids-carnival-button.png"; sourceTree = "<group>"; };
 		9BE2C6AC14ECD9E300624C84 /* kids-carnival-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button@2x.png"; path = "Images/kids-carnival-button@2x.png"; sourceTree = "<group>"; };
+		9BF2914E14F1C8AA002B1E27 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		9BF2915514F23011002B1E27 /* carnival-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-title.png"; path = "Images/carnival-title.png"; sourceTree = "<group>"; };
+		9BF2915614F23011002B1E27 /* carnival-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-title@2x.png"; path = "Images/carnival-title@2x.png"; sourceTree = "<group>"; };
+		9BF2915714F23011002B1E27 /* events-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "events-title.png"; path = "Images/events-title.png"; sourceTree = "<group>"; };
+		9BF2915814F23011002B1E27 /* events-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "events-title@2x.png"; path = "Images/events-title@2x.png"; sourceTree = "<group>"; };
+		9BF2915914F23011002B1E27 /* food-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "food-title.png"; path = "Images/food-title.png"; sourceTree = "<group>"; };
+		9BF2915A14F23011002B1E27 /* food-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "food-title@2x.png"; path = "Images/food-title@2x.png"; sourceTree = "<group>"; };
+		9BF2915B14F23011002B1E27 /* offers-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "offers-title.png"; path = "Images/offers-title.png"; sourceTree = "<group>"; };
+		9BF2915C14F23011002B1E27 /* offers-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "offers-title@2x.png"; path = "Images/offers-title@2x.png"; sourceTree = "<group>"; };
+		9BF2915D14F23011002B1E27 /* shopping-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-title.png"; path = "Images/shopping-title.png"; sourceTree = "<group>"; };
+		9BF2915E14F23011002B1E27 /* shopping-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-title@2x.png"; path = "Images/shopping-title@2x.png"; sourceTree = "<group>"; };
+		9BF2915F14F23011002B1E27 /* showbags-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "showbags-title.png"; path = "Images/showbags-title.png"; sourceTree = "<group>"; };
+		9BF2916014F23012002B1E27 /* showbags-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "showbags-title@2x.png"; path = "Images/showbags-title@2x.png"; sourceTree = "<group>"; };
 		9BFB40E114D255AF00AA326E /* JSONFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONFetcher.h; sourceTree = "<group>"; };
 		9BFB40E214D255AF00AA326E /* JSONFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONFetcher.m; sourceTree = "<group>"; };
 		9BFB40E514D255F500AA326E /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -1237,6 +1266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B8BF97914BEB53C0025BE01 /* MapKit.framework in Frameworks */,
+				9BF2914F14F1C8AA002B1E27 /* libsqlite3.0.dylib in Frameworks */,
 				9B585E1C14BD31530027DB00 /* libz.dylib in Frameworks */,
 				9B585E1A14BD31160027DB00 /* AVFoundation.framework in Frameworks */,
 				9B585E1814BD30F60027DB00 /* MobileCoreServices.framework in Frameworks */,
@@ -1251,6 +1281,7 @@
 				9B93B70214BBFEFC00FB31CE /* Foundation.framework in Frameworks */,
 				9B93B70414BBFEFC00FB31CE /* CoreGraphics.framework in Frameworks */,
 				9B93B70614BBFEFC00FB31CE /* CoreData.framework in Frameworks */,
+				9B9296DA14F1BBB800208BAD /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,6 +1359,18 @@
 		9B095DDC14CE501B0024285C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9BF2915514F23011002B1E27 /* carnival-title.png */,
+				9BF2915614F23011002B1E27 /* carnival-title@2x.png */,
+				9BF2915714F23011002B1E27 /* events-title.png */,
+				9BF2915814F23011002B1E27 /* events-title@2x.png */,
+				9BF2915914F23011002B1E27 /* food-title.png */,
+				9BF2915A14F23011002B1E27 /* food-title@2x.png */,
+				9BF2915B14F23011002B1E27 /* offers-title.png */,
+				9BF2915C14F23011002B1E27 /* offers-title@2x.png */,
+				9BF2915D14F23011002B1E27 /* shopping-title.png */,
+				9BF2915E14F23011002B1E27 /* shopping-title@2x.png */,
+				9BF2915F14F23011002B1E27 /* showbags-title.png */,
+				9BF2916014F23012002B1E27 /* showbags-title@2x.png */,
 				9B8CE8D014EDF52B00FEB049 /* mapPinIcon.png */,
 				9BE2C69D14ECB53E00624C84 /* shopping-vendors-header.png */,
 				9BE2C69E14ECB53E00624C84 /* shopping-vendors-header@2x.png */,
@@ -1860,6 +1903,15 @@
 			name = "Tab Buttons";
 			sourceTree = "<group>";
 		};
+		9B9296D714F1B84200208BAD /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				9B9296D814F1BBB800208BAD /* GANTracker.h */,
+				9B9296D914F1BBB800208BAD /* libGoogleAnalytics.a */,
+			);
+			name = "Google Analytics";
+			sourceTree = "<group>";
+		};
 		9B93B6F014BBFEFB00FB31CE = {
 			isa = PBXGroup;
 			children = (
@@ -1882,6 +1934,7 @@
 		9B93B6FE14BBFEFC00FB31CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9BF2914E14F1C8AA002B1E27 /* libsqlite3.0.dylib */,
 				9B2AFE0014C933F00009A0F5 /* libSystem.B.dylib */,
 				9B585E1B14BD31530027DB00 /* libz.dylib */,
 				9B8BF97814BEB53C0025BE01 /* MapKit.framework */,
@@ -1906,6 +1959,7 @@
 		9B93B70714BBFEFC00FB31CE /* Easter Show */ = {
 			isa = PBXGroup;
 			children = (
+				9B9296D714F1B84200208BAD /* Google Analytics */,
 				9B083CC214EC667E0079E22A /* Fetchers */,
 				9B083CC114EC66620079E22A /* JSON */,
 				9B083CBE14EC66060079E22A /* App Delegate */,
@@ -2835,6 +2889,18 @@
 				9B8CE8CE14EDF0E000FEB049 /* close-button.png in Resources */,
 				9B8CE8CF14EDF0E000FEB049 /* close-button@2x.png in Resources */,
 				9B8CE8D114EDF52D00FEB049 /* mapPinIcon.png in Resources */,
+				9BF2916114F23012002B1E27 /* carnival-title.png in Resources */,
+				9BF2916214F23012002B1E27 /* carnival-title@2x.png in Resources */,
+				9BF2916314F23012002B1E27 /* events-title.png in Resources */,
+				9BF2916414F23012002B1E27 /* events-title@2x.png in Resources */,
+				9BF2916514F23012002B1E27 /* food-title.png in Resources */,
+				9BF2916614F23012002B1E27 /* food-title@2x.png in Resources */,
+				9BF2916714F23012002B1E27 /* offers-title.png in Resources */,
+				9BF2916814F23012002B1E27 /* offers-title@2x.png in Resources */,
+				9BF2916914F23012002B1E27 /* shopping-title.png in Resources */,
+				9BF2916A14F23012002B1E27 /* shopping-title@2x.png in Resources */,
+				9BF2916B14F23012002B1E27 /* showbags-title.png in Resources */,
+				9BF2916C14F23012002B1E27 /* showbags-title@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3108,6 +3174,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Easter Show\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.0;
 				WRAPPER_EXTENSION = app;
@@ -3122,6 +3192,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Easter Show\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.0;
 				WRAPPER_EXTENSION = app;
@@ -3195,6 +3269,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2/**";
 				INFOPLIST_FILE = "Easter Show/Easter Show-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Easter Show\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.0;
 				WRAPPER_EXTENSION = app;

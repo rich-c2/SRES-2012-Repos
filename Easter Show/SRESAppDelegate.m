@@ -13,9 +13,16 @@
 #import "FavouritesMenuVC.h"
 #import "MapsVC.h"
 #import "Constants.h"
+#import "GANTracker.h"
 
 NSString* const API_SERVER_ADDRESS = @"http://sres2012.supergloo.net.au/api/";
-//OLD API @"http://sres.c2gloo.net/xml/";
+
+// Dispatch period in seconds
+static const NSInteger kGANDispatchPeriodSec = 10;
+// **************************************************************************
+// GOOGLE ANALYTICS ACCOUNT DETAILS.
+// **************************************************************************
+static NSString* const kAnalyticsAccountId = @"UA-21333349-2";
 
 static NSString *kAppVersionKey = @"appVersionKey";
 static NSString *kDeviceIDKey = @"deviceIDKey";
@@ -33,6 +40,8 @@ static NSString *kShowbagsLoadedKey = @"showbagsLoadedKey";
 @synthesize offlineMode;
 
 - (void)dealloc {
+	
+	[[GANTracker sharedTracker] stopTracker];
 	
 	[_window release];
 	[tabBarController release];
@@ -78,8 +87,22 @@ static NSString *kShowbagsLoadedKey = @"showbagsLoadedKey";
 		[[NSUserDefaults standardUserDefaults] setFloat:appVersion forKey:kAppVersionKey];
     }
 
-	//////////////////////////////////////////////////////////////////////////////////////////
+		
+	// **************************************************************************
+	// GOOGLE ANALYTICS
+	// **************************************************************************
+	[[GANTracker sharedTracker] startTrackerWithAccountID:kAnalyticsAccountId
+										   dispatchPeriod:kGANDispatchPeriodSec
+												 delegate:nil];
+	NSError *error;
 	
+	if (![[GANTracker sharedTracker] trackPageview:@"/app_entry_point"
+										 withError:&error]) {
+		// Handle error here
+		NSLog(@"error in trackPageview");
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Set the booleans for the dynamic data sets to NO
 	// so that they are loaded this session

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rides>
 	<ride id="1">
-		<title>Fantasy Cups</title>
-		<description>Take a ride into Fantasy Land! Decorated with scenes from some of the classics including Snow White, the Lion King and The Little Mermaid, these fantastic cups and saucers will spin you away to a the land of your dreams.</description>
+		<title>Adventure Island</title>
+		<description>Get the family on board and push off for a thrilling, floating log ride past the wild animals along the banks.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
@@ -10,8 +10,8 @@
 		<type>Kids Carnival</type>
 	</ride>
 	<ride id="2">
-		<title>Wild Raft</title>
-		<description>Jump in and hold on tight for a wild, whitewater rafting trip down sets of simulated rapids.</description>
+		<title>Carousel</title>
+		<description>Everyone loves a ride on the prancing horses of the Carousel. Hang on, and wave for the camera.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
@@ -19,8 +19,8 @@
 		<type>Kids Carnival</type>
 	</ride>
 	<ride id="3">
-		<title>Surf's Up</title>
-		<description>Experience the thrill of surfing without getting wet! Sit down on a surfboard-style seat and you’re lifted up into the air for a free-fall experience that’s hilarious fun for all.</description>
+		<title>Elephant Jet</title>
+		<description>Do elephants fly? They do when they’ve got ears like Dumbo and his friends. A treat for all kids who love to ride in the company of these colourful giants from fantasy world.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
@@ -28,8 +28,8 @@
 		<type>Kids Carnival</type>
 	</ride>
 	<ride id="4">
-		<title>Bounce Around</title>
-		<description>Jump aboard, and hang on! It’s an all-terrain vehicle with extra bounce in the springs for a fun-filled, rocking ride that the kids will love!</description>
+		<title>Fantasy Cups</title>
+		<description>Take a ride into Fantasy Land. Decorated with scenes from some of the classics including Snow White, the Lion King and The Little Mermaid, these fantastic cups and saucers will spin you away to a the land of your dreams. </description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
@@ -37,8 +37,8 @@
 		<type>Kids Carnival</type>
 	</ride>
 	<ride id="5">
-		<title>Carousel</title>
-		<description>Everyone loves a ride on the prancing horses of the Carousel. Hang on, and wave for the camera!</description>
+		<title>Free Fall</title>
+		<description>Take the plunge. The Free Fall is ideal for the young thrill seeker, a controlled drop that simulates the fear of falling – with a gentle stop to bring you back to earth. An experience in controlled G forces.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
 		<latitude>-33.84422</latitude>
@@ -46,21 +46,408 @@
 		<type>Kids Carnival</type>
 	</ride>
 	<ride id="6">
+		<title>Jurassic Coaster</title>
+		<description>Roller coaster back to the land before time with a wicked and wild descent past the jaws of hungry dinosaurs. It’s a thrilling action ride around volcanoes, prehistoric vegetation and bubbling hot springs.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="7">
+		<title>Kite Flyer</title>
+		<description>It’s fun for the whole family. Jump onto one of the two passenger gondolas and experience the sensation of flying through the air.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="8">
+		<title>Mini Chairs</title>
+		<description>A traditional swing with a difference that never fails to delight and thrill.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="9">
+		<title>Pony Rides</title>
+		<description>There’s nothing better than a pony ride to reach deep into a small heart. Help swing those little legs into a pony saddle, sit back and watch the smile light up their face. </description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="10">
+		<title>Red Barron</title>
+		<description>Buckle up and take flight with this classic four seater interactive plane ride. Take the pilot’s seat and take control of the flying action with the lifting handle.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="11">
+		<title>Rockin' Tug</title>
+		<description>It’s a surfing sensation. Take a ride on the rock and roll tug – it’s gentle, family friendly and fun for all.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="12">
+		<title>Samba Balloons</title>
+		<description>Fast or slow? You control the speed on the family-size carousels of this fun packed ride.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="13">
+		<title>Super Slide</title>
+		<description>Ride in style to the top of the latest and greatest jumbo slide upon the state of the art moving walkway. Then embark on the super sliding fun past the spectacular disco light show to experience the exhilarating fun of speeding down one of the eight brightly coloured lanes.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="14">
+		<title>Wave Swinger</title>
+		<description>Prepare for lift off. The Wave Swinger whisks you off your feet and up, up and away in the smoothest of soaring sensations. Soars to 15 metres above the ground.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="15">
+		<title>Wave Swinger</title>
+		<description>Prepare for lift off. The Wave Swinger whisks you off your feet and up, up and away in the smoothest of soaring sensations. Soars to 15 metres above the ground.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="16">
+		<title>Wacky Worm Family Coaster</title>
+		<description>It’s the coaster ride that’s tailor made for tots, with a 5 metre drop, banked turns and an apple tunnel.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="17">
+		<title>Wild Raft</title>
+		<description>Jump in and hold on tight for a wild, white-water rafting trip down sets of simulated rapids.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84422</latitude>
+		<longitude>151.06363</longitude>
+		<type>Kids Carnival</type>
+	</ride>
+	<ride id="18">
 		<title>Break Dance</title>
 		<description>Hop around and hold on tight for an experience full of colour, thumping music and thrills.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
 		<type>Coca-Cola Carnival</type>
 	</ride>
-	<ride id="7">
+	<ride id="19">
 		<title>Crazy Cars</title>
-		<description>Crazy The latest from the world of European dodgems, Crazy Cars ramps up the action with the biggest track, the most cars, 8000 throbbing LED lights and a red hot sound system pumping out the beat. Cars are designed by world-leading Italian designers and all cars are fitted with padded seat belts.</description>
+		<description>The latest from the world of European dodgems, Crazy Cars ramps up the action with the biggest track, the most cars, 8000 throbbing LED lights and a red hot sound system pumping out the beat. Cars are designed by world-leading Italian designers and all cars are fitted with padded seat belts.</description>
 		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
 		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="20">
+		<title>Cliff Hanger</title>
+		<description>Hang face down and suspended and assume the Superman position while the Cliff Hanger tilts and twists you around, creating the incredible sensation of flying. You’ll feel like you are flying.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="21">
+		<title>Crazy Spinning Coaster</title>
+		<description>All the thrills of a traditional roller coaster – with an added twist. The locking system allows the car to spin around, which ramps up the excitement and the screams to fever pitch. It is the only central pivot rotation mobile roller coaster in Australia.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="22">
+		<title>Disc’o</title>
+		<description>Strap yourself to this giant spinning disk before taking off on a 30m half pipe. This ride delivers all the thrills and an amazingly unique sensation while travelling at four metres per second.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="23">
+		<title>Dodgem Cars</title>
+		<description>They’re fast, they’re fun and they’re furious. Now everyone’s favourite returns with all new dodgem cars and three awesome new tracks. Put yourself in the driver’s seat and blast, bump and crash your way around whilst bopping away to the music and bright lights.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="24">
+		<title>Double Ranger</title>
+		<description>Up, up and over it goes, churning high into the sky for the upside-down thrill of a lifetime.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="25">
+		<title>Extreme</title>
+		<description>Get ready for the latest and greatest thrill to arrive in Australia. Strap yourself in and be prepared to be turned inside out, upside down and twirled around as you spin through the air on the most adrenaline charged experience – ever.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="26">
+		<title>Gravitron (Starship 2000)</title>
+		<description>A thrilling excursion into the world of weightlessness. Stand along the walls as the spacecraft begins its spinning journey and the centrifugal force pins you against the wall for a fantastic fun adventure.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="27">
+		<title>Gravitron (Starship 2000)</title>
+		<description>A thrilling excursion into the world of weightlessness. Stand along the walls as the spacecraft begins its spinning journey and the centrifugal force pins you against the wall for a fantastic fun adventure.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="28">
+		<title>Hard Rock</title>
+		<description>You’ll think you’re flying. Rotating on a claw at the end of a giant pendulum, this smooth, swinging, rotating ride creates the sensation of sailing weightless through the air.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="29">
+		<title>Haunted Hotel</title>
+		<description>You can check in, but you might not be quite the same when you check out. Test yourself for the fear factor with a trip through the scariest hotel in the country.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="30">
+		<title>Hollywood Horrors</title>
+		<description>The terrifying spine tingling walk through chilling scenes from the scariest Hollywood Shockbusters is back. This time with brand new tricks and scares including the corridor of corpses and the castle gate keeper Necromancer, roaming the graveyard snatching victims as he passes. Do you dare to enter the fear factory?</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="31">
+		<title>Mega Drop</title>
+		<description>It’s the ultimate adrenalin rush, a terrifying free fall with extra thrust to enhance the effect of gravity and a rapid deceleration, all packed into the wildest 1.8 seconds of your life.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="32">
+		<title>No Limit</title>
+		<description>Get set for rubber legs. Spinning on the end of a huge and power-packed arm, this ride cranks up the thrills to the red line to deliver 5Gs of pulling power, which is a tight turn in an F-111.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="33">
+		<title>Pirates Revenge</title>
+		<description>Getting wet has never been more fun. Board your vessel on this action-packed aquatic roller coaster and take a long, slow ride to the top before plunging back to ground level in a plume of gushing spray. Watch out for the shark.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="34">
+		<title>Power Surge</title>
+		<description>It’s totally insane. Strap yourself in for an explosive session of backflips, spins, turns and twists, guaranteed to make you scream. </description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="35">
+		<title>Psychedelic</title>
+		<description>Make your own way through Psychedelic for a complete sensory overload. Psychedelic is a shiny new mirror maze boasting 1 million LED lights, floor to ceiling mirrors and groovy tunes. Yeah baby.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="36">
+		<title>Raupen Bahn - Musik Express</title>
+		<description>It might seem tame but this family fun ride has a few tricks up its sleeve, so be prepared for mayhem along the way.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="37">
+		<title>Rock n Roll</title>
+		<description>Tune in to the era of Rock and Roll with a ride aboard a classic Chevy while the biggest juke box you've ever seen pumps out blasts from the past. </description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="38">
+		<title>Rock Star</title>
+		<description>With lights a blazing like the Las Vegas strip, the giant swinging guitar arm sways in a smooth flowing motion from side to side building momentum to circle a full 360 degrees. Passengers get an incredible birds’ eye view of the Showgrounds and an exhilarating feeling of free fall.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="39">
+		<title>Sea Xplorer</title>
+		<description>Take a deep breath, sit back and prepare for an amazing adventure on a simulated voyage into the deep blue sea.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="40">
+		<title>Sky Flyer</title>
+		<description>It’s a wave swinger on steroids. Soaring into 35 metres of blue sky, this is one smooth ride, with the added bonus of a spectacular view over the carnival area and showground. Spin and soar, at an elevation of 35 metres.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="41">
+		<title>Skymaster Wheel</title>
+		<description>Want to take in the view from the top? Let the big wheel take you up to the breathtaking heights of the Showground for an unforgettable view. </description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="42">
+		<title>Sky Walker</title>
+		<description>Strap yourself in and get ready to roll. And shake and rattle. You’ll be flung upside down, sideways, front wise and every other wise on this spinning, whirling fun ride that’s strictly for thrill seekers.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="43">
+		<title>Sling Shot</title>
+		<description>It’s short, sharp and super-sensational. Get yourself strapped in before you’re fired into the clear blue sky – 70 metres in one second, zero to 160kph. In the scariest 1.5 seconds of your life experience 5Gs of force and a 360° rotation before hurtling back to Earth.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="44">
+		<title>Space Roller</title>
+		<description>It spins, it whirls, it whips you in all directions with no respect for gravity. Definitely a ride for those who like it fast and furious. 360 loops.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="45">
+		<title>Speed</title>
+		<description>Fast, furious and guaranteed to mess up your hair, Speed is exactly what the name says. Feel the adrenalin surge as this power packed ride lifts you off on a thrilling 100kph, 3.6G adventure. Unmatched for speed and excitement.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="46">
+		<title>Taipan Rollercoaster</title>
+		<description>There’s nothing quite like a rollercoaster for old-fashioned thrills and this monster is the biggest mobile coaster in the country. Scream yourself hoarse as your car plummets from the heights and churns you through two giant drops and two high speed spirals. Over 300 metres long.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="47">
+		<title>Techno Jump</title>
+		<description>It’s a blast. Take a seat on the bench and swing into the air for a funky, fun-packed ride.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="48">
+		<title>Wave Swinger</title>
+		<description>Prepare for lift off. The Wave Swinger whisks you off your feet and up, up and away in the smoothest of soaring sensations.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="49">
+		<title>XXXL</title>
+		<description>Challenge yourself with the ultimate high speed thrill. Pulling 6.5Gs – which is fighter pilot stuff – this turbocharged ride twists you upside down and inside out, all at lightning speed. Latest thrill ride from Amsterdam with an elevation to an Xtreme 24 metres.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
+		<type>Coca-Cola Carnival</type>
+	</ride>
+	<ride id="50">
+		<title>Zipper</title>
+		<description>It looks meek and mild but the Zipper is a ripper of pure untamed, mechanical chaos One of the original Xtreme rides and still one of the best. Approach with caution. Rage in a cage, hold on tight as the Cages move while boom rotates.</description>
+		<thumbURL>http://sres.c2gloo.net/data/media/00000023/00000023_DL-clssic-spot-thumb__thumb.jpg</thumbURL>
+		<imageURL>http://sres.c2gloo.net/data/media/00000024/00000023_DL-clssic-spot-lrg__zoom.jpg</imageURL>
+		<latitude>-33.84462</latitude>
+		<longitude>151.07213</longitude>
 		<type>Coca-Cola Carnival</type>
 	</ride>
 </rides>	

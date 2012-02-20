@@ -16,6 +16,8 @@
 	NSManagedObjectContext *managedObjectContext;
 	UIImageView *stitchedBorder;
 	
+	BOOL pageViewRecorded;
+	
 	FoodVenue *foodVenue;
 		
 	// Display

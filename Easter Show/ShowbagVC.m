@@ -11,15 +11,11 @@
 #import "SRESAppDelegate.h"
 #import "SHK.h"
 #import "MapVC.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "ImageManager.h"
 #import "StringHelper.h"
 #import "Favourite.h"
 #import "Constants.h"
-
-static NSString* kTitleFont = @"HelveticaNeue-Bold";
-static NSString* kDescriptionFont = @"HelveticaNeue";
-static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 @implementation ShowbagVC
 
@@ -103,7 +99,9 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
+	// If the viewing of this Showbag has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 }
 
 
@@ -133,6 +131,12 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"Showbags" action:@"Favourite" 
+										  label:[self.showbag title] value:-1 withError:nil]) {
+		NSLog(@"error recording Showbag as Favourite");
+	}
 }
 
 
@@ -236,13 +240,12 @@ static NSString* kPlaceholderImage = @"placeholder-showbags.jpg";
 
 - (void)recordPageView {
 
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/showbags/%@.html", self.showbag.showbagTitle];
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/showbags/%@.html", self.showbag.title];
 	NSLog(@"SHOWBAGS PAGE VIEW URL:%@", urlString);
 	
-	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES - SHOWBAG PAGE VIEW RECORDED" : @"NO - SHOWBAG PAGE VIEW FAILED"));*/
-
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"SHOWBAG PAGE VIEW RECORDED" : @"SHOWBAG PAGE VIEW FAILED"));
 }
 
 

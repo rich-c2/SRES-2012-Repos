@@ -16,6 +16,8 @@
 	NSManagedObjectContext *managedObjectContext;
 	CarnivalRide *carnivalRide;
 	
+	BOOL pageViewRecorded;
+	
 	UILabel *navigationTitle;
 	
 	// Display

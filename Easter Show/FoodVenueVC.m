@@ -11,7 +11,7 @@
 #import "SRESAppDelegate.h"
 #import "SHK.h"
 #import "MapVC.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "StringHelper.h"
 #import "ImageManager.h"
 #import "Favourite.h"
@@ -105,9 +105,9 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
-	
-	[self updateAddToFavouritesButton];
+	// If the viewing of this FoodVenue has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 }
 
 
@@ -137,6 +137,12 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"FoodVenues" action:@"Favourite" 
+										  label:[self.foodVenue title] value:-1 withError:nil]) {
+		NSLog(@"error recording FoodVenue as Favourite");
+	}
 }
 
 
@@ -235,12 +241,12 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)recordPageView {
 	
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/foodvenues/%@.html", self.foodVenue.venueTitle];
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/foodvenues/%@.html", self.foodVenue.title];
 	NSLog(@"FOOD PAGE VIEW URL:%@", urlString);
 	
-	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES - FOOD VENUE PAGE VIEW RECORDED" : @"NO - FOOD VENUE PAGE VIEW FAILED"));*/
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"FOOD VENUE PAGE VIEW RECORDED" : @"FOOD VENUE PAGE VIEW FAILED"));
 }
 
 

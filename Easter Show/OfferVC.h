@@ -18,6 +18,7 @@
 	
 	JSONFetcher *fetcher;
 	BOOL successfulRedeem;
+	BOOL pageViewRecorded;
 	
 	Offer *offer;
 	NSURL *selectedURL;

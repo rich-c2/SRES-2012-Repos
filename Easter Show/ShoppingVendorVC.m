@@ -10,7 +10,7 @@
 #import "SRESAppDelegate.h"
 #import "SRESAppDelegate.h"
 #import "MapVC.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "SHK.h"
 #import "Favourite.h"
 #import "StringHelper.h"
@@ -99,7 +99,9 @@
 	
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
+	// If the viewing of this ShoppingVendor has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 	
 	[self updateAddToFavouritesButton];
 	
@@ -215,12 +217,12 @@
 
 - (void)recordPageView {
 	
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/events/%@.html", self.event.eventTitle];
-	 NSLog(@"EVENTS PAGE VIEW URL:%@", urlString);
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/shoppingvendors/%@.html", self.shoppingVendor.title];
+	NSLog(@"SHOPPING VENDOR PAGE VIEW URL:%@", urlString);
 	 
-	 BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	 NSLog(@"%@", (success ? @"YES EVENTS PAGE VIEW RECORDED" : @"NO - EVENTS PAGE VIEW FAILED"));*/
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"SHOPPING VENDOR PAGE VIEW RECORDED" : @"SHOPPING VENDOR PAGE VIEW FAILED"));
 }
 
 

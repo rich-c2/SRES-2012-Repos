@@ -11,7 +11,7 @@
 #import "CarnivalRide.h"
 #import "SHK.h"
 #import "MapVC.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "ImageManager.h"
 #import "StringHelper.h"
 #import "Favourite.h"
@@ -78,6 +78,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 
 - (void)viewDidUnload {
+	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -101,7 +102,9 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
+	// If the viewing of this CarnivalRide has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 }
 
 
@@ -131,6 +134,12 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"Showbags" action:@"Favourite" 
+										  label:[self.carnivalRide title] value:-1 withError:nil]) {
+		NSLog(@"error recording Showbag as Favourite");
+	}
 }
 
 
@@ -208,12 +217,12 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)recordPageView {
 	
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/carnivalrides/%@.html", self.carnivalRide.rideTitle];
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/carnivalrides/%@.html", self.carnivalRide.title];
 	NSLog(@"CARNIVAL PAGE VIEW URL:%@", urlString);
 	
-	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES - CARNIVAL RIDE PAGE VIEW RECORDED" : @"NO - CARNIVAL RIDE PAGE VIEW FAILED"));*/
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"CARNIVAL RIDE PAGE VIEW RECORDED" : @"CARNIVAL RIDE PAGE VIEW FAILED"));
 }
 
 

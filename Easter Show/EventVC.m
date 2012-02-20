@@ -10,7 +10,7 @@
 #import "Event.h"
 #import "SRESAppDelegate.h"
 #import "MapVC.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "SHK.h"
 #import "Favourite.h"
 #import "StringHelper.h"
@@ -100,7 +100,9 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
+	// If the viewing of this Event has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 }
 
 
@@ -136,6 +138,12 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"Events" action:@"Favourite" 
+													label:[self.eventDateTime.forEvent title] value:-1 withError:nil]) {
+		NSLog(@"error recording Event as Favourite");
+	}
 }
 
 
@@ -246,12 +254,12 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 - (void)recordPageView {
 	
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/events/%@.html", self.event.eventTitle];
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/events/%@.html", self.eventDateTime.forEvent.title];
 	NSLog(@"EVENTS PAGE VIEW URL:%@", urlString);
 	
-	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES EVENTS PAGE VIEW RECORDED" : @"NO - EVENTS PAGE VIEW FAILED"));*/
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"EVENTS PAGE VIEW RECORDED" : @"EVENTS PAGE VIEW FAILED"));
 }
 
 

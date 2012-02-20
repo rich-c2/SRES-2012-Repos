@@ -731,9 +731,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 		[self.menuTable setHidden:YES];
 		
 		// DISABLE FILTER BUTTONS
-		[self.filterButton1 setEnabled:NO];
-		[self.filterButton2 setEnabled:NO];
-		[self.filterButton3 setEnabled:NO];
+		[self.filterButton1 setUserInteractionEnabled:NO];
+		[self.filterButton2 setUserInteractionEnabled:NO];
+		[self.filterButton3 setUserInteractionEnabled:NO];
 		
 		// Put the focus on the search bar field. 
 		// Keyboard will now be visible
@@ -778,9 +778,9 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[self.menuTable setHidden:NO];
 	
 	// ENABLE FILTER BUTTONS
-	[self.filterButton1 setEnabled:YES];
-	[self.filterButton2 setEnabled:YES];
-	[self.filterButton3 setEnabled:YES];
+	[self.filterButton1 setUserInteractionEnabled:YES];
+	[self.filterButton2 setUserInteractionEnabled:YES];
+	[self.filterButton3 setUserInteractionEnabled:YES];
 	
 	// Update instance var
 	searching = NO;

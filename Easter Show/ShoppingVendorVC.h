@@ -16,6 +16,8 @@
 	
 	NSManagedObjectContext *managedObjectContext;
 	
+	BOOL pageViewRecorded;
+	
 	// Display
 	UITextView *dateLabel;
 	UITextView *descriptionLabel;

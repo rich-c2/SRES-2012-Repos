@@ -17,6 +17,8 @@
 	
 	SRESAppDelegate *appDelegate;
 	NSManagedObjectContext *managedObjectContext;
+	
+	BOOL pageViewRecorded;
 
 	Showbag *showbag;
 	

@@ -59,6 +59,9 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	// By default we're viewing coke rides
 	viewingCoke = YES;
 	
+	// Show the loading animation
+	[self showLoading];
+	
 	[self fetchRidesFromCoreData];
 	
 	
@@ -103,13 +106,8 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	// file and add the data to Core Data for future use.
 	BOOL previouslyLoaded = [[NSUserDefaults standardUserDefaults] boolForKey:kCarnivalsPreviouslyLoadedKey];
 	
-	// Show the loading animation
-	if (!viewLoaded || !previouslyLoaded) [self showLoading];
-	
 	// Load the Shopping objects from the relevant XML file
 	if (!previouslyLoaded) {
-		
-		[self showLoading];
 	
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"carnivalrides" ofType:@"xml"];  
 		NSData *myData = [NSData dataWithContentsOfFile:filePath];  
@@ -140,7 +138,6 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
 	
 	// Deselect the selected table cell
 	[self.menuTable deselectRowAtIndexPath:[self.menuTable indexPathForSelectedRow] animated:YES];
-	//[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
 }
 
 

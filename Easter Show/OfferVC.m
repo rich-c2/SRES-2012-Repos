@@ -9,7 +9,7 @@
 #import "OfferVC.h"
 #import "Offer.h"
 #import "SRESAppDelegate.h"
-//#import "GANTracker.h"
+#import "GANTracker.h"
 #import "SHK.h"
 #import "Favourite.h"
 #import "SVProgressHUD.h"
@@ -76,7 +76,9 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	[super viewDidAppear:NO];
 	
-	[self recordPageView];
+	// If the viewing of this Offer has not already been recorded in Google Analytics
+	// then record it as a page view
+	if (!pageViewRecorded) [self recordPageView];
 }
 
 
@@ -206,6 +208,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"Offers" action:@"Favourite" 
+										  label:[self.offer title] value:-1 withError:nil]) {
+		NSLog(@"error recording Offer as Favourite");
+	}
 }
 
 
@@ -251,12 +259,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 - (void)recordPageView {
 	
-	//NSError **error;
-	/*NSString *urlString = [NSString stringWithFormat:@"/offers/%@.html", self.offer.offerTitle];
+	NSError **error;
+	NSString *urlString = [NSString stringWithFormat:@"/offers/%@.html", self.offer.title];
 	NSLog(@"OFFER PAGE VIEW URL:%@", urlString);
 	
-	BOOL success = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
-	NSLog(@"%@", (success ? @"YES - OFFER PAGE VIEW RECORDED" : @"NO - OFFER PAGE VIEW FAILED"));*/
+	pageViewRecorded = [[GANTracker sharedTracker] trackPageview:urlString withError:nil];
+	NSLog(@"%@", (pageViewRecorded ? @"OFFER PAGE VIEW RECORDED" : @"OFFER PAGE VIEW FAILED"));
 }
 
 
