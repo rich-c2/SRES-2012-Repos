@@ -16,10 +16,12 @@
 #import "SBJson.h"
 #import "SVProgressHUD.h"
 #import "Constants.h"
+#import "Favourite.h"
 
 #define UNDER10_TAG 1000
 #define OVER10_UNDER20_TAG 1001
 #define OVER20_TAG 1002
+#define MAIN_CONTENT_HEIGHT 339
 
 static NSString* kTableCellFont = @"Arial-BoldMT";
 static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
@@ -156,13 +158,13 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	// Hide keyboard
-	[self dismissKeyboard];
-	
 	// Adjust searchTable's frame height
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	newFrame.size.height = MAIN_CONTENT_HEIGHT;
 	[self.searchTable setFrame:newFrame];
+	
+	// Hide keyboard
+	[self dismissKeyboard];
 	
 	return YES;
 }
@@ -175,6 +177,15 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[self.searchTable reloadData];
 	
 	return YES;
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+
+	// Reset the height of the Table's frame
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
+	[self.searchTable setFrame:newTableFrame];
 }
 
 
@@ -437,6 +448,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	NSArray *storedShowbags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
 	
+	NSLog(@"STORED SHOWBAGS:%i", [storedShowbags count]);
+	
 	NSMutableString *mutableXML = [NSMutableString string];
 	[mutableXML appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"];
 	
@@ -444,7 +457,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 		[mutableXML appendString:@"<showbags>"];
 		
-		for (Showbag *showbag in [fetchedResultsController fetchedObjects]) {
+		for (Showbag *showbag in storedShowbags) {
 			
 			[mutableXML appendFormat:@"<s id=\"%i\" v=\"%i\" />", [showbag.showbagID intValue], [showbag.version intValue]];
 		}
@@ -486,7 +499,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -543,7 +556,17 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"showbagID"] intValue]];
 				
 				Showbag *showbag = [Showbag getShowbagWithID:idNum inManagedObjectContext:self.managedObjectContext];
-				if (showbag) [self.managedObjectContext deleteObject:showbag];
+				
+				if (showbag) {
+					
+					Favourite *fav = [Favourite favouriteWithItemID:[showbag showbagID] favouriteType:@"Showbags" inManagedObjectContext:self.managedObjectContext];
+					
+					// Check if it's a Fav - if so, delete the Fav
+					if (fav) [self.managedObjectContext deleteObject:fav];
+					
+					// Delete Showbag object from managed object context
+					[self.managedObjectContext deleteObject:showbag];
+				}
 			}
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////
@@ -681,6 +704,10 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	[self fetchShowbagsFromCoreData];
 	
 	[self.menuTable reloadData];
+	
+	// Reset search and search results
+	search.text = @"";
+	[self resetSearch];
 	[self.searchTable reloadData];
 }
 
@@ -702,50 +729,24 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 
 - (IBAction)startSearch:(id)sender {
 	
-	// if already searching, then hide
-	// the search table and search field
-	if (searching) {
+	// MAKE THE SEARCH RESULTS TABLE VISIBLE
+	// MAKE THE SEARCH BAR VISIBLE 
+	// MAKE THE CANCEL BUTTON VISIBLE
+	[self.search setHidden:NO];
+	[self.searchTable setHidden:NO];
+	[self.cancelButton setHidden:NO];
+	[self.menuTable setHidden:YES];
 	
-		search.text = @"";
-		[self resetSearch];
-		[self.searchTable reloadData];
-		[self.search resignFirstResponder];
-		
-		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
-		[self.searchTable setFrame:newFrame];
-		
-		[self.searchTable setHidden:YES];
-		[self.search setHidden:YES];
-		[self.menuTable setHidden:NO];
-	}
+	// Put the focus on the search bar field. 
+	// Keyboard will now be visible
+	[self.search becomeFirstResponder];
 	
-	else {
-
-		// MAKE THE SEARCH RESULTS TABLE VISIBLE
-		// MAKE THE SEARCH BAR VISIBLE 
-		// MAKE THE CANCEL BUTTON VISIBLE
-		[self.search setHidden:NO];
-		[self.searchTable setHidden:NO];
-		[self.cancelButton setHidden:NO];
-		[self.menuTable setHidden:YES];
-		
-		// DISABLE FILTER BUTTONS
-		[self.filterButton1 setUserInteractionEnabled:NO];
-		[self.filterButton2 setUserInteractionEnabled:NO];
-		[self.filterButton3 setUserInteractionEnabled:NO];
-		
-		// Put the focus on the search bar field. 
-		// Keyboard will now be visible
-		[self.search becomeFirstResponder];
-		
-		// Reset the height of the Table's frame and hide it from view
-		CGRect newTableFrame = self.searchTable.frame;
-		newTableFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
-		[self.searchTable setFrame:newTableFrame];
-	}
+	// Reset the height of the Table's frame
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
+	[self.searchTable setFrame:newTableFrame];
 	
-	searching = !searching;
+	searching = YES;
 }
 
 
@@ -760,7 +761,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	if ([self.search isEditing]) {
 		
 		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		newFrame.size.height = MAIN_CONTENT_HEIGHT;
 		[self.searchTable setFrame:newFrame];
 	}
 	
@@ -776,11 +777,6 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	
 	// show regular table
 	[self.menuTable setHidden:NO];
-	
-	// ENABLE FILTER BUTTONS
-	[self.filterButton1 setUserInteractionEnabled:YES];
-	[self.filterButton2 setUserInteractionEnabled:YES];
-	[self.filterButton3 setUserInteractionEnabled:YES];
 	
 	// Update instance var
 	searching = NO;

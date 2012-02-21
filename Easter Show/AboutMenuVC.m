@@ -8,6 +8,11 @@
 
 #import "AboutMenuVC.h"
 #import "BasicInfoVC.h"
+#import "ParkingVC.h"
+#import "GeneralSafetyVC.h"
+#import "TransportInfoVC.h"
+#import "TicketPricesVC.h"
+#import "ContactUsVC.h"
 
 @implementation AboutMenuVC
 
@@ -72,41 +77,41 @@
 
 - (IBAction)ticketPricesButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	TicketPricesVC *ticketPricesVC = [[TicketPricesVC alloc] initWithNibName:@"TicketPricesVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:ticketPricesVC animated:YES];
+	[ticketPricesVC release];
 }
 
 
 - (IBAction)transportInfoButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	TransportInfoVC *transportInfoVC = [[TransportInfoVC alloc] initWithNibName:@"TransportInfoVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:transportInfoVC animated:YES];
+	[transportInfoVC release];
 }
 
 
 - (IBAction)parkingButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	ParkingVC *parkingVC = [[ParkingVC alloc] initWithNibName:@"ParkingVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:parkingVC animated:YES];
+	[parkingVC release];
 }
 
 
 - (IBAction)generalSafetyButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	GeneralSafetyVC *generalSafetyVC = [[GeneralSafetyVC alloc] initWithNibName:@"GeneralSafetyVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:generalSafetyVC animated:YES];
+	[generalSafetyVC release];
 }
 
 
@@ -122,11 +127,11 @@
 
 - (IBAction)contactUsButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	ContactUsVC *contactUsVC = [[ContactUsVC alloc] initWithNibName:@"ContactUsVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:contactUsVC animated:YES];
+	[contactUsVC release];
 }
 
 

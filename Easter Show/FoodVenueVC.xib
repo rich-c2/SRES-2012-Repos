@@ -104,7 +104,6 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMTEzNzI1NDkwMiAwLjIxMTc2NDcwNTkAA</bytes>
@@ -364,7 +363,7 @@
 						<string key="NSFrame">{{0, 72}, {320, 150}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="127726268"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAwLjkyMDE0NjE0MiAwLjMzNTI4MjU0OTcgMAA</bytes>
@@ -377,22 +376,6 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">food-placeholder.png</string>
 						</object>
-					</object>
-					<object class="IBUIImageView" id="127726268">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 72}, {126, 150}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="559297546"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAwLjkyMDE0NjE0MiAwLjMzNTI4MjU0OTcgMAA</bytes>
-						</object>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">9</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
 				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
@@ -471,14 +454,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">venueImage</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="127726268"/>
-					</object>
-					<int key="connectionID">40</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">stitchedBorder</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="432086579"/>
@@ -543,7 +518,6 @@
 							<reference ref="29775410"/>
 							<reference ref="428064657"/>
 							<reference ref="97589092"/>
-							<reference ref="127726268"/>
 							<reference ref="989836784"/>
 							<reference ref="432086579"/>
 						</object>
@@ -617,11 +591,6 @@
 						<reference key="parent" ref="97589092"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">38</int>
-						<reference key="object" ref="127726268"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
 						<reference key="object" ref="989836784"/>
 						<reference key="parent" ref="191373211"/>
@@ -659,7 +628,6 @@
 					<string>34.IBPluginDependency</string>
 					<string>36.IBPluginDependency</string>
 					<string>36.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
-					<string>38.IBPluginDependency</string>
 					<string>39.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>42.IBPluginDependency</string>
@@ -684,7 +652,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -728,25 +695,21 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addToPlannerButton</string>
 							<string>descriptionLabel</string>
-							<string>loadingSpinner</string>
 							<string>mapButton</string>
 							<string>shareButton</string>
 							<string>stitchedBorder</string>
 							<string>subTitleLabel</string>
 							<string>titleLabel</string>
-							<string>venueImage</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>UITextView</string>
-							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIImageView</string>
 							<string>UITextView</string>
 							<string>UITextView</string>
-							<string>UIImageView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -755,13 +718,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addToPlannerButton</string>
 							<string>descriptionLabel</string>
-							<string>loadingSpinner</string>
 							<string>mapButton</string>
 							<string>shareButton</string>
 							<string>stitchedBorder</string>
 							<string>subTitleLabel</string>
 							<string>titleLabel</string>
-							<string>venueImage</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -772,10 +733,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">descriptionLabel</string>
 								<string key="candidateClassName">UITextView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">loadingSpinner</string>
-								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">mapButton</string>
@@ -796,10 +753,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleLabel</string>
 								<string key="candidateClassName">UITextView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">venueImage</string>
-								<string key="candidateClassName">UIImageView</string>
 							</object>
 						</object>
 					</object>

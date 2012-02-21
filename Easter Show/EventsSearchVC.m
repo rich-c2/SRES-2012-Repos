@@ -18,6 +18,7 @@
 #import "EventsMainVC.h"
 #import "JSONFetcher.h"
 #import "SBJson.h"
+#import "Favourite.h"
 
 @implementation EventsSearchVC
 
@@ -273,7 +274,6 @@
 		NSDictionary *addObjects = [results objectForKey:@"events"];
 		
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
-		
 		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
 		
 		//NSLog(@"KEYS:%@", eventsDict);
@@ -287,7 +287,6 @@
 		}
 		
 		NSDictionary *updates = [addObjects objectForKey:@"update"];
-		
 		NSMutableArray *updatesDict = [updates objectForKey:@"event"];
 		
 		for (int i = 0; i < [updatesDict count]; i++) {
@@ -299,7 +298,6 @@
 		}
 		
 		NSDictionary *removes = [addObjects objectForKey:@"remove"];
-		
 		NSMutableArray *removeDict = [removes objectForKey:@"event"];
 		
 		for (int i = 0; i < [removeDict count]; i++) {
@@ -310,7 +308,16 @@
 			Event *event = [Event getEventWithID:idNum inManagedObjectContext:self.managedObjectContext];
 			
 			// Store Event data in Core Data persistent store
-			if (event) [self.managedObjectContext deleteObject:event];
+			if (event) {
+				
+				/*Favourite *fav = [Favourite favouriteWithItemID:[event eventID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
+				
+				// Check if it's a Fav - if so, delete the Fav
+				if (fav) [self.managedObjectContext deleteObject:fav];*/
+				
+				// Delete Event object from current context
+				[self.managedObjectContext deleteObject:event];
+			}
 		}
 		
 		[jsonString release];

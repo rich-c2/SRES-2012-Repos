@@ -57,7 +57,7 @@
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)resetSearch;
-- (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue;
+- (void)configureCell:(UITableViewCell *)cell withFoodVenue:(FoodVenue *)foodVenue;
 - (void)setupNavBar;
 - (IBAction)goBack:(id)sender;
 - (IBAction)startSearch:(id)sender;

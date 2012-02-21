@@ -23,4 +23,7 @@
 + (BOOL)isItemFavourite:(NSNumber *)itemID favouriteType:(NSString *)type 
  inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (Favourite *)favouriteWithItemID:(NSNumber *)itemID favouriteType:(NSString *)type
+			inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

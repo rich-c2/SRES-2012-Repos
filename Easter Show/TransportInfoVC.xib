@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
+	<data>
+		<int key="IBDocument.SystemTarget">1280</int>
+		<string key="IBDocument.SystemVersion">10K549</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+			<string key="NS.object.0">933</string>
+		</object>
+		<array key="IBDocument.IntegratedClassDependencies">
+			<string>IBUIView</string>
+			<string>IBUIImageView</string>
+			<string>IBProxyObject</string>
+			<string>IBUILabel</string>
+			<string>IBUITextView</string>
+			<string>IBUIScrollView</string>
+			<string>IBUIButton</string>
+		</array>
+		<array key="IBDocument.PluginDependencies">
+			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+		</array>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
+		</object>
+		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
+			<object class="IBProxyObject" id="372490531">
+				<string key="IBProxiedObjectIdentifier">IBFilesOwner</string>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+			</object>
+			<object class="IBProxyObject" id="975951072">
+				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+			</object>
+			<object class="IBUIView" id="191373211">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">274</int>
+				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="425993814">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{14, 401}, {291, 1}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage" id="934176865">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">stiched-border.png</string>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="81349805">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{14, 54}, {291, 1}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="84696020"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<reference key="IBUIImage" ref="934176865"/>
+					</object>
+					<object class="IBUIView" id="83054534">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIButton" id="332994614">
+								<reference key="NSNextResponder" ref="83054534"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{6, 8}, {45, 28}}</string>
+								<reference key="NSSuperview" ref="83054534"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="842205690"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<object class="NSColor" key="IBUIHighlightedTitleColor" id="1000138157">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleShadowColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button-on.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">back-button.png</string>
+								</object>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">2</int>
+									<double key="pointSize">15</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">15</double>
+									<int key="NSfFlags">16</int>
+								</object>
+							</object>
+							<object class="IBUIImageView" id="842205690">
+								<reference key="NSNextResponder" ref="83054534"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{110, 17}, {100, 10}}</string>
+								<reference key="NSSuperview" ref="83054534"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="81349805"/>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">transport-info-title.png</string>
+								</object>
+							</object>
+						</array>
+						<string key="NSFrameSize">{320, 44}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="332994614"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMTEzNzI1NDkwMiAwLjIxMTc2NDcwNTkAA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUIScrollView" id="84696020">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">268</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUITextView" id="812978649">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 30}, {271, 80}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="679467125"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="97246312">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MCAwAA</bytes>
+								</object>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">The Sydney Royal Easter Show is held at Sydney Showground in Sydney Olympic Park. Sydney Showground is conveniently serviced by bus, train, ferry and taxi services.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="724020850">
+									<string key="name">Helvetica</string>
+									<string key="family">Helvetica</string>
+									<int key="traits">0</int>
+									<double key="pointSize">12</double>
+								</object>
+								<object class="NSFont" key="IBUIFont" id="749551324">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
+							</object>
+							<object class="IBUITextView" id="679467125">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 100}, {271, 80}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="110241199"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Your ShowLink ticket includes entry to the Show and same day return travel on CityRail services, Sydney Olympic Park Major Event Buses, regular Sydney Buses services, Liverpool to Parramatta T-way Buses and Sydney Ferries services (excluding privately operated buses and ferries, CountryLink trains, Metro Light Rail or Monorail).</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="110241199">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 185}, {271, 80}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1000084597"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">To plan your trip on public transport visit www.131500.com or call 131 500.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="366959814">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 253}, {271, 116}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="400967875"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">CityRail operates frequent services during the Show, including direct services between Central station and Olympic Park, the Olympic Park Sprint between Lidcombe and Olympic Park stations and direct services on weekends between Blacktown Station and Olympic Park.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="400967875">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 353}, {271, 92}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="320785078"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">ShowLink tickets not valid on CountryLink trains, Metro Light Rail or Monorail. CityRail station access fee applies for travel to and from Domestic and International Airport stations to the City.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="320785078">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 440}, {271, 92}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="193879815"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Visit CityRail to get the most up-to-date information on timetables.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="370609575">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 508}, {271, 135}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="578990353"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Sydney Olympic Park Major Event Buses run every 20-30 minutes on 12 Major Event bus routes and more frequently during peak times for the duration of the Show. Major Event buses begin operating between 7.00-7.30am depending on the route. The last bus on each route departs Sydney Olympic Park at 11pm each night of the Show.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="354143046">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 670}, {271, 135}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="54284653"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Sydney Ferries services to Sydney Olympic Park have limited service capacity. Catch a train from Circular Quay Station and change at Lidcombe for one of the many train services to Olympic Park.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUITextView" id="168302432">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{14, 785}, {271, 135}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="425993814"/>
+								<reference key="IBUIBackgroundColor" ref="97246312"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<int key="IBUITag">7777</int>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Sydney Olympic Park is a short 25 minute flat walk from Concord West Station or a 40 minute walk from Lidcombe Station.</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="724020850"/>
+								<reference key="IBUIFont" ref="749551324"/>
+							</object>
+							<object class="IBUILabel" id="1000084597">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{14, 238}, {251, 21}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="366959814"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Trains</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="683284090">
+									<string key="name">Helvetica-Bold</string>
+									<string key="family">Helvetica</string>
+									<int key="traits">2</int>
+									<double key="pointSize">12</double>
+								</object>
+								<object class="NSFont" key="IBUIFont" id="379852470">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
+							</object>
+							<object class="IBUILabel" id="193879815">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{14, 493}, {251, 21}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="370609575"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Buses</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<reference key="IBUIFontDescription" ref="683284090"/>
+								<reference key="IBUIFont" ref="379852470"/>
+							</object>
+							<object class="IBUILabel" id="578990353">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{14, 653}, {251, 21}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="354143046"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Ferry</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<reference key="IBUIFontDescription" ref="683284090"/>
+								<reference key="IBUIFont" ref="379852470"/>
+							</object>
+							<object class="IBUILabel" id="54284653">
+								<reference key="NSNextResponder" ref="84696020"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{14, 768}, {251, 21}}</string>
+								<reference key="NSSuperview" ref="84696020"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="168302432"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Walking</string>
+								<reference key="IBUITextColor" ref="1000138157"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<reference key="IBUIFontDescription" ref="683284090"/>
+								<reference key="IBUIFont" ref="379852470"/>
+							</object>
+						</array>
+						<string key="NSFrame">{{14, 54}, {291, 347}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="812978649"/>
+						<reference key="IBUIBackgroundColor" ref="97246312"/>
+						<bool key="IBUIAutoresizesSubviews">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
+					</object>
+				</array>
+				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="83054534"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC4zMTM3MjU0OTAyIDAuMDgyMzUyOTQxMTggMC4yOTAxOTYwNzg0AA</bytes>
+				</object>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
+					<int key="IBUIStatusBarStyle">2</int>
+				</object>
+				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+			</object>
+		</array>
+		<object class="IBObjectContainer" key="IBDocument.Objects">
+			<array class="NSMutableArray" key="connectionRecords">
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">view</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="191373211"/>
+					</object>
+					<int key="connectionID">3</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">contentScrollView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="84696020"/>
+					</object>
+					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">goBack:</string>
+						<reference key="source" ref="332994614"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">29</int>
+				</object>
+			</array>
+			<object class="IBMutableOrderedSet" key="objectRecords">
+				<array key="orderedObjects">
+					<object class="IBObjectRecord">
+						<int key="objectID">0</int>
+						<array key="object" id="0"/>
+						<reference key="children" ref="1000"/>
+						<nil key="parent"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1</int>
+						<reference key="object" ref="191373211"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="83054534"/>
+							<reference ref="81349805"/>
+							<reference ref="425993814"/>
+							<reference ref="84696020"/>
+						</array>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">-1</int>
+						<reference key="object" ref="372490531"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">File's Owner</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">-2</int>
+						<reference key="object" ref="975951072"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4</int>
+						<reference key="object" ref="425993814"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">5</int>
+						<reference key="object" ref="81349805"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">6</int>
+						<reference key="object" ref="83054534"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="332994614"/>
+							<reference ref="842205690"/>
+						</array>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">17</int>
+						<reference key="object" ref="332994614"/>
+						<reference key="parent" ref="83054534"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">16</int>
+						<reference key="object" ref="842205690"/>
+						<reference key="parent" ref="83054534"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">7</int>
+						<reference key="object" ref="84696020"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="168302432"/>
+							<reference ref="54284653"/>
+							<reference ref="354143046"/>
+							<reference ref="578990353"/>
+							<reference ref="370609575"/>
+							<reference ref="320785078"/>
+							<reference ref="366959814"/>
+							<reference ref="193879815"/>
+							<reference ref="812978649"/>
+							<reference ref="1000084597"/>
+							<reference ref="400967875"/>
+							<reference ref="679467125"/>
+							<reference ref="110241199"/>
+						</array>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
+						<reference key="object" ref="168302432"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="54284653"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="354143046"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">24</int>
+						<reference key="object" ref="578990353"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="370609575"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">20</int>
+						<reference key="object" ref="320785078"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">11</int>
+						<reference key="object" ref="366959814"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">14</int>
+						<reference key="object" ref="193879815"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">13</int>
+						<reference key="object" ref="812978649"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">12</int>
+						<reference key="object" ref="1000084597"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">10</int>
+						<reference key="object" ref="400967875"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="679467125"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">19</int>
+						<reference key="object" ref="110241199"/>
+						<reference key="parent" ref="84696020"/>
+					</object>
+				</array>
+			</object>
+			<dictionary class="NSMutableDictionary" key="flattenedProperties">
+				<string key="-1.CustomClassName">TransportInfoVC</string>
+				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="-2.CustomClassName">UIResponder</string>
+				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="17.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+			</dictionary>
+			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
+			<nil key="activeLocalization"/>
+			<dictionary class="NSMutableDictionary" key="localizations"/>
+			<nil key="sourceID"/>
+			<int key="maxID">29</int>
+		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">TransportInfoVC</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">goBack:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">goBack:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">goBack:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">contentScrollView</string>
+						<string key="NS.object.0">UIScrollView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">contentScrollView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">contentScrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TransportInfoVC.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
+		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
+		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="back-button-on.png">{45, 28}</string>
+			<string key="back-button.png">{45, 28}</string>
+			<string key="stiched-border.png">{320, 1}</string>
+			<string key="transport-info-title.png">{100, 10}</string>
+		</dictionary>
+		<string key="IBCocoaTouchPluginVersion">933</string>
+	</data>
+</archive>

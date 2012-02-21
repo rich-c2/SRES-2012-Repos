@@ -25,9 +25,8 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 @synthesize foodVenue, managedObjectContext;
 @synthesize stitchedBorder;
-@synthesize descriptionLabel, titleLabel, subTitleLabel, venueImage;
+@synthesize descriptionLabel, titleLabel, subTitleLabel;
 @synthesize shareButton, addToPlannerButton, mapButton;
-@synthesize loadingSpinner, selectedURL;
 
 
 // The designated initializer. Override if you create the controller programmatically 
@@ -89,15 +88,11 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	self.descriptionLabel = nil;
 	self.titleLabel = nil;
 	self.subTitleLabel = nil;
-	self.venueImage = nil;
-	self.loadingSpinner = nil;
 	self.stitchedBorder = nil;
 	
 	self.shareButton = nil; 
 	self.addToPlannerButton = nil; 
 	self.mapButton = nil;
-	self.loadingSpinner = nil; 
-	self.selectedURL = nil;
 }
 
 
@@ -263,39 +258,6 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 }
 
 
-- (void)initImage:(NSString *)urlString {
-	
-	if (urlString) {
-		
-		[self.loadingSpinner startAnimating];
-		
-		self.selectedURL = [urlString convertToURL];
-		
-		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
-		
-		UIImage* img = [ImageManager loadImage:self.selectedURL];
-		
-		if (img) {
-			
-			[self.loadingSpinner setHidden:YES];
-			[self.venueImage setImage:img];
-		}
-    }
-}
-
-
-- (void) imageLoaded:(UIImage*)image withURL:(NSURL*)url {
-	
-	if ([self.selectedURL isEqual:url]) {
-		
-		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
-		
-		[self.loadingSpinner setHidden:YES];
-		[self.venueImage setImage:image];
-	}
-}
-
-
 - (void)dealloc {
 	
 	[stitchedBorder release];
@@ -304,8 +266,6 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	[descriptionLabel release];
 	[titleLabel release];
 	[subTitleLabel release];
-	[venueImage release];
-	[loadingSpinner release];
     [super dealloc];
 }
 

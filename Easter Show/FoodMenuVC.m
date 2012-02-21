@@ -10,13 +10,14 @@
 #import "SRESAppDelegate.h"
 #import "FoodVenueVC.h"
 #import "FoodVenue.h"
-#import "FoodTableCell.h"
 #import "StringHelper.h"
-#import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "JSONFetcher.h"
 #import "SBJson.h"
 #import "Constants.h"
+#import "Favourite.h"
+
+#define MAIN_CONTENT_HEIGHT 367
 
 @implementation FoodMenuVC
 
@@ -131,7 +132,7 @@
 	
 	// Adjust searchTable's frame height
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	newFrame.size.height = MAIN_CONTENT_HEIGHT;
 	[self.searchTable setFrame:newFrame];
 	
 	return YES;
@@ -145,6 +146,15 @@
 	[self.searchTable reloadData];
 	
 	return YES;
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	
+	// Reset the height of the Table's frame
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
+	[self.searchTable setFrame:newTableFrame];
 }
 
 
@@ -240,7 +250,7 @@
 		case NSFetchedResultsChangeUpdate:
 			if (searching) foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
 			else foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
-			[self configureCell:(FoodTableCell *)[tableView cellForRowAtIndexPath:indexPath] withFoodVenue:foodVenue];
+			[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withFoodVenue:foodVenue];
 			break;
 			
 		case NSFetchedResultsChangeMove:
@@ -304,7 +314,7 @@
 }
 
 
-- (void)configureCell:(FoodTableCell *)cell withFoodVenue:(FoodVenue *)foodVenue {
+- (void)configureCell:(UITableViewCell *)cell withFoodVenue:(FoodVenue *)foodVenue {
 	
 	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
@@ -316,23 +326,26 @@
 	cell.selectedBackgroundView = selBGView;
 	[selBGView release];
 	
-	cell.nameLabel.text = foodVenue.title;
-	cell.dateLabel.text = [NSString stringWithFormat:@"%@", [foodVenue venueDescription]];
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+	cell.textLabel.text = [foodVenue.title uppercaseString];
 	
-	[cell initImage:foodVenue.thumbURL];
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
+	cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [foodVenue venueDescription]];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FoodTableCell *cell = (FoodTableCell *)[tableView dequeueReusableCellWithIdentifier:[FoodTableCell reuseIdentifier]];
+    static NSString *CellIdentifier = @"Cell";
+	
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
     if (cell == nil) {
 		
-        [[NSBundle mainBundle] loadNibNamed:@"FoodTableCell" owner:self options:nil];
-        cell = loadCell;
-        self.loadCell = nil;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 	
 	FoodVenue *foodVenue;
@@ -508,7 +521,17 @@
 				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"venueID"] intValue]];
 				
 				FoodVenue *venue = [FoodVenue getFoodVenueWithID:idNum inManagedObjectContext:self.managedObjectContext];
-				if (venue) [self.managedObjectContext deleteObject:venue];
+				
+				if (venue) {
+					
+					Favourite *fav = [Favourite favouriteWithItemID:[venue venueID] favouriteType:@"Food venues" inManagedObjectContext:self.managedObjectContext];
+					 
+					 // Check if it's a Fav - if so, delete the Fav
+					 if (fav) [self.managedObjectContext deleteObject:fav];
+				
+					// Delete FoodVenue object from context
+					[self.managedObjectContext deleteObject:venue];
+				}
 			}
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////
@@ -599,7 +622,7 @@
 	[self.search becomeFirstResponder];
 	
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	newFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
 	[self.searchTable setFrame:newFrame];
 	
 	searching = YES;
@@ -618,13 +641,12 @@
 	search.text = @"";
 	[self resetSearch];
 	[self.searchTable reloadData];
-	[self.search resignFirstResponder];
 	
 	// Adjust searchTable's frame height
 	if ([self.search isEditing]) {
 		
 		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		newFrame.size.height = MAIN_CONTENT_HEIGHT;
 		[self.searchTable setFrame:newFrame];
 	}
 	

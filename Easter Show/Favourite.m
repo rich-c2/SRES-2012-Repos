@@ -34,9 +34,7 @@
 		favourite.favouriteID = [NSNumber numberWithInt:[[favouriteData objectForKey:@"id"] intValue]];
 		favourite.title = [favouriteData objectForKey:@"title"];
 		favourite.itemID = idNum;
-		favourite.favouriteType = [favouriteData objectForKey:@"favouriteType"];	
-		
-		NSLog(@"favourite CREATED:%@", favourite.title);
+		favourite.favouriteType = [favouriteData objectForKey:@"favouriteType"];
 	}
 	
 	return favourite;
@@ -50,8 +48,6 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:context];
-	
-	//NSNumber *idNum = [NSNumber numberWithInt:[[favouriteData objectForKey:@"itemID"] intValue]];
 	request.predicate = [NSPredicate predicateWithFormat:@"itemID == %@ AND favouriteType = %@", itemID, type];
 	
 	NSError *error = nil;
@@ -61,6 +57,23 @@
 	if (!error && favourite) return YES;
 	
 	return NO;
+}
+
+
++ (Favourite *)favouriteWithItemID:(NSNumber *)itemID favouriteType:(NSString *)type
+				   inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	Favourite *favourite = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"itemID == %@ AND favouriteType = %@", itemID, type];
+	
+	NSError *error = nil;
+	favourite = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	return favourite;
 }
 
 

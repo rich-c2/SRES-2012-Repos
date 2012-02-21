@@ -338,6 +338,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	self.offer.redeemed = [NSNumber numberWithInt:1];
 	[[self appDelegate] saveContext];
 	
+	// Check if it's a Fav - if so, delete the Fav
+	Favourite *fav = [Favourite favouriteWithItemID:[self.offer offerID] favouriteType:@"Offers" 
+							 inManagedObjectContext:self.managedObjectContext];
+	
+	if (fav) [self.managedObjectContext deleteObject:fav];
+	
 	
 	// If the app is not currently in offlineMode
 	// Then initiate the redeem API with the offerID

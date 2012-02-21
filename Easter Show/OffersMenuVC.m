@@ -17,6 +17,7 @@
 #import "OfferVC.h"
 #import "JSONFetcher.h"
 #import "SBJson.h"
+#import "Favourite.h"
 
 @implementation OffersMenuVC
 
@@ -507,7 +508,17 @@
 				NSNumber *idNum = [NSNumber numberWithInt:[[offerDict objectForKey:@"offerID"] intValue]];
 			
 				Offer *offer = [Offer getOfferWithID:idNum inManagedObjectContext:self.managedObjectContext];
-				if (offer) [self.managedObjectContext deleteObject:offer];
+				
+				if (offer) {
+					
+					Favourite *fav = [Favourite favouriteWithItemID:[offer offerID] favouriteType:@"Offers" inManagedObjectContext:self.managedObjectContext];
+					
+					// Check if it's a Fav - if so, delete the Fav
+					if (fav) [self.managedObjectContext deleteObject:fav];
+					
+					// Delete Offer object from current context
+					[self.managedObjectContext deleteObject:offer];
+				}
 			}
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////

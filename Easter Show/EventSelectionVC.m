@@ -18,6 +18,7 @@
 #import "StringHelper.h"
 #import "Constants.h"
 
+#define MAIN_CONTENT_HEIGHT 340
 
 static NSString* kTableCellFont = @"HelveticaNeue-Bold";
 static NSString *kThumbPlaceholderAnimals = @"placeholder-events-animals-thumb.jpg";
@@ -163,15 +164,24 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	// Hide keyboard
-	[self dismissKeyboard];
-	
 	// Adjust searchTable's frame height
 	CGRect newFrame = self.searchTable.frame;
-	newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	newFrame.size.height = MAIN_CONTENT_HEIGHT;
 	[self.searchTable setFrame:newFrame];
+	
+	// Hide keyboard
+	[self dismissKeyboard];
 
 	return YES;
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	
+	// Reset the height of the Table's frame
+	CGRect newTableFrame = self.searchTable.frame;
+	newTableFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
+	[self.searchTable setFrame:newTableFrame];
 }
 
 
@@ -549,9 +559,9 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	// Keyboard will now be visible
 	[self.searchField becomeFirstResponder];
 	
-	// Reset the height of the Table's frame and hide it from view
+	// Reset the height of the Table's frame
 	CGRect newTableFrame = self.searchTable.frame;
-	newTableFrame.size.height -= (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+	newTableFrame.size.height = (MAIN_CONTENT_HEIGHT - (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT));
 	[self.searchTable setFrame:newTableFrame];
 }
 
@@ -563,16 +573,16 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	[self resetSearch];
 	[self.searchTable reloadData];
 	
-	// Hide keyboard
-	[self dismissKeyboard];
-	
 	// Adjust searchTable's frame height
 	if ([self.searchField isEditing]) {
 		
 		CGRect newFrame = self.searchTable.frame;
-		newFrame.size.height += (KEYBOARD_HEIGHHT - TAB_BAR_HEIGHT);
+		newFrame.size.height = MAIN_CONTENT_HEIGHT;
 		[self.searchTable setFrame:newFrame];
 	}
+	
+	// Hide keyboard
+	[self dismissKeyboard];
 	
 	// HIDE SEARCH TABLE AND SEARCH FIELD
 	[self.searchTable setHidden:YES];
@@ -645,7 +655,7 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
     
     JSONFetcher *theJSONFetcher = (JSONFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theJSONFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
