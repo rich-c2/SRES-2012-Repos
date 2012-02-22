@@ -205,9 +205,17 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[favouriteData setObject:self.offer.title forKey:@"title"];
 	[favouriteData setObject:@"Offers" forKey:@"favouriteType"];
 	
-	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Update the ADD TO FAVES button
+	if (fav) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 	
 	// Record this as an event in Google Analytics
 	if (![[GANTracker sharedTracker] trackEvent:@"Offers" action:@"Favourite" 
@@ -283,9 +291,8 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
-		
-		[self.loadingSpinner startAnimating];
+	// TEST CODE
+	if (urlString && ![urlString isEqualToString:@"http://sres2012.supergloo.net.au"]) {
 		
 		self.selectedURL = [urlString convertToURL];
 		
@@ -295,10 +302,12 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 		
 		if (img) {
 			
-			[self.loadingSpinner setHidden:YES];
+			[self.loadingSpinner stopAnimating];
 			[self.offerImage setImage:img];
 		}
     }
+	
+	else [self.loadingSpinner stopAnimating];
 }
 
 
@@ -306,10 +315,15 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	
 	if ([self.selectedURL isEqual:url]) {
 		
-		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+		if (image != nil) {
 		
-		[self.loadingSpinner setHidden:YES];
-		[self.offerImage setImage:image];
+			NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+			
+			[self.loadingSpinner stopAnimating];
+			[self.offerImage setImage:image];	
+		}
+		
+		else [self.loadingSpinner stopAnimating];
 	}
 }
 
@@ -386,28 +400,14 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 		
 		
 		// JSONFetcher
-		fetcher = [[JSONFetcher alloc] initWithURLRequest:request receiver:self
-												   action:@selector(receivedFeedResponse:)];
+		fetcher = [[[JSONFetcher alloc] initWithURLRequest:request receiver:nil
+												   action:nil] autorelease];
 		[fetcher start];
 	}
+		
 	
-	
-	// Show a success pop-up for user feedback
 	// Then pop the user back to the Offers menu
-	else {
-		
-		successfulRedeem = YES;
-		
-		NSString *title = @"Success!";
-		NSString *message = [NSString stringWithFormat:@"You successfully redeemed %@", self.offer.title];
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message 
-													   delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
-		[alert setTag:kRedeemResponseAlertTag];
-		
-		[alert show];    
-		[alert release];
-	}
+	[self goBack:nil];
 }
 
 

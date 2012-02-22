@@ -129,9 +129,17 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	[favouriteData setObject:self.foodVenue.title forKey:@"title"];
 	[favouriteData setObject:@"Food venues" forKey:@"favouriteType"];
 	
-	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Update the ADD TO FAVES button
+	if (fav) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 	
 	// Record this as an event in Google Analytics
 	if (![[GANTracker sharedTracker] trackEvent:@"FoodVenues" action:@"Favourite" 

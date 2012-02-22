@@ -13,6 +13,7 @@
 #import "TransportInfoVC.h"
 #import "TicketPricesVC.h"
 #import "ContactUsVC.h"
+#import "PartnersVC.h"
 
 @implementation AboutMenuVC
 
@@ -117,11 +118,11 @@
 
 - (IBAction)partnersButtonClicked:(id)sender {
 
-	BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] initWithNibName:@"BasicInfoVC" bundle:nil];
+	PartnersVC *partnersVC = [[PartnersVC alloc] initWithNibName:@"PartnersVC" bundle:nil];
 	
 	// Pass the selected object to the new view controller.
-	[self.navigationController pushViewController:basicInfoVC animated:YES];
-	[basicInfoVC release];
+	[self.navigationController pushViewController:partnersVC animated:YES];
+	[partnersVC release];
 }
 
 

@@ -38,8 +38,8 @@
 		shoppingVendor.vendorDescription = [vendorData objectForKey:@"description"];
 		shoppingVendor.imageURL = [vendorData objectForKey:@"imageURL"];
 		shoppingVendor.thumbURL = [vendorData objectForKey:@"thumbURL"];
-		shoppingVendor.latitude = [NSNumber numberWithDouble:-33.84476];
-		shoppingVendor.longitude = [NSNumber numberWithDouble:151.07062];
+		shoppingVendor.latitude = [NSNumber numberWithDouble:[[vendorData objectForKey:@"latitude"] doubleValue]];
+		shoppingVendor.longitude = [NSNumber numberWithDouble:[[vendorData objectForKey:@"longitude"] doubleValue]];
 	}
 	
 	return shoppingVendor;

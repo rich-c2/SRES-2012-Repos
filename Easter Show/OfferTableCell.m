@@ -42,7 +42,8 @@
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
+	// TEST CODE
+	if (urlString && ![urlString isEqualToString:@"http://sres2012.supergloo.net.au"]) {
 		
 		self.imageURL = [urlString convertToURL];
 		
@@ -59,7 +60,7 @@
 	else {
 		
 		[self.cellSpinner setHidden:YES];
-		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
+		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-offers-thumb.jpg"]];
 	}
 }
 

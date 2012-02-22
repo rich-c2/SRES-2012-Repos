@@ -2,8 +2,8 @@
 //  EventDateTime.m
 //  Easter Show
 //
-//  Created by Richard Lee on 7/02/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Richard Lee on 22/02/12.
+//  Copyright (c) 2012 C2 Media Pty Ltd. All rights reserved.
 //
 
 #import "EventDateTime.h"
@@ -11,6 +11,7 @@
 
 
 @implementation EventDateTime
+
 
 + (EventDateTime *)dateTimeWithData:(NSDictionary *)dateData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -47,6 +48,9 @@
 		// End date
 		[dateTime setEndDate:[dateFormat dateFromString:[dateData objectForKey:@"endDate"]]];
 		
+		// Is Favourite
+		[dateTime setIsFavourite:[NSNumber numberWithBool:NO]];
+		
 		NSLog(@"EventDateTime CREATED:%@", dateTime.day);
 		
 		[dateFormat release];
@@ -73,11 +77,11 @@
 }
 
 
-
 @dynamic dateTimeID;
+@dynamic day;
 @dynamic endDate;
 @dynamic startDate;
-@dynamic day;
+@dynamic isFavourite;
 @dynamic forEvent;
 
 @end

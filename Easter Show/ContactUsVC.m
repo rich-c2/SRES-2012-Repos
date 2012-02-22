@@ -38,7 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	for (UIView *subview in self.contentScrollView.subviews) {
+	/*for (UIView *subview in self.contentScrollView.subviews) {
 		
 		if ([subview isKindOfClass:[UITextView class]]) {
 			UITextView *tView = (UITextView *)subview;
@@ -51,7 +51,7 @@
 	UITextView *tView = (UITextView *)[self.view viewWithTag:LAST_TEXT_VIEW_TAG];
 	CGFloat sizeHeight = tView.frame.origin.y + tView.frame.size.height;
 	
-	[self.contentScrollView setContentSize:CGSizeMake(svFrame.size.width, sizeHeight)];
+	[self.contentScrollView setContentSize:CGSizeMake(svFrame.size.width, sizeHeight)];*/
 }
 
 - (void)viewDidUnload

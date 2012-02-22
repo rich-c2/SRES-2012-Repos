@@ -41,7 +41,8 @@
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
+	// TEST CODE
+	if (urlString && ![urlString isEqualToString:@"http://sres2012.supergloo.net.au"]) {
 		
 		self.imageURL = [urlString convertToURL];
 		
@@ -67,12 +68,14 @@
 	
 	if ([self.imageURL isEqual:url]) {
 		
-		NSLog(@"IMAGE LOADED:%@", [url description]);
+		if (image != nil) {
 		
-		if (image) [self.thumbView setImage:image];
+			NSLog(@"IMAGE LOADED:%@", [url description]);
+			[self.thumbView setImage:image];
+			[self.cellSpinner stopAnimating];
+		}
+		
 		else [self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
-		
-		[self.cellSpinner stopAnimating];
 	}
 }
 

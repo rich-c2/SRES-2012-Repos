@@ -128,9 +128,17 @@
 	[favouriteData setObject:self.showbag.title forKey:@"title"];
 	[favouriteData setObject:@"Showbags" forKey:@"favouriteType"];
 	
-	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Update the ADD TO FAVES button
+	if (fav) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 	
 	// Record this as an event in Google Analytics
 	if (![[GANTracker sharedTracker] trackEvent:@"Showbags" action:@"Favourite" 
@@ -264,7 +272,8 @@
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
+	// TEST CODE
+	if (urlString && ![urlString isEqualToString:@"http://sres2012.supergloo.net.au"]) {
 		
 		[self.loadingSpinner startAnimating];
 		
@@ -276,10 +285,12 @@
 		
 		if (img) {
 			
-			[self.loadingSpinner setHidden:YES];
+			[self.loadingSpinner stopAnimating];
 			[self.showbagImage setImage:img];
 		}
     }
+	
+	else [self.loadingSpinner stopAnimating];
 }
 
 
@@ -287,10 +298,15 @@
 	
 	if ([self.selectedURL isEqual:url]) {
 		
-		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+		if (image != nil) {
 		
-		[self.loadingSpinner setHidden:YES];
-		[self.showbagImage setImage:image];
+			NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+			
+			[self.loadingSpinner setHidden:YES];
+			[self.showbagImage setImage:image];
+		}
+		
+		else [self.loadingSpinner stopAnimating];
 	}
 }
 

@@ -17,6 +17,7 @@
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
 #import "Constants.h"
+#import "Favourite.h"
 
 #define MAIN_CONTENT_HEIGHT 340
 
@@ -674,11 +675,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 		NSDictionary *addObjects = [results objectForKey:@"events"];
 		
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
-		
 		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
-		
-		NSLog(@"KEYS:%@", eventsDict);
-		
+				
 		for (int i = 0; i < [eventsDict count]; i++) {
 			
 			NSDictionary *event = [eventsDict objectAtIndex:i];
@@ -687,8 +685,8 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 			[Event newEventWithData:event inManagedObjectContext:self.managedObjectContext];
 		}
 		
-		NSDictionary *updates = [addObjects objectForKey:@"update"];
 		
+		NSDictionary *updates = [addObjects objectForKey:@"update"];
 		NSMutableArray *updatesDict = [updates objectForKey:@"event"];
 		
 		for (int i = 0; i < [updatesDict count]; i++) {
@@ -698,6 +696,41 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 			// Store Event data in Core Data persistent store
 			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
 		}	
+		
+		
+		NSDictionary *removes = [addObjects objectForKey:@"remove"];
+		NSMutableArray *removeDict = [removes objectForKey:@"event"];
+		
+		for (int i = 0; i < [removeDict count]; i++) {
+			
+			NSDictionary *eventDict = [removeDict objectAtIndex:i];
+			NSNumber *idNum = [NSNumber numberWithInt:[[eventDict objectForKey:@"eventID"] intValue]];
+			
+			Event *event = [Event getEventWithID:idNum inManagedObjectContext:self.managedObjectContext];
+			
+			// Store Event data in Core Data persistent store
+			if (event) {
+				
+				// Loop through the Event's "sessions" 
+				// Delete any of the sessions that are currently favourites.
+				for (EventDateTime *dateTime in event.occursOnDays) {
+					
+					if (dateTime.isFavourite) {
+						
+						Favourite *fav = [Favourite favouriteWithItemID:[dateTime dateTimeID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
+						
+						// Check if it's a Fav - if so, delete the Fav
+						if (fav) [self.managedObjectContext deleteObject:fav];
+					}
+					
+					// Delete EventDateTime object from current context
+					[self.managedObjectContext deleteObject:dateTime];
+				}
+				
+				// Delete Event object from current context
+				[self.managedObjectContext deleteObject:event];
+			}
+		}
 		
 		[jsonString release];
 	}

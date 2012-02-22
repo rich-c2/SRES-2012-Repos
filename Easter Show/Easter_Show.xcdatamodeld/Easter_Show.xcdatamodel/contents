@@ -24,6 +24,7 @@
         <attribute name="dateTimeID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isFavourite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="forEvent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="occursOnDays" inverseEntity="Event" syncable="YES"/>
     </entity>
@@ -81,7 +82,7 @@
     <elements>
         <element name="CarnivalRide" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Event" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="EventDateTime" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="EventDateTime" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Favourite" positionX="180" positionY="324" width="128" height="105"/>
         <element name="FoodVenue" positionX="162" positionY="270" width="128" height="150"/>
         <element name="Offer" positionX="171" positionY="297" width="128" height="210"/>

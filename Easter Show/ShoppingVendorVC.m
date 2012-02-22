@@ -85,6 +85,7 @@
 	self.eventTypeFilter = nil;
 	self.stitchedBorder = nil;
 	self.loadingSpinner = nil;
+	self.addToPlannerButton = nil;
 }
 
 
@@ -131,17 +132,31 @@
 	[favouriteData setObject:self.shoppingVendor.title forKey:@"title"];
 	[favouriteData setObject:@"Shopping vendors" forKey:@"favouriteType"];
 	
-	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Update the ADD TO FAVES button
+	if (fav) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	// Record this as an event in Google Analytics
+	if (![[GANTracker sharedTracker] trackEvent:@"Shopping vendors" action:@"Favourite" 
+										  label:[self.shoppingVendor title] value:-1 withError:nil]) {
+		NSLog(@"error recording Showbag as Favourite");
+	}
 }
 
 
 - (IBAction)goToVendorMap:(id)sender {
 	
 	double lat = [self.shoppingVendor.latitude doubleValue];
-	double lon = [self.shoppingVendor.latitude doubleValue];
-	 
+	double lon = [self.shoppingVendor.longitude doubleValue];
+		 
 	MapVC *mapVC = [[MapVC alloc] initWithNibName:@"MapVC" bundle:nil];
 	[mapVC setTitleText:self.shoppingVendor.title];
 	[mapVC setMapID:MAP_ID_SHOPPING];
@@ -272,6 +287,7 @@
 
 - (void)dealloc {
 	
+	[addToPlannerButton release];
 	[selectedURL release];
 	[shoppingVendor release];
 	[dateLabel release];

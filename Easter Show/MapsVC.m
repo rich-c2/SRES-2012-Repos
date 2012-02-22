@@ -20,8 +20,8 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 @implementation MapsVC
 
 @synthesize subNavScrollView, mapScrollView, mapOverlay, userLocationView;
-@synthesize locateMeButton, legendButton, carnivalFilterButton;
-@synthesize keys, imageNames, selectedFilterButton;
+@synthesize locateMeButton, legendButton;
+@synthesize imageNames, selectedFilterButton;
 @synthesize locationManager, filterHeading, filterHeaderImageNames;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -47,16 +47,13 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
     [super viewDidLoad];
 	
-	self.keys = [NSArray arrayWithObjects:@"Showbags", @"Shopping", @"Food", @"Carnivals", @"Animals", @"Amenities", @"Entertainment", @"Help", nil];
-	
-	NSArray *headerImageNames = [[NSArray alloc] initWithObjects:@"eventsSectionHeader-all.png", @"eventsSectionHeader-showbags.png", @"eventsSectionHeader-shopping.png", 
-									@"eventsSectionHeader-food.png", @"eventsSectionHeader-carnivals.png", @"eventsSectionHeader-animals.png", 
+	NSArray *headerImageNames = [[NSArray alloc] initWithObjects:@"eventsSectionHeader-all.png", @"eventsSectionHeader-shopping.png", @"eventsSectionHeader-food.png", @"eventsSectionHeader-carnivals.png", @"eventsSectionHeader-animals.png", 
 									@"eventsSectionHeader-amenities.png", @"eventsSectionHeader-entertainment.png", @"eventsSectionHeader-help.png", nil];
 	
 	self.filterHeaderImageNames = headerImageNames;
 	[headerImageNames release];
 	
-	self.imageNames = [NSArray arrayWithObjects:@"maps-all.jpg", @"maps-amenities.jpg", @"maps-shopping.jpg", @"maps-food.jpg", @"maps-carnivals.jpg", @"maps-animals.jpg", @"maps-amenities.jpg", @"maps-entertainment.jpg", @"maps-help.jpg", nil];
+	self.imageNames = [NSArray arrayWithObjects:@"maps-all.jpg", @"maps-shopping.jpg", @"maps-food.jpg", @"maps-carnivals.jpg", @"maps-animals.jpg", @"maps-amenities.jpg", @"maps-entertainment.jpg", @"maps-help.jpg", nil];
 	
 	// Set up navigation bar
 	[self setupNavBar];
@@ -118,11 +115,9 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
 	self.locateMeButton = nil; 
 	self.legendButton = nil; 
-	self.carnivalFilterButton = nil;
 	self.selectedFilterButton = nil;
 	
 	self.filterHeading = nil;
-	self.keys = nil;
 	self.imageNames = nil;
 	self.filterHeaderImageNames = nil;
 	self.locationManager = nil;	
@@ -250,7 +245,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 		CLLocationCoordinate2D myCoord = (CLLocationCoordinate2D)currentLocation.coordinate;
 		
 		//CLLocationCoordinate2D myCoord; 
-		//myCoord.latitude = -33.84271;
+		//myCoord.latitude = -33.84270;
 		//myCoord.longitude = 151.0651;
 		
 		BOOL withinLatBounds = FALSE;
@@ -348,7 +343,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 
 - (void)setupSubNav {
 	
-	NSArray *iconImages = [NSArray arrayWithObjects:@"subNavButton-showbags.png", @"subNavButton-shopping.png",
+	NSArray *iconImages = [NSArray arrayWithObjects:@"subNavButton-shopping.png",
 						   @"subNavButton-food.png", @"subNavButton-carnivals.png", @"subNavButton-animals.png",
 						   @"subNavButton-amenities.png", @"subNavButton-entertainment.png", @"subNavButton-help.png", nil];
 	
@@ -356,7 +351,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	CGFloat btnHeight = 26.0;
 	
 	CGFloat xPos = 8.0;
-	CGFloat xPadding = 9.0;
+	CGFloat xPadding = 14.0;
 	CGFloat yPos = 7.0;
 	
 	// Create button for 'ALL'
@@ -384,9 +379,7 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	NSString *selectedImageFilename;
 	NSArray *stringParts;
 	
-	for (NSInteger i = 0; i < [self.keys count]; i++) {
-		
-		NSString *key = [self.keys objectAtIndex:i];
+	for (NSInteger i = 0; i < [iconImages count]; i++) {
 		
 		// Create the sub nav button
 		UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -480,25 +473,6 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
 	// Show the map image
 	[mapOverlay setImage:mapImage];
-	
-	NSString *key;
-	if ((btn.tag - 1)> -1) {
-		
-		key = [self.keys objectAtIndex:(btn.tag - 1)];
-	
-		if ([key isEqualToString:@"Coke"]) {
-
-			CLLocationCoordinate2D itemCoord; 
-			itemCoord.latitude = -33.84462;
-			itemCoord.longitude = 151.07213;
-			
-			// The point where the item is located
-			CGPoint itemPoint = [self translate:itemCoord];
-			
-			// Center the window on the Coke hall
-			[self focusUserLocationInWindow:itemPoint];
-		}
-	}
 }
 
 
@@ -800,7 +774,6 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	
 	[locateMeButton release];
 	[legendButton release];
-	[carnivalFilterButton release];
 	[selectedFilterButton release];
 	
 	[subNavScrollView release];
@@ -808,7 +781,6 @@ static NSString *kUserLocationIconImage = @"userLocationIcon.png";
 	[mapScrollView release];
 	[userLocationView release];
 	[filterHeading release];
-	[keys release];
 	[imageNames release];
 	[filterHeaderImageNames release];
 	[locationManager release];	

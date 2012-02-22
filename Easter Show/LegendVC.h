@@ -28,6 +28,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *closeButton;
 
 - (void)adjustScrollViewContentHeight;
-- (void)closeView:(id)sender;
+- (IBAction)closeView:(id)sender;
 
 @end

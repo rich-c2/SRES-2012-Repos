@@ -37,8 +37,8 @@
 		carnivalRide.rideDescription = [rideData objectForKey:@"description"];
 		carnivalRide.imageURL = [rideData objectForKey:@"imageURL"];
 		carnivalRide.thumbURL = [rideData objectForKey:@"thumbURL"];
-		carnivalRide.latitude = [NSNumber numberWithDouble:-33.84476];
-		carnivalRide.longitude = [NSNumber numberWithDouble:151.07062];
+		carnivalRide.latitude = [NSNumber numberWithDouble:[[rideData objectForKey:@"latitude"] doubleValue]];
+		carnivalRide.longitude = [NSNumber numberWithDouble:[[rideData objectForKey:@"longitude"] doubleValue]];
 		carnivalRide.type = [rideData objectForKey:@"type"];
 	}
 	

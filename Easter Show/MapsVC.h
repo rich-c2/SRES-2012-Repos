@@ -31,7 +31,6 @@
 	CGFloat mapYOffset;
 
 	// Storage
-	NSArray *keys;
 	NSArray *imageNames;
 	NSArray *filterHeaderImageNames;
 	
@@ -52,10 +51,7 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *locateMeButton;
 @property (nonatomic, retain) IBOutlet UIButton *legendButton;
-@property (nonatomic, retain) UIButton *cokeFilterButton;
-@property (nonatomic, retain) UIButton *carnivalFilterButton;
 
-@property (nonatomic, retain) NSArray *keys;
 @property (nonatomic, retain) NSArray *imageNames;
 @property (nonatomic, retain) NSArray *filterHeaderImageNames;
 

@@ -91,6 +91,14 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+	
+	[super viewDidAppear:animated];
+	
+	[self.searchTable deselectRowAtIndexPath:[self.searchTable indexPathForSelectedRow] animated:YES];
+}
+
+
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
@@ -310,10 +318,21 @@
 			// Store Event data in Core Data persistent store
 			if (event) {
 				
-				/*Favourite *fav = [Favourite favouriteWithItemID:[event eventID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
+				// Loop through the Event's "sessions" 
+				// Delete any of the sessions that are currently favourites.
+				for (EventDateTime *dateTime in event.occursOnDays) {
+					
+					if (dateTime.isFavourite) {
 				
-				// Check if it's a Fav - if so, delete the Fav
-				if (fav) [self.managedObjectContext deleteObject:fav];*/
+						Favourite *fav = [Favourite favouriteWithItemID:[dateTime dateTimeID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
+				
+						// Check if it's a Fav - if so, delete the Fav
+						if (fav) [self.managedObjectContext deleteObject:fav];
+					}
+					
+					// Delete EventDateTime object from current context
+					[self.managedObjectContext deleteObject:dateTime];
+				}
 				
 				// Delete Event object from current context
 				[self.managedObjectContext deleteObject:event];

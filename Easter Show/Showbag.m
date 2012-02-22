@@ -91,6 +91,9 @@
 		// Assign the dictionary values to the corresponding object properties
 		[showbag safeSetValuesForKeysWithDictionary:showbagData dateFormatter:nil];
 		
+		showbag.latitude = [NSNumber numberWithDouble:-33.84476];
+		showbag.longitude = [NSNumber numberWithDouble:151.07062];
+		
 		NSLog(@"showbag CREATED:%@", showbag.title);
 	}
 	

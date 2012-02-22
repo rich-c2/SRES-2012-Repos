@@ -135,9 +135,21 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	[favouriteData setObject:[self.eventDateTime.forEvent title] forKey:@"title"];
 	[favouriteData setObject:@"Events" forKey:@"favouriteType"];
 	
-	[Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	// Update EventDateTime object isFavourite property
+	[self.eventDateTime setIsFavourite:[NSNumber numberWithBool:YES]];
+	
+	// Create Favourite object
+	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
 	[[self appDelegate] saveContext];
+	
+	// Update the ADD TO FAVES button
+	if (fav) {
+		
+		[self.addToPlannerButton setSelected:YES];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
 	
 	// Record this as an event in Google Analytics
 	if (![[GANTracker sharedTracker] trackEvent:@"Events" action:@"Favourite" 

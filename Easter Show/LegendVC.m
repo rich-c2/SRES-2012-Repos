@@ -29,15 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	// Add back button to nav bar
-	CGRect btnFrame = CGRectMake(260.0, 10.0, 50.0, 30.0);
-	self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.closeButton setBackgroundImage:[UIImage imageNamed:@"backButton-Offers.png"] forState:UIControlStateNormal];
-	[self.closeButton addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
-	self.closeButton.frame = btnFrame;
-	
-	[self.view addSubview:self.closeButton];
-	
 	[self adjustScrollViewContentHeight];
 }
 
@@ -59,14 +50,15 @@
 
 - (void)adjustScrollViewContentHeight {
 	
-	UIImageView *legendImage = (UIImageView *)[self.view viewWithTag:IMAGE_VIEW_TAG];
-	CGFloat newContentHeight = legendImage.frame.origin.y + legendImage.frame.size.height;	
+	CGFloat imageHeight = 696.0;
+	
+	CGFloat newContentHeight = 21.0 + imageHeight + 60.0;	
 	
 	[self.contentScrollView setContentSize:CGSizeMake(320.0, newContentHeight)];
 }
 
 
-- (void)closeView:(id)sender {
+- (IBAction)closeView:(id)sender {
 
 	[self.delegate closeLegendVC];
 

@@ -131,7 +131,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</object>
-						<string key="NSFrameSize">{339, 56}</string>
+						<string key="NSFrameSize">{320, 58}</string>
 						<reference key="NSSuperview" ref="277462743"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="956225715"/>
