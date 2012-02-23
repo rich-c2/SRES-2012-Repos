@@ -38,6 +38,9 @@
 + (Event *)updateEventWithEventData:(NSDictionary *)eventData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)updateEvent:(Event *)event withData:(NSDictionary *)eventData 
+			inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Event *)insertEventWithData:(NSDictionary *)eventData 
 		inManagedObjectContext:(NSManagedObjectContext *)context;
 

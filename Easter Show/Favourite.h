@@ -18,12 +18,16 @@
 @property (nonatomic, retain) NSString * title;
 
 + (Favourite *)favouriteWithFavouriteData:(NSDictionary *)favouriteData 
-				   inManagedObjectContext:(NSManagedObjectContext *)context;
+				inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (BOOL)isItemFavourite:(NSNumber *)itemID favouriteType:(NSString *)type 
- inManagedObjectContext:(NSManagedObjectContext *)context;
+				inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Favourite *)favouriteWithItemID:(NSNumber *)itemID favouriteType:(NSString *)type
-			inManagedObjectContext:(NSManagedObjectContext *)context;
+				inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Favourite *)updateFavouriteItemID:(NSNumber *)itemID withNewID:(NSInteger)newID 
+							   title:(NSString *)newTitle
+			  inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

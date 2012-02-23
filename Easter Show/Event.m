@@ -106,6 +106,9 @@
 			
 			NSLog(@"dateDictionary:%@", dateDictionary);
 			
+			// By default, all EventDateTime sessions are not a Favourite
+			[dateDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"isFavourite"];
+			
 			[datesArray addObject:[EventDateTime dateTimeWithData:dateDictionary inManagedObjectContext:context]];
 		}
 		
@@ -185,6 +188,35 @@
 	else if (!error && !event) event = [self newEventWithData:eventData inManagedObjectContext:context];
 	
 	return event;
+}
+
+
++ (void)updateEvent:(Event *)event withData:(NSDictionary *)eventData 
+			 inManagedObjectContext:(NSManagedObjectContext *)context {
+		
+	// EVENT DATE
+	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+	[dateFormat setDateFormat:@"MMMM dd h:mm a"];
+	
+	// Assign the dictionary values to the corresponding object properties
+	[event safeSetValuesForKeysWithDictionary:eventData dateFormatter:dateFormat];
+	
+	// Create EventDateTime objects for each of the dates 
+	// and then assign the NSSet of them to the occursOnDay property
+	NSMutableArray *datesArray = [NSMutableArray array];
+	
+	for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) {
+		
+		[datesArray addObject:[EventDateTime dateTimeWithData:dateDictionary inManagedObjectContext:context]];
+	}
+	
+	NSSet *dates = [[NSSet alloc] initWithArray:(NSArray *)datesArray];
+	[event setOccursOnDays:dates];
+	[dates release];
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	[dateFormat release];
 }
 
 

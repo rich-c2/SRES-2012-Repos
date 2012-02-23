@@ -249,20 +249,34 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
+	UIImage *img = [UIImage imageNamed:urlString];
+	if (img) {
 		
-		self.selectedURL = [urlString convertToURL];
-		
-		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
-		
-		UIImage* img = [ImageManager loadImage:self.selectedURL];
-		
-		if (img) {
+		[self.loadingSpinner stopAnimating];
+		[self.rideImage setImage:img];
+	}
+	
+	else {
+	
+		if ([urlString length] > 0) {
 			
-			[self.loadingSpinner setHidden:YES];
-			[self.rideImage setImage:img];
-		}	
-    }
+			self.selectedURL = [urlString convertToURL];
+			
+			NSLog(@"LOADING MAIN IMAGE:%@", urlString);
+			
+			UIImage* img = [ImageManager loadImage:self.selectedURL];
+			
+			if (img) {
+				
+				[self.loadingSpinner stopAnimating];
+				[self.rideImage setImage:img];
+			}	
+			
+			else [self.loadingSpinner stopAnimating];
+		}
+		
+		else [self.loadingSpinner stopAnimating];
+	}
 }
 
 
@@ -272,7 +286,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 		
 		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
 		
-		[self.loadingSpinner setHidden:YES];
+		[self.loadingSpinner stopAnimating];
 		[self.rideImage setImage:image];
 	}
 }

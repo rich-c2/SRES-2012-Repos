@@ -49,9 +49,7 @@
 		[dateTime setEndDate:[dateFormat dateFromString:[dateData objectForKey:@"endDate"]]];
 		
 		// Is Favourite
-		[dateTime setIsFavourite:[NSNumber numberWithBool:NO]];
-		
-		NSLog(@"EventDateTime CREATED:%@", dateTime.day);
+		[dateTime setIsFavourite:[dateData objectForKey:@"isFavourite"]];
 		
 		[dateFormat release];
 	}

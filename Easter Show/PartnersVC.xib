@@ -278,6 +278,7 @@
 						<string key="NSFrame">{{165, 375}, {130, 22}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -362,10 +363,14 @@
 					<object class="IBUIImageView" id="627695919">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{55.5, 316}, {47, 43}}</string>
+						<string key="NSFrame">{{55.5, 316}, {46, 43}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="953208109"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -613,7 +618,7 @@
 			<string key="back-button-on.png">{45, 28}</string>
 			<string key="back-button.png">{45, 28}</string>
 			<string key="blue-background.png">{320, 367}</string>
-			<string key="c2-logo.png">{47, 43}</string>
+			<string key="c2-logo.png">{46, 43}</string>
 			<string key="partners-title.png">{57, 10}</string>
 			<string key="sres-logo.png">{195, 161}</string>
 			<string key="taboo-logo.png">{106, 18}</string>

@@ -41,22 +41,28 @@
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
-		
-		self.imageURL = [urlString convertToURL];
-		
-		NSLog(@"LOADING GRID IMAGE:%@", urlString);
-		
-		UIImage* img = [ImageManager loadImage:imageURL];
-		if (img) {
-			
-			[self.thumbView setImage:img];
-		}
-    }
+	UIImage *img = [UIImage imageNamed:urlString];
+	if (img) [self.thumbView setImage:img];
 	
 	else {
+	
+		if ([urlString length] > 0) {
+			
+			self.imageURL = [urlString convertToURL];
+			
+			NSLog(@"LOADING GRID IMAGE:%@", urlString);
+			
+			UIImage* img = [ImageManager loadImage:imageURL];
+			if (img) {
+				
+				[self.thumbView setImage:img];
+			}
+		}
 		
-		[self.thumbView setImage:[UIImage imageNamed:@"placeholder-showbags-thumb.jpg"]];
+		else {
+			
+			[self.thumbView setImage:[UIImage imageNamed:@"placeholder-carnivals-thumb.jpg"]];
+		}
 	}
 }
 

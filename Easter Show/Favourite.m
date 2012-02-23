@@ -77,6 +77,36 @@
 }
 
 
++ (Favourite *)updateFavouriteItemID:(NSNumber *)itemID withNewID:(NSInteger)newID
+							   title:(NSString *)newTitle
+			  inManagedObjectContext:(NSManagedObjectContext *)context {
+
+	Favourite *fav = nil;
+	
+	NSNumber *newIDNum = [NSNumber numberWithInt:newID];
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:context];
+	request.predicate = [NSPredicate predicateWithFormat:@"itemID == %@", itemID];
+	
+	NSError *error = nil;
+	fav = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && fav) {
+		
+		NSLog(@"UPDATING FAV:%@ - %i", newTitle, [newIDNum intValue]);
+		
+		// Update the Favourite's itemID with the new one
+		fav.itemID = newIDNum;
+		
+		fav.title = newTitle;
+	}
+	
+	return fav;
+}
+
+
 @dynamic favouriteID;
 @dynamic favouriteType;
 @dynamic itemID;

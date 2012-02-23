@@ -11,7 +11,6 @@
 #import "SRESAppDelegate.h"
 #import "OfferTableCell.h"
 #import "Offer.h"
-#import "XMLFetcher.h"
 #import "SVProgressHUD.h"
 #import "StringHelper.h"
 #import "OfferVC.h"
@@ -359,93 +358,6 @@
 }
 
 
-// The API Request has finished being processed. Deal with the return data.
-- (void)receiveResponse:(HTTPFetcher *)aFetcher {
-    
-    XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
-	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
-    
-	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
-	
-	loading = NO;
-	offersLoaded = YES;
-	
-	if ([theXMLFetcher.data length] > 0) {
-        
-        // loop through the XPathResultNode objects that the XMLFetcher fetched
-        for (XPathResultNode *node in theXMLFetcher.results) { 
-			
-			if ([[node name] isEqualToString:@"add"]) {
-				
-				for (XPathResultNode *offerNode in node.childNodes) { 
-					
-					NSMutableDictionary *offerData = [NSMutableDictionary dictionary];
-					
-					// Store the showbag's ID
-					[offerData setObject:[[offerNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *offerChild in offerNode.childNodes) {
-						
-						if ([[offerChild contentString] length] > 0)
-							[offerData setObject:[offerChild contentString] forKey:[offerChild name]];
-					}
-					
-					// Store Offer data in Core Data persistent store
-					[Offer offerWithOfferData:offerData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"update"]) {
-				
-				for (XPathResultNode *venueNode in node.childNodes) { 
-					
-					NSMutableDictionary *offerData = [NSMutableDictionary dictionary];
-					
-					// Store the showbag's ID
-					[offerData setObject:[[venueNode attributes] objectForKey:@"id"] forKey:@"id"];
-					
-					// Store the rest of the showbag's attributes
-					for (XPathResultNode *offerChild in venueNode.childNodes) {
-						
-						if ([[offerChild contentString] length] > 0)
-							[offerData setObject:[offerChild contentString] forKey:[offerChild name]];
-					}
-					
-					// Store Offer data in Core Data persistent store
-					[Offer updateOfferWithOfferData:offerData inManagedObjectContext:self.managedObjectContext];
-				}
-			}
-			else if ([[node name] isEqualToString:@"remove"]) {
-				
-				for (XPathResultNode *venueNode in node.childNodes) {
-					
-					NSString *idString = [[venueNode attributes] objectForKey:@"id"];
-					NSNumber *showbagID = [NSNumber numberWithInt:[idString intValue]];
-					
-					// Delete Offer from the persistent store
-					Offer *offer = [Offer offerWithID:showbagID inManagedObjectContext:self.managedObjectContext];
-					
-					if (offer) [self.managedObjectContext deleteObject:offer];
-				}
-			}
-		}		
-	}
-	
-	// Save the object context
-	[[self appDelegate] saveContext];
-	
-	// Fetch Food venue objets from Core Data
-	[self fetchOffersFromCoreData];
-	
-	// Hide loading view
-	[self hideLoading];
-	
-	[fetcher release];
-	fetcher = nil;
-}
-
-
 // Example fetcher response handling
 - (void)receivedFeedResponse:(HTTPFetcher *)aFetcher {
     
@@ -491,10 +403,15 @@
 			
 			for (int i = 0; i < [updatesDict count]; i++) {
 				
-				NSDictionary *offer = [updatesDict objectAtIndex:i];
+				NSDictionary *offerData = [updatesDict objectAtIndex:i];
 				
 				// Store Offer data in Core Data persistent store
-				[Offer updateOfferWithOfferData:offer inManagedObjectContext:self.managedObjectContext];
+				Offer *offer = [Offer updateOfferWithOfferData:offerData inManagedObjectContext:self.managedObjectContext];
+				
+				if ([offer.isFavourite boolValue]) {
+				
+					[Favourite updateFavouriteItemID:offer.offerID withNewID:[offer.offerID intValue] title:offer.title inManagedObjectContext:self.managedObjectContext];
+				}
 			}				
 			
 			

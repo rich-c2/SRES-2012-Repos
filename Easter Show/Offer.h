@@ -2,7 +2,7 @@
 //  Offer.h
 //  Easter Show
 //
-//  Created by Richard Lee on 10/02/12.
+//  Created by Richard Lee on 23/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -19,27 +19,26 @@
 @property (nonatomic, retain) NSNumber * offerID;
 @property (nonatomic, retain) NSString * offerType;
 @property (nonatomic, retain) NSString * provider;
+@property (nonatomic, retain) NSNumber * redeemed;
 @property (nonatomic, retain) NSString * thumbURL;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * version;
-@property (nonatomic, retain) NSNumber * redeemed;
+@property (nonatomic, retain) NSNumber * isFavourite;
+
 
 + (Offer *)newOfferWithData:(NSDictionary *)offerData 
 	 inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (Offer *)offerWithOfferData:(NSDictionary *)offerData 
-	   inManagedObjectContext:(NSManagedObjectContext *)context;
-
 + (Offer *)getOfferWithID:(NSNumber *)offerID inManagedObjectContext:(NSManagedObjectContext *)context;
-
 
 + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
 			 inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (Offer *)insertOfferWithOfferData:(NSDictionary *)offerData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Offer *)updateOfferWithID:(NSNumber *)offerID isFavourite:(BOOL)favourite 
+	  inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Offer *)offerWithID:(NSNumber *)offerID 
-	inManagedObjectContext:(NSManagedObjectContext *)context;
+			inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 @end

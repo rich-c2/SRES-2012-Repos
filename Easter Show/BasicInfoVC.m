@@ -8,6 +8,8 @@
 
 #import "BasicInfoVC.h"
 
+#define LAST_TEXT_VIEW_TAG 7777
+
 @implementation BasicInfoVC
 
 @synthesize contentScrollView;
@@ -21,8 +23,8 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+	
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -36,8 +38,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	CGRect frame = self.contentScrollView.frame;
-	[self.contentScrollView setContentSize:CGSizeMake(frame.size.width, 450.0)];
+	for (UIView *subview in self.contentScrollView.subviews) {
+		
+		if ([subview isKindOfClass:[UITextView class]]) {
+			UITextView *tView = (UITextView *)subview;
+			tView.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+		}
+	}
+	
+	// Content size for the scroll view
+	CGRect svFrame = self.contentScrollView.frame;
+	UILabel *tView = (UILabel *)[self.contentScrollView viewWithTag:LAST_TEXT_VIEW_TAG];
+	CGFloat sizeHeight = tView.frame.origin.y + tView.frame.size.height + 25.0;
+	
+	[self.contentScrollView setContentSize:CGSizeMake(svFrame.size.width, sizeHeight)];
 }
 
 - (void)viewDidUnload

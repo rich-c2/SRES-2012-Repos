@@ -2,12 +2,11 @@
 //  Offer.m
 //  Easter Show
 //
-//  Created by Richard Lee on 10/02/12.
+//  Created by Richard Lee on 23/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Offer.h"
-
 
 @implementation NSManagedObject (safeSetValuesKeysWithDictionary)
 
@@ -57,7 +56,6 @@
 			continue;
 		}
 		
-		NSLog(@"KEY:%@|VALUE:%@", attribute, value);
         [self setValue:value forKey:attribute];
     }
 }
@@ -89,44 +87,10 @@
 		// Assign the dictionary values to the corresponding object properties
 		[offer safeSetValuesForKeysWithDictionary:offerData dateFormatter:nil];
 		
+		// By default an offer is not a favourite
+		[offer setIsFavourite:[NSNumber numberWithBool:NO]];
+		
 		NSLog(@"OFFER CREATED:%@", offer.title);
-	}
-	
-	return offer;
-}
-
-
-+ (Offer *)offerWithOfferData:(NSDictionary *)offerData 
-	   inManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	Offer *offer = nil;
-	
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
-	
-	NSNumber *idNum = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
-	request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", idNum];
-	
-	NSError *error = nil;
-	offer = [[context executeFetchRequest:request error:&error] lastObject];
-	[request release];
-	
-	if (!error && !offer) {
-		
-		NSLog(@"offer CREATED:%@", [offerData objectForKey:@"offerTitle"]);
-		
-		// Create a new Offer
-		offer = [NSEntityDescription insertNewObjectForEntityForName:@"Offer" inManagedObjectContext:context];
-		offer.offerID = idNum;
-		offer.title = [offerData objectForKey:@"offerTitle"];
-		offer.offerDescription = [offerData objectForKey:@"offerDescription"];
-		offer.provider = [offerData objectForKey:@"offerProvider"];
-		offer.offerType = [offerData objectForKey:@"type"];
-		offer.imageURL = [offerData objectForKey:@"imageURL"];
-		offer.thumbURL = [offerData objectForKey:@"thumbURL"];
-		offer.latitude = [NSNumber numberWithDouble:-33.84476];
-		offer.longitude = [NSNumber numberWithDouble:151.07062];
-		offer.version = [NSNumber numberWithInt:[[offerData objectForKey:@"version"] intValue]];
 	}
 	
 	return offer;
@@ -147,44 +111,6 @@
 	
 	return offer;
 }
-
-/*
- + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
- inManagedObjectContext:(NSManagedObjectContext *)context {
- 
- Offer *offer = nil;
- 
- NSFetchRequest *request = [[NSFetchRequest alloc] init];
- request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
- 
- NSNumber *idNum = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
- request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", idNum];
- 
- NSError *error = nil;
- offer = [[context executeFetchRequest:request error:&error] lastObject];
- [request release];
- 
- if (!error && offer) {
- 
- NSLog(@"offer UPDATED:%@", [offerData objectForKey:@"offerTitle"]);
- 
- // Create a new Offer
- offer.offerID = idNum;
- offer.title = [offerData objectForKey:@"offerTitle"];
- offer.offerDescription = [offerData objectForKey:@"offerDescription"];
- offer.provider = [offerData objectForKey:@"offerProvider"];
- offer.offerType = [offerData objectForKey:@"type"];
- offer.imageURL = [offerData objectForKey:@"imageURL"];
- offer.thumbURL = [offerData objectForKey:@"thumbURL"];
- offer.latitude = [NSNumber numberWithDouble:-33.84476];
- offer.longitude = [NSNumber numberWithDouble:151.07062];
- offer.version = [NSNumber numberWithInt:[[offerData objectForKey:@"version"] intValue]];
- }
- 
- else if (!error && !offer) offer = [self insertOfferWithOfferData:offerData inManagedObjectContext:context];
- 
- return offer;
- }*/
 
 
 + (Offer *)updateOfferWithOfferData:(NSDictionary *)offerData 
@@ -214,23 +140,25 @@
 }
 
 
-+ (Offer *)insertOfferWithOfferData:(NSDictionary *)offerData 
++ (Offer *)updateOfferWithID:(NSNumber *)offerID isFavourite:(BOOL)favourite 
 			 inManagedObjectContext:(NSManagedObjectContext *)context {
 	
-	NSLog(@"offer INSERTED:%@", [offerData objectForKey:@"offerTitle"]);
+	Offer *offer = nil;
 	
-	// Create a new Offer
-	Offer *offer = [NSEntityDescription insertNewObjectForEntityForName:@"Offer" inManagedObjectContext:context];
-	offer.offerID = [NSNumber numberWithInt:[[offerData objectForKey:@"id"] intValue]];
-	offer.title = [offerData objectForKey:@"offerTitle"];
-	offer.offerDescription = [offerData objectForKey:@"offerDescription"];
-	offer.provider = [offerData objectForKey:@"offerProvider"];
-	offer.offerType = [offerData objectForKey:@"type"];
-	offer.imageURL = [offerData objectForKey:@"imageURL"];
-	offer.thumbURL = [offerData objectForKey:@"thumbURL"];
-	offer.latitude = [NSNumber numberWithDouble:-33.84476];
-	offer.longitude = [NSNumber numberWithDouble:151.07062];
-	offer.version = [NSNumber numberWithInt:[[offerData objectForKey:@"version"] intValue]];
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:context];
+	
+	request.predicate = [NSPredicate predicateWithFormat:@"offerID == %@", offerID];
+	
+	NSError *error = nil;
+	offer = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && offer) {
+		
+		// Assign the dictionary values to the corresponding object properties
+		[offer setIsFavourite:[NSNumber numberWithBool:favourite]];
+	}
 	
 	return offer;
 }
@@ -261,9 +189,10 @@ inManagedObjectContext:(NSManagedObjectContext *)context {
 @dynamic offerID;
 @dynamic offerType;
 @dynamic provider;
+@dynamic redeemed;
 @dynamic thumbURL;
 @dynamic title;
 @dynamic version;
-@dynamic redeemed;
+@dynamic isFavourite;
 
 @end

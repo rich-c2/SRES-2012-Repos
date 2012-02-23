@@ -104,6 +104,34 @@
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated {
+	
+	// Stop any ImageDownloads that are still downloading
+	
+    [super viewWillDisappear:animated];
+	
+	if (!self.actionsView.hidden) {
+		
+		// Take the table out of editing mode
+		editing = NO;
+		
+		// Hide the actions panel (Delete/Cancel)
+		[self.actionsView setHidden:YES];
+		
+		// Adjust the table's frame
+		CGRect tableFrame = self.menuTable.frame;
+		tableFrame.size.height += self.actionsView.frame.size.height;
+		[self.menuTable setFrame:tableFrame];
+		
+		// Clear the delete array
+		[self.deletePaths removeAllObjects];
+		
+		// refresh table to clear check marks
+		[self.menuTable reloadData];
+	}
+}
+
+
 #pragma mark -
 #pragma mark Fetched results controller
 
@@ -475,6 +503,11 @@
 	
 		// Retrieve the managed object and delete it from the managed context
 		Favourite *fav = [fetchedResultsController objectAtIndexPath:indexPath];
+		
+		// Update Offer object associated
+		if ([[fav favouriteType] isEqualToString:@"Offers"])
+			[Offer updateOfferWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
 		[self.managedObjectContext deleteObject:fav];
 	}
 	

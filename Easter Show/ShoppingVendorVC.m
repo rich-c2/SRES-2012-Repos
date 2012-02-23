@@ -98,14 +98,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	[super viewDidAppear:NO];
+	[super viewDidAppear:animated];
 	
-	// If the viewing of this ShoppingVendor has not already been recorded in Google Analytics
-	// then record it as a page view
+	// If the viewing of this ShoppingVendor has not already been recorded 
+	// in Google Analytics then record it as a page view
 	if (!pageViewRecorded) [self recordPageView];
-	
-	[self updateAddToFavouritesButton];
-	
 }
 
 
@@ -198,7 +195,6 @@
 	frame = _textView.frame;
 	frame.size.height = [_textView contentSize].height;
 	_textView.frame = frame;
-	
 }
 
 
@@ -213,20 +209,6 @@
 	
 	// Hide the default navigation bar
 	[self.navigationController setNavigationBarHidden:YES];
-	 
-	 /*
-	 NSArray *stringParts = [self.eventDay componentsSeparatedByString:@" "];
-	 NSString *titleImageName = [NSString stringWithFormat:@"screenTitle-%@%@.png", [stringParts objectAtIndex:0], [stringParts objectAtIndex:1]];
-	 UIImage *titleImage = [UIImage imageNamed:titleImageName];
-	 
-	 // Add button to Navigation Title 
-	 UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, titleImage.size.width, titleImage.size.height)];
-	 [image setBackgroundColor:[UIColor clearColor]];
-	 [image setImage:titleImage];
-	 
-	 self.navigationItem.titleView = image;
-	 [image release];*/
-	
 }
 
 
@@ -256,20 +238,34 @@
 
 - (void)initImage:(NSString *)urlString {
 	
-	if (urlString) {
+	UIImage *img = [UIImage imageNamed:urlString];
+	if (img) {
 		
-		self.selectedURL = [urlString convertToURL];
+		[self.loadingSpinner stopAnimating];
+		[self.vendorImage setImage:img];
+	}
+	
+	else {
 		
-		NSLog(@"LOADING MAIN IMAGE:%@", urlString);
+		if ([urlString length] > 0) {
 		
-		UIImage* img = [ImageManager loadImage:self.selectedURL];
-		
-		if (img) {
+			self.selectedURL = [urlString convertToURL];
 			
-			[self.loadingSpinner stopAnimating];
-			[self.vendorImage setImage:img];
+			NSLog(@"LOADING MAIN IMAGE:%@", urlString);
+			
+			UIImage* img = [ImageManager loadImage:self.selectedURL];
+			
+			if (img) {
+				
+				[self.loadingSpinner stopAnimating];
+				[self.vendorImage setImage:img];
+			}
+				
+			else [self.loadingSpinner stopAnimating];
 		}
-    }
+		
+		else [self.loadingSpinner stopAnimating];
+	}
 }
 
 

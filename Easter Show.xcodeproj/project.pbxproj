@@ -78,7 +78,6 @@
 		9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */; };
 		9B6EEF2914E4963C002C85BF /* AnnouncementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */; };
 		9B6EEF2A14E4963C002C85BF /* AnnouncementVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */; };
-		9B6EEF2E14E4B951002C85BF /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2D14E4B950002C85BF /* Offer.m */; };
 		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
 		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
 		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
@@ -383,8 +382,6 @@
 		9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18A14BFE722000884CC /* EventTableCell.xib */; };
 		9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18E14BFF529000884CC /* EventsLandingVC.m */; };
 		9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18F14BFF529000884CC /* EventsLandingVC.xib */; };
-		9B9A4AA514DF2FE5007837B7 /* placeholder-carnivals-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9514DF2FE5007837B7 /* placeholder-carnivals-thumb.jpg */; };
-		9B9A4AA614DF2FE5007837B7 /* placeholder-carnivals.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9614DF2FE5007837B7 /* placeholder-carnivals.jpg */; };
 		9B9A4AA714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */; };
 		9B9A4AA814DF2FE5007837B7 /* placeholder-events-animals.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */; };
 		9B9A4AA914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */; };
@@ -576,6 +573,95 @@
 		9BE2C6B214ECD9E300624C84 /* kids-carnival-button-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AA14ECD9E300624C84 /* kids-carnival-button-on@2x.png */; };
 		9BE2C6B314ECD9E300624C84 /* kids-carnival-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AB14ECD9E300624C84 /* kids-carnival-button.png */; };
 		9BE2C6B414ECD9E300624C84 /* kids-carnival-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6AC14ECD9E300624C84 /* kids-carnival-button@2x.png */; };
+		9BEFEE3914F5FAF3008EF24B /* break-dance-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE414F5FAF2008EF24B /* break-dance-thumb.jpg */; };
+		9BEFEE3A14F5FAF3008EF24B /* break-dance.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE514F5FAF2008EF24B /* break-dance.jpg */; };
+		9BEFEE3B14F5FAF3008EF24B /* crazy-cars-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE614F5FAF2008EF24B /* crazy-cars-thumb.jpg */; };
+		9BEFEE3C14F5FAF3008EF24B /* crazy-cars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE714F5FAF2008EF24B /* crazy-cars.jpg */; };
+		9BEFEE3D14F5FAF3008EF24B /* crazy-spinning-coaster-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE814F5FAF2008EF24B /* crazy-spinning-coaster-thumb.jpg */; };
+		9BEFEE3E14F5FAF3008EF24B /* crazy-spinning-coaster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDE914F5FAF2008EF24B /* crazy-spinning-coaster.jpg */; };
+		9BEFEE3F14F5FAF3008EF24B /* disko-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDEA14F5FAF2008EF24B /* disko-thumb.jpg */; };
+		9BEFEE4014F5FAF3008EF24B /* disko.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDEB14F5FAF2008EF24B /* disko.jpg */; };
+		9BEFEE4114F5FAF3008EF24B /* dodgem-cars-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDEC14F5FAF2008EF24B /* dodgem-cars-thumb.jpg */; };
+		9BEFEE4214F5FAF3008EF24B /* dodgem-cars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDED14F5FAF2008EF24B /* dodgem-cars.jpg */; };
+		9BEFEE4314F5FAF3008EF24B /* gravitron-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDEE14F5FAF3008EF24B /* gravitron-thumb.jpg */; };
+		9BEFEE4414F5FAF3008EF24B /* gravitron.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDEF14F5FAF3008EF24B /* gravitron.jpg */; };
+		9BEFEE4514F5FAF3008EF24B /* hard-rock-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF014F5FAF3008EF24B /* hard-rock-thumb.jpg */; };
+		9BEFEE4614F5FAF3008EF24B /* hard-rock.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF114F5FAF3008EF24B /* hard-rock.jpg */; };
+		9BEFEE4714F5FAF3008EF24B /* haunted-hotel-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF214F5FAF3008EF24B /* haunted-hotel-thumb.jpg */; };
+		9BEFEE4814F5FAF3008EF24B /* haunted-hotel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF314F5FAF3008EF24B /* haunted-hotel.jpg */; };
+		9BEFEE4914F5FAF3008EF24B /* hollywood-horrors-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF414F5FAF3008EF24B /* hollywood-horrors-thumb.jpg */; };
+		9BEFEE4A14F5FAF3008EF24B /* hollywood-horrors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF514F5FAF3008EF24B /* hollywood-horrors.jpg */; };
+		9BEFEE4B14F5FAF3008EF24B /* mega-drop-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF614F5FAF3008EF24B /* mega-drop-thumb.jpg */; };
+		9BEFEE4C14F5FAF3008EF24B /* mega-drop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF714F5FAF3008EF24B /* mega-drop.jpg */; };
+		9BEFEE4D14F5FAF3008EF24B /* musik-express-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF814F5FAF3008EF24B /* musik-express-thumb.jpg */; };
+		9BEFEE4E14F5FAF3008EF24B /* musik-express.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDF914F5FAF3008EF24B /* musik-express.jpg */; };
+		9BEFEE4F14F5FAF3008EF24B /* no-limit-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFA14F5FAF3008EF24B /* no-limit-thumb.jpg */; };
+		9BEFEE5014F5FAF3008EF24B /* no-limit.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFB14F5FAF3008EF24B /* no-limit.jpg */; };
+		9BEFEE5114F5FAF3008EF24B /* pirates-revenge-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFC14F5FAF3008EF24B /* pirates-revenge-thumb.jpg */; };
+		9BEFEE5214F5FAF3008EF24B /* pirates-revenge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFD14F5FAF3008EF24B /* pirates-revenge.jpg */; };
+		9BEFEE5314F5FAF3008EF24B /* power_surge-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFE14F5FAF3008EF24B /* power_surge-thumb.jpg */; };
+		9BEFEE5414F5FAF3008EF24B /* power_surge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEDFF14F5FAF3008EF24B /* power_surge.jpg */; };
+		9BEFEE5514F5FAF3008EF24B /* psychodelic-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0014F5FAF3008EF24B /* psychodelic-thumb.jpg */; };
+		9BEFEE5614F5FAF3008EF24B /* psychodelic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0114F5FAF3008EF24B /* psychodelic.jpg */; };
+		9BEFEE5714F5FAF3008EF24B /* raipan-rollercoaster-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0214F5FAF3008EF24B /* raipan-rollercoaster-thumb.jpg */; };
+		9BEFEE5814F5FAF3008EF24B /* raipan-rollercoaster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0314F5FAF3008EF24B /* raipan-rollercoaster.jpg */; };
+		9BEFEE5914F5FAF3008EF24B /* rock-and-roll-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0414F5FAF3008EF24B /* rock-and-roll-thumb.jpg */; };
+		9BEFEE5A14F5FAF3008EF24B /* rock-and-roll.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0514F5FAF3008EF24B /* rock-and-roll.jpg */; };
+		9BEFEE5B14F5FAF3008EF24B /* rockstar-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0614F5FAF3008EF24B /* rockstar-thumb.jpg */; };
+		9BEFEE5C14F5FAF3008EF24B /* rockstar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0714F5FAF3008EF24B /* rockstar.jpg */; };
+		9BEFEE5D14F5FAF3008EF24B /* sea-xplorer-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0814F5FAF3008EF24B /* sea-xplorer-thumb.jpg */; };
+		9BEFEE5E14F5FAF3008EF24B /* sea-xplorer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0914F5FAF3008EF24B /* sea-xplorer.jpg */; };
+		9BEFEE5F14F5FAF3008EF24B /* skyflyer-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0A14F5FAF3008EF24B /* skyflyer-thumb.jpg */; };
+		9BEFEE6014F5FAF3008EF24B /* skyflyer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0B14F5FAF3008EF24B /* skyflyer.jpg */; };
+		9BEFEE6114F5FAF3008EF24B /* skymaster-wheel-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0C14F5FAF3008EF24B /* skymaster-wheel-thumb.jpg */; };
+		9BEFEE6214F5FAF3008EF24B /* skymaster-wheel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0D14F5FAF3008EF24B /* skymaster-wheel.jpg */; };
+		9BEFEE6314F5FAF3008EF24B /* sling-shot-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0E14F5FAF3008EF24B /* sling-shot-thumb.jpg */; };
+		9BEFEE6414F5FAF3008EF24B /* sling-shot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE0F14F5FAF3008EF24B /* sling-shot.jpg */; };
+		9BEFEE6514F5FAF3008EF24B /* space-roller-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1014F5FAF3008EF24B /* space-roller-thumb.jpg */; };
+		9BEFEE6614F5FAF3008EF24B /* space-roller.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1114F5FAF3008EF24B /* space-roller.jpg */; };
+		9BEFEE6714F5FAF3008EF24B /* speed-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1214F5FAF3008EF24B /* speed-thumb.jpg */; };
+		9BEFEE6814F5FAF3008EF24B /* speed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1314F5FAF3008EF24B /* speed.jpg */; };
+		9BEFEE6914F5FAF3008EF24B /* techno-jump-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1414F5FAF3008EF24B /* techno-jump-thumb.jpg */; };
+		9BEFEE6A14F5FAF3008EF24B /* techno-jump.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1514F5FAF3008EF24B /* techno-jump.jpg */; };
+		9BEFEE6B14F5FAF3008EF24B /* wave-swinger-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1614F5FAF3008EF24B /* wave-swinger-thumb.jpg */; };
+		9BEFEE6C14F5FAF3008EF24B /* wave-swinger.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1714F5FAF3008EF24B /* wave-swinger.jpg */; };
+		9BEFEE6D14F5FAF3008EF24B /* XXXL-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1814F5FAF3008EF24B /* XXXL-thumb.jpg */; };
+		9BEFEE6E14F5FAF3008EF24B /* XXXL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1914F5FAF3008EF24B /* XXXL.jpg */; };
+		9BEFEE6F14F5FAF3008EF24B /* zipper-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1A14F5FAF3008EF24B /* zipper-thumb.jpg */; };
+		9BEFEE7014F5FAF3008EF24B /* zipper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1B14F5FAF3008EF24B /* zipper.jpg */; };
+		9BEFEE7114F5FAF3008EF24B /* carousel-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1D14F5FAF3008EF24B /* carousel-thumb.jpg */; };
+		9BEFEE7214F5FAF3008EF24B /* carousel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1E14F5FAF3008EF24B /* carousel.jpg */; };
+		9BEFEE7314F5FAF3008EF24B /* elephant-jet-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE1F14F5FAF3008EF24B /* elephant-jet-thumb.jpg */; };
+		9BEFEE7414F5FAF3008EF24B /* elephant-jet.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2014F5FAF3008EF24B /* elephant-jet.jpg */; };
+		9BEFEE7514F5FAF3008EF24B /* fantasy-cups-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2114F5FAF3008EF24B /* fantasy-cups-thumb.jpg */; };
+		9BEFEE7614F5FAF3008EF24B /* fantasy-cups.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2214F5FAF3008EF24B /* fantasy-cups.jpg */; };
+		9BEFEE7714F5FAF3008EF24B /* free-fall-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2314F5FAF3008EF24B /* free-fall-thumb.jpg */; };
+		9BEFEE7814F5FAF3008EF24B /* free-fall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2414F5FAF3008EF24B /* free-fall.jpg */; };
+		9BEFEE7914F5FAF3008EF24B /* jurasic-coaster-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2514F5FAF3008EF24B /* jurasic-coaster-thumb.jpg */; };
+		9BEFEE7A14F5FAF3008EF24B /* jurasic-coaster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2614F5FAF3008EF24B /* jurasic-coaster.jpg */; };
+		9BEFEE7B14F5FAF3008EF24B /* kite-flyer-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2714F5FAF3008EF24B /* kite-flyer-thumb.jpg */; };
+		9BEFEE7C14F5FAF3008EF24B /* kite-flyer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2814F5FAF3008EF24B /* kite-flyer.jpg */; };
+		9BEFEE7D14F5FAF3008EF24B /* mini-chairs-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2914F5FAF3008EF24B /* mini-chairs-thumb.jpg */; };
+		9BEFEE7E14F5FAF3008EF24B /* mini-chairs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2A14F5FAF3008EF24B /* mini-chairs.jpg */; };
+		9BEFEE7F14F5FAF3008EF24B /* pony-rides-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2B14F5FAF3008EF24B /* pony-rides-thumb.jpg */; };
+		9BEFEE8014F5FAF3008EF24B /* pony-rides.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2C14F5FAF3008EF24B /* pony-rides.jpg */; };
+		9BEFEE8114F5FAF3008EF24B /* red-barron-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2D14F5FAF3008EF24B /* red-barron-thumb.jpg */; };
+		9BEFEE8214F5FAF3008EF24B /* red-barron.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2E14F5FAF3008EF24B /* red-barron.jpg */; };
+		9BEFEE8314F5FAF3008EF24B /* RockNtUG-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE2F14F5FAF3008EF24B /* RockNtUG-thumb.jpg */; };
+		9BEFEE8414F5FAF3008EF24B /* RockNtUG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3014F5FAF3008EF24B /* RockNtUG.jpg */; };
+		9BEFEE8514F5FAF3008EF24B /* samba-balloons-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3114F5FAF3008EF24B /* samba-balloons-thumb.jpg */; };
+		9BEFEE8614F5FAF3008EF24B /* samba-balloons.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3214F5FAF3008EF24B /* samba-balloons.jpg */; };
+		9BEFEE8714F5FAF3008EF24B /* super-slide-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3314F5FAF3008EF24B /* super-slide-thumb.jpg */; };
+		9BEFEE8814F5FAF3008EF24B /* super-slide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3414F5FAF3008EF24B /* super-slide.jpg */; };
+		9BEFEE8914F5FAF3008EF24B /* wacky-wormcoaster-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3514F5FAF3008EF24B /* wacky-wormcoaster-thumb.jpg */; };
+		9BEFEE8A14F5FAF3008EF24B /* wacky-wormcoaster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3614F5FAF3008EF24B /* wacky-wormcoaster.jpg */; };
+		9BEFEE8B14F5FAF3008EF24B /* wave-swinger-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3714F5FAF3008EF24B /* wave-swinger-thumb.jpg */; };
+		9BEFEE8C14F5FAF3008EF24B /* wave-swinger.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE3814F5FAF3008EF24B /* wave-swinger.jpg */; };
+		9BEFEE9014F5FF09008EF24B /* placeholder-carnivals-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE8E14F5FF09008EF24B /* placeholder-carnivals-thumb.jpg */; };
+		9BEFEE9114F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE8F14F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg */; };
+		9BEFEE9414F6054E008EF24B /* placeholder-shopping-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE9214F6054E008EF24B /* placeholder-shopping-thumb.jpg */; };
+		9BEFEE9514F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BEFEE9314F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg */; };
+		9BEFEE9814F60D48008EF24B /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFEE9714F60D45008EF24B /* Offer.m */; };
 		9BF2914F14F1C8AA002B1E27 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF2914E14F1C8AA002B1E27 /* libsqlite3.0.dylib */; };
 		9BF2916114F23012002B1E27 /* carnival-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915514F23011002B1E27 /* carnival-title.png */; };
 		9BF2916214F23012002B1E27 /* carnival-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF2915614F23011002B1E27 /* carnival-title@2x.png */; };
@@ -711,8 +797,6 @@
 		9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementVC.h; sourceTree = "<group>"; };
 		9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementVC.m; sourceTree = "<group>"; };
 		9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementVC.xib; sourceTree = "<group>"; };
-		9B6EEF2C14E4B94F002C85BF /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offer.h; sourceTree = "<group>"; };
-		9B6EEF2D14E4B950002C85BF /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offer.m; sourceTree = "<group>"; };
 		9B830A5814BEBFD30028336C /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
 		9B830A5914BEBFD30028336C /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
 		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
@@ -1105,8 +1189,6 @@
 		9B99E18D14BFF528000884CC /* EventsLandingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsLandingVC.h; sourceTree = "<group>"; };
 		9B99E18E14BFF529000884CC /* EventsLandingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsLandingVC.m; sourceTree = "<group>"; };
 		9B99E18F14BFF529000884CC /* EventsLandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsLandingVC.xib; sourceTree = "<group>"; };
-		9B9A4A9514DF2FE5007837B7 /* placeholder-carnivals-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-carnivals-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4A9614DF2FE5007837B7 /* placeholder-carnivals.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-carnivals.jpg"; sourceTree = "<group>"; };
 		9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-animals-thumb.jpg"; sourceTree = "<group>"; };
 		9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-animals.jpg"; sourceTree = "<group>"; };
 		9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-comepetitions.jpg"; sourceTree = "<group>"; };
@@ -1319,6 +1401,96 @@
 		9BE2C6AA14ECD9E300624C84 /* kids-carnival-button-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button-on@2x.png"; path = "Images/kids-carnival-button-on@2x.png"; sourceTree = "<group>"; };
 		9BE2C6AB14ECD9E300624C84 /* kids-carnival-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button.png"; path = "Images/kids-carnival-button.png"; sourceTree = "<group>"; };
 		9BE2C6AC14ECD9E300624C84 /* kids-carnival-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kids-carnival-button@2x.png"; path = "Images/kids-carnival-button@2x.png"; sourceTree = "<group>"; };
+		9BEFEDE414F5FAF2008EF24B /* break-dance-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "break-dance-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDE514F5FAF2008EF24B /* break-dance.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "break-dance.jpg"; sourceTree = "<group>"; };
+		9BEFEDE614F5FAF2008EF24B /* crazy-cars-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "crazy-cars-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDE714F5FAF2008EF24B /* crazy-cars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "crazy-cars.jpg"; sourceTree = "<group>"; };
+		9BEFEDE814F5FAF2008EF24B /* crazy-spinning-coaster-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "crazy-spinning-coaster-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDE914F5FAF2008EF24B /* crazy-spinning-coaster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "crazy-spinning-coaster.jpg"; sourceTree = "<group>"; };
+		9BEFEDEA14F5FAF2008EF24B /* disko-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "disko-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDEB14F5FAF2008EF24B /* disko.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disko.jpg; sourceTree = "<group>"; };
+		9BEFEDEC14F5FAF2008EF24B /* dodgem-cars-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dodgem-cars-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDED14F5FAF2008EF24B /* dodgem-cars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dodgem-cars.jpg"; sourceTree = "<group>"; };
+		9BEFEDEE14F5FAF3008EF24B /* gravitron-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "gravitron-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDEF14F5FAF3008EF24B /* gravitron.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gravitron.jpg; sourceTree = "<group>"; };
+		9BEFEDF014F5FAF3008EF24B /* hard-rock-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hard-rock-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDF114F5FAF3008EF24B /* hard-rock.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hard-rock.jpg"; sourceTree = "<group>"; };
+		9BEFEDF214F5FAF3008EF24B /* haunted-hotel-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "haunted-hotel-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDF314F5FAF3008EF24B /* haunted-hotel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "haunted-hotel.jpg"; sourceTree = "<group>"; };
+		9BEFEDF414F5FAF3008EF24B /* hollywood-horrors-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hollywood-horrors-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDF514F5FAF3008EF24B /* hollywood-horrors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "hollywood-horrors.jpg"; sourceTree = "<group>"; };
+		9BEFEDF614F5FAF3008EF24B /* mega-drop-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mega-drop-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDF714F5FAF3008EF24B /* mega-drop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mega-drop.jpg"; sourceTree = "<group>"; };
+		9BEFEDF814F5FAF3008EF24B /* musik-express-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "musik-express-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDF914F5FAF3008EF24B /* musik-express.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "musik-express.jpg"; sourceTree = "<group>"; };
+		9BEFEDFA14F5FAF3008EF24B /* no-limit-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-limit-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDFB14F5FAF3008EF24B /* no-limit.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-limit.jpg"; sourceTree = "<group>"; };
+		9BEFEDFC14F5FAF3008EF24B /* pirates-revenge-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pirates-revenge-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDFD14F5FAF3008EF24B /* pirates-revenge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pirates-revenge.jpg"; sourceTree = "<group>"; };
+		9BEFEDFE14F5FAF3008EF24B /* power_surge-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "power_surge-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEDFF14F5FAF3008EF24B /* power_surge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = power_surge.jpg; sourceTree = "<group>"; };
+		9BEFEE0014F5FAF3008EF24B /* psychodelic-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "psychodelic-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0114F5FAF3008EF24B /* psychodelic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = psychodelic.jpg; sourceTree = "<group>"; };
+		9BEFEE0214F5FAF3008EF24B /* raipan-rollercoaster-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "raipan-rollercoaster-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0314F5FAF3008EF24B /* raipan-rollercoaster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "raipan-rollercoaster.jpg"; sourceTree = "<group>"; };
+		9BEFEE0414F5FAF3008EF24B /* rock-and-roll-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rock-and-roll-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0514F5FAF3008EF24B /* rock-and-roll.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rock-and-roll.jpg"; sourceTree = "<group>"; };
+		9BEFEE0614F5FAF3008EF24B /* rockstar-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rockstar-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0714F5FAF3008EF24B /* rockstar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rockstar.jpg; sourceTree = "<group>"; };
+		9BEFEE0814F5FAF3008EF24B /* sea-xplorer-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sea-xplorer-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0914F5FAF3008EF24B /* sea-xplorer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sea-xplorer.jpg"; sourceTree = "<group>"; };
+		9BEFEE0A14F5FAF3008EF24B /* skyflyer-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "skyflyer-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0B14F5FAF3008EF24B /* skyflyer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skyflyer.jpg; sourceTree = "<group>"; };
+		9BEFEE0C14F5FAF3008EF24B /* skymaster-wheel-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "skymaster-wheel-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0D14F5FAF3008EF24B /* skymaster-wheel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "skymaster-wheel.jpg"; sourceTree = "<group>"; };
+		9BEFEE0E14F5FAF3008EF24B /* sling-shot-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sling-shot-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE0F14F5FAF3008EF24B /* sling-shot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sling-shot.jpg"; sourceTree = "<group>"; };
+		9BEFEE1014F5FAF3008EF24B /* space-roller-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "space-roller-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1114F5FAF3008EF24B /* space-roller.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "space-roller.jpg"; sourceTree = "<group>"; };
+		9BEFEE1214F5FAF3008EF24B /* speed-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "speed-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1314F5FAF3008EF24B /* speed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = speed.jpg; sourceTree = "<group>"; };
+		9BEFEE1414F5FAF3008EF24B /* techno-jump-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "techno-jump-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1514F5FAF3008EF24B /* techno-jump.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "techno-jump.jpg"; sourceTree = "<group>"; };
+		9BEFEE1614F5FAF3008EF24B /* wave-swinger-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wave-swinger-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1714F5FAF3008EF24B /* wave-swinger.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wave-swinger.jpg"; sourceTree = "<group>"; };
+		9BEFEE1814F5FAF3008EF24B /* XXXL-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "XXXL-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1914F5FAF3008EF24B /* XXXL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = XXXL.jpg; sourceTree = "<group>"; };
+		9BEFEE1A14F5FAF3008EF24B /* zipper-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "zipper-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1B14F5FAF3008EF24B /* zipper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zipper.jpg; sourceTree = "<group>"; };
+		9BEFEE1D14F5FAF3008EF24B /* carousel-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "carousel-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE1E14F5FAF3008EF24B /* carousel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carousel.jpg; sourceTree = "<group>"; };
+		9BEFEE1F14F5FAF3008EF24B /* elephant-jet-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "elephant-jet-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2014F5FAF3008EF24B /* elephant-jet.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "elephant-jet.jpg"; sourceTree = "<group>"; };
+		9BEFEE2114F5FAF3008EF24B /* fantasy-cups-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fantasy-cups-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2214F5FAF3008EF24B /* fantasy-cups.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fantasy-cups.jpg"; sourceTree = "<group>"; };
+		9BEFEE2314F5FAF3008EF24B /* free-fall-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "free-fall-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2414F5FAF3008EF24B /* free-fall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "free-fall.jpg"; sourceTree = "<group>"; };
+		9BEFEE2514F5FAF3008EF24B /* jurasic-coaster-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "jurasic-coaster-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2614F5FAF3008EF24B /* jurasic-coaster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "jurasic-coaster.jpg"; sourceTree = "<group>"; };
+		9BEFEE2714F5FAF3008EF24B /* kite-flyer-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kite-flyer-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2814F5FAF3008EF24B /* kite-flyer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kite-flyer.jpg"; sourceTree = "<group>"; };
+		9BEFEE2914F5FAF3008EF24B /* mini-chairs-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mini-chairs-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2A14F5FAF3008EF24B /* mini-chairs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mini-chairs.jpg"; sourceTree = "<group>"; };
+		9BEFEE2B14F5FAF3008EF24B /* pony-rides-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pony-rides-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2C14F5FAF3008EF24B /* pony-rides.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "pony-rides.jpg"; sourceTree = "<group>"; };
+		9BEFEE2D14F5FAF3008EF24B /* red-barron-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "red-barron-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE2E14F5FAF3008EF24B /* red-barron.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "red-barron.jpg"; sourceTree = "<group>"; };
+		9BEFEE2F14F5FAF3008EF24B /* RockNtUG-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "RockNtUG-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE3014F5FAF3008EF24B /* RockNtUG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RockNtUG.jpg; sourceTree = "<group>"; };
+		9BEFEE3114F5FAF3008EF24B /* samba-balloons-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "samba-balloons-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE3214F5FAF3008EF24B /* samba-balloons.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "samba-balloons.jpg"; sourceTree = "<group>"; };
+		9BEFEE3314F5FAF3008EF24B /* super-slide-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "super-slide-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE3414F5FAF3008EF24B /* super-slide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "super-slide.jpg"; sourceTree = "<group>"; };
+		9BEFEE3514F5FAF3008EF24B /* wacky-wormcoaster-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wacky-wormcoaster-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE3614F5FAF3008EF24B /* wacky-wormcoaster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wacky-wormcoaster.jpg"; sourceTree = "<group>"; };
+		9BEFEE3714F5FAF3008EF24B /* wave-swinger-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wave-swinger-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE3814F5FAF3008EF24B /* wave-swinger.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wave-swinger.jpg"; sourceTree = "<group>"; };
+		9BEFEE8E14F5FF09008EF24B /* placeholder-carnivals-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-carnivals-thumb.jpg"; path = "Images/placeholder-carnivals-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE8F14F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-carnivals-thumb@2x.jpg"; path = "Images/placeholder-carnivals-thumb@2x.jpg"; sourceTree = "<group>"; };
+		9BEFEE9214F6054E008EF24B /* placeholder-shopping-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-shopping-thumb.jpg"; path = "Images/placeholder-shopping-thumb.jpg"; sourceTree = "<group>"; };
+		9BEFEE9314F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-shopping-thumb@2x.jpg"; path = "Images/placeholder-shopping-thumb@2x.jpg"; sourceTree = "<group>"; };
+		9BEFEE9614F60D44008EF24B /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Offer.h; path = "Easter Show/Offer.h"; sourceTree = "<group>"; };
+		9BEFEE9714F60D45008EF24B /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Offer.m; path = "Easter Show/Offer.m"; sourceTree = "<group>"; };
 		9BF2914E14F1C8AA002B1E27 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9BF2915514F23011002B1E27 /* carnival-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-title.png"; path = "Images/carnival-title.png"; sourceTree = "<group>"; };
 		9BF2915614F23011002B1E27 /* carnival-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carnival-title@2x.png"; path = "Images/carnival-title@2x.png"; sourceTree = "<group>"; };
@@ -1461,6 +1633,8 @@
 		9B095DDC14CE501B0024285C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9BEFEDE314F5FAF2008EF24B /* _Coca Cola */,
+				9BEFEE1C14F5FAF3008EF24B /* _Kids */,
 				9B93803D14F469FE00A719C7 /* Headers */,
 				9B93803C14F469C500A719C7 /* Placeholders */,
 				9B93803B14F4699700A719C7 /* Titles */,
@@ -2024,6 +2198,10 @@
 		9B93803C14F469C500A719C7 /* Placeholders */ = {
 			isa = PBXGroup;
 			children = (
+				9BEFEE9214F6054E008EF24B /* placeholder-shopping-thumb.jpg */,
+				9BEFEE9314F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg */,
+				9BEFEE8E14F5FF09008EF24B /* placeholder-carnivals-thumb.jpg */,
+				9BEFEE8F14F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg */,
 				9B93807214F4C66500A719C7 /* placeholder-showbags-thumb.jpg */,
 				9B93807314F4C66500A719C7 /* placeholder-showbags-thumb@2x.jpg */,
 				9B93804214F46D6B00A719C7 /* placeholder-offers-thumb.jpg */,
@@ -2066,6 +2244,8 @@
 		9B93B6F014BBFEFB00FB31CE = {
 			isa = PBXGroup;
 			children = (
+				9BEFEE9614F60D44008EF24B /* Offer.h */,
+				9BEFEE9714F60D45008EF24B /* Offer.m */,
 				9B93803814F45BA300A719C7 /* EventDateTime.h */,
 				9B93803914F45BA300A719C7 /* EventDateTime.m */,
 				9B93B70714BBFEFC00FB31CE /* Easter Show */,
@@ -2255,8 +2435,6 @@
 		9B93B73714BC025700FB31CE /* Offers */ = {
 			isa = PBXGroup;
 			children = (
-				9B6EEF2C14E4B94F002C85BF /* Offer.h */,
-				9B6EEF2D14E4B950002C85BF /* Offer.m */,
 				9BC8251D14C90CAB00D67A23 /* OfferVC.h */,
 				9BC8251E14C90CAB00D67A23 /* OfferVC.m */,
 				9BC8251F14C90CAB00D67A23 /* OfferVC.xib */,
@@ -2376,8 +2554,6 @@
 		9B9A4AB614DF2FE9007837B7 /* Placeholder images */ = {
 			isa = PBXGroup;
 			children = (
-				9B9A4A9514DF2FE5007837B7 /* placeholder-carnivals-thumb.jpg */,
-				9B9A4A9614DF2FE5007837B7 /* placeholder-carnivals.jpg */,
 				9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */,
 				9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */,
 				9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */,
@@ -2615,6 +2791,106 @@
 			name = About;
 			sourceTree = "<group>";
 		};
+		9BEFEDE314F5FAF2008EF24B /* _Coca Cola */ = {
+			isa = PBXGroup;
+			children = (
+				9BEFEDE414F5FAF2008EF24B /* break-dance-thumb.jpg */,
+				9BEFEDE514F5FAF2008EF24B /* break-dance.jpg */,
+				9BEFEDE614F5FAF2008EF24B /* crazy-cars-thumb.jpg */,
+				9BEFEDE714F5FAF2008EF24B /* crazy-cars.jpg */,
+				9BEFEDE814F5FAF2008EF24B /* crazy-spinning-coaster-thumb.jpg */,
+				9BEFEDE914F5FAF2008EF24B /* crazy-spinning-coaster.jpg */,
+				9BEFEDEA14F5FAF2008EF24B /* disko-thumb.jpg */,
+				9BEFEDEB14F5FAF2008EF24B /* disko.jpg */,
+				9BEFEDEC14F5FAF2008EF24B /* dodgem-cars-thumb.jpg */,
+				9BEFEDED14F5FAF2008EF24B /* dodgem-cars.jpg */,
+				9BEFEDEE14F5FAF3008EF24B /* gravitron-thumb.jpg */,
+				9BEFEDEF14F5FAF3008EF24B /* gravitron.jpg */,
+				9BEFEDF014F5FAF3008EF24B /* hard-rock-thumb.jpg */,
+				9BEFEDF114F5FAF3008EF24B /* hard-rock.jpg */,
+				9BEFEDF214F5FAF3008EF24B /* haunted-hotel-thumb.jpg */,
+				9BEFEDF314F5FAF3008EF24B /* haunted-hotel.jpg */,
+				9BEFEDF414F5FAF3008EF24B /* hollywood-horrors-thumb.jpg */,
+				9BEFEDF514F5FAF3008EF24B /* hollywood-horrors.jpg */,
+				9BEFEDF614F5FAF3008EF24B /* mega-drop-thumb.jpg */,
+				9BEFEDF714F5FAF3008EF24B /* mega-drop.jpg */,
+				9BEFEDF814F5FAF3008EF24B /* musik-express-thumb.jpg */,
+				9BEFEDF914F5FAF3008EF24B /* musik-express.jpg */,
+				9BEFEDFA14F5FAF3008EF24B /* no-limit-thumb.jpg */,
+				9BEFEDFB14F5FAF3008EF24B /* no-limit.jpg */,
+				9BEFEDFC14F5FAF3008EF24B /* pirates-revenge-thumb.jpg */,
+				9BEFEDFD14F5FAF3008EF24B /* pirates-revenge.jpg */,
+				9BEFEDFE14F5FAF3008EF24B /* power_surge-thumb.jpg */,
+				9BEFEDFF14F5FAF3008EF24B /* power_surge.jpg */,
+				9BEFEE0014F5FAF3008EF24B /* psychodelic-thumb.jpg */,
+				9BEFEE0114F5FAF3008EF24B /* psychodelic.jpg */,
+				9BEFEE0214F5FAF3008EF24B /* raipan-rollercoaster-thumb.jpg */,
+				9BEFEE0314F5FAF3008EF24B /* raipan-rollercoaster.jpg */,
+				9BEFEE0414F5FAF3008EF24B /* rock-and-roll-thumb.jpg */,
+				9BEFEE0514F5FAF3008EF24B /* rock-and-roll.jpg */,
+				9BEFEE0614F5FAF3008EF24B /* rockstar-thumb.jpg */,
+				9BEFEE0714F5FAF3008EF24B /* rockstar.jpg */,
+				9BEFEE0814F5FAF3008EF24B /* sea-xplorer-thumb.jpg */,
+				9BEFEE0914F5FAF3008EF24B /* sea-xplorer.jpg */,
+				9BEFEE0A14F5FAF3008EF24B /* skyflyer-thumb.jpg */,
+				9BEFEE0B14F5FAF3008EF24B /* skyflyer.jpg */,
+				9BEFEE0C14F5FAF3008EF24B /* skymaster-wheel-thumb.jpg */,
+				9BEFEE0D14F5FAF3008EF24B /* skymaster-wheel.jpg */,
+				9BEFEE0E14F5FAF3008EF24B /* sling-shot-thumb.jpg */,
+				9BEFEE0F14F5FAF3008EF24B /* sling-shot.jpg */,
+				9BEFEE1014F5FAF3008EF24B /* space-roller-thumb.jpg */,
+				9BEFEE1114F5FAF3008EF24B /* space-roller.jpg */,
+				9BEFEE1214F5FAF3008EF24B /* speed-thumb.jpg */,
+				9BEFEE1314F5FAF3008EF24B /* speed.jpg */,
+				9BEFEE1414F5FAF3008EF24B /* techno-jump-thumb.jpg */,
+				9BEFEE1514F5FAF3008EF24B /* techno-jump.jpg */,
+				9BEFEE1614F5FAF3008EF24B /* wave-swinger-thumb.jpg */,
+				9BEFEE1714F5FAF3008EF24B /* wave-swinger.jpg */,
+				9BEFEE1814F5FAF3008EF24B /* XXXL-thumb.jpg */,
+				9BEFEE1914F5FAF3008EF24B /* XXXL.jpg */,
+				9BEFEE1A14F5FAF3008EF24B /* zipper-thumb.jpg */,
+				9BEFEE1B14F5FAF3008EF24B /* zipper.jpg */,
+			);
+			name = "_Coca Cola";
+			path = "Images/_Coca Cola";
+			sourceTree = "<group>";
+		};
+		9BEFEE1C14F5FAF3008EF24B /* _Kids */ = {
+			isa = PBXGroup;
+			children = (
+				9BEFEE1D14F5FAF3008EF24B /* carousel-thumb.jpg */,
+				9BEFEE1E14F5FAF3008EF24B /* carousel.jpg */,
+				9BEFEE1F14F5FAF3008EF24B /* elephant-jet-thumb.jpg */,
+				9BEFEE2014F5FAF3008EF24B /* elephant-jet.jpg */,
+				9BEFEE2114F5FAF3008EF24B /* fantasy-cups-thumb.jpg */,
+				9BEFEE2214F5FAF3008EF24B /* fantasy-cups.jpg */,
+				9BEFEE2314F5FAF3008EF24B /* free-fall-thumb.jpg */,
+				9BEFEE2414F5FAF3008EF24B /* free-fall.jpg */,
+				9BEFEE2514F5FAF3008EF24B /* jurasic-coaster-thumb.jpg */,
+				9BEFEE2614F5FAF3008EF24B /* jurasic-coaster.jpg */,
+				9BEFEE2714F5FAF3008EF24B /* kite-flyer-thumb.jpg */,
+				9BEFEE2814F5FAF3008EF24B /* kite-flyer.jpg */,
+				9BEFEE2914F5FAF3008EF24B /* mini-chairs-thumb.jpg */,
+				9BEFEE2A14F5FAF3008EF24B /* mini-chairs.jpg */,
+				9BEFEE2B14F5FAF3008EF24B /* pony-rides-thumb.jpg */,
+				9BEFEE2C14F5FAF3008EF24B /* pony-rides.jpg */,
+				9BEFEE2D14F5FAF3008EF24B /* red-barron-thumb.jpg */,
+				9BEFEE2E14F5FAF3008EF24B /* red-barron.jpg */,
+				9BEFEE2F14F5FAF3008EF24B /* RockNtUG-thumb.jpg */,
+				9BEFEE3014F5FAF3008EF24B /* RockNtUG.jpg */,
+				9BEFEE3114F5FAF3008EF24B /* samba-balloons-thumb.jpg */,
+				9BEFEE3214F5FAF3008EF24B /* samba-balloons.jpg */,
+				9BEFEE3314F5FAF3008EF24B /* super-slide-thumb.jpg */,
+				9BEFEE3414F5FAF3008EF24B /* super-slide.jpg */,
+				9BEFEE3514F5FAF3008EF24B /* wacky-wormcoaster-thumb.jpg */,
+				9BEFEE3614F5FAF3008EF24B /* wacky-wormcoaster.jpg */,
+				9BEFEE3714F5FAF3008EF24B /* wave-swinger-thumb.jpg */,
+				9BEFEE3814F5FAF3008EF24B /* wave-swinger.jpg */,
+			);
+			name = _Kids;
+			path = Images/_Kids;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2753,8 +3029,6 @@
 				9B095E2214CE50260024285C /* calendarButton-april29th@2x.png in Resources */,
 				9B095E2314CE50260024285C /* calendarButton-april30th@2x.png in Resources */,
 				9B095E2814CE57A40024285C /* EventCategoriesVC.xib in Resources */,
-				9B9A4AA514DF2FE5007837B7 /* placeholder-carnivals-thumb.jpg in Resources */,
-				9B9A4AA614DF2FE5007837B7 /* placeholder-carnivals.jpg in Resources */,
 				9B9A4AA714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg in Resources */,
 				9B9A4AA814DF2FE5007837B7 /* placeholder-events-animals.jpg in Resources */,
 				9B9A4AA914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg in Resources */,
@@ -3123,6 +3397,94 @@
 				9B93807114F4B01200A719C7 /* legend-title@2x.png in Resources */,
 				9B93807414F4C66500A719C7 /* placeholder-showbags-thumb.jpg in Resources */,
 				9B93807514F4C66500A719C7 /* placeholder-showbags-thumb@2x.jpg in Resources */,
+				9BEFEE3914F5FAF3008EF24B /* break-dance-thumb.jpg in Resources */,
+				9BEFEE3A14F5FAF3008EF24B /* break-dance.jpg in Resources */,
+				9BEFEE3B14F5FAF3008EF24B /* crazy-cars-thumb.jpg in Resources */,
+				9BEFEE3C14F5FAF3008EF24B /* crazy-cars.jpg in Resources */,
+				9BEFEE3D14F5FAF3008EF24B /* crazy-spinning-coaster-thumb.jpg in Resources */,
+				9BEFEE3E14F5FAF3008EF24B /* crazy-spinning-coaster.jpg in Resources */,
+				9BEFEE3F14F5FAF3008EF24B /* disko-thumb.jpg in Resources */,
+				9BEFEE4014F5FAF3008EF24B /* disko.jpg in Resources */,
+				9BEFEE4114F5FAF3008EF24B /* dodgem-cars-thumb.jpg in Resources */,
+				9BEFEE4214F5FAF3008EF24B /* dodgem-cars.jpg in Resources */,
+				9BEFEE4314F5FAF3008EF24B /* gravitron-thumb.jpg in Resources */,
+				9BEFEE4414F5FAF3008EF24B /* gravitron.jpg in Resources */,
+				9BEFEE4514F5FAF3008EF24B /* hard-rock-thumb.jpg in Resources */,
+				9BEFEE4614F5FAF3008EF24B /* hard-rock.jpg in Resources */,
+				9BEFEE4714F5FAF3008EF24B /* haunted-hotel-thumb.jpg in Resources */,
+				9BEFEE4814F5FAF3008EF24B /* haunted-hotel.jpg in Resources */,
+				9BEFEE4914F5FAF3008EF24B /* hollywood-horrors-thumb.jpg in Resources */,
+				9BEFEE4A14F5FAF3008EF24B /* hollywood-horrors.jpg in Resources */,
+				9BEFEE4B14F5FAF3008EF24B /* mega-drop-thumb.jpg in Resources */,
+				9BEFEE4C14F5FAF3008EF24B /* mega-drop.jpg in Resources */,
+				9BEFEE4D14F5FAF3008EF24B /* musik-express-thumb.jpg in Resources */,
+				9BEFEE4E14F5FAF3008EF24B /* musik-express.jpg in Resources */,
+				9BEFEE4F14F5FAF3008EF24B /* no-limit-thumb.jpg in Resources */,
+				9BEFEE5014F5FAF3008EF24B /* no-limit.jpg in Resources */,
+				9BEFEE5114F5FAF3008EF24B /* pirates-revenge-thumb.jpg in Resources */,
+				9BEFEE5214F5FAF3008EF24B /* pirates-revenge.jpg in Resources */,
+				9BEFEE5314F5FAF3008EF24B /* power_surge-thumb.jpg in Resources */,
+				9BEFEE5414F5FAF3008EF24B /* power_surge.jpg in Resources */,
+				9BEFEE5514F5FAF3008EF24B /* psychodelic-thumb.jpg in Resources */,
+				9BEFEE5614F5FAF3008EF24B /* psychodelic.jpg in Resources */,
+				9BEFEE5714F5FAF3008EF24B /* raipan-rollercoaster-thumb.jpg in Resources */,
+				9BEFEE5814F5FAF3008EF24B /* raipan-rollercoaster.jpg in Resources */,
+				9BEFEE5914F5FAF3008EF24B /* rock-and-roll-thumb.jpg in Resources */,
+				9BEFEE5A14F5FAF3008EF24B /* rock-and-roll.jpg in Resources */,
+				9BEFEE5B14F5FAF3008EF24B /* rockstar-thumb.jpg in Resources */,
+				9BEFEE5C14F5FAF3008EF24B /* rockstar.jpg in Resources */,
+				9BEFEE5D14F5FAF3008EF24B /* sea-xplorer-thumb.jpg in Resources */,
+				9BEFEE5E14F5FAF3008EF24B /* sea-xplorer.jpg in Resources */,
+				9BEFEE5F14F5FAF3008EF24B /* skyflyer-thumb.jpg in Resources */,
+				9BEFEE6014F5FAF3008EF24B /* skyflyer.jpg in Resources */,
+				9BEFEE6114F5FAF3008EF24B /* skymaster-wheel-thumb.jpg in Resources */,
+				9BEFEE6214F5FAF3008EF24B /* skymaster-wheel.jpg in Resources */,
+				9BEFEE6314F5FAF3008EF24B /* sling-shot-thumb.jpg in Resources */,
+				9BEFEE6414F5FAF3008EF24B /* sling-shot.jpg in Resources */,
+				9BEFEE6514F5FAF3008EF24B /* space-roller-thumb.jpg in Resources */,
+				9BEFEE6614F5FAF3008EF24B /* space-roller.jpg in Resources */,
+				9BEFEE6714F5FAF3008EF24B /* speed-thumb.jpg in Resources */,
+				9BEFEE6814F5FAF3008EF24B /* speed.jpg in Resources */,
+				9BEFEE6914F5FAF3008EF24B /* techno-jump-thumb.jpg in Resources */,
+				9BEFEE6A14F5FAF3008EF24B /* techno-jump.jpg in Resources */,
+				9BEFEE6B14F5FAF3008EF24B /* wave-swinger-thumb.jpg in Resources */,
+				9BEFEE6C14F5FAF3008EF24B /* wave-swinger.jpg in Resources */,
+				9BEFEE6D14F5FAF3008EF24B /* XXXL-thumb.jpg in Resources */,
+				9BEFEE6E14F5FAF3008EF24B /* XXXL.jpg in Resources */,
+				9BEFEE6F14F5FAF3008EF24B /* zipper-thumb.jpg in Resources */,
+				9BEFEE7014F5FAF3008EF24B /* zipper.jpg in Resources */,
+				9BEFEE7114F5FAF3008EF24B /* carousel-thumb.jpg in Resources */,
+				9BEFEE7214F5FAF3008EF24B /* carousel.jpg in Resources */,
+				9BEFEE7314F5FAF3008EF24B /* elephant-jet-thumb.jpg in Resources */,
+				9BEFEE7414F5FAF3008EF24B /* elephant-jet.jpg in Resources */,
+				9BEFEE7514F5FAF3008EF24B /* fantasy-cups-thumb.jpg in Resources */,
+				9BEFEE7614F5FAF3008EF24B /* fantasy-cups.jpg in Resources */,
+				9BEFEE7714F5FAF3008EF24B /* free-fall-thumb.jpg in Resources */,
+				9BEFEE7814F5FAF3008EF24B /* free-fall.jpg in Resources */,
+				9BEFEE7914F5FAF3008EF24B /* jurasic-coaster-thumb.jpg in Resources */,
+				9BEFEE7A14F5FAF3008EF24B /* jurasic-coaster.jpg in Resources */,
+				9BEFEE7B14F5FAF3008EF24B /* kite-flyer-thumb.jpg in Resources */,
+				9BEFEE7C14F5FAF3008EF24B /* kite-flyer.jpg in Resources */,
+				9BEFEE7D14F5FAF3008EF24B /* mini-chairs-thumb.jpg in Resources */,
+				9BEFEE7E14F5FAF3008EF24B /* mini-chairs.jpg in Resources */,
+				9BEFEE7F14F5FAF3008EF24B /* pony-rides-thumb.jpg in Resources */,
+				9BEFEE8014F5FAF3008EF24B /* pony-rides.jpg in Resources */,
+				9BEFEE8114F5FAF3008EF24B /* red-barron-thumb.jpg in Resources */,
+				9BEFEE8214F5FAF3008EF24B /* red-barron.jpg in Resources */,
+				9BEFEE8314F5FAF3008EF24B /* RockNtUG-thumb.jpg in Resources */,
+				9BEFEE8414F5FAF3008EF24B /* RockNtUG.jpg in Resources */,
+				9BEFEE8514F5FAF3008EF24B /* samba-balloons-thumb.jpg in Resources */,
+				9BEFEE8614F5FAF3008EF24B /* samba-balloons.jpg in Resources */,
+				9BEFEE8714F5FAF3008EF24B /* super-slide-thumb.jpg in Resources */,
+				9BEFEE8814F5FAF3008EF24B /* super-slide.jpg in Resources */,
+				9BEFEE8914F5FAF3008EF24B /* wacky-wormcoaster-thumb.jpg in Resources */,
+				9BEFEE8A14F5FAF3008EF24B /* wacky-wormcoaster.jpg in Resources */,
+				9BEFEE8B14F5FAF3008EF24B /* wave-swinger-thumb.jpg in Resources */,
+				9BEFEE8C14F5FAF3008EF24B /* wave-swinger.jpg in Resources */,
+				9BEFEE9014F5FF09008EF24B /* placeholder-carnivals-thumb.jpg in Resources */,
+				9BEFEE9114F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg in Resources */,
+				9BEFEE9414F6054E008EF24B /* placeholder-shopping-thumb.jpg in Resources */,
+				9BEFEE9514F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3277,7 +3639,6 @@
 				9B9A4ACB14DF4CC3007837B7 /* Event.m in Sources */,
 				9BB0411A14E1D4C900542201 /* EventsSearchVC.m in Sources */,
 				9B6EEF2914E4963C002C85BF /* AnnouncementVC.m in Sources */,
-				9B6EEF2E14E4B951002C85BF /* Offer.m in Sources */,
 				9B9159D814E8743E0015A951 /* MapsVC.m in Sources */,
 				9B9159E214E874C60015A951 /* LegendVC.m in Sources */,
 				9B915A4F14E892E70015A951 /* CustomTabBarItem.m in Sources */,
@@ -3292,6 +3653,7 @@
 				9B9AC8DF14F328330080A557 /* PartnersVC.m in Sources */,
 				9B9AC90014F347BE0080A557 /* ContactUsVC.m in Sources */,
 				9B93803A14F45BA300A719C7 /* EventDateTime.m in Sources */,
+				9BEFEE9814F60D48008EF24B /* Offer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

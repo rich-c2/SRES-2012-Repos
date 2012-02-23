@@ -60,8 +60,6 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-large-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
-	
-	[self updateAddToFavouritesButton];	
 
 }
 
@@ -110,6 +108,23 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	self.stitchedBorder = nil;
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Check that this Offer hasn't been redeemed in the meantime
+	// Exmaple - if the user has viewed the Offer in Favourites and redeemed.
+	if ([self.offer.offerType isEqualToString:@"unlimited"]) 
+		[self.redeemButton setHidden:YES];
+	
+	if ([[self.offer redeemed] intValue] == 1)
+		[self.redeemButton setHidden:YES];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
+}
+		
 
 - (void)viewWillDisappear:(BOOL)animated {
 	
@@ -199,28 +214,37 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 - (void)addToFavourites:(id)sender {
 	
-	NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
-	[favouriteData setObject:[self.offer offerID] forKey:@"id"];
-	[favouriteData setObject:self.offer.offerID forKey:@"itemID"];
-	[favouriteData setObject:self.offer.title forKey:@"title"];
-	[favouriteData setObject:@"Offers" forKey:@"favouriteType"];
+	// Check that this Offer has not already been 
+	// redeemed on another screen (eg. via Favourites)
+	if ([self.offer.redeemed intValue] != 1) {
 	
-	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
-	
-	[[self appDelegate] saveContext];
-	
-	// Update the ADD TO FAVES button
-	if (fav) {
+		NSMutableDictionary *favouriteData = [NSMutableDictionary dictionary];
+		[favouriteData setObject:[self.offer offerID] forKey:@"id"];
+		[favouriteData setObject:self.offer.offerID forKey:@"itemID"];
+		[favouriteData setObject:self.offer.title forKey:@"title"];
+		[favouriteData setObject:@"Offers" forKey:@"favouriteType"];
 		
-		[self.addToPlannerButton setSelected:YES];
-		[self.addToPlannerButton setHighlighted:NO];
-		[self.addToPlannerButton setUserInteractionEnabled:NO];
-	}
-	
-	// Record this as an event in Google Analytics
-	if (![[GANTracker sharedTracker] trackEvent:@"Offers" action:@"Favourite" 
-										  label:[self.offer title] value:-1 withError:nil]) {
-		NSLog(@"error recording Offer as Favourite");
+		// Create the Favourite object
+		Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+		
+		// Update this object's isFavourite property
+		[self.offer setIsFavourite:[NSNumber numberWithBool:YES]];
+		
+		[[self appDelegate] saveContext];
+		
+		// Update the ADD TO FAVES button
+		if (fav) {
+			
+			[self.addToPlannerButton setSelected:YES];
+			[self.addToPlannerButton setHighlighted:NO];
+			[self.addToPlannerButton setUserInteractionEnabled:NO];
+		}
+		
+		// Record this as an event in Google Analytics
+		if (![[GANTracker sharedTracker] trackEvent:@"Offers" action:@"Favourite" 
+											  label:[self.offer title] value:-1 withError:nil]) {
+			NSLog(@"error recording Offer as Favourite");
+		}
 	}
 }
 
@@ -277,14 +301,19 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 
 
 - (void)updateAddToFavouritesButton {
-
-	BOOL favourite = [Favourite isItemFavourite:[self.offer offerID] favouriteType:@"Offers" inManagedObjectContext:self.managedObjectContext];
 	
-	if (favourite) {
+	if ([self.offer.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 
@@ -353,10 +382,16 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	[[self appDelegate] saveContext];
 	
 	// Check if it's a Fav - if so, delete the Fav
-	Favourite *fav = [Favourite favouriteWithItemID:[self.offer offerID] favouriteType:@"Offers" 
-							 inManagedObjectContext:self.managedObjectContext];
-	
-	if (fav) [self.managedObjectContext deleteObject:fav];
+	if ([self.offer.isFavourite boolValue]) {
+		
+		// Update this offer's isFavourite property
+		[self.offer setIsFavourite:[NSNumber numberWithBool:NO]];
+		
+		Favourite *fav = [Favourite favouriteWithItemID:[self.offer offerID] favouriteType:@"Offers" 
+								 inManagedObjectContext:self.managedObjectContext];
+		
+		if (fav) [self.managedObjectContext deleteObject:fav];
+	}
 	
 	
 	// If the app is not currently in offlineMode
