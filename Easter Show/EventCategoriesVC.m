@@ -43,7 +43,7 @@
 	// Set the navigation bar's title label
 	[self.navigationTitle setText:[self.selectedDate uppercaseString]];
 	
-	self.categories = [NSArray arrayWithObjects:@"Entertainment", @"Animals", @"Competitions", nil];
+	self.categories = [NSArray arrayWithObjects:@"Entertainment", @"Animals", @"Competitions", @"All", nil];
 }
 
 - (void)viewDidUnload {
@@ -138,7 +138,9 @@
 	
 	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
 	[eventSelectionVC setSelectedDate:self.selectedDate];
-	[eventSelectionVC setSelectedCategory:category];
+	
+	// If the user selected "All" then don't pass on the category to the EventSelection screen
+	if (![category isEqualToString:@"All"]) [eventSelectionVC setSelectedCategory:category];
 	[category release];
 	
 	// Pass the selected object to the new view controller.

@@ -2,7 +2,7 @@
 //  CarnivalRide.m
 //  Easter Show
 //
-//  Created by Richard Lee on 24/02/12.
+//  Created by Richard Lee on 27/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,6 +10,7 @@
 
 
 @implementation CarnivalRide
+
 
 + (CarnivalRide *)rideWithRideData:(NSDictionary *)rideData 
 			inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -34,6 +35,7 @@
 		carnivalRide = [NSEntityDescription insertNewObjectForEntityForName:@"CarnivalRide" inManagedObjectContext:context];
 		carnivalRide.rideID = idNum;
 		carnivalRide.title = [rideData objectForKey:@"title"];
+		carnivalRide.subtitle = [rideData objectForKey:@"subtitle"];
 		carnivalRide.rideDescription = [rideData objectForKey:@"description"];
 		carnivalRide.imageURL = [rideData objectForKey:@"imageURL"];
 		carnivalRide.thumbURL = [rideData objectForKey:@"thumbURL"];
@@ -66,7 +68,7 @@
 
 
 + (CarnivalRide *)updateCarnivalRideWithID:(NSNumber *)rideID isFavourite:(BOOL)favourite 
-	  inManagedObjectContext:(NSManagedObjectContext *)context {
+					inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	CarnivalRide *ride = nil;
 	
@@ -90,6 +92,7 @@
 
 
 @dynamic imageURL;
+@dynamic isFavourite;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic rideDescription;
@@ -97,6 +100,6 @@
 @dynamic thumbURL;
 @dynamic title;
 @dynamic type;
-@dynamic isFavourite;
+@dynamic subtitle;
 
 @end

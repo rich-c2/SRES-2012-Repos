@@ -23,6 +23,7 @@
 	// Display
 	UITextView *descriptionLabel;
 	UITextView *titleLabel;
+	UITextView *subtitleLabel;
 	UIImageView *rideImage;
 	UIImageView *stitchedBorder;
 	
@@ -43,6 +44,7 @@
 
 @property (nonatomic, retain) IBOutlet UITextView *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UITextView *titleLabel;
+@property (nonatomic, retain) IBOutlet UITextView *subtitleLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *rideImage;
 @property (nonatomic, retain) IBOutlet UIImageView *stitchedBorder;
 

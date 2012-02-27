@@ -24,7 +24,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 @implementation CarnivalRideVC
 
 @synthesize carnivalRide, managedObjectContext, stitchedBorder;
-@synthesize descriptionLabel, titleLabel, rideImage;
+@synthesize descriptionLabel, titleLabel, subtitleLabel, rideImage;
 @synthesize shareButton, addToPlannerButton, mapButton;
 @synthesize loadingSpinner, selectedURL, navigationTitle;
 
@@ -87,6 +87,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	self.carnivalRide = nil;
 	self.descriptionLabel = nil;
 	self.titleLabel = nil;
+	self.subtitleLabel = nil;
 	self.rideImage = nil;
 	self.loadingSpinner = nil;
 	self.navigationTitle = nil;
@@ -169,9 +170,14 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	self.titleLabel.text = self.carnivalRide.title;
 	[self resizeTextView:self.titleLabel];
 	
+	// RIDE TITLE
+	self.subtitleLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.subtitleLabel.text = self.carnivalRide.subtitle;
+	[self resizeTextView:self.subtitleLabel];
+	
 	// STITCHED BORDER
 	CGRect borderFrame = self.stitchedBorder.frame;
-	borderFrame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 4.0; 
+	borderFrame.origin.y = self.subtitleLabel.frame.origin.y + self.subtitleLabel.frame.size.height + 4.0; 
 	[self.stitchedBorder setFrame:borderFrame];
 	
 	// DESCRIPTION
@@ -316,6 +322,7 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	
 	[descriptionLabel release];
 	[titleLabel release];
+	[subtitleLabel release];
 	[rideImage release];
 	[loadingSpinner release];
 	[navigationTitle release];

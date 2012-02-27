@@ -5,32 +5,32 @@
 		<description><![CDATA[Take a look around Craft Corner and turn your leisure time into craftwork pleasure time. With an amazing range of all things craft related, from the latest in beading through to handmade felting and card making tools you’ll be inspired in no time. Find Craft Corner in the Arts & Crafts Pavilion bursting with Indigenous Art, handmade silk art pictures, brass singing bowls and picture framing needs.]]></description>
 		<thumbURL>craft-corner-thumb.jpg</thumbURL>
 		<imageURL>craft-corner.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84521</latitude>
+		<longitude>151.06955</longitude>
 	</shop>
 	<shop id="2">
 		<title><![CDATA[Fashion & Style]]></title>
 		<description><![CDATA[Top of the style list for all fashionistas, the Fashion & Style Pavilion is the place to spoil yourself. Featuring the latest creations from top name and up and coming Australian designers, it’s a great opportunity to purchase direct. Whether it’s the latest in boutique clothing, cool jewellery or gorgeous cosmetics, Fashion & Style will have you catwalk ready.]]></description>
 		<thumbURL>fashion-and-style-thumb.jpg</thumbURL>
 		<imageURL>fashion-and-style.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84459</latitude>
+		<longitude>151.06858</longitude>
 	</shop>
 	<shop id="3">
 		<title><![CDATA[Home, Garden & Lifestyle]]></title>
 		<description><![CDATA[Need a new look to your life? This home show, garden show and lifestyle show is packed with great ideas, all in the one place. Take a look around the Home, Garden & Lifestyle Pavilion to see some smart designer ideas that will transform your life with a myriad of home renovation ideas, lifestyle and living products and the latest in technology. Experts will be on hand to tailor solutions to your needs. Step inside and take your first step on the road to a new way of living.]]></description>
 		<thumbURL>Home-Garden-and-Lifestyle-thumb.jpg</thumbURL>
 		<imageURL>Home-Garden-and-Lifestyle.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84542</latitude>
+		<longitude>151.06910</longitude>
 	</shop>
 	<shop id="4">
 		<title><![CDATA[Kids World]]></title>
 		<description><![CDATA[Packed full of delights for the young brigade, kids will love exploring a world designed just for them. Enter inside and be greeted by a buzzing energy of fun. There are the latest fads and crazes to discover, Beanie Cave Bear, virtual rainforest, bubbles, magic tricks and more. Within Kids Carnival, just next door to the super new giant slide. Come and play.]]></description>
 		<thumbURL>kids-world-thumb.jpg</thumbURL>
 		<imageURL>kids-world.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84465</latitude>
+		<longitude>151.06424</longitude>
 	</shop>
 	<shop id="5">
 		<title><![CDATA[R.M. Williams]]></title>
@@ -39,16 +39,16 @@ Get outfitted in true country style at the R.M.Williams store where you can purc
 ]]></description>
 		<thumbURL>RM-Williams-thumb.jpg</thumbURL>
 		<imageURL>RM-Williams.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84282</latitude>
+		<longitude>151.06953</longitude>
 	</shop>
 	<shop id="6">
 		<title><![CDATA[Sports & Adventure]]></title>
 		<description><![CDATA[The Commonwealth Bank Arena Concourse is transformed into the home of outdoor and sports adventure. It’s an action packed precinct that has something for everyone from sporting good to camping accessories. Get set up for your next sporting or outdoor venture and meet the Greater Western Sydney Giant’s AFL players, your NRL favourite or even pick up a barbecue with your favourite team’s logo on it.]]></description>
 		<thumbURL>Sports-and-Adventure-thumb.jpg</thumbURL>
 		<imageURL>Sports-and-Adventure.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84270</latitude>
+		<longitude>151.0685</longitude>
 	</shop>
 	<shop id="7">
 		<title><![CDATA[The Zone]]></title>
@@ -57,8 +57,8 @@ The Zone has it all from air brush tattoos, body jewellery and posters through t
 ]]></description>
 		<thumbURL>the-zone-thumb.jpg</thumbURL>
 		<imageURL>the-zone.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84587</latitude>
+		<longitude>151.06720</longitude>
 	</shop>
 	<shop id="8">
 		<title><![CDATA[Woolworths Fresh Food Dome]]></title>
@@ -67,15 +67,15 @@ Take a stroll around the 'Food Lovers Walk', discover products straight from the
 ]]></description>
 		<thumbURL>woolworths-fresh-food-dome-thumb.jpg</thumbURL>
 		<imageURL>woolworths-fresh-food-dome.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84557</latitude>
+		<longitude>151.06813</longitude>
 	</shop>
 	<shop id="9">
 		<title><![CDATA[World Bazaar]]></title>
 		<description><![CDATA[Mysterious, exotic and unique. Step into the World Bazaar and discover a world of shopping treasures and handicrafts from around the world. Treat yourself to a Chinese massage, gems from the heart of the earth, funky jewellery and middle eastern clothing while you sample Kenyan exotic tea blends.]]></description>
 		<thumbURL>world-bazaar-2-thumb.jpg</thumbURL>
 		<imageURL>world-bazaar-2.jpg</imageURL>
-		<latitude>-33.84422</latitude>
-		<longitude>151.06363</longitude>
+		<latitude>-33.84480</latitude>
+		<longitude>151.06545</longitude>
 	</shop>
 </shops>
