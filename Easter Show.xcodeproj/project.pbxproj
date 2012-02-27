@@ -60,16 +60,12 @@
 		9B585E1814BD30F60027DB00 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B585E1714BD30F50027DB00 /* MobileCoreServices.framework */; };
 		9B585E1A14BD31160027DB00 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B585E1914BD31150027DB00 /* AVFoundation.framework */; };
 		9B585E1C14BD31530027DB00 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B585E1B14BD31530027DB00 /* libz.dylib */; };
-		9B585E2214BD3A340027DB00 /* placeholder-showbags-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2114BD3A340027DB00 /* placeholder-showbags-thumb.jpg */; };
 		9B585E2614BD40EA0027DB00 /* ShowbagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B585E2414BD40E90027DB00 /* ShowbagVC.m */; };
 		9B585E2714BD40EA0027DB00 /* ShowbagVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B585E2514BD40E90027DB00 /* ShowbagVC.xib */; };
 		9B67C43914C3A48600C4A78C /* FoodMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C43714C3A48600C4A78C /* FoodMenuVC.m */; };
 		9B67C43A14C3A48600C4A78C /* FoodMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */; };
-		9B67C44214C3A75200C4A78C /* FoodTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44114C3A75200C4A78C /* FoodTableCell.m */; };
-		9B67C44714C3B74E00C4A78C /* FoodTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */; };
 		9B67C44B14C3C64D00C4A78C /* FoodVenueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */; };
 		9B67C44C14C3C64D00C4A78C /* FoodVenueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */; };
-		9B67C44F14C3D3F800C4A78C /* FoodVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C44E14C3D3F700C4A78C /* FoodVenue.m */; };
 		9B67C45314C3DA0200C4A78C /* OffersMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */; };
 		9B67C45414C3DA0200C4A78C /* OffersMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */; };
 		9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C45614C3E55F00C4A78C /* OfferTableCell.m */; };
@@ -78,7 +74,6 @@
 		9B67C46114C3F24E00C4A78C /* FavouritesMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C45F14C3F24E00C4A78C /* FavouritesMenuVC.xib */; };
 		9B6EEF2914E4963C002C85BF /* AnnouncementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */; };
 		9B6EEF2A14E4963C002C85BF /* AnnouncementVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */; };
-		9B830A5A14BEBFD30028336C /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A5914BEBFD30028336C /* Showbag.m */; };
 		9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B830A6014BEC0C40028336C /* EventsMainVC.m */; };
 		9B830A6314BEC0C40028336C /* EventsMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B830A6114BEC0C40028336C /* EventsMainVC.xib */; };
 		9B8AF91614EA27B200746201 /* white-stiched-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B8AF91414EA27B200746201 /* white-stiched-border.png */; };
@@ -382,18 +377,6 @@
 		9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18A14BFE722000884CC /* EventTableCell.xib */; };
 		9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B99E18E14BFF529000884CC /* EventsLandingVC.m */; };
 		9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B99E18F14BFF529000884CC /* EventsLandingVC.xib */; };
-		9B9A4AA714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */; };
-		9B9A4AA814DF2FE5007837B7 /* placeholder-events-animals.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */; };
-		9B9A4AA914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */; };
-		9B9A4AAA14DF2FE5007837B7 /* placeholder-events-competitions-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9A14DF2FE5007837B7 /* placeholder-events-competitions-thumb.jpg */; };
-		9B9A4AAB14DF2FE5007837B7 /* placeholder-events-competitions.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9B14DF2FE5007837B7 /* placeholder-events-competitions.jpg */; };
-		9B9A4AAC14DF2FE5007837B7 /* placeholder-events-entertainment-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9C14DF2FE5007837B7 /* placeholder-events-entertainment-thumb.jpg */; };
-		9B9A4AAD14DF2FE5007837B7 /* placeholder-events-entertainment.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9D14DF2FE5007837B7 /* placeholder-events-entertainment.jpg */; };
-		9B9A4AAE14DF2FE5007837B7 /* placeholder-food-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9E14DF2FE5007837B7 /* placeholder-food-thumb.jpg */; };
-		9B9A4AAF14DF2FE5007837B7 /* placeholder-food.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4A9F14DF2FE5007837B7 /* placeholder-food.jpg */; };
-		9B9A4AB214DF2FE5007837B7 /* placeholder-shopping-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4AA214DF2FE5007837B7 /* placeholder-shopping-thumb.jpg */; };
-		9B9A4AB314DF2FE5007837B7 /* placeholder-shopping.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4AA314DF2FE5007837B7 /* placeholder-shopping.jpg */; };
-		9B9A4AB414DF2FE5007837B7 /* placeholder-showbags.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B9A4AA414DF2FE5007837B7 /* placeholder-showbags.jpg */; };
 		9B9A4ACB14DF4CC3007837B7 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A4ACA14DF4CC3007837B7 /* Event.m */; };
 		9B9AC8AE14F2FE600080A557 /* GeneralSafetyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9AC8AC14F2FE600080A557 /* GeneralSafetyVC.m */; };
 		9B9AC8AF14F2FE600080A557 /* GeneralSafetyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9AC8AD14F2FE600080A557 /* GeneralSafetyVC.xib */; };
@@ -453,10 +436,35 @@
 		9B9E6CA414CD1DF000B84A0B /* ShoppingMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */; };
 		9B9E6CAF14CD235300B84A0B /* ShoppingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */; };
 		9B9E6CB014CD235300B84A0B /* ShoppingTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */; };
-		9B9E6CB314CD25E600B84A0B /* ShoppingVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */; };
 		9B9E6CB514CD2BCB00B84A0B /* shoppingVendors.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB414CD2BCB00B84A0B /* shoppingVendors.xml */; };
 		9B9E6CB914CD305300B84A0B /* CarnivalRideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */; };
 		9B9E6CBA14CD305300B84A0B /* CarnivalRideVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */; };
+		9BA5D9D814F6F4DD00E4808E /* craft-corner-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C414F6F4DD00E4808E /* craft-corner-thumb.jpg */; };
+		9BA5D9D914F6F4DD00E4808E /* craft-corner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C514F6F4DD00E4808E /* craft-corner.jpg */; };
+		9BA5D9DA14F6F4DD00E4808E /* fashion-and-style-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C614F6F4DD00E4808E /* fashion-and-style-thumb.jpg */; };
+		9BA5D9DB14F6F4DD00E4808E /* fashion-and-style.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C714F6F4DD00E4808E /* fashion-and-style.jpg */; };
+		9BA5D9DC14F6F4DD00E4808E /* Home-Garden-and-Lifestyle-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C814F6F4DD00E4808E /* Home-Garden-and-Lifestyle-thumb.jpg */; };
+		9BA5D9DD14F6F4DD00E4808E /* Home-Garden-and-Lifestyle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9C914F6F4DD00E4808E /* Home-Garden-and-Lifestyle.jpg */; };
+		9BA5D9DE14F6F4DD00E4808E /* kids-world-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CA14F6F4DD00E4808E /* kids-world-thumb.jpg */; };
+		9BA5D9DF14F6F4DD00E4808E /* kids-world.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CB14F6F4DD00E4808E /* kids-world.jpg */; };
+		9BA5D9E014F6F4DD00E4808E /* RM-Williams-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CC14F6F4DD00E4808E /* RM-Williams-thumb.jpg */; };
+		9BA5D9E114F6F4DD00E4808E /* RM-Williams.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CD14F6F4DD00E4808E /* RM-Williams.jpg */; };
+		9BA5D9E214F6F4DD00E4808E /* Sports-and-Adventure-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CE14F6F4DD00E4808E /* Sports-and-Adventure-thumb.jpg */; };
+		9BA5D9E314F6F4DD00E4808E /* Sports-and-Adventure.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9CF14F6F4DD00E4808E /* Sports-and-Adventure.jpg */; };
+		9BA5D9E414F6F4DD00E4808E /* the-zone-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D014F6F4DD00E4808E /* the-zone-thumb.jpg */; };
+		9BA5D9E514F6F4DD00E4808E /* the-zone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D114F6F4DD00E4808E /* the-zone.jpg */; };
+		9BA5D9E614F6F4DD00E4808E /* woolworths-fresh-food-dome-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D214F6F4DD00E4808E /* woolworths-fresh-food-dome-thumb.jpg */; };
+		9BA5D9E714F6F4DD00E4808E /* woolworths-fresh-food-dome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D314F6F4DD00E4808E /* woolworths-fresh-food-dome.jpg */; };
+		9BA5D9E814F6F4DD00E4808E /* World-Bazaar-1-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D414F6F4DD00E4808E /* World-Bazaar-1-thumb.jpg */; };
+		9BA5D9E914F6F4DD00E4808E /* World-Bazaar-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D514F6F4DD00E4808E /* World-Bazaar-1.jpg */; };
+		9BA5D9EA14F6F4DD00E4808E /* world-bazaar-2-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D614F6F4DD00E4808E /* world-bazaar-2-thumb.jpg */; };
+		9BA5D9EB14F6F4DD00E4808E /* world-bazaar-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5D9D714F6F4DD00E4808E /* world-bazaar-2.jpg */; };
+		9BA5D9EF14F6F76A00E4808E /* FoodVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA5D9EE14F6F76A00E4808E /* FoodVenue.m */; };
+		9BA5D9F214F6F94B00E4808E /* ShoppingVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA5D9F114F6F94B00E4808E /* ShoppingVendor.m */; };
+		9BA5D9F514F6FB2E00E4808E /* Showbag.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA5D9F414F6FB2E00E4808E /* Showbag.m */; };
+		9BA5D9F814F6FCF200E4808E /* CarnivalRide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA5D9F714F6FCF100E4808E /* CarnivalRide.m */; };
+		9BA5DA3614F7527500E4808E /* basic-info-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5DA3414F7527500E4808E /* basic-info-title.png */; };
+		9BA5DA3714F7527500E4808E /* basic-info-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA5DA3514F7527500E4808E /* basic-info-title@2x.png */; };
 		9BA72E0E14CCBC2F00E9B334 /* CarnivalMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */; };
 		9BA72E0F14CCBC2F00E9B334 /* CarnivalMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */; };
 		9BA72E2014CCD14200E9B334 /* CarnivalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA72E1E14CCD14100E9B334 /* CarnivalTableCell.m */; };
@@ -564,7 +572,6 @@
 		9BD0729814BCE69F002D297F /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */; };
 		9BE2C69F14ECB53E00624C84 /* shopping-vendors-header.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C69D14ECB53E00624C84 /* shopping-vendors-header.png */; };
 		9BE2C6A014ECB53E00624C84 /* shopping-vendors-header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C69E14ECB53E00624C84 /* shopping-vendors-header@2x.png */; };
-		9BE2C6A414ECD29100624C84 /* CarnivalRide.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE2C6A314ECD29000624C84 /* CarnivalRide.m */; };
 		9BE2C6AD14ECD9E300624C84 /* coke-carnival-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6A514ECD9E300624C84 /* coke-carnival-button-on.png */; };
 		9BE2C6AE14ECD9E300624C84 /* coke-carnival-button-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6A614ECD9E300624C84 /* coke-carnival-button-on@2x.png */; };
 		9BE2C6AF14ECD9E300624C84 /* coke-carnival-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BE2C6A714ECD9E300624C84 /* coke-carnival-button.png */; };
@@ -770,21 +777,15 @@
 		9B585E1714BD30F50027DB00 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9B585E1914BD31150027DB00 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9B585E1B14BD31530027DB00 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		9B585E2114BD3A340027DB00 /* placeholder-showbags-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-showbags-thumb.jpg"; sourceTree = "<group>"; };
 		9B585E2314BD40E90027DB00 /* ShowbagVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowbagVC.h; sourceTree = "<group>"; };
 		9B585E2414BD40E90027DB00 /* ShowbagVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowbagVC.m; sourceTree = "<group>"; };
 		9B585E2514BD40E90027DB00 /* ShowbagVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowbagVC.xib; sourceTree = "<group>"; };
 		9B67C43614C3A48600C4A78C /* FoodMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodMenuVC.h; sourceTree = "<group>"; };
 		9B67C43714C3A48600C4A78C /* FoodMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodMenuVC.m; sourceTree = "<group>"; };
 		9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodMenuVC.xib; sourceTree = "<group>"; };
-		9B67C44014C3A75100C4A78C /* FoodTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTableCell.h; sourceTree = "<group>"; };
-		9B67C44114C3A75200C4A78C /* FoodTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTableCell.m; sourceTree = "<group>"; };
-		9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodTableCell.xib; sourceTree = "<group>"; };
 		9B67C44814C3C64D00C4A78C /* FoodVenueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodVenueVC.h; sourceTree = "<group>"; };
 		9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodVenueVC.m; sourceTree = "<group>"; };
 		9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodVenueVC.xib; sourceTree = "<group>"; };
-		9B67C44D14C3D3F700C4A78C /* FoodVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodVenue.h; sourceTree = "<group>"; };
-		9B67C44E14C3D3F700C4A78C /* FoodVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodVenue.m; sourceTree = "<group>"; };
 		9B67C45014C3DA0000C4A78C /* OffersMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMenuVC.h; sourceTree = "<group>"; };
 		9B67C45114C3DA0100C4A78C /* OffersMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMenuVC.m; sourceTree = "<group>"; };
 		9B67C45214C3DA0200C4A78C /* OffersMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OffersMenuVC.xib; sourceTree = "<group>"; };
@@ -797,8 +798,6 @@
 		9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementVC.h; sourceTree = "<group>"; };
 		9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementVC.m; sourceTree = "<group>"; };
 		9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementVC.xib; sourceTree = "<group>"; };
-		9B830A5814BEBFD30028336C /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Showbag.h; sourceTree = "<group>"; };
-		9B830A5914BEBFD30028336C /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Showbag.m; sourceTree = "<group>"; };
 		9B830A5F14BEC0C40028336C /* EventsMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMainVC.h; sourceTree = "<group>"; };
 		9B830A6014BEC0C40028336C /* EventsMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMainVC.m; sourceTree = "<group>"; };
 		9B830A6114BEC0C40028336C /* EventsMainVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsMainVC.xib; sourceTree = "<group>"; };
@@ -1189,18 +1188,6 @@
 		9B99E18D14BFF528000884CC /* EventsLandingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsLandingVC.h; sourceTree = "<group>"; };
 		9B99E18E14BFF529000884CC /* EventsLandingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsLandingVC.m; sourceTree = "<group>"; };
 		9B99E18F14BFF529000884CC /* EventsLandingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsLandingVC.xib; sourceTree = "<group>"; };
-		9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-animals-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-animals.jpg"; sourceTree = "<group>"; };
-		9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-comepetitions.jpg"; sourceTree = "<group>"; };
-		9B9A4A9A14DF2FE5007837B7 /* placeholder-events-competitions-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-competitions-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4A9B14DF2FE5007837B7 /* placeholder-events-competitions.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-competitions.jpg"; sourceTree = "<group>"; };
-		9B9A4A9C14DF2FE5007837B7 /* placeholder-events-entertainment-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-entertainment-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4A9D14DF2FE5007837B7 /* placeholder-events-entertainment.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-events-entertainment.jpg"; sourceTree = "<group>"; };
-		9B9A4A9E14DF2FE5007837B7 /* placeholder-food-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-food-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4A9F14DF2FE5007837B7 /* placeholder-food.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-food.jpg"; sourceTree = "<group>"; };
-		9B9A4AA214DF2FE5007837B7 /* placeholder-shopping-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-shopping-thumb.jpg"; sourceTree = "<group>"; };
-		9B9A4AA314DF2FE5007837B7 /* placeholder-shopping.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-shopping.jpg"; sourceTree = "<group>"; };
-		9B9A4AA414DF2FE5007837B7 /* placeholder-showbags.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-showbags.jpg"; sourceTree = "<group>"; };
 		9B9A4AC914DF4CC3007837B7 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		9B9A4ACA14DF4CC3007837B7 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9B9AC8AB14F2FE600080A557 /* GeneralSafetyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralSafetyVC.h; sourceTree = "<group>"; };
@@ -1269,12 +1256,40 @@
 		9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingTableCell.h; sourceTree = "<group>"; };
 		9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingTableCell.m; sourceTree = "<group>"; };
 		9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingTableCell.xib; sourceTree = "<group>"; };
-		9B9E6CB114CD25E600B84A0B /* ShoppingVendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingVendor.h; sourceTree = "<group>"; };
-		9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingVendor.m; sourceTree = "<group>"; };
 		9B9E6CB414CD2BCB00B84A0B /* shoppingVendors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shoppingVendors.xml; sourceTree = "<group>"; };
 		9B9E6CB614CD305100B84A0B /* CarnivalRideVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalRideVC.h; sourceTree = "<group>"; };
 		9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalRideVC.m; sourceTree = "<group>"; };
 		9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarnivalRideVC.xib; sourceTree = "<group>"; };
+		9BA5D9C414F6F4DD00E4808E /* craft-corner-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "craft-corner-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9C514F6F4DD00E4808E /* craft-corner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "craft-corner.jpg"; sourceTree = "<group>"; };
+		9BA5D9C614F6F4DD00E4808E /* fashion-and-style-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fashion-and-style-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9C714F6F4DD00E4808E /* fashion-and-style.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "fashion-and-style.jpg"; sourceTree = "<group>"; };
+		9BA5D9C814F6F4DD00E4808E /* Home-Garden-and-Lifestyle-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Home-Garden-and-Lifestyle-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9C914F6F4DD00E4808E /* Home-Garden-and-Lifestyle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Home-Garden-and-Lifestyle.jpg"; sourceTree = "<group>"; };
+		9BA5D9CA14F6F4DD00E4808E /* kids-world-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kids-world-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9CB14F6F4DD00E4808E /* kids-world.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kids-world.jpg"; sourceTree = "<group>"; };
+		9BA5D9CC14F6F4DD00E4808E /* RM-Williams-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "RM-Williams-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9CD14F6F4DD00E4808E /* RM-Williams.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "RM-Williams.jpg"; sourceTree = "<group>"; };
+		9BA5D9CE14F6F4DD00E4808E /* Sports-and-Adventure-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Sports-and-Adventure-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9CF14F6F4DD00E4808E /* Sports-and-Adventure.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Sports-and-Adventure.jpg"; sourceTree = "<group>"; };
+		9BA5D9D014F6F4DD00E4808E /* the-zone-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "the-zone-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9D114F6F4DD00E4808E /* the-zone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "the-zone.jpg"; sourceTree = "<group>"; };
+		9BA5D9D214F6F4DD00E4808E /* woolworths-fresh-food-dome-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "woolworths-fresh-food-dome-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9D314F6F4DD00E4808E /* woolworths-fresh-food-dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "woolworths-fresh-food-dome.jpg"; sourceTree = "<group>"; };
+		9BA5D9D414F6F4DD00E4808E /* World-Bazaar-1-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "World-Bazaar-1-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9D514F6F4DD00E4808E /* World-Bazaar-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "World-Bazaar-1.jpg"; sourceTree = "<group>"; };
+		9BA5D9D614F6F4DD00E4808E /* world-bazaar-2-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "world-bazaar-2-thumb.jpg"; sourceTree = "<group>"; };
+		9BA5D9D714F6F4DD00E4808E /* world-bazaar-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "world-bazaar-2.jpg"; sourceTree = "<group>"; };
+		9BA5D9ED14F6F76A00E4808E /* FoodVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodVenue.h; sourceTree = "<group>"; };
+		9BA5D9EE14F6F76A00E4808E /* FoodVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodVenue.m; sourceTree = "<group>"; };
+		9BA5D9F014F6F94B00E4808E /* ShoppingVendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoppingVendor.h; path = "Easter Show/ShoppingVendor.h"; sourceTree = "<group>"; };
+		9BA5D9F114F6F94B00E4808E /* ShoppingVendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShoppingVendor.m; path = "Easter Show/ShoppingVendor.m"; sourceTree = "<group>"; };
+		9BA5D9F314F6FB2E00E4808E /* Showbag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Showbag.h; path = "Easter Show/Showbag.h"; sourceTree = "<group>"; };
+		9BA5D9F414F6FB2E00E4808E /* Showbag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Showbag.m; path = "Easter Show/Showbag.m"; sourceTree = "<group>"; };
+		9BA5D9F614F6FCF100E4808E /* CarnivalRide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarnivalRide.h; path = "Easter Show/CarnivalRide.h"; sourceTree = "<group>"; };
+		9BA5D9F714F6FCF100E4808E /* CarnivalRide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarnivalRide.m; path = "Easter Show/CarnivalRide.m"; sourceTree = "<group>"; };
+		9BA5DA3414F7527500E4808E /* basic-info-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "basic-info-title.png"; path = "Images/basic-info-title.png"; sourceTree = "<group>"; };
+		9BA5DA3514F7527500E4808E /* basic-info-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "basic-info-title@2x.png"; path = "Images/basic-info-title@2x.png"; sourceTree = "<group>"; };
 		9BA72E0B14CCBC2F00E9B334 /* CarnivalMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalMenuVC.h; sourceTree = "<group>"; };
 		9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalMenuVC.m; sourceTree = "<group>"; };
 		9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarnivalMenuVC.xib; sourceTree = "<group>"; };
@@ -1391,8 +1406,6 @@
 		9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		9BE2C69D14ECB53E00624C84 /* shopping-vendors-header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-vendors-header.png"; path = "Images/shopping-vendors-header.png"; sourceTree = "<group>"; };
 		9BE2C69E14ECB53E00624C84 /* shopping-vendors-header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping-vendors-header@2x.png"; path = "Images/shopping-vendors-header@2x.png"; sourceTree = "<group>"; };
-		9BE2C6A214ECD29000624C84 /* CarnivalRide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarnivalRide.h; sourceTree = "<group>"; };
-		9BE2C6A314ECD29000624C84 /* CarnivalRide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarnivalRide.m; sourceTree = "<group>"; };
 		9BE2C6A514ECD9E300624C84 /* coke-carnival-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coke-carnival-button-on.png"; path = "Images/coke-carnival-button-on.png"; sourceTree = "<group>"; };
 		9BE2C6A614ECD9E300624C84 /* coke-carnival-button-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coke-carnival-button-on@2x.png"; path = "Images/coke-carnival-button-on@2x.png"; sourceTree = "<group>"; };
 		9BE2C6A714ECD9E300624C84 /* coke-carnival-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coke-carnival-button.png"; path = "Images/coke-carnival-button.png"; sourceTree = "<group>"; };
@@ -1633,6 +1646,7 @@
 		9B095DDC14CE501B0024285C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9BA5D9C314F6F4DD00E4808E /* _Shopping */,
 				9BEFEDE314F5FAF2008EF24B /* _Coca Cola */,
 				9BEFEE1C14F5FAF3008EF24B /* _Kids */,
 				9B93803D14F469FE00A719C7 /* Headers */,
@@ -2155,6 +2169,8 @@
 		9B93803B14F4699700A719C7 /* Titles */ = {
 			isa = PBXGroup;
 			children = (
+				9BA5DA3414F7527500E4808E /* basic-info-title.png */,
+				9BA5DA3514F7527500E4808E /* basic-info-title@2x.png */,
 				9B93806E14F4B01200A719C7 /* legend-title.png */,
 				9B93806F14F4B01200A719C7 /* legend-title@2x.png */,
 				9B93805A14F49BB100A719C7 /* maps-title.png */,
@@ -2244,6 +2260,12 @@
 		9B93B6F014BBFEFB00FB31CE = {
 			isa = PBXGroup;
 			children = (
+				9BA5D9F614F6FCF100E4808E /* CarnivalRide.h */,
+				9BA5D9F714F6FCF100E4808E /* CarnivalRide.m */,
+				9BA5D9F314F6FB2E00E4808E /* Showbag.h */,
+				9BA5D9F414F6FB2E00E4808E /* Showbag.m */,
+				9BA5D9F014F6F94B00E4808E /* ShoppingVendor.h */,
+				9BA5D9F114F6F94B00E4808E /* ShoppingVendor.m */,
 				9BEFEE9614F60D44008EF24B /* Offer.h */,
 				9BEFEE9714F60D45008EF24B /* Offer.m */,
 				9B93803814F45BA300A719C7 /* EventDateTime.h */,
@@ -2323,6 +2345,8 @@
 				9B585E1214BD2EDC0027DB00 /* ImageManager.h */,
 				9B585E1314BD2EDC0027DB00 /* ImageManager.m */,
 				9B93B71314BBFEFC00FB31CE /* Easter_Show.xcdatamodeld */,
+				9BA5D9ED14F6F76A00E4808E /* FoodVenue.h */,
+				9BA5D9EE14F6F76A00E4808E /* FoodVenue.m */,
 				9BD0729414BCE69F002D297F /* SVProgressHUD.h */,
 				9BD0729514BCE69F002D297F /* SVProgressHUD.m */,
 				9BD0729614BCE69F002D297F /* SVProgressHUD.bundle */,
@@ -2455,11 +2479,6 @@
 				9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */,
 				9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */,
 				9B6EEF2814E4963C002C85BF /* AnnouncementVC.xib */,
-				9B67C44D14C3D3F700C4A78C /* FoodVenue.h */,
-				9B67C44E14C3D3F700C4A78C /* FoodVenue.m */,
-				9B67C44614C3B74E00C4A78C /* FoodTableCell.xib */,
-				9B830A5814BEBFD30028336C /* Showbag.h */,
-				9B830A5914BEBFD30028336C /* Showbag.m */,
 				9B585DF714BD2B710027DB00 /* ShowbagsTableCell.h */,
 				9B585DF814BD2B710027DB00 /* ShowbagsTableCell.m */,
 				9B585DF914BD2B710027DB00 /* ShowbagsTableCell.xib */,
@@ -2475,16 +2494,12 @@
 				9B93B73D14BC03BB00FB31CE /* MoreVC.h */,
 				9B93B73E14BC03BB00FB31CE /* MoreVC.m */,
 				9B93B73F14BC03BB00FB31CE /* MoreVC.xib */,
-				9B67C44014C3A75100C4A78C /* FoodTableCell.h */,
-				9B67C44114C3A75200C4A78C /* FoodTableCell.m */,
 				9B67C44814C3C64D00C4A78C /* FoodVenueVC.h */,
 				9B67C44914C3C64D00C4A78C /* FoodVenueVC.m */,
 				9B67C44A14C3C64D00C4A78C /* FoodVenueVC.xib */,
 				9B67C43614C3A48600C4A78C /* FoodMenuVC.h */,
 				9B67C43714C3A48600C4A78C /* FoodMenuVC.m */,
 				9B67C43814C3A48600C4A78C /* FoodMenuVC.xib */,
-				9BE2C6A214ECD29000624C84 /* CarnivalRide.h */,
-				9BE2C6A314ECD29000624C84 /* CarnivalRide.m */,
 				9B9E6CB614CD305100B84A0B /* CarnivalRideVC.h */,
 				9B9E6CB714CD305100B84A0B /* CarnivalRideVC.m */,
 				9B9E6CB814CD305200B84A0B /* CarnivalRideVC.xib */,
@@ -2497,8 +2512,6 @@
 				9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */,
 				9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */,
 				9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */,
-				9B9E6CB114CD25E600B84A0B /* ShoppingVendor.h */,
-				9B9E6CB214CD25E600B84A0B /* ShoppingVendor.m */,
 				9B9E6CA014CD1DEF00B84A0B /* ShoppingMenuVC.h */,
 				9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */,
 				9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */,
@@ -2554,21 +2567,36 @@
 		9B9A4AB614DF2FE9007837B7 /* Placeholder images */ = {
 			isa = PBXGroup;
 			children = (
-				9B9A4A9714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg */,
-				9B9A4A9814DF2FE5007837B7 /* placeholder-events-animals.jpg */,
-				9B9A4A9914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg */,
-				9B9A4A9A14DF2FE5007837B7 /* placeholder-events-competitions-thumb.jpg */,
-				9B9A4A9B14DF2FE5007837B7 /* placeholder-events-competitions.jpg */,
-				9B9A4A9C14DF2FE5007837B7 /* placeholder-events-entertainment-thumb.jpg */,
-				9B9A4A9D14DF2FE5007837B7 /* placeholder-events-entertainment.jpg */,
-				9B9A4A9E14DF2FE5007837B7 /* placeholder-food-thumb.jpg */,
-				9B9A4A9F14DF2FE5007837B7 /* placeholder-food.jpg */,
-				9B9A4AA214DF2FE5007837B7 /* placeholder-shopping-thumb.jpg */,
-				9B9A4AA314DF2FE5007837B7 /* placeholder-shopping.jpg */,
-				9B9A4AA414DF2FE5007837B7 /* placeholder-showbags.jpg */,
-				9B585E2114BD3A340027DB00 /* placeholder-showbags-thumb.jpg */,
 			);
 			name = "Placeholder images";
+			sourceTree = "<group>";
+		};
+		9BA5D9C314F6F4DD00E4808E /* _Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				9BA5D9C414F6F4DD00E4808E /* craft-corner-thumb.jpg */,
+				9BA5D9C514F6F4DD00E4808E /* craft-corner.jpg */,
+				9BA5D9C614F6F4DD00E4808E /* fashion-and-style-thumb.jpg */,
+				9BA5D9C714F6F4DD00E4808E /* fashion-and-style.jpg */,
+				9BA5D9C814F6F4DD00E4808E /* Home-Garden-and-Lifestyle-thumb.jpg */,
+				9BA5D9C914F6F4DD00E4808E /* Home-Garden-and-Lifestyle.jpg */,
+				9BA5D9CA14F6F4DD00E4808E /* kids-world-thumb.jpg */,
+				9BA5D9CB14F6F4DD00E4808E /* kids-world.jpg */,
+				9BA5D9CC14F6F4DD00E4808E /* RM-Williams-thumb.jpg */,
+				9BA5D9CD14F6F4DD00E4808E /* RM-Williams.jpg */,
+				9BA5D9CE14F6F4DD00E4808E /* Sports-and-Adventure-thumb.jpg */,
+				9BA5D9CF14F6F4DD00E4808E /* Sports-and-Adventure.jpg */,
+				9BA5D9D014F6F4DD00E4808E /* the-zone-thumb.jpg */,
+				9BA5D9D114F6F4DD00E4808E /* the-zone.jpg */,
+				9BA5D9D214F6F4DD00E4808E /* woolworths-fresh-food-dome-thumb.jpg */,
+				9BA5D9D314F6F4DD00E4808E /* woolworths-fresh-food-dome.jpg */,
+				9BA5D9D414F6F4DD00E4808E /* World-Bazaar-1-thumb.jpg */,
+				9BA5D9D514F6F4DD00E4808E /* World-Bazaar-1.jpg */,
+				9BA5D9D614F6F4DD00E4808E /* world-bazaar-2-thumb.jpg */,
+				9BA5D9D714F6F4DD00E4808E /* world-bazaar-2.jpg */,
+			);
+			name = _Shopping;
+			path = Images/_Shopping;
 			sourceTree = "<group>";
 		};
 		9BB0411D14E1D85100542201 /* Backgrounds */ = {
@@ -2967,7 +2995,6 @@
 				9B93B74614BC059200FB31CE /* ShowbagsMenuVC.xib in Resources */,
 				9BD0729814BCE69F002D297F /* SVProgressHUD.bundle in Resources */,
 				9B585DFB14BD2B720027DB00 /* ShowbagsTableCell.xib in Resources */,
-				9B585E2214BD3A340027DB00 /* placeholder-showbags-thumb.jpg in Resources */,
 				9B585E2714BD40EA0027DB00 /* ShowbagVC.xib in Resources */,
 				9B8BF94614BEB0D10025BE01 /* SHKSharers.plist in Resources */,
 				9B8BF94B14BEB0D10025BE01 /* Localizable.strings in Resources */,
@@ -2978,7 +3005,6 @@
 				9B99E18C14BFE723000884CC /* EventTableCell.xib in Resources */,
 				9B99E19114BFF529000884CC /* EventsLandingVC.xib in Resources */,
 				9B67C43A14C3A48600C4A78C /* FoodMenuVC.xib in Resources */,
-				9B67C44714C3B74E00C4A78C /* FoodTableCell.xib in Resources */,
 				9B67C44C14C3C64D00C4A78C /* FoodVenueVC.xib in Resources */,
 				9B67C45414C3DA0200C4A78C /* OffersMenuVC.xib in Resources */,
 				9B67C45914C3E56100C4A78C /* OfferTableCell.xib in Resources */,
@@ -3029,18 +3055,6 @@
 				9B095E2214CE50260024285C /* calendarButton-april29th@2x.png in Resources */,
 				9B095E2314CE50260024285C /* calendarButton-april30th@2x.png in Resources */,
 				9B095E2814CE57A40024285C /* EventCategoriesVC.xib in Resources */,
-				9B9A4AA714DF2FE5007837B7 /* placeholder-events-animals-thumb.jpg in Resources */,
-				9B9A4AA814DF2FE5007837B7 /* placeholder-events-animals.jpg in Resources */,
-				9B9A4AA914DF2FE5007837B7 /* placeholder-events-comepetitions.jpg in Resources */,
-				9B9A4AAA14DF2FE5007837B7 /* placeholder-events-competitions-thumb.jpg in Resources */,
-				9B9A4AAB14DF2FE5007837B7 /* placeholder-events-competitions.jpg in Resources */,
-				9B9A4AAC14DF2FE5007837B7 /* placeholder-events-entertainment-thumb.jpg in Resources */,
-				9B9A4AAD14DF2FE5007837B7 /* placeholder-events-entertainment.jpg in Resources */,
-				9B9A4AAE14DF2FE5007837B7 /* placeholder-food-thumb.jpg in Resources */,
-				9B9A4AAF14DF2FE5007837B7 /* placeholder-food.jpg in Resources */,
-				9B9A4AB214DF2FE5007837B7 /* placeholder-shopping-thumb.jpg in Resources */,
-				9B9A4AB314DF2FE5007837B7 /* placeholder-shopping.jpg in Resources */,
-				9B9A4AB414DF2FE5007837B7 /* placeholder-showbags.jpg in Resources */,
 				9B9439FF14E1079F00AB4173 /* Default.png in Resources */,
 				9B943A0014E1079F00AB4173 /* Default@2x.png in Resources */,
 				9BB0411B14E1D4C900542201 /* EventsSearchVC.xib in Resources */,
@@ -3485,6 +3499,28 @@
 				9BEFEE9114F5FF09008EF24B /* placeholder-carnivals-thumb@2x.jpg in Resources */,
 				9BEFEE9414F6054E008EF24B /* placeholder-shopping-thumb.jpg in Resources */,
 				9BEFEE9514F6054E008EF24B /* placeholder-shopping-thumb@2x.jpg in Resources */,
+				9BA5D9D814F6F4DD00E4808E /* craft-corner-thumb.jpg in Resources */,
+				9BA5D9D914F6F4DD00E4808E /* craft-corner.jpg in Resources */,
+				9BA5D9DA14F6F4DD00E4808E /* fashion-and-style-thumb.jpg in Resources */,
+				9BA5D9DB14F6F4DD00E4808E /* fashion-and-style.jpg in Resources */,
+				9BA5D9DC14F6F4DD00E4808E /* Home-Garden-and-Lifestyle-thumb.jpg in Resources */,
+				9BA5D9DD14F6F4DD00E4808E /* Home-Garden-and-Lifestyle.jpg in Resources */,
+				9BA5D9DE14F6F4DD00E4808E /* kids-world-thumb.jpg in Resources */,
+				9BA5D9DF14F6F4DD00E4808E /* kids-world.jpg in Resources */,
+				9BA5D9E014F6F4DD00E4808E /* RM-Williams-thumb.jpg in Resources */,
+				9BA5D9E114F6F4DD00E4808E /* RM-Williams.jpg in Resources */,
+				9BA5D9E214F6F4DD00E4808E /* Sports-and-Adventure-thumb.jpg in Resources */,
+				9BA5D9E314F6F4DD00E4808E /* Sports-and-Adventure.jpg in Resources */,
+				9BA5D9E414F6F4DD00E4808E /* the-zone-thumb.jpg in Resources */,
+				9BA5D9E514F6F4DD00E4808E /* the-zone.jpg in Resources */,
+				9BA5D9E614F6F4DD00E4808E /* woolworths-fresh-food-dome-thumb.jpg in Resources */,
+				9BA5D9E714F6F4DD00E4808E /* woolworths-fresh-food-dome.jpg in Resources */,
+				9BA5D9E814F6F4DD00E4808E /* World-Bazaar-1-thumb.jpg in Resources */,
+				9BA5D9E914F6F4DD00E4808E /* World-Bazaar-1.jpg in Resources */,
+				9BA5D9EA14F6F4DD00E4808E /* world-bazaar-2-thumb.jpg in Resources */,
+				9BA5D9EB14F6F4DD00E4808E /* world-bazaar-2.jpg in Resources */,
+				9BA5DA3614F7527500E4808E /* basic-info-title.png in Resources */,
+				9BA5DA3714F7527500E4808E /* basic-info-title@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3600,15 +3636,12 @@
 				9B8BF96C14BEB0D10025BE01 /* SHKShareMenu.m in Sources */,
 				9B8BF96D14BEB0D10025BE01 /* SHKViewControllerWrapper.m in Sources */,
 				9B8BF97614BEB1AC0025BE01 /* MapVC.m in Sources */,
-				9B830A5A14BEBFD30028336C /* Showbag.m in Sources */,
 				9B830A6214BEC0C40028336C /* EventsMainVC.m in Sources */,
 				9B99E18214BFE39A000884CC /* EventSelectionVC.m in Sources */,
 				9B99E18B14BFE723000884CC /* EventTableCell.m in Sources */,
 				9B99E19014BFF529000884CC /* EventsLandingVC.m in Sources */,
 				9B67C43914C3A48600C4A78C /* FoodMenuVC.m in Sources */,
-				9B67C44214C3A75200C4A78C /* FoodTableCell.m in Sources */,
 				9B67C44B14C3C64D00C4A78C /* FoodVenueVC.m in Sources */,
-				9B67C44F14C3D3F800C4A78C /* FoodVenue.m in Sources */,
 				9B67C45314C3DA0200C4A78C /* OffersMenuVC.m in Sources */,
 				9B67C45814C3E56100C4A78C /* OfferTableCell.m in Sources */,
 				9B67C46014C3F24E00C4A78C /* FavouritesMenuVC.m in Sources */,
@@ -3619,7 +3652,6 @@
 				9BA72E2014CCD14200E9B334 /* CarnivalTableCell.m in Sources */,
 				9B9E6CA314CD1DF000B84A0B /* ShoppingMenuVC.m in Sources */,
 				9B9E6CAF14CD235300B84A0B /* ShoppingTableCell.m in Sources */,
-				9B9E6CB314CD25E600B84A0B /* ShoppingVendor.m in Sources */,
 				9B9E6CB914CD305300B84A0B /* CarnivalRideVC.m in Sources */,
 				9BA89A3A14CE1AE50005A9A1 /* ShoppingVendorVC.m in Sources */,
 				9B095E2714CE57A40024285C /* EventCategoriesVC.m in Sources */,
@@ -3645,7 +3677,6 @@
 				9BBF1C6714E9BF9500750BF9 /* AboutMenuVC.m in Sources */,
 				9BBF1CA414E9D01200750BF9 /* BasicInfoVC.m in Sources */,
 				9BBF1CD814EA076800750BF9 /* FavouriteTableCell.m in Sources */,
-				9BE2C6A414ECD29100624C84 /* CarnivalRide.m in Sources */,
 				9B9AC8AE14F2FE600080A557 /* GeneralSafetyVC.m in Sources */,
 				9B9AC8B814F304F60080A557 /* ParkingVC.m in Sources */,
 				9B9AC8D114F312D00080A557 /* TransportInfoVC.m in Sources */,
@@ -3654,6 +3685,10 @@
 				9B9AC90014F347BE0080A557 /* ContactUsVC.m in Sources */,
 				9B93803A14F45BA300A719C7 /* EventDateTime.m in Sources */,
 				9BEFEE9814F60D48008EF24B /* Offer.m in Sources */,
+				9BA5D9EF14F6F76A00E4808E /* FoodVenue.m in Sources */,
+				9BA5D9F214F6F94B00E4808E /* ShoppingVendor.m in Sources */,
+				9BA5D9F514F6FB2E00E4808E /* Showbag.m in Sources */,
+				9BA5D9F814F6FCF200E4808E /* CarnivalRide.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,8 @@
 #import "Favourite.h"
 #import "Constants.h"
 
+#define MAIN_CONTENT_HEIGHT 411
+
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
 static NSString* kPlaceholderImage = @"placeholder-food.jpg";
@@ -56,8 +58,6 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
-	
-	[self updateAddToFavouritesButton];
 	
 	// Setup navigation bar elements
 	[self setupNavBar];
@@ -106,6 +106,15 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
+}
+
+
 - (void)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
@@ -131,7 +140,10 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	
 	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
 	
-	[[self appDelegate] saveContext];
+	// Update this object's isFavourite property
+	[self.foodVenue setIsFavourite:[NSNumber numberWithBool:YES]];
+	
+	//[[self appDelegate] saveContext];
 	
 	// Update the ADD TO FAVES button
 	if (fav) {
@@ -176,8 +188,12 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 	
 	CGRect descFrame = self.descriptionLabel.frame;
 	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	
+	CGFloat newHeight = MAIN_CONTENT_HEIGHT - descFrame.origin.y;
+	descFrame.size.height = newHeight;
+	
 	[self.descriptionLabel setFrame:descFrame];
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,20,0);
 	self.descriptionLabel.text = self.foodVenue.venueDescription;
 }
 
@@ -255,13 +271,18 @@ static NSString* kPlaceholderImage = @"placeholder-food.jpg";
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL favourite = [Favourite isItemFavourite:[self.foodVenue venueID] favouriteType:@"Food venues" inManagedObjectContext:self.managedObjectContext];
-	
-	if (favourite) {
+	if ([self.foodVenue.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 

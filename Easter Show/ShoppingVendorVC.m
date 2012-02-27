@@ -19,6 +19,8 @@
 #import "ImageManager.h"
 #import "Constants.h"
 
+#define MAIN_CONTENT_HEIGHT 411
+
 @implementation ShoppingVendorVC
 
 @synthesize shoppingVendor, managedObjectContext;
@@ -56,9 +58,6 @@
 	[self setDetailFields];
 	
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
-	
-	// Update add to favs button
-	[self updateAddToFavouritesButton];
 }
 
 
@@ -106,6 +105,15 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
+}
+
+
 - (IBAction)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
@@ -130,6 +138,9 @@
 	[favouriteData setObject:@"Shopping vendors" forKey:@"favouriteType"];
 	
 	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	
+	// Update this object's isFavourite property
+	[self.shoppingVendor setIsFavourite:[NSNumber numberWithBool:YES]];
 	
 	[[self appDelegate] saveContext];
 	
@@ -178,10 +189,18 @@
 	borderFrame.origin.y = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 4.0; 
 	[self.stitchedBorder setFrame:borderFrame];
 	
+	
+	
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,20,0);
+	
 	CGRect descFrame = self.descriptionLabel.frame;
 	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	
+	CGFloat newHeight = MAIN_CONTENT_HEIGHT - descFrame.origin.y;
+	descFrame.size.height = newHeight;
+	
 	[self.descriptionLabel setFrame:descFrame];
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	
 	self.descriptionLabel.text = self.shoppingVendor.vendorDescription;
 	
 	// Event image
@@ -225,13 +244,18 @@
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL favourite = [Favourite isItemFavourite:[self.shoppingVendor shopID] favouriteType:@"Shopping vendors" inManagedObjectContext:self.managedObjectContext];
-	
-	if (favourite) {
+	if ([self.shoppingVendor.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 
@@ -273,10 +297,13 @@
 	
 	if ([self.selectedURL isEqual:url]) {
 		
-		NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
-		
 		[self.loadingSpinner stopAnimating];
-		[self.vendorImage setImage:image];
+		
+		if (image != nil) {
+		
+			NSLog(@"MAIN IMAGE LOADED:%@", [url description]);
+			[self.vendorImage setImage:image];
+		}
 	}
 }
 

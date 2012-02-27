@@ -2,7 +2,7 @@
 //  CarnivalRide.h
 //  Easter Show
 //
-//  Created by Richard Lee on 16/02/12.
+//  Created by Richard Lee on 24/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -20,11 +20,16 @@
 @property (nonatomic, retain) NSString * thumbURL;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSNumber * isFavourite;
 
 + (CarnivalRide *)rideWithRideData:(NSDictionary *)rideData 
 			inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (CarnivalRide *)getCarnivalRideWithID:(NSNumber *)rideID 
 				 inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (CarnivalRide *)updateCarnivalRideWithID:(NSNumber *)rideID isFavourite:(BOOL)favourite 
+					inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 @end

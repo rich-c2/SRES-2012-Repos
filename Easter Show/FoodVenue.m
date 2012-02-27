@@ -2,11 +2,12 @@
 //  FoodVenue.m
 //  Easter Show
 //
-//  Created by Richard Lee on 16/01/12.
+//  Created by Richard Lee on 24/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "FoodVenue.h"
+
 
 @implementation NSManagedObject (safeSetValuesKeysWithDictionary)
 
@@ -61,7 +62,7 @@
 @implementation FoodVenue
 
 + (FoodVenue *)newFoodVenueWithData:(NSDictionary *)venueData 
-	 inManagedObjectContext:(NSManagedObjectContext *)context {
+			 inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	FoodVenue *foodVenue = nil;
 	
@@ -83,86 +84,15 @@
 		// Assign the dictionary values to the corresponding object properties
 		[foodVenue safeSetValuesForKeysWithDictionary:venueData dateFormatter:nil];
 		
+		// By default this is not a favourite
+		[foodVenue setIsFavourite:[NSNumber numberWithBool:NO]];
+		
 		NSLog(@"foodVenue CREATED:%@", foodVenue.title);
 	}
 	
 	return foodVenue;
 }
 
-
-+ (FoodVenue *)venueWithVenueData:(NSDictionary *)venueData 
-		   inManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	FoodVenue *foodVenue = nil;
-	
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	request.entity = [NSEntityDescription entityForName:@"FoodVenue" inManagedObjectContext:context];
-	
-	NSNumber *idNum = [NSNumber numberWithInt:[[venueData objectForKey:@"id"] intValue]];
-	request.predicate = [NSPredicate predicateWithFormat:@"venueID == %@", idNum];
-	
-	NSError *error = nil;
-	foodVenue = [[context executeFetchRequest:request error:&error] lastObject];
-	[request release];
-	
-	if (!error && !foodVenue) {
-		
-		NSLog(@"FoodVenue CREATED:%@", [venueData objectForKey:@"venueTitle"]);
-		
-		// Create a new Artist
-		foodVenue = [NSEntityDescription insertNewObjectForEntityForName:@"FoodVenue" inManagedObjectContext:context];
-		foodVenue.venueID = idNum;
-		foodVenue.title = [venueData objectForKey:@"venueTitle"];
-		foodVenue.subtitle = [venueData objectForKey:@"subTitle"];
-		foodVenue.venueDescription = [venueData objectForKey:@"venueDescription"];
-		foodVenue.imageURL = [venueData objectForKey:@"imageURL"];
-		foodVenue.thumbURL = [venueData objectForKey:@"thumbURL"];
-		foodVenue.latitude = [NSNumber numberWithDouble:-33.84476];
-		foodVenue.longitude = [NSNumber numberWithDouble:151.07062];
-		foodVenue.version = [NSNumber numberWithInt:[[venueData objectForKey:@"version"] intValue]];
-	}
-	
-	return foodVenue;
-}
-
-
-/*
-+ (FoodVenue *)updateVenueWithVenueData:(NSDictionary *)venueData 
-				 inManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	FoodVenue *foodVenue = nil;
-	
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	request.entity = [NSEntityDescription entityForName:@"FoodVenue" inManagedObjectContext:context];
-	
-	NSNumber *idNum = [NSNumber numberWithInt:[[venueData objectForKey:@"id"] intValue]];
-	request.predicate = [NSPredicate predicateWithFormat:@"venueID == %@", idNum];
-	
-	NSError *error = nil;
-	foodVenue = [[context executeFetchRequest:request error:&error] lastObject];
-	[request release];
-	
-	if (!error && foodVenue) {
-		
-		NSLog(@"FoodVenue UPDATED:%@", [venueData objectForKey:@"title"]);
-		
-		// Create a new Artist
-		foodVenue.venueID = idNum;
-		foodVenue.title = [venueData objectForKey:@"venueTitle"];
-		foodVenue.subtitle = [venueData objectForKey:@"subTitle"];
-		foodVenue.venueDescription = [venueData objectForKey:@"venueDescription"];
-		foodVenue.imageURL = [venueData objectForKey:@"imageURL"];
-		foodVenue.thumbURL = [venueData objectForKey:@"thumbURL"];
-		foodVenue.latitude = [NSNumber numberWithDouble:-33.84476];
-		foodVenue.longitude = [NSNumber numberWithDouble:151.07062];
-		foodVenue.version = [NSNumber numberWithInt:[[venueData objectForKey:@"version"] intValue]];
-	}
-	
-	else if (!error && !foodVenue) foodVenue = [self insertFoodVenueWithData:venueData inManagedObjectContext:context];
-	
-	return foodVenue;
-}
-*/
 
 + (FoodVenue *)getFoodVenueWithID:(NSNumber *)venueID inManagedObjectContext:(NSManagedObjectContext *)context {
 	
@@ -180,27 +110,8 @@
 }
 
 
-+ (FoodVenue *)insertFoodVenueWithData:(NSDictionary *)venueData 
-				inManagedObjectContext:(NSManagedObjectContext *)context {
-
-	// Create a new Artist
-	FoodVenue *foodVenue = [NSEntityDescription insertNewObjectForEntityForName:@"FoodVenue" inManagedObjectContext:context];
-	foodVenue.venueID = [NSNumber numberWithInt:[[venueData objectForKey:@"id"] intValue]];
-	foodVenue.title = [venueData objectForKey:@"venueTitle"];
-	foodVenue.subtitle = [venueData objectForKey:@"subTitle"];
-	foodVenue.venueDescription = [venueData objectForKey:@"venueDescription"];
-	foodVenue.imageURL = [venueData objectForKey:@"imageURL"];
-	foodVenue.thumbURL = [venueData objectForKey:@"thumbURL"];
-	foodVenue.latitude = [NSNumber numberWithDouble:-33.84476];
-	foodVenue.longitude = [NSNumber numberWithDouble:151.07062];
-	foodVenue.version = [NSNumber numberWithInt:[[venueData objectForKey:@"version"] intValue]];
-						 
-	return foodVenue;
-}
-
-
 + (FoodVenue *)venueWithID:(NSNumber *)venueID 
-	inManagedObjectContext:(NSManagedObjectContext *)context {
+			inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	FoodVenue *foodVenue = nil;
 	
@@ -218,8 +129,32 @@
 }
 
 
++ (FoodVenue *)updateFoodVenueWithID:(NSNumber *)venueID isFavourite:(BOOL)favourite 
+	  inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	FoodVenue *venue = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"FoodVenue" inManagedObjectContext:context];
+	
+	request.predicate = [NSPredicate predicateWithFormat:@"venueID == %@", venueID];
+	
+	NSError *error = nil;
+	venue = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && venue) {
+		
+		// Assign the dictionary values to the corresponding object properties
+		[venue setIsFavourite:[NSNumber numberWithBool:favourite]];
+	}
+	
+	return venue;
+}
+
+
 + (FoodVenue *)updateVenueWithVenueData:(NSDictionary *)venueData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context {
+				 inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	FoodVenue *foodVenue = nil;
 	
@@ -245,14 +180,13 @@
 }
 
 
-@dynamic imageURL;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic thumbURL;
+@dynamic subtitle;
 @dynamic title;
 @dynamic venueDescription;
 @dynamic venueID;
 @dynamic version;
-@dynamic subtitle;
+@dynamic isFavourite;
 
 @end

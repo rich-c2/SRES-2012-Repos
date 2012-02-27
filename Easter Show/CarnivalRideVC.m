@@ -54,8 +54,6 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
 	
-	[self updateAddToFavouritesButton];
-	
 	// Setup navigation bar elements
 	[self setupNavBar];
 
@@ -108,6 +106,15 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
+}
+
+
 - (void)showShareOptions:(id)sender {
 	
 	// Create the item to share (in this example, a url)
@@ -132,6 +139,9 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 	[favouriteData setObject:@"Carnival rides" forKey:@"favouriteType"];
 	
 	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	
+	// Update this object's isFavourite property
+	[self.carnivalRide setIsFavourite:[NSNumber numberWithBool:YES]];
 	
 	[[self appDelegate] saveContext];
 	
@@ -236,13 +246,18 @@ static NSString* kPlaceholderImage = @"placeholder-carnivals.jpg";
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL favourite = [Favourite isItemFavourite:[self.carnivalRide rideID] favouriteType:@"Carnival rides" inManagedObjectContext:self.managedObjectContext];
-	
-	if (favourite) {
+	if ([self.carnivalRide.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 

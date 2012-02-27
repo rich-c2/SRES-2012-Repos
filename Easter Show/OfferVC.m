@@ -204,7 +204,7 @@ static NSString* kPlaceholderImage = @"placeholder-offers.jpg";
 	CGRect descFrame = self.descriptionLabel.frame;
 	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
 	[self.descriptionLabel setFrame:descFrame];
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,20,0);
 	self.descriptionLabel.text = self.offer.offerDescription;
 	
 	// Showbag image

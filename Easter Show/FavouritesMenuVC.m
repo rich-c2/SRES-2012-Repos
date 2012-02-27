@@ -141,8 +141,14 @@
     if (fetchedResultsController == nil) {
 		
 		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-		[fetchRequest setEntity:[NSEntityDescription entityForName:@"Favourite" inManagedObjectContext:self.managedObjectContext]];
-		fetchRequest.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"favouriteType" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES], nil];
+		[fetchRequest setEntity:[NSEntityDescription entityForName:@"Favourite" 
+											inManagedObjectContext:self.managedObjectContext]];
+		
+		NSSortDescriptor *titleSorter = [[NSSortDescriptor alloc] initWithKey:@"title"
+															ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		fetchRequest.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"favouriteType" ascending:YES], titleSorter, nil];
+		[titleSorter release];
+		
 		fetchRequest.fetchBatchSize = 20;
         
         // Edit the section name key path and cache name if appropriate.
@@ -508,6 +514,27 @@
 		if ([[fav favouriteType] isEqualToString:@"Offers"])
 			[Offer updateOfferWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
 		
+		// Update Event object associated
+		else if ([[fav favouriteType] isEqualToString:@"Events"])
+			[EventDateTime updateDateTimeWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
+		// Update Carnival Ride object associated
+		else if ([[fav favouriteType] isEqualToString:@"Carnival rides"])
+			[CarnivalRide updateCarnivalRideWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
+		// Update Shopping Vendor object associated
+		else if ([[fav favouriteType] isEqualToString:@"Shopping vendors"])
+			[ShoppingVendor updateVendorWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
+		// Update Food Venue object associated
+		else if ([[fav favouriteType] isEqualToString:@"Food venues"])
+			[FoodVenue updateFoodVenueWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
+		// Update Showbag object associated
+		else if ([[fav favouriteType] isEqualToString:@"Showbags"])
+			[Showbag updateShowbagWithID:[fav itemID] isFavourite:NO inManagedObjectContext:self.managedObjectContext];
+		
+		// Delete Favourite object
 		[self.managedObjectContext deleteObject:fav];
 	}
 	

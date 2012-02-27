@@ -2,7 +2,7 @@
 //  Showbag.h
 //  Easter Show
 //
-//  Created by Richard Lee on 12/01/12.
+//  Created by Richard Lee on 24/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -22,18 +22,18 @@
 @property (nonatomic, retain) NSString * thumbURL;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * version;
-
+@property (nonatomic, retain) NSNumber * isFavourite;
 
 + (Showbag *)newShowbagWithData:(NSDictionary *)showbagData 
-			  inManagedObjectContext:(NSManagedObjectContext *)context;
-
-+ (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context;
+		 inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Showbag *)getShowbagWithID:(NSNumber *)showbagID inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Showbag *)updateShowbagWithID:(NSNumber *)showbagID isFavourite:(BOOL)favourite 
+		  inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Showbag *)showbagWithID:(NSNumber *)showbagID 
 	inManagedObjectContext:(NSManagedObjectContext *)context;

@@ -75,6 +75,30 @@
 }
 
 
++ (EventDateTime *)updateDateTimeWithID:(NSNumber *)dateTimeID isFavourite:(BOOL)favourite 
+					inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	EventDateTime *dateTime = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:context];
+	
+	request.predicate = [NSPredicate predicateWithFormat:@"dateTimeID == %@", dateTimeID];
+	
+	NSError *error = nil;
+	dateTime = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && dateTime) {
+		
+		// Assign the dictionary values to the corresponding object properties
+		[dateTime setIsFavourite:[NSNumber numberWithBool:favourite]];
+	}
+	
+	return dateTime;
+}
+
+
 @dynamic dateTimeID;
 @dynamic day;
 @dynamic endDate;

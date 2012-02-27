@@ -76,7 +76,6 @@
 - (void)addToFavourites:(id)sender;
 - (void)setDetailFields;
 - (void)resizeTextView:(UITextView *)_textView;
-- (void)adjustScrollViewContentHeight;
 - (void)goToMap:(id)sender;
 - (void)recordPageView;
 - (void)setupNavBar;

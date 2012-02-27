@@ -135,7 +135,12 @@ static NSString *kShoppingVendorsPreviouslyLoadedKey = @"vendorsPreviouslyLoaded
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		fetchRequest.entity = [NSEntityDescription entityForName:@"ShoppingVendor" inManagedObjectContext:managedObjectContext];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+		
+		NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"title"
+														ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+		[sorter release];
+		
 		fetchRequest.fetchBatchSize = 20;
         
         // Edit the section name key path and cache name if appropriate.

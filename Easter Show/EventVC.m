@@ -18,6 +18,8 @@
 #import "EventDateTime.h"
 #import "Constants.h"
 
+#define MAIN_CONTENT_HEIGHT 411
+
 static NSString* kTitleFont = @"HelveticaNeue-Bold";
 static NSString* kDescriptionFont = @"HelveticaNeue";
 static NSString* kEntertainmentPlaceholderImage = @"placeholder-events-entertainment.jpg";
@@ -57,9 +59,6 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	
 	// Setup navigation bar elements
 	[self setupNavBar];
-	
-	// Update add to favs button
-	[self updateAddToFavouritesButton];
 }
 
 
@@ -103,6 +102,15 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	// If the viewing of this Event has not already been recorded in Google Analytics
 	// then record it as a page view
 	if (!pageViewRecorded) [self recordPageView];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
 }
 
 
@@ -218,8 +226,12 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 	// EVENT DESCRIPTION
 	CGRect descFrame = self.descriptionLabel.frame;
 	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	
+	CGFloat newHeight = MAIN_CONTENT_HEIGHT - descFrame.origin.y;
+	descFrame.size.height = newHeight;
+	
 	[self.descriptionLabel setFrame:descFrame];
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,20,0);
 	self.descriptionLabel.text = self.eventDateTime.forEvent.eventDescription;
 }
 
@@ -277,13 +289,18 @@ static NSString* kCompetitionsPlaceholderImage = @"placeholder-events-competitio
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL favourite = [Favourite isItemFavourite:[self.eventDateTime dateTimeID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
-	
-	if (favourite) {
+	if ([self.eventDateTime.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 

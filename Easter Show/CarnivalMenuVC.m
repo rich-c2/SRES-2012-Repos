@@ -152,7 +152,12 @@ static NSString *kCarnivalsPreviouslyLoadedKey = @"carnivalsPreviouslyLoadedKey"
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		fetchRequest.entity = [NSEntityDescription entityForName:@"CarnivalRide" inManagedObjectContext:managedObjectContext];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+		
+		NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"title"
+										ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+		[sorter release];
+		
 		fetchRequest.fetchBatchSize = 20;
 		fetchRequest.predicate = [self getPredicateForSelectedFilter];
         

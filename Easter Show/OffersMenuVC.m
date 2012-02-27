@@ -131,7 +131,12 @@
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		fetchRequest.entity = [NSEntityDescription entityForName:@"Offer" inManagedObjectContext:managedObjectContext];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
+		
+		NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"title"
+											ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+		[sorter release];
+		
 		fetchRequest.predicate = [NSPredicate predicateWithFormat:@"redeemed != 1"];
 		fetchRequest.fetchBatchSize = 20;
         
@@ -428,10 +433,13 @@
 				
 				if (offer) {
 					
-					Favourite *fav = [Favourite favouriteWithItemID:[offer offerID] favouriteType:@"Offers" inManagedObjectContext:self.managedObjectContext];
+					if ([offer.isFavourite boolValue]) {
 					
-					// Check if it's a Fav - if so, delete the Fav
-					if (fav) [self.managedObjectContext deleteObject:fav];
+						Favourite *fav = [Favourite favouriteWithItemID:[offer offerID] favouriteType:@"Offers" inManagedObjectContext:self.managedObjectContext];
+						
+						// Check if it's a Fav - if so, delete the Fav
+						if (fav) [self.managedObjectContext deleteObject:fav];
+					}
 					
 					// Delete Offer object from current context
 					[self.managedObjectContext deleteObject:offer];

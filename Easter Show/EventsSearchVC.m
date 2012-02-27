@@ -25,6 +25,7 @@
 @synthesize managedObjectContext, events, fetchedResultsController;
 @synthesize searchTable, loadCell, searchField, dateFormat;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,6 +67,12 @@
 	[tempDateFormat setDateFormat:@"MMMM dd h:mm a"];
 	self.dateFormat = tempDateFormat;
 	[tempDateFormat release];
+	
+	// Set left padding for search field
+	UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 28)];
+	self.searchField.leftView = paddingView;
+	self.searchField.leftViewMode = UITextFieldViewModeAlways;
+	[paddingView release];
 }
 
 - (void)viewDidUnload {
@@ -284,8 +291,6 @@
 		NSDictionary *adds = [addObjects objectForKey:@"add"];
 		NSMutableArray *eventsDict = [adds objectForKey:@"event"];
 		
-		//NSLog(@"KEYS:%@", eventsDict);
-		
 		for (int i = 0; i < [eventsDict count]; i++) {
 			
 			NSDictionary *event = [eventsDict objectAtIndex:i];
@@ -299,11 +304,82 @@
 		
 		for (int i = 0; i < [updatesDict count]; i++) {
 			
-			NSDictionary *event = [updatesDict objectAtIndex:i];
+			NSDictionary *eventData = [updatesDict objectAtIndex:i];
+			NSNumber *idNum = [NSNumber numberWithInt:[[eventData objectForKey:@"eventID"] intValue]];
+			
+			Event *event = [Event getEventWithID:idNum inManagedObjectContext:self.managedObjectContext];
+			
+			// If an Event, was in fact found
+			if (event) {
+				
+				NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"dateTimeID" ascending:YES]];
+				
+				NSArray *sortedSessions = [[event occursOnDays] sortedArrayUsingDescriptors:sortDescriptors];
+				NSMutableDictionary *currFavs = [NSMutableDictionary dictionary];
+				
+				// Loop through the Event's "sessions" 
+				// Delete any of the sessions that are currently favourites.
+				for (EventDateTime *dateTime in sortedSessions) { 
+					
+					// Check if object is currently marked as a favourite
+					// If so - store the day value. "Sessions" received from
+					// the CMS will come in sorted order
+					if ([dateTime.isFavourite boolValue]) {
+						
+						NSString *dateKey = [NSString stringWithFormat:@"%@ - %@", [self.dateFormat stringFromDate:dateTime.startDate], [self.dateFormat stringFromDate:dateTime.endDate]];
+						[currFavs setObject:dateTime.dateTimeID forKey:dateKey];
+					}
+					
+					// Delete this EventDateTime as we know that we now have a new
+					// set from the CMS that will be replacing the current set
+					[self.managedObjectContext deleteObject:dateTime];
+				}
+				
+				NSLog(@"CURRENT FAVS:%@", currFavs);
+				
+				for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) { 
+					
+					NSString *dateKey = [NSString stringWithFormat:@"%@ - %@", [dateDictionary objectForKey:@"startDate"], [dateDictionary objectForKey:@"endDate"]];
+					
+					if ([[currFavs allKeys] containsObject:dateKey]) {
+						
+						// Store an isFavourite value in the dateDictionary to make sure
+						// this "Session" object is stored as a favourite
+						[dateDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"isFavourite"];
+						
+						// Update the relevant Favourite object with the update Session id
+						[Favourite updateFavouriteItemID:[currFavs objectForKey:dateKey] 
+											   withNewID:[[dateDictionary objectForKey:@"dateTimeID"] intValue]
+												   title:[eventData objectForKey:@"title"]
+								  inManagedObjectContext:self.managedObjectContext];
+						
+						// remove this entry from the currFavs dictionary
+						[currFavs removeObjectForKey:dateKey];
+					}
+					
+					else [dateDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"isFavourite"];
+				}
+				
+				// Loop through the remaining object in currFavs
+				// Any objects still in there are sessions that have been previously
+				// made a favourite but have now been removed from the CMS
+				for (NSString *dateKey in currFavs) {
+					
+					// Delete the associated Favourite object
+					Favourite *fav = [Favourite favouriteWithItemID:[currFavs objectForKey:dateKey] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
+					
+					if (fav) 
+						[self.managedObjectContext deleteObject:fav];
+				}
+				
+				// Update the Event object
+				[Event updateEvent:event withData:eventData inManagedObjectContext:self.managedObjectContext];
+			}
 			
 			// Store Event data in Core Data persistent store
-			[Event updateEventWithEventData:event inManagedObjectContext:self.managedObjectContext];
-		}
+			else [Event updateEventWithEventData:eventData inManagedObjectContext:self.managedObjectContext];
+		}	
+		
 		
 		NSDictionary *removes = [addObjects objectForKey:@"remove"];
 		NSMutableArray *removeDict = [removes objectForKey:@"event"];
@@ -322,10 +398,10 @@
 				// Delete any of the sessions that are currently favourites.
 				for (EventDateTime *dateTime in event.occursOnDays) {
 					
-					if (dateTime.isFavourite) {
-				
+					if ([dateTime.isFavourite boolValue]) {
+						
 						Favourite *fav = [Favourite favouriteWithItemID:[dateTime dateTimeID] favouriteType:@"Events" inManagedObjectContext:self.managedObjectContext];
-				
+						
 						// Check if it's a Fav - if so, delete the Fav
 						if (fav) [self.managedObjectContext deleteObject:fav];
 					}
@@ -375,10 +451,15 @@
 
 	// Create fetch request
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" inManagedObjectContext:self.managedObjectContext]];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" 
+										inManagedObjectContext:self.managedObjectContext]];
 	
 	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"((forEvent.title BEGINSWITH[c] %@) OR (forEvent.eventDescription CONTAINS[cd] %@))", searchTerm, searchTerm]];	
-	fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
+	
+	NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"forEvent.title"
+														   ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+	fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+	[sorter release];
 	
 	// Execute the fetch request
 	NSError *error = nil;

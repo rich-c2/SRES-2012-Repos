@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class JSONFetcher;
-@class FoodTableCell;
-@class FoodVenue;
 
 @interface FoodMenuVC : UIViewController <NSFetchedResultsControllerDelegate> {
 
@@ -31,8 +29,6 @@
 	
 	UIButton *cancelButton;
 	UIButton *searchButton;
-
-	FoodTableCell *loadCell;
 }
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
@@ -47,8 +43,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *cancelButton;
 @property (nonatomic, retain) IBOutlet UIButton *searchButton;
 
-@property (nonatomic, retain) IBOutlet FoodTableCell *loadCell;
-
 
 - (void)retrieveXML;
 - (void)showLoading;
@@ -57,7 +51,7 @@
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
 - (void)handleSearchForTerm:(NSString *)searchTerm;
 - (void)resetSearch;
-- (void)configureCell:(UITableViewCell *)cell withFoodVenue:(FoodVenue *)foodVenue;
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)setupNavBar;
 - (IBAction)goBack:(id)sender;
 - (IBAction)startSearch:(id)sender;

@@ -165,7 +165,7 @@
 
 
 + (Offer *)offerWithID:(NSNumber *)offerID 
-inManagedObjectContext:(NSManagedObjectContext *)context {
+		inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Offer *offer = nil;
 	

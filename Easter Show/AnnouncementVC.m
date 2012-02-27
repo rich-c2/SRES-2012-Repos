@@ -66,7 +66,6 @@
 
 - (void)dealloc {
 	
-	[contentScrollView release];
 	[doneButton release];
 	[announcementTextView release];
 	[announcementText release];

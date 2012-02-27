@@ -23,7 +23,7 @@
 
 @synthesize fetchedResultsController, managedObjectContext;
 @synthesize menuTable, searchTable, filteredListContent;
-@synthesize search, loadCell, cancelButton, searchButton;
+@synthesize search, cancelButton, searchButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	
@@ -51,6 +51,12 @@
 	
 	self.filteredListContent = [NSMutableArray array];
 	
+	// Set left padding for search field
+	UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 28)];
+	self.search.leftView = paddingView;
+	self.search.leftViewMode = UITextFieldViewModeAlways;
+	[paddingView release];
+	
 	[self setupNavBar];
 	
 	[self fetchVenuesFromCoreData];
@@ -77,7 +83,6 @@
 	self.searchTable = nil; 
 	self.filteredListContent = nil;
 	self.search = nil; 
-	self.loadCell = nil;
 	self.cancelButton = nil;
 	self.searchButton = nil;
 }
@@ -200,8 +205,13 @@
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		fetchRequest.entity = [NSEntityDescription entityForName:@"FoodVenue" inManagedObjectContext:managedObjectContext];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]];
-		//fetchRequest.predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"price >= %.2f AND price < %.2f", minPrice, maxPrice]];
+		
+		NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"title"
+									 ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+		[sorter release];
+		
+		fetchRequest.predicate = nil;
 		fetchRequest.fetchBatchSize = 20;
         
         // Edit the section name key path and cache name if appropriate.
@@ -232,30 +242,22 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
 	
-	UITableView *tableView;	
-	if (searching) tableView = self.searchTable;
-	else tableView = self.menuTable;
-	
-	FoodVenue *foodVenue;
-	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
-			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.menuTable insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
 		case NSFetchedResultsChangeDelete:
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.menuTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			if (searching) foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
-			else foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
-			[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withFoodVenue:foodVenue];
+			[self configureCell:[self.menuTable cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
 			break;
 			
 		case NSFetchedResultsChangeMove:
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.menuTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.menuTable insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
 	}
 }
@@ -314,7 +316,12 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell withFoodVenue:(FoodVenue *)foodVenue {
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+	
+	FoodVenue *foodVenue;
+	
+	if (searching) foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
+	else foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
 	
 	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
@@ -348,16 +355,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	FoodVenue *foodVenue;
-	
-	// Retrieve the Showbag object
-	if (tableView == self.menuTable)
-		foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
-	else
-		foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
-	
 	// Retrieve FoodVenue object and set it's name to the cell
-	[self configureCell:cell withFoodVenue:foodVenue];
+	[self configureCell:cell atIndexPath:indexPath];
 	
     return cell;
 }
@@ -372,7 +371,7 @@
 	
 	// Retrieve the FoodVenue object
 	if (tableView == self.menuTable)
-		foodVenue = (FoodVenue *)[fetchedResultsController objectAtIndexPath:indexPath];
+		foodVenue = (FoodVenue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
 	else
 		foodVenue = (FoodVenue *)[self.filteredListContent objectAtIndex:[indexPath row]];
 	
@@ -504,10 +503,15 @@
 			
 			for (int i = 0; i < [updatesDict count]; i++) {
 				
-				NSDictionary *venue = [updatesDict objectAtIndex:i];
+				NSDictionary *venueData = [updatesDict objectAtIndex:i];
 				
 				// Store FoodVenue data in Core Data persistent store
-				[FoodVenue updateVenueWithVenueData:venue inManagedObjectContext:self.managedObjectContext];
+				FoodVenue *venue = [FoodVenue updateVenueWithVenueData:venueData inManagedObjectContext:self.managedObjectContext];
+				
+				if ([venue.isFavourite boolValue]) {
+					
+					[Favourite updateFavouriteItemID:venue.venueID withNewID:[venue.venueID intValue] title:venue.title inManagedObjectContext:self.managedObjectContext];
+				}
 			}	
 			
 			
@@ -524,10 +528,13 @@
 				
 				if (venue) {
 					
-					Favourite *fav = [Favourite favouriteWithItemID:[venue venueID] favouriteType:@"Food venues" inManagedObjectContext:self.managedObjectContext];
+					if ([venue.isFavourite boolValue]) {
+					
+						Favourite *fav = [Favourite favouriteWithItemID:[venue venueID] favouriteType:@"Food venues" inManagedObjectContext:self.managedObjectContext];
 					 
-					 // Check if it's a Fav - if so, delete the Fav
-					 if (fav) [self.managedObjectContext deleteObject:fav];
+						// Check if it's a Fav - if so, delete the Fav
+						if (fav) [self.managedObjectContext deleteObject:fav];
+					}
 				
 					// Delete FoodVenue object from context
 					[self.managedObjectContext deleteObject:venue];
@@ -677,7 +684,6 @@
 	[filteredListContent release];
 	[searchTable release];
 	[search release];
-	[loadCell release];
 	[cancelButton release];
 	[searchButton release];
 	

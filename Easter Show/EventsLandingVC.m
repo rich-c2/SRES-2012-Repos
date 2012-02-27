@@ -137,7 +137,7 @@
     
     XMLFetcher *theXMLFetcher = (XMLFetcher *)aFetcher;
 	
-	//NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
+	NSLog(@"DETAILS:%@",[[NSString alloc] initWithData:theXMLFetcher.data encoding:NSASCIIStringEncoding]);
     
 	NSAssert(aFetcher == fetcher,  @"In this example, aFetcher is always the same as the fetcher ivar we set above");
 	
@@ -163,23 +163,30 @@
 						
 					else if ([[initNode name] isEqualToString:@"minVersion"]) {
 						
-						NSMutableDictionary *minVersionDict = [NSMutableDictionary dictionary];
+						NSString *enabledString = [[[initNode attributes] objectForKey:@"enabled"] lowercaseString];
 						
-						[minVersionDict setObject:[[initNode attributes] objectForKey:@"version"] forKey:@"version"];
+						NSLog(@"enabledString:%@", enabledString);
 						
-						for (XPathResultNode *versionChild in initNode.childNodes) {
-						
-							if ([[versionChild name] isEqualToString:@"message"]) {
+						if ([enabledString isEqualToString:@"true"]) {
 							
-								for (XPathResultNode *messageChild in versionChild.childNodes) {
+							NSMutableDictionary *minVersionDict = [NSMutableDictionary dictionary];
+							
+							[minVersionDict setObject:[[initNode attributes] objectForKey:@"version"] forKey:@"version"];
+							
+							for (XPathResultNode *versionChild in initNode.childNodes) {
+							
+								if ([[versionChild name] isEqualToString:@"message"]) {
 								
-									if ([[messageChild name] isEqualToString:@"text"])
-										[minVersionDict setObject:[messageChild contentString] forKey:[messageChild name]];
+									for (XPathResultNode *messageChild in versionChild.childNodes) {
+									
+										if ([[messageChild name] isEqualToString:@"text"])
+											[minVersionDict setObject:[messageChild contentString] forKey:[messageChild name]];
+									}
 								}
 							}
+							
+							[initData setObject:minVersionDict forKey:@"minVersion"];
 						}
-						
-						[initData setObject:minVersionDict forKey:@"minVersion"];
 					}
 						
 					else if ([[initNode name] isEqualToString:@"offlineMode"]) {
@@ -231,6 +238,8 @@
 
 - (void)processInitData:(NSMutableDictionary *)initData {
 
+	
+	// LOCK DOWN 
 	if ([[initData objectForKey:@"lockDown"] isEqualToString:@"True"]) {
 		
 		NSString *message = @"The app is currently undergoing maintenance and is out of action for the time being. Please visit the app again soon and it should be running as expected!";
@@ -246,20 +255,11 @@
 	}
 	
 	
-	// OFFLINE MODE
-	if ([[initData objectForKey:@"offlineMode"] isEqualToString:@"True"]) {
-		
-		[[self appDelegate] setOfflineMode:YES];
-		
-		return;
-	}
-	
-	else [[self appDelegate] setOfflineMode:NO];
-	
+	// MIN VERSION 
 	NSArray *keys = [initData allKeys];
 	
 	if ([keys containsObject:@"minVersion"]) {
-	
+		
 		NSMutableDictionary *minVersionDict = [initData objectForKey:@"minVersion"];
 		
 		// Compare the version number parsed in the dictionary to the one that this app
@@ -269,14 +269,29 @@
 		if (minVersion > appVersion) {
 			
 			NSString *message = [minVersionDict objectForKey:@"text"];
-		
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please upgrade" message:message 
-													delegate:self cancelButtonTitle:nil otherButtonTitles: @"OK", nil];
-			[alert show];    
-			[alert release];
+			
+			AnnouncementVC *announcementVC = [[AnnouncementVC alloc] initWithNibName:@"AnnouncementVC" bundle:nil];
+			[announcementVC setDelegate:self];
+			[announcementVC setLockDown:YES];
+			[announcementVC setAnnouncementText:message];
+			[self presentModalViewController:announcementVC animated:YES];
+			[announcementVC release];
+			
+			return;
 		}
 	}
 	
+	
+	// OFFLINE MODE
+	if ([[initData objectForKey:@"offlineMode"] isEqualToString:@"True"]) {
+		
+		[[self appDelegate] setOfflineMode:YES];
+	}
+	
+	else [[self appDelegate] setOfflineMode:NO];
+	
+	
+	// ANNOUNCEMENT 
 	if ([keys containsObject:@"announcement"]) {
 		
 		NSMutableDictionary *announcementDict = [initData objectForKey:@"announcement"];
@@ -288,8 +303,6 @@
 			[announcementVC setAnnouncementText:[announcementDict objectForKey:@"text"]];
 			[self presentModalViewController:announcementVC animated:YES];
 			[announcementVC release];
-			
-			return;
 		}
 	}
 }
@@ -309,18 +322,12 @@
 - (IBAction)todaysEventsButtonClicked:(id)sender {
 
 	NSDate *todaysDate = [NSDate date];
-	//NSLog(@"TODAY'S DATE:%@", todaysDate);
 	
 	// Convert string to date object
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	
-	// TODAY'S DATE:24/01/2012
-	//[dateFormat setDateFormat:@"dd/MM/yyyy HH:MM:SS a"];
-	
 	// TODAY'S DATE:January 24
 	[dateFormat setDateFormat:@"MMMM dd"];
-	//NSLog(@"TODAY'S DATE:%@", [dateFormat stringFromDate:todaysDate]);
-
 	
 	EventSelectionVC *eventSelectionVC = [[EventSelectionVC alloc] initWithNibName:@"EventSelectionVC" bundle:nil];
 	[eventSelectionVC setManagedObjectContext:self.managedObjectContext];

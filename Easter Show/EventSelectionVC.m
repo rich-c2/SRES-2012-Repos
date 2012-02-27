@@ -75,6 +75,12 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
     [self.alphabeticalSortButton setHighlighted:NO];
     [self.alphabeticalSortButton setUserInteractionEnabled:NO];
 	
+	// Set left padding for search field
+	UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 28)];
+	self.searchField.leftView = paddingView;
+	self.searchField.leftViewMode = UITextFieldViewModeAlways;
+	[paddingView release];
+	
 	
 	// Navigation bar elements
 	[self setupNavBar];
@@ -475,8 +481,14 @@ static NSString *kThumbPlaceholderEntertainment = @"placeholder-events-entertain
 	
 	
 	// SORT BY: Event title or by start time
-	if (alphabeticallySorted)
-		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"forEvent.title" ascending:YES]];
+	if (alphabeticallySorted) {
+		
+		NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"forEvent.title"
+															ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		fetchRequest.sortDescriptors = [NSArray arrayWithObject:sorter];
+		[sorter release];
+	}
+		
 	else
 		fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]];
 	

@@ -2,7 +2,7 @@
 //  CarnivalRide.m
 //  Easter Show
 //
-//  Created by Richard Lee on 16/02/12.
+//  Created by Richard Lee on 24/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -40,6 +40,9 @@
 		carnivalRide.latitude = [NSNumber numberWithDouble:[[rideData objectForKey:@"latitude"] doubleValue]];
 		carnivalRide.longitude = [NSNumber numberWithDouble:[[rideData objectForKey:@"longitude"] doubleValue]];
 		carnivalRide.type = [rideData objectForKey:@"type"];
+		
+		// By default this is not a favourite
+		[carnivalRide setIsFavourite:[NSNumber numberWithBool:NO]];
 	}
 	
 	return carnivalRide;
@@ -48,18 +51,43 @@
 
 + (CarnivalRide *)getCarnivalRideWithID:(NSNumber *)rideID inManagedObjectContext:(NSManagedObjectContext *)context {
 	
-	CarnivalRide *foodVenue = nil;
+	CarnivalRide *ride = nil;
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"CarnivalRide" inManagedObjectContext:context];
 	request.predicate = [NSPredicate predicateWithFormat:@"rideID == %@", rideID];
 	
 	NSError *error = nil;
-	foodVenue = [[context executeFetchRequest:request error:&error] lastObject];
+	ride = [[context executeFetchRequest:request error:&error] lastObject];
 	[request release];
 	
-	return foodVenue;
+	return ride;
 }
+
+
++ (CarnivalRide *)updateCarnivalRideWithID:(NSNumber *)rideID isFavourite:(BOOL)favourite 
+	  inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	CarnivalRide *ride = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"CarnivalRide" inManagedObjectContext:context];
+	
+	request.predicate = [NSPredicate predicateWithFormat:@"rideID == %@", rideID];
+	
+	NSError *error = nil;
+	ride = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && ride) {
+		
+		// Assign the dictionary values to the corresponding object properties
+		[ride setIsFavourite:[NSNumber numberWithBool:favourite]];
+	}
+	
+	return ride;
+}
+
 
 @dynamic imageURL;
 @dynamic latitude;
@@ -69,5 +97,6 @@
 @dynamic thumbURL;
 @dynamic title;
 @dynamic type;
+@dynamic isFavourite;
 
 @end

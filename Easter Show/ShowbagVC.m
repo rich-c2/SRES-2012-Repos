@@ -17,6 +17,8 @@
 #import "Favourite.h"
 #import "Constants.h"
 
+#define MAIN_CONTENT_HEIGHT 411
+
 @implementation ShowbagVC
 
 @synthesize showbag, minPrice, maxPrice, rrPriceLabel, managedObjectContext;
@@ -50,8 +52,6 @@
 	// ADD TO FAVOURITES BUTTON ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	[self.addToPlannerButton setImage:[UIImage imageNamed:@"fav-button-on.png"] forState:(UIControlStateHighlighted|UIControlStateSelected|UIControlStateDisabled)];
-	
-	[self updateAddToFavouritesButton];
 	
 	// Setup navigation bar elements
 	[self setupNavBar];
@@ -95,6 +95,15 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+	
+	[super viewWillAppear:animated];
+	
+	// Update add to faves button
+	[self updateAddToFavouritesButton];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
 	
 	[super viewDidAppear:NO];
@@ -129,6 +138,9 @@
 	[favouriteData setObject:@"Showbags" forKey:@"favouriteType"];
 	
 	Favourite *fav = [Favourite favouriteWithFavouriteData:favouriteData inManagedObjectContext:self.managedObjectContext];
+	
+	// Update this object's isFavourite property
+	[self.showbag setIsFavourite:[NSNumber numberWithBool:YES]];
 	
 	[[self appDelegate] saveContext];
 	
@@ -183,8 +195,12 @@
 	// DESCRIPTION
 	CGRect descFrame = self.descriptionLabel.frame;
 	descFrame.origin.y = self.stitchedBorder.frame.origin.y + 4.0;
+	
+	CGFloat newHeight = MAIN_CONTENT_HEIGHT - descFrame.origin.y;
+	descFrame.size.height = newHeight;
+	
 	[self.descriptionLabel setFrame:descFrame];
-	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,0,0);
+	self.descriptionLabel.contentInset = UIEdgeInsetsMake(0,-8,20,0);
 	NSString *description;
 	if ([self.showbag.showbagDescription length] > 0) 
 		description = [self.showbag.showbagDescription stringByReplacingOccurrencesOfString:@"," withString:@"\n"];
@@ -235,14 +251,6 @@
 	
 	// Hide default navigation bar
 	[self.navigationController setNavigationBarHidden:YES];
-	
-	// Add button to Navigation Title 
-	/*UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 118.0, 22.0)];
-	[image setBackgroundColor:[UIColor clearColor]];
-	[image setImage:[UIImage imageNamed:@"screenTitle-showbags.png"]];
-	
-	self.navigationItem.titleView = image;
-	[image release];*/
 }
 
 
@@ -259,13 +267,18 @@
 
 - (void)updateAddToFavouritesButton {
 	
-	BOOL favourite = [Favourite isItemFavourite:[self.showbag showbagID] favouriteType:@"Showbags" inManagedObjectContext:self.managedObjectContext];
-	
-	if (favourite) {
+	if ([self.showbag.isFavourite boolValue]) {
 		
 		[self.addToPlannerButton setSelected:YES];
 		[self.addToPlannerButton setHighlighted:NO];
 		[self.addToPlannerButton setUserInteractionEnabled:NO];
+	}
+	
+	else {
+		
+		[self.addToPlannerButton setSelected:NO];
+		[self.addToPlannerButton setHighlighted:NO];
+		[self.addToPlannerButton setUserInteractionEnabled:YES];
 	}
 }
 

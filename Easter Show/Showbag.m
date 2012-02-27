@@ -2,12 +2,11 @@
 //  Showbag.m
 //  Easter Show
 //
-//  Created by Richard Lee on 12/01/12.
+//  Created by Richard Lee on 24/02/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Showbag.h"
-
 
 @implementation NSManagedObject (safeSetValuesKeysWithDictionary)
 
@@ -69,7 +68,7 @@
 @implementation Showbag
 
 + (Showbag *)newShowbagWithData:(NSDictionary *)showbagData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context {
+		 inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Showbag *showbag = nil;
 	
@@ -94,42 +93,10 @@
 		showbag.latitude = [NSNumber numberWithDouble:-33.84476];
 		showbag.longitude = [NSNumber numberWithDouble:151.07062];
 		
+		// By default this is not a favourite
+		[showbag setIsFavourite:[NSNumber numberWithBool:NO]];
+		
 		NSLog(@"showbag CREATED:%@", showbag.title);
-	}
-	
-	return showbag;
-}
-
-
-+ (Showbag *)showbagWithShowbagData:(NSDictionary *)showbagData 
-			 inManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	Showbag *showbag = nil;
-	
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"showbagID = %@", [showbagData objectForKey:@"id"]];
-	
-	NSError *error = nil;
-	showbag = [[context executeFetchRequest:request error:&error] lastObject];
-	[request release];
-	
-	if (!error && !showbag) {
-		
-		NSLog(@"Showbag CREATED:%@", [showbagData objectForKey:@"title"]);
-		
-		// Create a new Artist
-		showbag = [NSEntityDescription insertNewObjectForEntityForName:@"Showbag" inManagedObjectContext:context];
-		showbag.showbagID = [NSNumber numberWithInt:[[showbagData objectForKey:@"id"] intValue]];
-		showbag.title = [showbagData objectForKey:@"title"];
-		showbag.showbagDescription = [showbagData objectForKey:@"description"];
-		showbag.imageURL = [showbagData objectForKey:@"imageURL"];
-		showbag.thumbURL = [showbagData objectForKey:@"thumbURL"];
-		showbag.latitude = [NSNumber numberWithDouble:-33.84476];
-		showbag.longitude = [NSNumber numberWithDouble:151.07062];
-		showbag.price = [NSNumber numberWithFloat:[[showbagData objectForKey:@"price"] floatValue]];
-		showbag.rrPrice = [NSNumber numberWithFloat:[[showbagData objectForKey:@"rrp"] floatValue]];
-		showbag.version = [NSNumber numberWithInt:[[showbagData objectForKey:@"version"] intValue]];
 	}
 	
 	return showbag;
@@ -152,51 +119,16 @@
 }
 
 
-/*+ (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
++ (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
 				   inManagedObjectContext:(NSManagedObjectContext *)context {
 	
 	Showbag *showbag = nil;
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
-	request.predicate = [NSPredicate predicateWithFormat:@"showbagID = %@", [showbagData objectForKey:@"id"]];
 	
-	NSError *error = nil;
-	showbag = [[context executeFetchRequest:request error:&error] lastObject];
-	[request release];
-	
-	if ((!error && !showbag) || (!error && showbag)) {
-		
-		NSLog(@"Showbag UPDATED:%@", [showbagData objectForKey:@"title"]);
-		
-		// Create a new Artist
-		showbag = [NSEntityDescription insertNewObjectForEntityForName:@"Showbag" inManagedObjectContext:context];
-		showbag.showbagID = [NSNumber numberWithInt:[[showbagData objectForKey:@"id"] intValue]];
-		showbag.title = [showbagData objectForKey:@"title"];
-		showbag.showbagDescription = [showbagData objectForKey:@"description"];
-		showbag.imageURL = [showbagData objectForKey:@"imageURL"];
-		showbag.thumbURL = [showbagData objectForKey:@"thumbURL"];
-		showbag.latitude = [NSNumber numberWithDouble:-33.84476];
-		showbag.longitude = [NSNumber numberWithDouble:151.07062];
-		showbag.price = [NSNumber numberWithFloat:[[showbagData objectForKey:@"price"] floatValue]];
-		showbag.rrPrice = [NSNumber numberWithFloat:[[showbagData objectForKey:@"rrp"] floatValue]];
-		showbag.version = [NSNumber numberWithInt:[[showbagData objectForKey:@"version"] intValue]];
-	}
-	
-	return showbag;
-}*/
-
-
-+ (Showbag *)updateShowbagWithShowbagData:(NSDictionary *)showbagData 
-				 inManagedObjectContext:(NSManagedObjectContext *)context {
-	
-	Showbag *showbag = nil;
-	
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
-	
-	NSNumber *idNum = [NSNumber numberWithInt:[[showbagData objectForKey:@"venueID"] intValue]];
-	request.predicate = [NSPredicate predicateWithFormat:@"venueID == %@", idNum];
+	NSNumber *idNum = [NSNumber numberWithInt:[[showbagData objectForKey:@"showbagID"] intValue]];
+	request.predicate = [NSPredicate predicateWithFormat:@"showbagID == %@", idNum];
 	
 	NSError *error = nil;
 	showbag = [[context executeFetchRequest:request error:&error] lastObject];
@@ -209,6 +141,30 @@
 	}
 	
 	else if (!error && !showbag) showbag = [self newShowbagWithData:showbagData inManagedObjectContext:context];
+	
+	return showbag;
+}
+
+
++ (Showbag *)updateShowbagWithID:(NSNumber *)showbagID isFavourite:(BOOL)favourite 
+	  inManagedObjectContext:(NSManagedObjectContext *)context {
+	
+	Showbag *showbag = nil;
+	
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	request.entity = [NSEntityDescription entityForName:@"Showbag" inManagedObjectContext:context];
+	
+	request.predicate = [NSPredicate predicateWithFormat:@"showbagID == %@", showbagID];
+	
+	NSError *error = nil;
+	showbag = [[context executeFetchRequest:request error:&error] lastObject];
+	[request release];
+	
+	if (!error && showbag) {
+		
+		// Assign the dictionary values to the corresponding object properties
+		[showbag setIsFavourite:[NSNumber numberWithBool:favourite]];
+	}
 	
 	return showbag;
 }
@@ -242,5 +198,6 @@
 @dynamic thumbURL;
 @dynamic title;
 @dynamic version;
+@dynamic isFavourite;
 
 @end

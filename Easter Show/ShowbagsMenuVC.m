@@ -67,12 +67,19 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
     [self.filterButton1 setHighlighted:NO];
     [self.filterButton1 setUserInteractionEnabled:NO];	
 	
+	// Set left padding for search field
+	UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 28)];
+	self.search.leftView = paddingView;
+	self.search.leftViewMode = UITextFieldViewModeAlways;
+	[paddingView release];
+	
 	[self initPriceRanges];
 	
 	minPrice = 0.0;
 	maxPrice = 9.99;
 	
 	[self fetchShowbagsFromCoreData];
+	
 }
 
 
@@ -267,8 +274,6 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 	if (searching) tableView = self.searchTable;
 	else tableView = self.menuTable;
 	
-	Showbag *showbag;
-	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
 			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -279,9 +284,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			if (searching) showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
-			else showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
-			[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] withShowbag:showbag];
+			[self configureCell:(ShowbagsTableCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
 			break;
 			
 		case NSFetchedResultsChangeMove:
@@ -344,7 +347,12 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 }
 
 
-- (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag {
+- (void)configureCell:(ShowbagsTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+	
+	Showbag *showbag;
+	
+	if (searching) showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]]; 
+	else showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath]; 
 	
 	UIImage *bgViewImage = [UIImage imageNamed:@"table-cell-background.png"];
 	UIImageView *bgView = [[UIImageView alloc] initWithImage:bgViewImage];
@@ -375,16 +383,8 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
         self.loadCell = nil;
     }
 	
-	Showbag *showbag;
-	
-	// Retrieve the Showbag object
-	if (tableView == self.menuTable)
-		showbag = (Showbag *)[fetchedResultsController objectAtIndexPath:indexPath];
-	else
-		showbag = (Showbag *)[self.filteredListContent objectAtIndex:[indexPath row]];
-	
 	// Retrieve Showbag object and set it's name to the cell
-	[self configureCell:cell withShowbag:showbag];
+	[self configureCell:cell atIndexPath:indexPath];
 	
     return cell;
 }
@@ -539,10 +539,15 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			
 			for (int i = 0; i < [updatesDict count]; i++) {
 				
-				NSDictionary *showbag = [updatesDict objectAtIndex:i];
+				NSDictionary *showbagData = [updatesDict objectAtIndex:i];
 				
 				// Store Showbag data in Core Data persistent store
-				[Showbag updateShowbagWithShowbagData:showbag inManagedObjectContext:self.managedObjectContext];
+				Showbag *showbag = [Showbag updateShowbagWithShowbagData:showbagData inManagedObjectContext:self.managedObjectContext];
+				
+				if ([showbag.isFavourite boolValue]) {
+					
+					[Favourite updateFavouriteItemID:showbag.showbagID withNewID:[showbag.showbagID intValue] title:showbag.title inManagedObjectContext:self.managedObjectContext];
+				}
 			}	
 			
 			
@@ -559,10 +564,13 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 				
 				if (showbag) {
 					
-					Favourite *fav = [Favourite favouriteWithItemID:[showbag showbagID] favouriteType:@"Showbags" inManagedObjectContext:self.managedObjectContext];
+					if ([showbag.isFavourite boolValue]) {
 					
-					// Check if it's a Fav - if so, delete the Fav
-					if (fav) [self.managedObjectContext deleteObject:fav];
+						Favourite *fav = [Favourite favouriteWithItemID:[showbag showbagID] favouriteType:@"Showbags" inManagedObjectContext:self.managedObjectContext];
+						
+						// Check if it's a Fav - if so, delete the Fav
+						if (fav) [self.managedObjectContext deleteObject:fav];
+					}
 					
 					// Delete Showbag object from managed object context
 					[self.managedObjectContext deleteObject:showbag];

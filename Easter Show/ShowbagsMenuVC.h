@@ -67,7 +67,7 @@
 - (void)showLoading;
 - (void)hideLoading;
 - (void)fetchShowbagsFromCoreData;
-- (void)configureCell:(ShowbagsTableCell *)cell withShowbag:(Showbag *)showbag;
+- (void)configureCell:(ShowbagsTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (NSPredicate *)getQueryForSelectedFilter;
 - (void)imageLoaded:(UIImage *)image withURL:(NSURL *)url;
 - (void)handleSearchForTerm:(NSString *)searchTerm;

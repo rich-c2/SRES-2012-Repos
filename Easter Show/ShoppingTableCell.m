@@ -62,7 +62,7 @@
 		
 		else {
 			
-			[self.thumbView setImage:[UIImage imageNamed:@"placeholder-carnivals-thumb.jpg"]];
+			[self.thumbView setImage:[UIImage imageNamed:@"placeholder-shopping-thumb.jpg"]];
 		}
 	}
 }
@@ -72,9 +72,13 @@
 	
 	if ([imageURL isEqual:url]) {
 		
-		NSLog(@"IMAGE LOADED:%@", [url description]);
+		if (image != nil) {
 		
-		[self.thumbView setImage:image];
+			NSLog(@"IMAGE LOADED:%@", [url description]);
+			[self.thumbView setImage:image];
+		}
+		
+		else [self.thumbView setImage:[UIImage imageNamed:@"placeholder-shopping-thumb.jpg"]];
 	}
 }
 

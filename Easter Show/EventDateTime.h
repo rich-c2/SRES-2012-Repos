@@ -26,5 +26,8 @@
 
 + (EventDateTime *)getDateTimeWithID:(NSNumber *)dateTimeID inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (EventDateTime *)updateDateTimeWithID:(NSNumber *)dateTimeID isFavourite:(BOOL)favourite 
+				 inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 @end
