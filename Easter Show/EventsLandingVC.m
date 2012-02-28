@@ -165,7 +165,7 @@
 						
 						NSString *enabledString = [[[initNode attributes] objectForKey:@"enabled"] lowercaseString];
 						
-						NSLog(@"enabledString:%@", enabledString);
+						//NSLog(@"enabledString:%@", enabledString);
 						
 						if ([enabledString isEqualToString:@"true"]) {
 							
@@ -196,8 +196,29 @@
 					}
 						
 					else if ([[initNode name] isEqualToString:@"lockDown"]) {
-					
-						[initData setObject:[[initNode attributes] objectForKey:@"enabled"] forKey:[initNode name]];
+						
+						NSString *enabledString = [[[initNode attributes] objectForKey:@"enabled"] lowercaseString];
+						
+						//NSLog(@"enabledString:%@", enabledString);
+						
+						if ([enabledString isEqualToString:@"true"]) {
+												
+							NSMutableDictionary *lockDownDict = [NSMutableDictionary dictionary];
+														
+							for (XPathResultNode *versionChild in initNode.childNodes) {
+								
+								if ([[versionChild name] isEqualToString:@"message"]) {
+									
+									for (XPathResultNode *messageChild in versionChild.childNodes) {
+										
+										if ([[messageChild name] isEqualToString:@"text"])
+											[lockDownDict setObject:[messageChild contentString] forKey:[messageChild name]];
+									}
+								}
+							}
+							
+							[initData setObject:lockDownDict forKey:[initNode name]];
+						}
 					}
 					
 					else if ([[initNode name] isEqualToString:@"announcement"]) {
@@ -238,11 +259,14 @@
 
 - (void)processInitData:(NSMutableDictionary *)initData {
 
+	NSArray *keys = [initData allKeys];
 	
 	// LOCK DOWN 
-	if ([[initData objectForKey:@"lockDown"] isEqualToString:@"True"]) {
+	if ([keys containsObject:@"lockDown"]) {
 		
-		NSString *message = @"The app is currently undergoing maintenance and is out of action for the time being. Please visit the app again soon and it should be running as expected!";
+		NSMutableDictionary *lockDownDict = [initData objectForKey:@"lockDown"];
+		
+		NSString *message = [lockDownDict objectForKey:@"text"];
 	
 		AnnouncementVC *announcementVC = [[AnnouncementVC alloc] initWithNibName:@"AnnouncementVC" bundle:nil];
 		[announcementVC setDelegate:self];
@@ -256,8 +280,6 @@
 	
 	
 	// MIN VERSION 
-	NSArray *keys = [initData allKeys];
-	
 	if ([keys containsObject:@"minVersion"]) {
 		
 		NSMutableDictionary *minVersionDict = [initData objectForKey:@"minVersion"];

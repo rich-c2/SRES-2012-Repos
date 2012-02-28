@@ -132,8 +132,6 @@
 		
 			[self fetchDateTimes];
 			
-			[self.searchTable reloadData];
-			
 			// Hide loading view
 			[self hideLoading];
 		}
@@ -335,7 +333,7 @@
 					[self.managedObjectContext deleteObject:dateTime];
 				}
 				
-				NSLog(@"CURRENT FAVS:%@", currFavs);
+				//NSLog(@"CURRENT FAVS:%@", currFavs);
 				
 				for (NSDictionary *dateDictionary in [eventData objectForKey:@"dates"]) { 
 					
@@ -423,8 +421,6 @@
 	
 	[self fetchDateTimes];
 	
-	[self.searchTable reloadData];
-	
 	// Hide loading view
 	[self hideLoading];
 	
@@ -454,7 +450,7 @@
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"EventDateTime" 
 										inManagedObjectContext:self.managedObjectContext]];
 	
-	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"((forEvent.title BEGINSWITH[c] %@) OR (forEvent.eventDescription CONTAINS[cd] %@))", searchTerm, searchTerm]];	
+	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"((forEvent.title BEGINSWITH[c] %@) OR (forEvent.title CONTAINS[c] %@) OR (forEvent.eventDescription CONTAINS[cd] %@))", searchTerm, searchTerm, searchTerm]];	
 	
 	NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"forEvent.title"
 														   ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];

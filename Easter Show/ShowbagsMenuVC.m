@@ -553,7 +553,7 @@ static NSString *kCellThumbPlaceholder = @"placeholder-showbags-thumb.jpg";
 			
 			// REMOVE DATA ////////////////////////////////////////////////////////////////////////
 			NSDictionary *removes = [addObjects objectForKey:@"remove"];
-			NSMutableArray *removeObjects = [removes objectForKey:@"offer"];
+			NSMutableArray *removeObjects = [removes objectForKey:@"showbag"];
 			
 			for (int i = 0; i < [removeObjects count]; i++) { 
 				

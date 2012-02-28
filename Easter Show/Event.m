@@ -37,7 +37,7 @@
 		
 		else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) 
 				  || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) 
-				 && ([value isKindOfClass:[NSString class]])) {
+				 && ([value isKindOfClss:[NSString class]])) {
 			
             value = [NSNumber numberWithInteger:[value integerValue]];
         } 
@@ -121,6 +121,12 @@
 		NSLog(@"Event CREATED:%@", event.title);
 		
 		[dateFormat release];
+	}
+	
+	else if (!error && event) {
+		
+		// Update the Event
+		[Event updateEvent:event withData:eventData inManagedObjectContext:context];
 	}
 	
 	return event;

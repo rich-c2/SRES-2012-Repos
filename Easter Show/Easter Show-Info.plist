@@ -11,7 +11,7 @@
 	<key>CFBundleIconFiles</key>
 	<array/>
 	<key>CFBundleIdentifier</key>
-	<string>au.com.eastershow.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>au.com.eastershow.Easter-Show</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

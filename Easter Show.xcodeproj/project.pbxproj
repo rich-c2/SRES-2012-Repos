@@ -2499,6 +2499,7 @@
 		9B93B73814BC025D00FB31CE /* More */ = {
 			isa = PBXGroup;
 			children = (
+				9BC4209214FC3C2E002F35A0 /* Shopping */,
 				9B9159EC14E87B560015A951 /* Constants.h */,
 				9B6EEF2614E4963C002C85BF /* AnnouncementVC.h */,
 				9B6EEF2714E4963C002C85BF /* AnnouncementVC.m */,
@@ -2533,15 +2534,6 @@
 				9BA72E0B14CCBC2F00E9B334 /* CarnivalMenuVC.h */,
 				9BA72E0C14CCBC2F00E9B334 /* CarnivalMenuVC.m */,
 				9BA72E0D14CCBC2F00E9B334 /* CarnivalMenuVC.xib */,
-				9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */,
-				9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */,
-				9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */,
-				9B9E6CA014CD1DEF00B84A0B /* ShoppingMenuVC.h */,
-				9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */,
-				9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */,
-				9BA89A3714CE1AE40005A9A1 /* ShoppingVendorVC.h */,
-				9BA89A3814CE1AE40005A9A1 /* ShoppingVendorVC.m */,
-				9BA89A3914CE1AE50005A9A1 /* ShoppingVendorVC.xib */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -2841,6 +2833,22 @@
 				9B9AC8FF14F347BD0080A557 /* ContactUsVC.xib */,
 			);
 			name = About;
+			sourceTree = "<group>";
+		};
+		9BC4209214FC3C2E002F35A0 /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				9B9E6CAC14CD235200B84A0B /* ShoppingTableCell.h */,
+				9B9E6CAD14CD235300B84A0B /* ShoppingTableCell.m */,
+				9B9E6CAE14CD235300B84A0B /* ShoppingTableCell.xib */,
+				9B9E6CA014CD1DEF00B84A0B /* ShoppingMenuVC.h */,
+				9B9E6CA114CD1DEF00B84A0B /* ShoppingMenuVC.m */,
+				9B9E6CA214CD1DEF00B84A0B /* ShoppingMenuVC.xib */,
+				9BA89A3714CE1AE40005A9A1 /* ShoppingVendorVC.h */,
+				9BA89A3814CE1AE40005A9A1 /* ShoppingVendorVC.m */,
+				9BA89A3914CE1AE50005A9A1 /* ShoppingVendorVC.xib */,
+			);
+			name = Shopping;
 			sourceTree = "<group>";
 		};
 		9BEFEDE314F5FAF2008EF24B /* _Coca Cola */ = {
@@ -3814,6 +3822,7 @@
 				PROVISIONING_PROFILE = "BC5DFEE5-327F-45CF-B0BB-1A198C8AC429";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BC5DFEE5-327F-45CF-B0BB-1A198C8AC429";
 				SDKROOT = iphoneos5.0;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -3825,7 +3834,8 @@
 					armv7,
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Royal Agricultural Society of NSW";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Royal Agricultural Society of NSW";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3834,7 +3844,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "E1E8968F-6594-4BA4-8857-230568643337";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E1E8968F-6594-4BA4-8857-230568643337";
 				SDKROOT = iphoneos5.0;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -3927,9 +3940,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "4146BAB5-63AB-4E15-A6CE-489D651A14B3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4146BAB5-63AB-4E15-A6CE-489D651A14B3";
+				PROVISIONING_PROFILE = "1C6895E6-7989-47D1-8F28-CFB271C5CADD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C6895E6-7989-47D1-8F28-CFB271C5CADD";
 				SDKROOT = iphoneos5.0;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Ad Hoc";
